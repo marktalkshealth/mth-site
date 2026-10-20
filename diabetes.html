@@ -417,7 +417,7 @@ MTH.ready.then(function(){
   }
   if(MTH.qs("checkout")==="cancelled") MTH.toast("Checkout cancelled. Nothing was charged.");
   if(MTH.qs("locked")&&!own) MTH.toast("Get the protocol to open the course and your app.",3600);
-  if(MTH.qs("buy")&&MTH.user&&!own){ var b=document.querySelector("#checkout .g2-buy"); MTH.buy(K,b); }
+  if(MTH.qs("buy")&&!own){ try{ var u=new URL(location.href); u.searchParams.delete("buy"); history.replaceState(null,"",u.pathname+u.search+u.hash); }catch(e){} var b=document.querySelector("#checkout .g2-buy"); MTH.buy(K,b); }
 });
 </script>
 </body>
