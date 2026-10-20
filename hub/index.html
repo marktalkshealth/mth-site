@@ -286,8 +286,8 @@ var PILLARS = [
   tasks:[["Bone broth and small meals","One cup of broth before each meal"],["Afternoon rest","60 to 90 minutes lying down, eyes closed"],["20 minutes of midday sun","Turn halfway, never burn"],["Calming music and prayer","Your daily ritual track before a meal or before bed"]],
   tip:{gut:"Notice which foods sit well and which don't. Your journal is the best guide.",sugar:"Keep checking glucose as meals return so you can see what works for you.",weight:"Protein at every meal keeps you full and protects muscle.",total:"Share how your first week is going in the community today."}},
  {name:"Nature & Refeed", sub:"Ready for the full 7 steps", desc:"The last day of your first week. Walk, spend time among trees, and get ready for the full 7 steps from tomorrow.",
-  tasks:[["Longer walk","30 minutes, a little brisker than Day 3"],["Forest time","Sit or walk among trees, phone away"],["Plan tomorrow's meals","Open Meals in your app and look at your first keto day"],["Weekly reflection","What changed this week? What do you want to keep?"]],
-  tip:{gut:"Tomorrow keto eating and your daily fasting window begin. Start gently.",sugar:"Before keto starts, check with your doctor if your medication may need adjusting.",weight:"From tomorrow, strength sessions and cardio alternate days. Both matter.",total:"You've built the foundation. From here it's one week at a time."}}
+  tasks:[["Longer walk","30 minutes, a little brisker than Day 3"],["Forest time","Sit or walk among trees, phone away"],["Plan tomorrow's meals","Open Meals in your app and look at your first high-protein day"],["Weekly reflection","What changed this week? What do you want to keep?"]],
+  tip:{gut:"Tomorrow high-protein meals and your daily fasting window begin. Start gently.",sugar:"Before the high-protein meal plan starts, check with your doctor if your medication may need adjusting.",weight:"From tomorrow, strength sessions and cardio alternate days. Both matter.",total:"You've built the foundation. From here it's one week at a time."}}
 ];
 
 /* 7 sound tracks — one per day, then the daily ritual track (featured at the top of the Sound studio). Add your own MP3 link in "url" (Dropbox, LearnWorlds file, etc.).
@@ -317,7 +317,7 @@ var LIBRARY = {
    {title:"Gut Health Protocol", sub:"Your interactive protocol and tracker", url:"https://marktalkshealth.learnworlds.com/guthealthprotocol", icon:"🌱"},
    {title:"The Diabetes Protocol", sub:"The diabetes version of the 7-step protocol", url:"https://marktalkshealth.learnworlds.com/thediabetesprotocol", icon:"🩸"},
    {title:"Total Body Healing", sub:"The full 7-step course", url:"https://marktalkshealth.learnworlds.com/totalbodyhealing", icon:"✨"},
-   {title:"Restore Kitchen", sub:"Keto recipes and weekly meal prep", url:"#", icon:"🥑"}
+   {title:"Restore Kitchen", sub:"High-protein recipes and weekly meal prep", url:"#", icon:"🥩"}
   ]
 };
 /* ========================== END YOUR CONTENT ========================== */
@@ -364,7 +364,7 @@ var DEMO = (function(){
   if(!db){ var now=Date.now(), h=3600e3;
     db={id:6,posts:[
      {id:1,room:"feed",protocol:"all",day:null,kind:"announce",body:"Welcome to the Healing Hub! 🌿 Start with Today: one step a day for 7 days. Post your check-ins here and ask me anything in Q&A.",pinned:true,answered:false,created_at:new Date(now-30*h).toISOString(),author:"Mark",avatar:"🧔",is_mark:true,mine:false,likes:12,liked:false,comments:[]},
-     {id:2,room:"feed",protocol:"gut",day:3,kind:"checkin",body:"Day 3 · Keto & Healing Broths — 3 of 3 done 😊\nBone broth in the morning is becoming my favourite ritual.",pinned:false,answered:false,created_at:new Date(now-2*h).toISOString(),author:"Sarah",avatar:"🌸",is_mark:false,mine:false,likes:4,liked:false,comments:[{id:1,body:"Same here! Ginger in it is amazing.",author:"Dana",avatar:"🍵",is_mark:false,mine:false,created_at:new Date(now-1*h).toISOString()}]},
+     {id:2,room:"feed",protocol:"gut",day:3,kind:"checkin",body:"Day 3 · High Protein & Healing Broths — 3 of 3 done 😊\nBone broth in the morning is becoming my favourite ritual.",pinned:false,answered:false,created_at:new Date(now-2*h).toISOString(),author:"Sarah",avatar:"🌸",is_mark:false,mine:false,likes:4,liked:false,comments:[{id:1,body:"Same here! Ginger in it is amazing.",author:"Dana",avatar:"🍵",is_mark:false,mine:false,created_at:new Date(now-1*h).toISOString()}]},
      {id:3,room:"feed",protocol:"sugar",day:1,kind:"fast",body:"Finished a 16-hour fast ⏱️ Morning reading was the steadiest it's been all month.",pinned:false,answered:false,created_at:new Date(now-5*h).toISOString(),author:"James",avatar:"🌊",is_mark:false,mine:false,likes:7,liked:false,comments:[]},
      {id:4,room:"qa",protocol:"gut",day:null,kind:"question",body:"Can I have coffee during the Level 2 green juice cleanse?",pinned:false,answered:true,created_at:new Date(now-20*h).toISOString(),author:"Lena",avatar:"🌻",is_mark:false,mine:false,likes:3,liked:false,comments:[{id:2,body:"Black coffee in the morning is fine for most people. Skip sugar and milk, and drink extra water.",author:"Mark",avatar:"🧔",is_mark:true,mine:false,created_at:new Date(now-18*h).toISOString()}]},
      {id:5,room:"live",protocol:"all",day:null,kind:"chat",body:"Can't wait for Thursday's live!",pinned:false,answered:false,created_at:new Date(now-3*h).toISOString(),author:"Sarah",avatar:"🌸",is_mark:false,mine:false,likes:0,liked:false,comments:[]}
