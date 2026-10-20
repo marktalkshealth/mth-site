@@ -32,8 +32,8 @@
   function done(){
     box.innerHTML='<div class="seal">✓</div><div class="kick">Payment confirmed</div><h1 class="t">Welcome to the <em>'+PP.name+'</em></h1>'+
       '<p class="lead" style="margin:0 auto">Your app, course and ebooks are unlocked. A receipt is on its way to '+MTH.esc((MTH.user&&MTH.user.email)||email||'your email')+'.</p>'+
-      '<div class="acts"><a class="b" href="'+PP.app+'">Build my healing plan</a><a class="b ghost" href="'+PP.course+'">Start the course</a></div>'+
-      '<div class="card steps"><b>Your first 5 minutes</b><ol><li>Open your app and fill in the short intake.</li><li>Pick a start date for your 7-day reset.</li><li>On your phone, tap <b>Install</b> to add the app to your home screen.</li><li>Watch the welcome lesson in the course.</li></ol></div>';
+      '<div class="acts"><a class="b" href="'+PP.app+'">Build my healing plan</a><a class="b ghost" href="'+PP.course+'">Start the course</a><a class="b ghost" href="get-app.html">Get the app on my phone</a></div>'+
+      '<div class="card steps"><b>Your first 5 minutes</b><ol><li>Open your app and fill in the short intake.</li><li>Pick a start date for your 7-day reset.</li><li>Put the app on your phone: <a href="get-app.html">two taps, here’s how</a>.</li><li>Watch the welcome lesson in the course.</li></ol></div>';
   }
   var email="";
   function signin(){

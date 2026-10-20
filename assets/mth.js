@@ -212,6 +212,7 @@
     var sl=[["index.html","Home","Natural healing meets modern science"]];
     CONFIG.order.forEach(function(k){ var q=CONFIG.products[k]; sl.push([M.owns(k)?q.course:q.sales,q.name,M.owns(k)?"Your course · open":"From "+q.price]); });
     sl.push(["app.html","Apps","Your personal healing plan"]); sl.push(["community.html","Hub","Community, questions and live sessions"]);
+    sl.push(["get-app.html","Get the app on your phone","Two taps, no app store"]);
     if(inn) sl.push(["account.html","My account",M.esc(M.user.email)]);
     sh.innerHTML='<div class="top"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a><button class="mx-burger" type="button" aria-label="Close menu" style="display:grid">'+ICON.close+'</button></div>'+
       '<nav>'+sl.map(function(l){ return '<a href="'+l[0]+'">'+l[1]+(l[2]?'<small>'+l[2]+'</small>':'')+'</a>'; }).join("")+'</nav>'+
@@ -228,7 +229,7 @@
     if(document.querySelector(".mx-f")||H.classList.contains("mx-bare")) return;
     var f=document.createElement("footer"); f.className="mx-f";
     f.innerHTML='<div class="in"><div class="brand">Mark Talks Health<small>Natural healing meets modern science. Personalised protocols, guided day by day.</small></div>'+
-      '<nav aria-label="Footer"><a href="index.html">Home</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a></nav>'+
+      '<nav aria-label="Footer"><a href="index.html">Home</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="get-app.html">Get the app</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a></nav>'+
       '<div class="fine">Educational program, not a substitute for professional medical advice, diagnosis or treatment. Individual results vary. Consult your healthcare provider before starting any fasting or cleansing protocol. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
     document.body.appendChild(f);
   }

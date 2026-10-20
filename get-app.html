@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get the app · Mark Talks Health</title>
+<meta name="description" content="Put the Mark Talks Health app on your phone in two taps.">
+<meta property="og:title" content="Get the Mark Talks Health app">
+<meta property="og:description" content="Put the app on your phone in two taps. No app store needed.">
+<meta property="og:image" content="/media/site/mark-kitchen.jpg">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mark Talks Health">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<script>
+/* Android / desktop Chrome: keep the install prompt for our big button */
+window.addEventListener("beforeinstallprompt",function(e){ e.preventDefault(); window.__INSTALL=e; if(window.__ga) window.__ga(); });
+</script>
+<style>
+.ga{max-width:760px;margin:0 auto;padding:40px 20px 72px}
+.ga .hero{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ga .icon{width:92px;height:92px;border-radius:22px;box-shadow:0 14px 34px rgba(43,39,36,.18);flex:none}
+.ga .hero .tx{flex:1;min-width:220px}
+.ga h1.t{margin:4px 0 8px}
+.ga .card{padding:24px;margin-top:20px}
+.ga h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1;margin:0 0 6px}
+.ga .sub{color:var(--muted);margin:0 0 16px}
+.ga ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.ga ol.steps li{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff;counter-increment:s}
+.ga ol.steps li:before{content:counter(s);width:34px;height:34px;border-radius:50%;background:var(--terra,#c0623f);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.ga ol.steps .tx{flex:1;min-width:0}
+.ga ol.steps .ic{width:40px;height:40px;border-radius:10px;background:var(--bg);display:grid;place-items:center;flex:none;margin-left:auto}
+.ga ol.steps .ic svg{width:24px;height:24px}
+.ga .qrwrap{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.ga .qr{width:220px;height:220px;padding:14px;background:#fff;border-radius:18px;border:1px solid var(--line);flex:none}
+.ga .qr svg{width:100%;height:100%;display:block}
+.ga .linkrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ga .linkrow input{flex:1;min-width:200px}
+.ga .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 0}
+.ga .tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font:inherit;font-size:14px;cursor:pointer}
+.ga .tabs button.on{background:var(--ink,#2b2724);color:#fff;border-color:transparent}
+.ga .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:20px}
+.ga .why div{padding:16px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+.ga .why b{display:block;font-family:var(--serif);font-weight:500;font-size:20px;margin-bottom:2px}
+.ga .why span{color:var(--muted);font-size:14px}
+.ga .ok{display:flex;gap:12px;align-items:center}
+.ga .ok .seal{width:44px;height:44px;border-radius:50%;background:#7a8f6e;color:#fff;display:grid;place-items:center;font-size:22px;flex:none}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<main class="ga">
+  <div class="hero">
+    <img class="icon" src="assets/app-icon-180.png" alt="">
+    <div class="tx">
+      <div class="kick">Mark Talks Health app</div>
+      <h1 class="t">Put the app on <em>your phone</em></h1>
+      <p class="lead" style="margin:0">Two taps, no app store. It opens full screen from your home screen, straight into your plan.</p>
+    </div>
+  </div>
+
+  <!-- already installed -->
+  <section class="card hidden" id="gaDone">
+    <div class="ok"><div class="seal">✓</div><div><h2>You're all set</h2><p class="sub" style="margin:0">The app is on this device. Open it from your home screen any time.</p></div></div>
+    <div class="linkrow"><a class="b" href="app.html">Open my app</a></div>
+  </section>
+
+  <!-- inside Instagram / Facebook / TikTok -->
+  <section class="card hidden" id="gaInApp">
+    <h2>First, open this in your browser</h2>
+    <p class="sub">You're inside <b id="gaInAppName">an app's</b> browser, which can't add apps to your home screen.</p>
+    <ol class="steps">
+      <li><span class="tx">Tap the <b>⋯</b> menu (top or bottom right)</span><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></span></li>
+      <li><span class="tx">Choose <b id="gaOpenIn">Open in browser</b></span></li>
+      <li><span class="tx">Then follow the steps on this page again</span></li>
+    </ol>
+    <div class="linkrow"><button class="b ghost" type="button" data-copy>Copy link instead</button></div>
+  </section>
+
+  <!-- Android -->
+  <section class="card hidden" id="gaAndroid">
+    <h2>Install on Android</h2>
+    <div id="gaAndroidOne">
+      <p class="sub">One tap:</p>
+      <button class="b full" type="button" id="gaInstall">Install the app</button>
+      <p class="small muted" style="margin:10px 0 0">A small box pops up. Tap <b>Install</b>, and the app appears on your home screen.</p>
+    </div>
+    <div id="gaAndroidMenu" class="hidden">
+      <p class="sub">In Chrome:</p>
+      <ol class="steps">
+        <li><span class="tx">Tap the <b>⋮</b> menu at the top right</span><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span></li>
+        <li><span class="tx">Tap <b>Add to Home screen</b> (or <b>Install app</b>)</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 8v7M8.5 11.5h7"/></svg></span></li>
+        <li><span class="tx">Tap <b>Install</b> or <b>Add</b></span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- iPhone -->
+  <section class="card hidden" id="gaIos">
+    <h2>Install on iPhone</h2>
+    <p class="sub" id="gaIosSub">In Safari (or Chrome), three taps:</p>
+    <ol class="steps">
+      <li><span class="tx">Tap the <b>Share</b> button</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></span></li>
+      <li><span class="tx">Scroll down, tap <b>Add to Home Screen</b></span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span></li>
+      <li><span class="tx">Tap <b>Add</b> at the top right</span></li>
+    </ol>
+    <p class="small muted" style="margin:12px 0 0">In Safari the Share button is at the bottom of the screen; in Chrome it's next to the address bar.</p>
+  </section>
+
+  <!-- Computer -->
+  <section class="card hidden" id="gaDesk">
+    <h2>Scan to get it on your phone</h2>
+    <div class="qrwrap">
+      <div class="qr" id="gaQr" aria-label="QR code that opens this page on your phone"></div>
+      <div style="flex:1;min-width:220px">
+        <ol class="steps">
+          <li><span class="tx">Open your phone's <b>camera</b></span></li>
+          <li><span class="tx">Point it at the code and tap the link</span></li>
+          <li><span class="tx">Follow the two install steps on your phone</span></li>
+        </ol>
+        <div class="linkrow"><input class="inp" id="gaLink" readonly aria-label="Link to this page"><button class="b ghost" type="button" data-copy>Copy link</button></div>
+      </div>
+    </div>
+    <div class="hidden" id="gaDeskInstall" style="margin-top:18px">
+      <p class="sub" style="margin:0 0 8px">Want it on this computer too?</p>
+      <button class="b" type="button" id="gaInstallDesk">Install on this computer</button>
+    </div>
+  </section>
+
+  <div class="tabs" role="group" aria-label="Show steps for another device">
+    <span class="small muted" style="align-self:center">Other device?</span>
+    <button type="button" data-show="ios">iPhone</button>
+    <button type="button" data-show="android">Android</button>
+    <button type="button" data-show="desk">Computer</button>
+  </div>
+
+  <div class="why">
+    <div><b>Opens in one tap</b><span>Right from your home screen, full screen, like any app.</span></div>
+    <div><b>Always up to date</b><span>New features arrive on their own. Nothing to update.</span></div>
+    <div><b>Your plan inside</b><span>Sign in once and your healing plan is waiting.</span></div>
+  </div>
+</main>
+<script src="assets/vendor/qrcode-1.4.4.js"></script>
+<script>
+(function(){
+  var $=function(id){ return document.getElementById(id); };
+  var ua=navigator.userAgent||"";
+  var iOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var android=/Android/i.test(ua);
+  var inApp=/Instagram|FBAN|FBAV|FB_IAB|TikTok|musical_ly|Bytedance|Snapchat|Pinterest|LinkedInApp|Line\//i.test(ua);
+  var installed=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+  var url=location.origin+location.pathname.replace(/[^/]*$/,"")+"get-app.html";
+
+  function show(which){
+    ["gaIos","gaAndroid","gaDesk"].forEach(function(id){ $(id).classList.add("hidden"); });
+    $({ios:"gaIos",android:"gaAndroid",desk:"gaDesk"}[which]).classList.remove("hidden");
+    [].forEach.call(document.querySelectorAll("[data-show]"),function(b){ b.classList.toggle("on",b.dataset.show===which); });
+    if(which==="desk") qr();
+  }
+  function qr(){
+    if($("gaQr").firstChild) return;
+    $("gaLink").value=url;
+    try{ var q=qrcode(0,"M"); q.addData(url); q.make(); $("gaQr").innerHTML=q.createSvgTag({ cellSize:6, margin:0, scalable:true }); }
+    catch(e){ $("gaQr").innerHTML='<p class="small muted" style="text-align:center;padding-top:80px">Open<br><b>'+url.replace(/^https?:\/\//,"")+'</b><br>on your phone</p>'; }
+  }
+  function copy(){ var done=function(){ MTH.toast("Link copied. Paste it into a text or email to yourself."); };
+    if(navigator.clipboard) navigator.clipboard.writeText(url).then(done,function(){ prompt("Copy this link:",url); }); else prompt("Copy this link:",url); }
+  [].forEach.call(document.querySelectorAll("[data-copy]"),function(b){ b.addEventListener("click",copy); });
+  [].forEach.call(document.querySelectorAll("[data-show]"),function(b){ b.addEventListener("click",function(){ show(b.dataset.show); }); });
+
+  /* the native one-tap install (Android Chrome, desktop Chrome/Edge) */
+  function ready(){
+    if(!window.__INSTALL) return;
+    $("gaAndroidOne").classList.remove("hidden"); $("gaAndroidMenu").classList.add("hidden");
+    $("gaDeskInstall").classList.remove("hidden");
+  }
+  window.__ga=ready;
+  async function install(){
+    var e=window.__INSTALL; if(!e){ $("gaAndroidOne").classList.add("hidden"); $("gaAndroidMenu").classList.remove("hidden"); return; }
+    e.prompt(); var c=await e.userChoice.catch(function(){ return {}; }); window.__INSTALL=null;
+    if(c&&c.outcome==="accepted"){ $("gaDone").classList.remove("hidden"); MTH.toast("Installed. Look for the app on your home screen."); }
+  }
+  $("gaInstall").addEventListener("click",install);
+  $("gaInstallDesk").addEventListener("click",install);
+  window.addEventListener("appinstalled",function(){ $("gaDone").classList.remove("hidden"); });
+
+  if(installed){ $("gaDone").classList.remove("hidden"); }
+  if(inApp){
+    $("gaInApp").classList.remove("hidden");
+    var nm=/Instagram/i.test(ua)?"Instagram's":/FBAN|FBAV|FB_IAB/i.test(ua)?"Facebook's":/TikTok|musical_ly|Bytedance/i.test(ua)?"TikTok's":"this app's";
+    $("gaInAppName").textContent=nm;
+    if(iOS) $("gaOpenIn").textContent="Open in Safari (or Open in external browser)";
+  }
+  /* Android without the prompt yet: show the menu steps; switch to the one-tap button if the prompt arrives */
+  if(!window.__INSTALL){ $("gaAndroidOne").classList.add("hidden"); $("gaAndroidMenu").classList.remove("hidden"); }
+  ready();
+  show(iOS?"ios":android?"android":"desk");
+  if(iOS&&/CriOS/.test(ua)) $("gaIosSub").textContent="In Chrome, three taps:";
+  if(iOS&&!/CriOS|FxiOS|EdgiOS/.test(ua)) $("gaIosSub").textContent="In Safari, three taps:";
+})();
+</script>
+</body>
+</html>
