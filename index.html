@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="assets/mth.css">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
 <script src="assets/mth.js"></script>
+<script src="assets/quiz-core.js"></script>
+<script src="assets/quiz.js"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">Mark Talks Health</div></main>
@@ -196,34 +198,9 @@
   <div class="rail rv" id="mhCards"></div>
 </div></section>
 
-<section><div class="w">
-  <div class="rv"><div class="k">Inside every protocol</div><h2>A complete healing <em>system</em></h2><p class="lead">Swipe through what you get: an app that plans your day, your diet, exercise, progress and support.</p></div>
-  <div class="sys" id="mhSys">
-    <div class="sc"><div class="sw"><div class="st"><div class="n">01 · THE SOFTWARE</div><h3>A plan built around you</h3><p>Describe your symptoms in detail, and the app ranks what to fix first and lays out a protocol personalised for you, including supplements and tests worth discussing with your doctor.</p></div><div class="sv"><span class="ex">Example</span><div class="scr2"><div class="sk">Your intake</div><div class="sh">Your personal plan</div>
-      <div class="chips"><span class="on">Bloating</span><span class="on">Fatigue</span><span>Brain fog</span><span class="on">Sugar cravings</span><span>Poor sleep</span></div>
-      <div class="sk" style="margin-top:4px">Your priorities</div>
-      <div class="br"><span>Gut lining</span><i><b style="width:82%"></b></i><span>High</span></div>
-      <div class="br"><span>Blood sugar</span><i><b style="width:58%;background:#b8924a"></b></i><span>Med</span></div>
-      <div class="br"><span>Sleep</span><i><b style="width:34%;background:#7a8f6e"></b></i><span>Low</span></div>
-      <div class="dots14"><i class="d"></i><i class="d"></i><i class="t"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">02 · FOOD</div><h3>A full meal planner</h3><p>A full catalogue of recipes with photos, videos and step-by-step instructions. Swap any meal with a tap, save favourites, scale for your household and get an automated shopping list.</p></div><div class="sv"><div class="scr2"><div class="sk">Today</div><div class="sh">Your meal plan</div>
-      <img class="mp" loading="lazy" alt="The meal planner: breakfast, lunch and dinner with calories, macros, swap and log buttons" src="/media/site/meal-planner.jpg"></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">03 · MOVEMENT</div><h3>Workouts that progress with you</h3><p>Strength and cardio matched to your level and equipment, with how-to videos for every move. Log each set and the weights go up automatically when you're ready.</p></div><div class="sv"><div class="scr2"><div class="sk">Strength A · Build</div><div class="sh">Today's workout</div>
-      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/5547221/kettlebell-kettlebell-lifting-kettlebell-training-overhead-squat-5547221.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Goblet squat</div><div class="s">3 × 10 @ 15 lb</div></div><div class="set"><u class="on">✓</u><u class="on">✓</u><u>3</u></div></div>
-      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/4867634/pexels-photo-4867634.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Dumbbell row</div><div class="s">3 × 10 @ 12.5 lb</div></div><div class="set"><u class="on">✓</u><u>2</u><u>3</u></div></div>
-      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/7801720/pexels-photo-7801720.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Forearm plank</div><div class="s">3 × 30 sec</div></div><div class="set"><u>1</u><u>2</u><u>3</u></div></div>
-      <div class="up">Up from 12.5 lb: you hit 12 reps on every set last time.</div></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">04 · TRACKING</div><h3>See your progress add up</h3><p>A daily calorie and macro ring, water, fasting clock and daily score, plus charts for weight, energy, sleep and the symptoms you came to fix.</p></div><div class="sv"><div class="scr2"><div class="sk">Today</div><div class="sh">Calories &amp; progress</div>
-      <div class="pr"><div class="rg"><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="23" fill="none" stroke="#ece0cf" stroke-width="6"/><circle cx="28" cy="28" r="23" fill="none" stroke="#c0623f" stroke-width="6" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="60"/></svg><b>720<small>kcal left</small></b></div>
-        <div class="mb"><span>Protein 104 / 130 g</span><i><b style="width:75%;background:#c0623f"></b></i><span>Carbs 64 / 110 g</span><i><b style="width:58%;background:#b8924a"></b></i><span>Fat 31 / 55 g</span><i><b style="width:56%;background:#7a8f6e"></b></i></div></div>
-      <svg viewBox="0 0 240 60" style="width:100%;height:58px;margin-top:8px;display:block" preserveAspectRatio="none"><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48 L234 60 L6 60Z" fill="#f6dccf"/><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48" fill="none" stroke="#c0623f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div style="display:flex;justify-content:space-between;font-size:9px;color:#8a7b6e"><span>Weight · week 1</span><span>week 6</span></div></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">05 · COURSE &amp; HUB</div><h3>The science, and support</h3><p>A video course that explains every step, drawing on 80+ published studies, plus the Healing Hub for check-ins, questions and live Q&amp;As.</p></div><div class="sv"><div class="scr2"><div class="sk">Course &amp; community</div><div class="sh">Learn &amp; heal together</div>
-      <div class="vid" style="background-image:url('/media/site/steps/1-fasting.jpg')"><span>Lesson 1 · Fasting &amp; cleanse</span></div>
-      <div class="ps"><span class="a">🌸</span><div><b>Sarah</b> · Day 3<br>Bone broth in the morning is becoming my favourite ritual.</div></div>
-      <div class="ps"><span class="a">🧔</span><div><b>Mark</b> · Live<br>Live Q&amp;A this Thursday. Bring your questions!</div></div></div></div></div></div>
-  </div>
-  <div class="sys-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+<section class="alt" id="quiz"><div class="w">
+  <div class="rv"><div class="k">Free 60-second gut quiz</div><h2>What is your gut <em>telling you?</em></h2><p class="lead">Answer 7 quick questions. Your first impression updates as you go, and your full assessment is free.</p></div>
+  <div data-mth-quiz="gut" data-source="home"></div>
 </div></section>
 
 <section style="padding-top:0"><div class="w">
@@ -301,6 +278,7 @@ MTH.ready.then(function(){
   var main=document.getElementById("page"); main.innerHTML="";
   MTH.mount(document.getElementById("design").innerHTML, main);
   MTH.listForms(main);
+  if(window.MTHQuiz) MTHQuiz.mountAll(main);
   if(MTH.ownsAny()){ var hb=document.getElementById('mhHub'); if(hb){ hb.href='community.html'; hb.textContent='Open the Healing Hub'; } }
 });
 </script>

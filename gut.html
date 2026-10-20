@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="assets/mth.css">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
 <script src="assets/mth.js"></script>
+<script src="assets/quiz-core.js"></script>
+<script src="assets/quiz.js"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">The Gut Health Protocol</div></main>
@@ -227,20 +229,10 @@
   <div class="mthp" data-proto="gut" data-hint="off"></div>
 </div></section>
 
-<!-- SYMPTOM PICKER -->
-<section class="alt"><div class="w">
-  <div class="rv"><div class="k">Try it</div><h2>What is your gut <em>telling you?</em></h2><p class="lead">Tap everything you deal with. You'll see a preview of what your protocol would focus on.</p></div>
-  <div class="pick rv">
-    <div class="chips" id="g2Chips"></div>
-    <div class="card result">
-      <div class="rh"><h3 id="g2RTitle">Pick your symptoms</h3><span class="small" id="g2RCount">0 selected</span></div>
-      <div class="meter"><i id="g2Meter"></i></div>
-      <div class="small" id="g2RLevel">Your gut stress level will show here</div>
-      <div class="focus" id="g2Focus"></div>
-      <button class="btn g2-buy" style="width:100%">Get my full plan <small>· $97</small></button>
-      <p class="small" style="margin-top:10px">A preview only. Your full plan uses the complete intake inside the course.</p>
-    </div>
-  </div>
+<!-- GUT QUIZ (assets/quiz.js) -->
+<section class="alt" id="quiz"><div class="w">
+  <div class="rv"><div class="k">Free 60-second quiz</div><h2>What is your gut <em>telling you?</em></h2><p class="lead">Answer 7 quick questions. Your first impression updates as you go, and your full assessment is free.</p></div>
+  <div data-mth-quiz="gut" data-source="gut-page"></div>
 </div></section>
 
 <!-- SOLUTION -->
@@ -334,23 +326,9 @@ function buy(e){ window.MTH.buy("gut", e&&e.currentTarget); }
 R.querySelectorAll(".g2-buy").forEach(function(b){ b.addEventListener("click",buy); });
 if(location.hash==="#checkout"){ setTimeout(function(){ var el=findCheckout(); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },350); }
 
-/* ---- symptom picker ---- */
-var SYM=[["Bloating & gas",3,[0,2]],["Acid reflux",3,[2,5]],["Constipation",2,[2,3]],["Loose stools",3,[0,2]],["Fatigue",2,[5,1]],["Brain fog",2,[1,5]],["Poor sleep",2,[5,4]],["Food sensitivities",3,[0,2]],["Skin flare-ups",2,[2,6]],["Joint aches",2,[3,2]],["Sugar cravings",2,[0,1]],["Stress & anxiety",2,[1,4]]];
+/* ---- assessment quiz ---- */
 var STEP=["Fasting & cleanse","Meditation & journaling","High protein & healing broths","Cardio & strength","Music therapy & spirit","Sleep & clean air","Nature: forest & sun"];
-var picked={};
-$("g2Chips").innerHTML=SYM.map(function(s,i){ return '<button class="chip" data-s="'+i+'">'+esc(s[0])+'</button>'; }).join("");
-R.querySelectorAll("#g2Chips .chip").forEach(function(c){ c.addEventListener("click",function(){ var i=+c.dataset.s; picked[i]=!picked[i]; c.classList.toggle("on",!!picked[i]); result(); }); });
-function result(){
-  var ids=Object.keys(picked).filter(function(k){return picked[k];}).map(Number), score=0, focus={};
-  ids.forEach(function(i){ score+=SYM[i][1]; SYM[i][2].forEach(function(p,j){ focus[p]=(focus[p]||0)+(2-j); }); });
-  var pct=Math.min(100,Math.round(score/18*100));
-  $("g2RCount").textContent=ids.length+" selected"; $("g2Meter").style.width=pct+"%";
-  if(!ids.length){ $("g2RTitle").textContent="Pick your symptoms"; $("g2RLevel").textContent="Your gut stress level will show here"; $("g2Focus").innerHTML=""; return; }
-  $("g2RTitle").textContent=pct<35?"A gentle reset":pct<70?"A focused reset":"A deep reset";
-  $("g2RLevel").textContent="Gut stress: "+(pct<35?"mild":pct<70?"moderate":"high")+" · suggested start: "+(pct<35?"Level 1":pct<70?"Level 1 or 2":"Level 2, with guidance");
-  var top=Object.keys(focus).sort(function(a,b){return focus[b]-focus[a];}).slice(0,3);
-  $("g2Focus").innerHTML='<div class="small" style="margin-bottom:2px">Your plan would focus on</div>'+top.map(function(p){ return '<div><b>'+(+p+1)+'</b>'+esc(STEP[p])+'</div>'; }).join("");
-}
+if(window.MTHQuiz) MTHQuiz.mountAll(R);
 
 /* ---- cleanse levels ---- */
 var LV=[
