@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Courses · Mark Talks Health</title>
+<meta name="description" content="Natural healing protocols with a personalised app, a 7-part course and ebooks: Gut Health, Diabetes and GLP-1 Weight Loss.">
+<meta property="og:title" content="Courses · Mark Talks Health">
+<meta property="og:description" content="Natural healing protocols with a personalised app, a 7-part course and ebooks.">
+<meta property="og:image" content="https://marktalkshealth.github.io/mth-protocols/site/mark-kitchen.jpg">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<style>
+.pg{max-width:1120px;margin:0 auto;padding:46px 20px 70px}
+.grid{display:grid;gap:18px;margin-top:26px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
+.pc{overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.pc:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(43,39,36,.10)}
+.pc .im{aspect-ratio:4/3;background:#d8c4ad center/cover}
+.pc .tx{padding:18px 18px 16px;display:flex;flex-direction:column;flex:1}
+.pc h3{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.05;margin:4px 0 8px}
+.pc p{color:var(--muted);margin:0 0 16px;font-size:15px;flex:1}
+.pc .ft{display:flex;justify-content:space-between;align-items:center}
+.pc .pr s{color:var(--faint);margin-right:6px}
+.pc .pr b{font-size:20px}
+.inc{margin-top:34px;padding:22px}
+.inc ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+@media(min-width:760px){.inc ul{grid-template-columns:1fr 1fr}}
+.inc li{display:flex;gap:10px}
+.inc li:before{content:"✓";color:var(--sage);font-weight:700}
+</style>
+</head>
+<body>
+<main class="pg">
+  <div class="kick">The courses</div>
+  <h1 class="t">Choose <em>your</em> protocol</h1>
+  <p class="lead">Each protocol combines the same seven healing steps with a plan built around your body, your symptoms and your goal.</p>
+  <div class="grid" id="grid"></div>
+  <div class="card inc"><h2 class="t" style="font-size:30px;margin:0">Every protocol includes</h2>
+    <ul><li>Your personal healing app: intake, day-by-day plan and tracker</li><li>A 7-part video course, one part per healing step</li><li>The ebooks for every step, to keep</li><li>Refresher quizzes after each lesson</li><li>Works on your phone like an app, and on your computer</li><li>30-day money-back guarantee</li></ul></div>
+</main>
+<script>
+MTH.ready.then(function(){
+  var C=MTH.config, IMG=C.assets+"steps/";
+  document.getElementById("grid").innerHTML=C.order.map(function(k){ var P=C.products[k], own=MTH.owns(k);
+    return '<a class="card pc" href="'+(own?P.course:P.sales)+'"><div class="im" style="background-image:url('+IMG+P.img+'.jpg)"></div><div class="tx"><div class="kick">'+(own?'You own this':'Protocol')+'</div><h3>'+MTH.esc(P.name)+'</h3><p>'+MTH.esc(P.line)+'</p>'+
+      '<div class="ft"><span class="pr">'+(own?'':'<s>'+P.was+'</s><b>'+P.price+'</b>')+'</span><span class="b sm'+(own?' dark':'')+'">'+(own?'Open':'Learn more')+'</span></div></div></a>'; }).join("");
+});
+</script>
+</body>
+</html>

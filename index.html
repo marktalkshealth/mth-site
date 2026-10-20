@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mark Talks Health · Natural healing meets modern science</title>
+<meta name="description" content="Science-backed natural healing protocols with a personalised daily plan, built on a seven-step method.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mark Talks Health">
+<meta property="og:title" content="Mark Talks Health · Natural healing meets modern science">
+<meta property="og:description" content="Science-backed natural healing protocols with a personalised daily plan, built on a seven-step method.">
+<meta property="og:image" content="https://marktalkshealth.github.io/mth-protocols/site/mark-kitchen.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+</head>
+<body>
+<main id="page"><div class="mx-wait">Mark Talks Health</div></main>
+<template id="design">
+<div id="mh">
+<style>
+#mh{font-family:var(--mth-sans,Inter,system-ui,sans-serif);color:#2b2724;background:#f7f1e7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+#mh *{box-sizing:border-box;margin:0;padding:0}
+#mh a,#mh a:visited{color:inherit!important;text-decoration:none!important}
+#mh .pcard h3,#mh .pcard p{color:inherit!important}#mh .pcard h3{color:#2b2724!important}#mh .pcard p{color:#6e6259!important}
+#mh .w{max-width:1120px;margin:0 auto;padding:0 20px}
+#mh .k{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c0623f}
+#mh h1,#mh h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.01em;line-height:1.02;color:#2b2724}
+#mh h1 em,#mh h2 em{font-style:italic;color:#c0623f}
+#mh h2{font-size:clamp(32px,7vw,46px);margin:8px 0 10px}
+#mh .lead{font-size:16.5px;color:#6e6259;line-height:1.6;max-width:580px}
+#mh .btn{display:inline-flex;align-items:center;gap:8px;background:#c0623f;color:#fff!important;font-weight:600;font-size:15.5px;padding:14px 24px;border-radius:999px;transition:background .15s,transform .15s,box-shadow .15s}
+#mh .btn:hover{background:#a8522f;transform:translateY(-1px);box-shadow:0 10px 24px rgba(192,98,63,.3)}
+#mh .btn.ghost{background:#fffcf7;color:#2b2724!important;border:1px solid #e7dccb}
+#mh .btn.ghost:hover{background:#fff;box-shadow:0 8px 20px rgba(43,39,36,.08)}
+#mh section{padding:56px 0}
+#mh .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+#mh .rv.in{opacity:1;transform:none}
+/* hero */
+#mh .hero{padding:36px 0 48px;background:radial-gradient(90% 60% at 90% 0%,rgba(192,98,63,.15),transparent 60%)}
+#mh .hero .w{display:grid;gap:22px;align-items:center}
+#mh .hero h1{font-size:clamp(44px,11vw,76px);margin:12px 0 14px}
+#mh .hero .cta.under{justify-content:center;margin-top:18px}
+#mh .hero .w{grid-template-areas:"top" "vid" "bot";gap:0}
+#mh .hero .htop{grid-area:top}#mh .hero .hbot{grid-area:bot}
+#mh .hero .hvid{grid-area:vid;margin:6px 0 24px}
+#mh .hero h1{margin-bottom:6px}
+#mh .tryapp{display:flex;flex-direction:column;align-items:center}
+#mh .tryapp .tryit{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0 0 12px;padding-right:72px}
+#mh .tryapp .tryit svg{width:24px;height:28px;flex:none;margin-top:12px}
+#mh .tryapp .tryit span{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;font-weight:500;line-height:1;color:#2b2724}
+#mh .tryapp .tryit em{font-style:italic;color:#c0623f}
+@media(min-width:860px){#mh .hero .w{grid-template-columns:1.1fr .9fr;grid-template-areas:"top vid" "bot vid";column-gap:56px;align-items:start}#mh .hero .htop{align-self:end}#mh .hero .hvid{margin:0;align-self:center}#mh .hero h1{margin-bottom:18px}}
+#mh .hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+#mh .stats{display:flex;gap:22px;margin-top:26px;flex-wrap:wrap}
+#mh .stats b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:34px;font-weight:600;line-height:1;color:#c0623f}
+#mh .stats span{font-size:12.5px;color:#6e6259}
+/* rows */
+#mh .rowh{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
+#mh .rowh a.more{font-size:13.5px;font-weight:600;color:#c0623f;white-space:nowrap}
+#mh .rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 20px 14px;margin:0 -20px;scrollbar-width:none}
+#mh .rail::-webkit-scrollbar{display:none}
+/* protocol cards */
+#mh .pcard{flex:0 0 80%;max-width:360px;scroll-snap-align:start;background:#fffcf7;border:1px solid #e7dccb;border-radius:20px;overflow:hidden;box-shadow:0 18px 40px rgba(43,39,36,.07);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+#mh .pcard:hover{transform:translateY(-4px);box-shadow:0 26px 50px rgba(43,39,36,.12)}
+#mh .pcard .im{aspect-ratio:16/10;background:#efe5d6 center/cover no-repeat;position:relative}
+#mh .pcard .tag{position:absolute;left:12px;top:12px;background:rgba(255,252,247,.92);color:#2b2724;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 10px;border-radius:999px}
+#mh .pcard .tx{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+#mh .pcard h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+#mh .pcard p{font-size:14.5px;color:#6e6259;line-height:1.5;flex:1}
+#mh .pcard .ft{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+#mh .pcard .pr2{font-weight:700;font-size:18px}
+#mh .pcard .go{font-size:14px;font-weight:600;color:#fff!important;background:#c0623f;padding:9px 16px;border-radius:999px}
+#mh .pcard.soon{opacity:.75}#mh .pcard.soon .go{background:#a8998b}
+/* steps */
+#mh .step.ph{aspect-ratio:1/1;background:#efe5d6 center/cover no-repeat;padding:10px;justify-content:flex-start;box-shadow:0 10px 26px rgba(0,0,0,.25)}
+#mh .step.ph:after{content:none}
+#mh .step.ph b{align-self:flex-end;font-family:Inter,sans-serif;font-size:12px;font-weight:700;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(43,39,36,.55);color:#fff;line-height:1}
+#mh .dark{background:#2b2724;color:#efe6da}
+#mh .dark h2{color:#fff}#mh .dark .lead{color:#b9ad9f}#mh .dark .k{color:#e3a184}
+#mh .step{flex:0 0 42%;max-width:200px;scroll-snap-align:start;aspect-ratio:4/5;border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;position:relative;overflow:hidden}
+#mh .step:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.35))}
+#mh .step b{font-family:'Cormorant Garamond',Georgia,serif;font-size:40px;font-weight:600;line-height:1;position:relative}
+#mh .step span{font-weight:700;font-size:15px;line-height:1.2;position:relative;z-index:1}
+#mh .step small{display:block;font-weight:500;font-size:12px;opacity:.85;margin-top:3px}
+/* features */
+#mh .feat{display:grid;gap:12px;margin-top:20px}
+#mh .fc{background:#fffcf7;border:1px solid #e7dccb;border-radius:18px;padding:20px;transition:transform .2s,box-shadow .2s}
+#mh .fc:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(43,39,36,.08)}
+#mh .fc .ic{width:44px;height:44px;border-radius:12px;background:#f6dccf;color:#c0623f;display:grid;place-items:center;font-size:20px;margin-bottom:12px}
+#mh .fc h3{font-size:17px;font-weight:700;margin-bottom:5px}
+#mh .fc p{font-size:14.5px;color:#6e6259;line-height:1.5}
+/* inside every protocol: swipe cards */
+#mh .sys{display:flex;align-items:stretch;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:22px -20px 0;padding:6px 20px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#mh .sys::-webkit-scrollbar{display:none}
+#mh .sc{flex:0 0 84%;max-width:340px;scroll-snap-align:center;background:linear-gradient(160deg,#efe5d6,#e3d3bd);border-radius:24px;padding:12px;display:flex;flex-direction:column;box-shadow:0 18px 40px rgba(43,39,36,.07)}
+#mh .sw{flex:1;display:flex;flex-direction:column;background:#fffcf7;border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(43,39,36,.10)}
+#mh .sv{flex:none;position:relative;padding:0 12px 12px;overflow:hidden}
+#mh .sv .ex{position:absolute;right:22px;top:12px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a7b6e;background:rgba(255,252,247,.85);border-radius:999px;padding:3px 8px}
+#mh .scr2{height:212px;box-sizing:border-box;background:#fffcf7;border:1px solid #ece2d3;border-radius:14px;box-shadow:0 8px 20px rgba(43,39,36,.08);padding:12px;font-size:11px;color:#2b2724;overflow:hidden}
+#mh .sk{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#c0623f;font-weight:700}
+#mh .sh{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;line-height:1;margin:2px 0 8px}
+#mh .st{padding:16px 16px 12px;flex:1}
+#mh .st .n{font-size:11px;font-weight:700;letter-spacing:.14em;color:#c0623f}
+#mh .st h3{font-size:17px;font-weight:700;margin:4px 0 5px;color:#2b2724}
+#mh .st p{font-size:13.5px;line-height:1.5;color:#6e6259}
+#mh .chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+#mh .chips span{font-size:9.5px;font-weight:600;border:1px solid #e7dccb;border-radius:999px;padding:3px 8px;background:#fff}
+#mh .chips span.on{background:#2b2724;color:#fff;border-color:#2b2724}
+#mh .br{display:grid;grid-template-columns:1fr 2fr auto;gap:6px;align-items:center;font-size:10px;margin:5px 0}
+#mh .br i{display:block;height:6px;border-radius:6px;background:#ece0cf;overflow:hidden}#mh .br i b{display:block;height:100%;background:#c0623f;border-radius:6px}
+#mh .dots14{display:flex;gap:3px;margin-top:9px}#mh .dots14 i{flex:1;height:6px;border-radius:3px;background:#ece0cf}#mh .dots14 i.d{background:#7a8f6e}#mh .dots14 i.t{background:#c0623f}
+#mh .mp{display:block;width:100%;border-radius:10px;border:1px solid #f0e8dc}
+#mh .mg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+#mh .mg b{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#8a7b6e;margin-bottom:3px}
+#mh .mg img{width:100%;height:54px;object-fit:cover;border-radius:7px;display:block;margin-bottom:4px;background:#efe5d6}
+#mh .mg em{display:block;font-style:normal;font-size:9px;color:#6e6259;text-align:center}
+#mh .xr{display:flex;gap:8px;align-items:center;padding:4px 0;border-bottom:1px solid #f0e8dc}#mh .xr:last-child{border:0}
+#mh .xr img{width:40px;height:32px;object-fit:cover;border-radius:7px;background:#efe5d6;flex:none}
+#mh .xr .t{font-weight:700;font-size:10.5px}#mh .xr .s{font-size:9px;color:#6e6259}
+#mh .xr .set{margin-left:auto;display:flex;gap:3px}#mh .xr .set u{text-decoration:none;font-size:8px;font-weight:700;border-radius:999px;padding:2px 5px;border:1px solid #e7dccb;color:#8a7b6e}#mh .xr .set u.on{background:#c0623f;border-color:#c0623f;color:#fff}
+#mh .up{font-size:9px;color:#8a6a1e;background:#fbf3e2;border-radius:6px;padding:3px 6px;margin-top:6px;display:inline-block}
+#mh .pr{display:flex;gap:10px;align-items:center}
+#mh .rg{width:70px;height:70px;position:relative;flex:none}#mh .rg svg{width:100%;height:100%;transform:rotate(-90deg)}#mh .rg b{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;text-align:center;line-height:1.05}#mh .rg small{display:block;font-size:7.5px;color:#8a7b6e;font-weight:600}
+#mh .mb{flex:1;display:grid;gap:5px;font-size:9px;color:#6e6259}#mh .mb i{display:block;height:5px;border-radius:5px;background:#ece0cf;overflow:hidden}#mh .mb i b{display:block;height:100%}
+#mh .vid{position:relative;border-radius:10px;overflow:hidden;height:68px;background:#2b2724 center/cover}
+#mh .vid:after{content:"▶";position:absolute;inset:0;margin:auto;width:28px;height:28px;border-radius:50%;background:rgba(255,252,247,.92);color:#c0623f;display:grid;place-items:center;font-size:10px;padding-left:2px}
+#mh .vid span{position:absolute;left:8px;bottom:6px;color:#fff;font-size:9.5px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.6);z-index:1}
+#mh .ps{display:flex;gap:6px;align-items:flex-start;background:#f7f1e7;border-radius:9px;padding:6px 7px;margin-top:6px;font-size:9.5px;line-height:1.35}
+#mh .ps .a{width:18px;height:18px;border-radius:50%;background:#efe5d6;display:grid;place-items:center;flex:none;font-size:10px}
+#mh .sys-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+#mh .sys-dots i{width:7px;height:7px;border-radius:50%;background:#dccdb9;transition:all .25s;cursor:pointer}#mh .sys-dots i.on{width:20px;border-radius:5px;background:#c0623f}
+@media(min-width:860px){#mh .sys{margin:26px 0 0;padding:6px 2px 12px}#mh .sc{flex:0 0 320px}}
+/* hub promo */
+#mh .hub{display:grid;gap:24px;align-items:center;background:#fffcf7;border:1px solid #e7dccb;border-radius:24px;padding:24px;box-shadow:0 24px 60px rgba(43,39,36,.08)}
+#mh .feed{display:grid;gap:8px}
+#mh .post{background:#f7f1e7;border-radius:14px;padding:12px;display:flex;gap:10px;font-size:13.5px;line-height:1.45}
+#mh .post .av{width:32px;height:32px;border-radius:50%;background:#efe5d6;display:grid;place-items:center;flex:none}
+#mh .post b{font-size:13px}#mh .post .tg{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;color:#7a8f6e;background:#e7ecdd;border-radius:4px;padding:2px 6px;margin-left:6px}
+/* founder */
+#mh .founder{display:grid;gap:24px;align-items:center}
+#mh .portrait{aspect-ratio:4/5;border-radius:22px;background:#efe5d6 center/cover no-repeat;max-width:420px}
+#mh .founder p{font-size:16px;line-height:1.7;color:#6e6259;margin-bottom:12px;max-width:560px}
+#mh .sig{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:30px;color:#c0623f}
+@media(min-width:860px){
+  #mh section{padding:88px 0}
+  #mh .hero{padding:72px 0 88px}
+  #mh .rail{margin:0;padding:6px 2px 14px}
+  #mh .pcard{flex-basis:calc(33.333% - 10px)}
+  #mh .step{flex-basis:calc(14.285% - 12px);min-width:130px}
+  #mh .feat{grid-template-columns:repeat(4,1fr)}
+  #mh .hub{grid-template-columns:1fr 1fr;padding:40px}
+  #mh .founder{grid-template-columns:.8fr 1.2fr}
+}
+#mh .step.ph{flex:0 0 68%;max-width:290px}
+@media(min-width:860px){#mh .step.ph{flex:0 0 250px;min-width:250px;max-width:none}}
+/* checkout */
+#mh .buy{display:grid;gap:12px;margin-top:22px}
+#mh .bo{display:flex;align-items:center;gap:14px;background:#fffcf7;border:1px solid #e7dccb;border-radius:18px;padding:12px;box-shadow:0 10px 26px rgba(43,39,36,.06)}
+#mh .bo .im{width:84px;height:84px;border-radius:12px;background:#efe5d6 center/cover no-repeat;flex:none}
+#mh .bo .tx{flex:1;min-width:0}
+#mh .bo h3{font-size:16px;font-weight:700;color:#2b2724;line-height:1.25}
+#mh .bo p{font-size:12.5px;color:#6e6259;margin-top:2px}
+#mh .bo .r{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+#mh .bo .r b{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:600;line-height:1;color:#c0623f}
+#mh .bo .btn{font-size:13px;padding:9px 14px;white-space:nowrap}
+#mh .trust{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:16px;font-size:13px;color:#6e6259}
+#mh .trust span::before{content:"✓";color:#7a8f6e;font-weight:700;margin-right:6px}
+@media(min-width:860px){#mh .buy{grid-template-columns:repeat(3,1fr)}#mh .bo{flex-direction:column;align-items:stretch;padding:14px}#mh .bo .im{width:100%;height:150px}}
+</style>
+
+<section class="hero"><div class="w">
+  <div class="htop"><h1>Natural Healing Meets <em>Modern Science</em></h1></div>
+  <div class="hvid"><div class="mthv" data-wistia="c6bmdm7xd7" data-title="Watch my story" data-len=""></div></div>
+  <div class="hbot"><p class="lead">A science-backed healing protocol with a personalised daily plan you can begin immediately, based on our seven-step natural healing method.</p></div>
+</div></section>
+
+<section style="padding-top:8px"><div class="w rv tryapp">
+  <div class="tryit" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none" stroke="#c0623f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 5C17 5 10 11 9 27"/><path d="M4.5 22.5L9 28l4.5-5.5"/></svg><span>Test <em>your</em> app</span></div>
+  <div class="mthp" data-proto="all" data-hint="off"></div>
+</div></section>
+
+<section class="dark"><div class="w">
+  <div class="rv"><div class="k">The method</div><h2>Seven days, <em>seven healing steps</em></h2><p class="lead">When you combine 7 healing methods at once, your body undergoes a rapid healing process.</p></div>
+  <div class="rail rv" id="mhSteps" style="margin-top:22px"></div>
+</div></section>
+
+<section id="mh-protocols"><div class="w">
+  <div class="rowh rv"><div><h2>Choose <em>your</em> course</h2></div><a class="more" href="protocols.html">All protocols →</a></div>
+  <div class="rail rv" id="mhCards"></div>
+</div></section>
+
+<section><div class="w">
+  <div class="rv"><div class="k">Inside every protocol</div><h2>A complete healing <em>system</em></h2><p class="lead">Swipe through what you get: an app that plans your day, your diet, exercise, progress and support.</p></div>
+  <div class="sys" id="mhSys">
+    <div class="sc"><div class="sw"><div class="st"><div class="n">01 · THE SOFTWARE</div><h3>A plan built around you</h3><p>Describe your symptoms in detail, and the app ranks what to fix first and lays out a protocol personalised for you, including supplements and tests worth discussing with your doctor.</p></div><div class="sv"><span class="ex">Example</span><div class="scr2"><div class="sk">Your intake</div><div class="sh">Your personal plan</div>
+      <div class="chips"><span class="on">Bloating</span><span class="on">Fatigue</span><span>Brain fog</span><span class="on">Sugar cravings</span><span>Poor sleep</span></div>
+      <div class="sk" style="margin-top:4px">Your priorities</div>
+      <div class="br"><span>Gut lining</span><i><b style="width:82%"></b></i><span>High</span></div>
+      <div class="br"><span>Blood sugar</span><i><b style="width:58%;background:#b8924a"></b></i><span>Med</span></div>
+      <div class="br"><span>Sleep</span><i><b style="width:34%;background:#7a8f6e"></b></i><span>Low</span></div>
+      <div class="dots14"><i class="d"></i><i class="d"></i><i class="t"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div>
+    <div class="sc"><div class="sw"><div class="st"><div class="n">02 · FOOD</div><h3>A full meal planner</h3><p>A full catalogue of recipes with photos, videos and step-by-step instructions. Swap any meal with a tap, save favourites, scale for your household and get an automated shopping list.</p></div><div class="sv"><div class="scr2"><div class="sk">Today</div><div class="sh">Your meal plan</div>
+      <img class="mp" loading="lazy" alt="The meal planner: breakfast, lunch and dinner with calories, macros, swap and log buttons" src="https://marktalkshealth.github.io/mth-protocols/site/meal-planner.jpg"></div></div></div></div>
+    <div class="sc"><div class="sw"><div class="st"><div class="n">03 · MOVEMENT</div><h3>Workouts that progress with you</h3><p>Strength and cardio matched to your level and equipment, with how-to videos for every move. Log each set and the weights go up automatically when you're ready.</p></div><div class="sv"><div class="scr2"><div class="sk">Strength A · Build</div><div class="sh">Today's workout</div>
+      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/5547221/kettlebell-kettlebell-lifting-kettlebell-training-overhead-squat-5547221.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Goblet squat</div><div class="s">3 × 10 @ 15 lb</div></div><div class="set"><u class="on">✓</u><u class="on">✓</u><u>3</u></div></div>
+      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/4867634/pexels-photo-4867634.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Dumbbell row</div><div class="s">3 × 10 @ 12.5 lb</div></div><div class="set"><u class="on">✓</u><u>2</u><u>3</u></div></div>
+      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/7801720/pexels-photo-7801720.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Forearm plank</div><div class="s">3 × 30 sec</div></div><div class="set"><u>1</u><u>2</u><u>3</u></div></div>
+      <div class="up">Up from 12.5 lb: you hit 12 reps on every set last time.</div></div></div></div></div>
+    <div class="sc"><div class="sw"><div class="st"><div class="n">04 · TRACKING</div><h3>See your progress add up</h3><p>A daily calorie and macro ring, water, fasting clock and daily score, plus charts for weight, energy, sleep and the symptoms you came to fix.</p></div><div class="sv"><div class="scr2"><div class="sk">Today</div><div class="sh">Calories &amp; progress</div>
+      <div class="pr"><div class="rg"><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="23" fill="none" stroke="#ece0cf" stroke-width="6"/><circle cx="28" cy="28" r="23" fill="none" stroke="#c0623f" stroke-width="6" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="60"/></svg><b>720<small>kcal left</small></b></div>
+        <div class="mb"><span>Protein 104 / 130 g</span><i><b style="width:75%;background:#c0623f"></b></i><span>Carbs 64 / 110 g</span><i><b style="width:58%;background:#b8924a"></b></i><span>Fat 31 / 55 g</span><i><b style="width:56%;background:#7a8f6e"></b></i></div></div>
+      <svg viewBox="0 0 240 60" style="width:100%;height:58px;margin-top:8px;display:block" preserveAspectRatio="none"><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48 L234 60 L6 60Z" fill="#f6dccf"/><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48" fill="none" stroke="#c0623f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div style="display:flex;justify-content:space-between;font-size:9px;color:#8a7b6e"><span>Weight · week 1</span><span>week 6</span></div></div></div></div></div>
+    <div class="sc"><div class="sw"><div class="st"><div class="n">05 · COURSE &amp; HUB</div><h3>The science, and support</h3><p>A video course that explains every step, drawing on 80+ published studies, plus the Healing Hub for check-ins, questions and live Q&amp;As.</p></div><div class="sv"><div class="scr2"><div class="sk">Course &amp; community</div><div class="sh">Learn &amp; heal together</div>
+      <div class="vid" style="background-image:url('https://marktalkshealth.github.io/mth-protocols/site/steps/1-fasting.jpg')"><span>Lesson 1 · Fasting &amp; cleanse</span></div>
+      <div class="ps"><span class="a">🌸</span><div><b>Sarah</b> · Day 3<br>Bone broth in the morning is becoming my favourite ritual.</div></div>
+      <div class="ps"><span class="a">🧔</span><div><b>Mark</b> · Live<br>Live Q&amp;A this Thursday. Bring your questions!</div></div></div></div></div></div>
+  </div>
+  <div class="sys-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+</div></section>
+
+<section style="padding-top:0"><div class="w">
+  <div class="hub rv">
+    <div><div class="k">The Healing Hub</div><h2>Heal <em>together</em></h2><p class="lead" style="margin-bottom:20px">A private community for members: daily check-ins, fasting milestones, questions answered by Mark, and live sessions.</p><a class="btn" id="mhHub" href="protocols.html">Choose your protocol</a></div>
+    <div class="feed">
+      <div class="post"><span class="av">🌸</span><div><b>Sarah</b><span class="tg">DAY 3</span><br>Bone broth in the morning is becoming my favourite ritual.</div></div>
+      <div class="post"><span class="av">🌊</span><div><b>James</b><span class="tg">FAST</span><br>Finished a 16-hour fast. Steadiest morning reading all month.</div></div>
+      <div class="post"><span class="av">🧔</span><div><b>Mark</b><span class="tg">LIVE</span><br>Live Q&amp;A this Thursday. Bring your questions!</div></div>
+    </div>
+  </div>
+</div></section>
+
+
+
+
+<section style="padding-top:0"><div class="w founder">
+  <div class="portrait rv" role="img" aria-label="Mark in his kitchen with a board of whole foods" style="background-image:url('https://marktalkshealth.github.io/mth-protocols/site/mark-kitchen.jpg');background-position:center 35%"></div>
+  <div class="rv"><h2>My <em>story</em></h2>
+    <p>I spent years struggling with my own health, specifically trying to lose weight and fix my gut. Eventually I had to try a natural approach, and once I did I was shocked to find dozens of peer-reviewed studies showing things like fasting and meditation have a profound healing effect on a variety of serious health problems.</p>
+    <p>After my recovery I've been dedicated to teaching other people how to fix their own health problems and take their power back.</p><div class="sig">&ndash; Mark</div></div>
+</div></section>
+
+
+<section id="mh-buy"><div class="w">
+  <div class="rv"><div class="k">Get started</div><h2>Start your protocol <em>today</em></h2><p class="lead">One payment. Lifetime access to the course, your personalised software and the Healing Hub.</p></div>
+  <div class="buy rv" id="mhBuy"></div>
+  <div class="trust rv"><span>30-day money-back guarantee</span><span>Secure checkout</span><span>Card, Apple Pay &amp; Google Pay</span></div>
+</div></section>
+
+<section id="mh-list" style="padding-top:0"><div class="w"><div class="hub rv" style="display:block">
+  <div class="k">New protocols first</div><h2>Join the <em>list</em></h2><p class="lead" style="margin-bottom:16px">Get a note when a new protocol, ebook or live Q&amp;A opens. No spam, unsubscribe any time.</p>
+  <form class="mx-list" data-source="home"><input class="inp" type="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="Email"><button class="btn" type="submit">Join</button></form>
+</div></div></section>
+
+<script>
+(function(){
+  var ROOT=document.getElementById("mh");
+  var own=function(c){ return !!(window.MTH&&MTH.owns(c.key)); };   /* own site: "Open" once they own that protocol */
+  var IMG="https://api.us-e1.learnworlds.com/imagefile//{id}?client_id=6ac2bb5648140f5f6d8ca00c&width=800&height=0";
+  var COURSES=[
+    {key:"gut",t:"Gut Health Protocol",tag:"GUT",img:"6eec355b2cfe342f0ac9f7061029e4e7.png",d:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse.",funnel:"gut.html",course:"course.html?p=gut",price:"$97"},
+    {key:"sugar",t:"Diabetes Protocol",tag:"DIABETES",img:"fe26b6c96fac54ea10f9208392449ea2.png",d:"Gain control of your blood sugar once and for all, and enjoy better energy throughout the day with your personalised protocol.",funnel:"diabetes.html",course:"course.html?p=sugar",price:"$97"},
+    {key:"glp1",t:"GLP-1 Weight Loss Protocol",tag:"GLP-1",img:"85077c63e15333e491250e4536f2ee4c.png",d:"Lose fat while protecting muscle. A customised roadmap for using GLP-1s intelligently.",funnel:"glp1.html",course:"course.html?p=glp1",price:"$97"}
+  ];
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+  document.getElementById("mhCards").innerHTML=COURSES.map(function(c){
+    var href=own(c)?c.course:c.funnel;
+    return '<a class="pcard" href="'+href+'"><div class="im" style="background-image:url(\''+IMG.replace("{id}",c.img)+'\')"></div><div class="tx"><h3>'+esc(c.t)+'</h3><p>'+esc(c.d)+'</p><div class="ft"><span class="pr2">'+(own(c)?'':esc(c.price))+'</span><span class="go">'+(own(c)?'Open':'Learn more')+'</span></div></div></a>';
+  }).join("")+'<div class="pcard soon" aria-hidden="true"><div class="im" style="background:linear-gradient(150deg,#d8c4ad,#a8998b)"><span class="tag">COMING SOON</span></div><div class="tx"><h3>More protocols</h3><p>New protocols for more conditions are on the way. Members hear first.</p><div class="ft"><span></span><span class="go">Soon</span></div></div></div>';
+  /* checkout: each option opens that course's sales page right at its checkout */
+  (function(){ var box=document.getElementById("mhBuy"); if(!box) return;
+    box.innerHTML=COURSES.map(function(c){ var href=own(c)?c.course:c.funnel+"#checkout";
+      return '<div class="bo"><div class="im" style="background-image:url(\''+IMG.replace("{id}",c.img)+'\')"></div><div class="tx"><h3>'+esc(c.t)+'</h3><p>Course, software &amp; community</p><div class="r">'+(own(c)?'<span></span>':'<b>'+esc(c.price)+'</b>')+'<a class="btn" href="'+href+'">'+(own(c)?'Open':'Get instant access')+'</a></div></div></div>'; }).join("");
+  })();
+  var SIMG=["1-fasting","2-meditation","3-high-protein","4-cardio","5-music","6-sleep","7-nature"];
+  var STEPS=[["Fasting & cleanse","Rest digestion"],["Meditation & journaling","Calm the nervous system"],["High protein","Feed repair"],["Cardio & strength","Move to heal"],["Music & spirit","Sound as medicine"],["Sleep & clean air","Repair at night"],["Nature & sun","Reset outdoors"]];
+  var TILE=[["#c0623f","#7e3b25"],["#7a8f6e","#3f4b38"],["#b8924a","#6e5427"],["#8a7b6e","#463b33"],["#a8735a","#5a3a2b"],["#6f7a8c","#363c48"],["#7a8f6e","#2f3d2c"]];
+  document.getElementById("mhSteps").innerHTML=STEPS.map(function(s,i){ return '<div class="step ph" role="img" aria-label="Step '+(i+1)+': '+esc(s[0])+'" style="background-image:url(https://marktalkshealth.github.io/mth-protocols/site/steps/'+SIMG[i]+'.jpg)"><b>'+(i+1)+'</b></div>'; }).join("");
+  /* system cards: dots follow the swipe */
+  (function(){ var t=document.getElementById("mhSys"), d=ROOT.querySelectorAll(".sys-dots i"); if(!t) return;
+    t.addEventListener("scroll",function(){ var c=t.children, b=0, bd=1e9, m=t.scrollLeft+t.clientWidth/2; for(var i=0;i<c.length;i++){ var x=Math.abs(c[i].offsetLeft+c[i].offsetWidth/2-m); if(x<bd){bd=x;b=i;} } d.forEach(function(e,j){ e.classList.toggle("on",j===b); }); },{passive:true});
+    d.forEach(function(e,j){ e.addEventListener("click",function(){ var c=t.children[j]; t.scrollTo({left:c.offsetLeft-(t.clientWidth-c.offsetWidth)/2,behavior:"smooth"}); }); });
+  })();
+  var els=ROOT.querySelectorAll(".rv");
+  if("IntersectionObserver" in window){ var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);} });},{threshold:.12}); els.forEach(function(e){io.observe(e);}); }
+  else els.forEach(function(e){e.classList.add("in");});
+})();
+</script>
+</div>
+
+</template>
+<script>
+MTH.ready.then(function(){
+  var main=document.getElementById("page"); main.innerHTML="";
+  MTH.mount(document.getElementById("design").innerHTML, main);
+  MTH.listForms(main);
+  if(MTH.ownsAny()){ var hb=document.getElementById('mhHub'); if(hb){ hb.href='community.html'; hb.textContent='Open the Healing Hub'; } }
+});
+</script>
+</body>
+</html>

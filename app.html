@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My app · Mark Talks Health</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f6f1ea">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mark Talks Health">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script>
+/* Phones and the installed home-screen app: full-screen app, no site header.
+   Computers: site header, then the full desktop software in a frame.
+   Test either on any device with ?view=app or ?view=desktop */
+(function(){
+  var v=null; try{ v=new URLSearchParams(location.search).get("view"); }catch(e){}
+  var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+  var desk=v==="desktop"||(v!=="app"&&!standalone&&window.matchMedia&&matchMedia("(min-width: 900px)").matches);
+  document.documentElement.classList.add(desk?"app-desk":"app-phone");
+  if(!desk) document.documentElement.classList.add("mx-bare");
+  window.__APPVIEW=v; window.__DESK=desk;
+})();
+/* keep the phone's own "install app" offer so our Install button can show it */
+window.__INSTALL=null;
+window.addEventListener("beforeinstallprompt",function(e){ e.preventDefault(); window.__INSTALL=e; if(window.__mthInstallReady) window.__mthInstallReady(); });
+window.addEventListener("appinstalled",function(){ window.__INSTALL=null; if(window.__mthInstalled) window.__mthInstalled(); });
+</script>
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<style>
+/* ---------- phone: full-screen app ---------- */
+html.app-phone,html.app-phone body{height:100%;overflow:hidden;background:#f6f1ea}
+#shell{font-family:'DM Sans',system-ui,-apple-system,sans-serif}
+html.app-phone #shell{position:fixed;inset:0;display:flex;flex-direction:column;background:#f6f1ea}
+#shell .ab{flex:none;display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;border-bottom:1px solid #e7dfd4;background:#f6f1ea}
+#shell .ab a.home{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;color:#2b2622;text-decoration:none;flex:none}
+#shell .ab a.home svg{width:22px;height:22px}
+#shell .ab .t{flex:1;min-width:0}
+#shell .ab .k{font:700 10px/1 'DM Sans',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b8664a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#shell .ab .n{font:500 20px/1.15 'Cormorant Garamond',Georgia,serif;color:#2b2622;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#shell .ab .n em{font-style:italic;color:#c0623f}
+#shell .sw{flex:none;max-width:34%;padding:8px 10px;border-radius:999px;border:1px solid #ddd3c6;background:#fff;font:600 13px 'DM Sans',system-ui,sans-serif;color:#2b2622}
+html.app-desk #shell .sw{padding:10px 14px;font-size:14px;max-width:none}
+#shell .ab .me{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#2b2622;color:#fff;text-decoration:none;font:700 14px 'DM Sans',sans-serif}
+#shell .ins{flex:none;display:none;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:0;background:#2b2622;color:#fff;font:600 13px 'DM Sans',system-ui,sans-serif;cursor:pointer}
+#shell .ins svg{width:15px;height:15px}
+#shell.can-install .ins{display:inline-flex}
+@media (max-width:440px){#shell .ins{width:38px;height:38px;padding:0;justify-content:center}#shell .ins span{display:none}#shell .ins svg{width:18px;height:18px}}
+#shell iframe{flex:1;width:100%;border:0;display:block;background:#f6f1ea}
+html.app-phone #shell .frame{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+#shell .ld{position:absolute;left:0;right:0;top:45%;text-align:center;font:400 22px 'Cormorant Garamond',Georgia,serif;color:#8a7d71;pointer-events:none}
+#shell .sh{position:fixed;inset:0;z-index:5;display:none;align-items:flex-end;background:rgba(43,38,34,.45)}
+#shell .sh.on{display:flex}
+#shell .sh .c{width:100%;background:#f6f1ea;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(0,0,0,.2)}
+#shell .sh .ic{width:56px;height:56px;border-radius:14px;display:block;margin-bottom:12px}
+#shell .sh h3{margin:0 0 4px;font:500 24px/1.15 'Cormorant Garamond',Georgia,serif;color:#2b2622}
+#shell .sh p{margin:0 0 14px;font:400 14px/1.45 'DM Sans',system-ui,sans-serif;color:#8a7d71}
+#shell .sh ol{margin:0 0 18px;padding:0;list-style:none;counter-reset:s}
+#shell .sh li{counter-increment:s;display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #e7dfd4;font:500 15px/1.35 'DM Sans',system-ui,sans-serif;color:#2b2622}
+#shell .sh li:before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#2e5c45;color:#fff;font-size:13px;font-weight:700}
+#shell .sh button.ok{width:100%;min-height:50px;border:0;border-radius:14px;background:#2b2622;color:#fff;font:600 15px 'DM Sans',system-ui,sans-serif}
+/* ---------- desktop: header, title, framed software ---------- */
+html.app-desk body{background:#f6f1ea}
+html.app-desk #shell{position:relative;padding:30px 32px 40px;max-width:1680px;margin:0 auto}
+html.app-desk #shell .ab{border:0;background:transparent;padding:0 0 18px;gap:16px;align-items:flex-end}
+html.app-desk #shell .ab a.home,html.app-desk #shell .ab .me,html.app-desk #shell .ins{display:none!important}
+html.app-desk #shell .ab .k{font-size:11px;letter-spacing:.2em;color:#c0623f;margin-bottom:8px}
+html.app-desk #shell .ab .n{font-size:42px;line-height:1.02;letter-spacing:-.01em}
+html.app-desk #shell .ab .lnk{display:flex;gap:8px}
+html.app-desk #shell .frame{position:relative;background:#fffcf7;border:1px solid #e7dccb;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(43,39,36,.10)}
+html.app-desk #shell iframe{height:calc(100vh - 210px);min-height:720px;background:#fffcf7}
+html.app-desk #shell .ld{top:220px}
+html.app-phone #shell .lnk{display:none}
+</style>
+</head>
+<body>
+<div id="shell">
+  <div class="ab">
+    <a class="home" href="index.html" aria-label="Back to the Mark Talks Health site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+    <div class="t"><div class="k">Your protocol</div><div class="n">Your <em>app</em></div></div>
+    <div class="lnk"><a class="b sm ghost" href="course.html">Course</a><a class="b sm ghost" href="?view=app">Phone view</a></div>
+    <button type="button" class="ins" aria-label="Install the app on your phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Install</span></button>
+    <a class="me" href="account.html" aria-label="Your account"></a>
+  </div>
+  <div class="frame"><div class="ld">Opening your protocol&hellip;</div><iframe title="Your protocol app" allow="fullscreen; clipboard-write"></iframe></div>
+  <div class="sh" role="dialog" aria-modal="true" aria-label="Add the app to your home screen"><div class="c"><img class="ic" alt="" src="assets/app-icon-180.png"><h3>Add Mark Talks Health to your home screen</h3><p>It opens full screen, straight into your protocol, like any other app.</p><ol></ol><button type="button" class="ok">Got it</button></div></div>
+</div>
+<script>
+(async function(){
+  var shell=document.getElementById("shell"), fr=shell.querySelector("iframe"), ld=shell.querySelector(".ld");
+  /* ---------- members only ---------- */
+  await MTH.ready;
+  var PK=MTH.product();
+  if(MTH.user&&!MTH.owns(PK)&&MTH.ownsAny()&&!MTH.qs("p")) PK=MTH.owned[0];
+  await MTH.require(PK);
+  MTH.remember(PK);
+  var PP=MTH.config.products[PK], DIR={gut:"gut",sugar:"sugar",glp1:"glp1"}[PK];
+  shell.querySelector(".k").textContent=PP.name;
+  document.title="My app · "+PP.name;
+  shell.querySelector('.lnk a[href="course.html"]').href=PP.course;
+  /* owns more than one protocol: a switcher */
+  if(MTH.owned.length>1){
+    var sw=document.createElement("select"); sw.className="sw"; sw.setAttribute("aria-label","Switch protocol");
+    sw.innerHTML=MTH.config.order.filter(MTH.owns).map(function(k){ return '<option value="'+k+'"'+(k===PK?' selected':'')+'>'+MTH.config.products[k].short+'</option>'; }).join("");
+    sw.addEventListener("change",function(){ location.href="app.html?p="+sw.value+(window.__APPVIEW?"&view="+window.__APPVIEW:""); });
+    shell.querySelector(".ab .t").after(sw);
+  }
+  /* the protocol reads window.parent.MTH_USER to save the plan to this member's account (Supabase gp_save / gp_load) */
+  window.MTH_USER={ id:MTH.user.id, email:(MTH.user.email||"").toLowerCase() };
+  shell.querySelector(".me").textContent=(MTH.user.email||"?").charAt(0).toUpperCase();
+  if(window.__DESK){ shell.querySelector(".lnk a[href='?view=app']").href="?p="+PK+"&view=app"; }
+  else if(window.__APPVIEW==="app"){ /* forced phone view on a computer: offer a way back */ var bk=shell.querySelector("a.home"); bk.href="app.html?p="+PK+"&view=desktop"; bk.setAttribute("aria-label","Back to the desktop view"); }
+  fr.addEventListener("load",function(){ ld.style.display="none"; });
+  fr.src=DIR+"/index.html?mode=app"+(window.__DESK?"&view=desktop":"&view=app");
+
+  /* ---------- Install button: phones and tablets only, hidden once installed ---------- */
+  var ins=shell.querySelector(".ins"), sh=shell.querySelector(".sh"), ua=navigator.userAgent||"";
+  var iOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var touch=window.matchMedia&&matchMedia("(pointer: coarse)").matches;
+  var installed=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+  function offer(){ if(touch&&!installed&&!window.__DESK) shell.classList.add("can-install"); }
+  window.__mthInstallReady=offer;
+  window.__mthInstalled=function(){ installed=true; shell.classList.remove("can-install"); sh.classList.remove("on"); };
+  if(iOS||window.__INSTALL) offer(); else setTimeout(offer,2500);
+  function steps(list){ sh.querySelector("ol").innerHTML=list.map(function(t){ return "<li><span>"+t+"</span></li>"; }).join(""); sh.classList.add("on"); }
+  ins.addEventListener("click",function(){
+    if(window.__INSTALL){ var ev=window.__INSTALL; window.__INSTALL=null; ev.prompt(); (ev.userChoice||Promise.resolve({})).then(function(r){ if(r&&r.outcome==="accepted") window.__mthInstalled(); }); return; }
+    if(iOS) steps(["Tap the <b>Share</b> button (the square with an arrow) at the bottom of Safari","Scroll down and tap <b>Add to Home Screen</b>","Tap <b>Add</b>"]);
+    else steps(["Tap the <b>&#8942;</b> menu at the top right of your browser","Tap <b>Install app</b> or <b>Add to home screen</b>","Tap <b>Install</b> or <b>Add</b>"]);
+  });
+  sh.addEventListener("click",function(e){ if(e.target===sh||e.target.classList.contains("ok")) sh.classList.remove("on"); });
+})();
+</script>
+</body>
+</html>

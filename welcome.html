@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Welcome · Mark Talks Health</title>
+<meta name="theme-color" content="#f7f1e7">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<style>
+.wl{max-width:620px;margin:0 auto;padding:56px 20px 70px;text-align:center}
+.wl .seal{width:78px;height:78px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;background:var(--sageS);color:var(--sage);font-size:34px}
+.wl .acts{display:grid;gap:10px;max-width:360px;margin:26px auto 0}
+.wl .steps{text-align:left;margin:30px auto 0;max-width:460px;padding:20px 22px}
+.wl .steps ol{margin:8px 0 0;padding-left:20px;color:var(--muted)}
+.wl .steps li{margin:6px 0}
+</style>
+</head>
+<body>
+<main class="wl" id="wl"><div class="mx-wait">Confirming your payment…</div></main>
+<script>
+(async function(){
+  await MTH.require();
+  var box=document.getElementById("wl"), sid=MTH.qs("session_id")||"", PK=MTH.config.products[MTH.qs("p")]?MTH.qs("p"):"gut", PP=MTH.config.products[PK];
+  MTH.remember(PK);
+  function done(){
+    box.innerHTML='<div class="seal">✓</div><div class="kick">Payment confirmed</div><h1 class="t">Welcome to the <em>'+PP.name+'</em></h1>'+
+      '<p class="lead" style="margin:0 auto">Your app, course and ebooks are unlocked. A receipt is on its way to '+MTH.esc(MTH.user.email)+'.</p>'+
+      '<div class="acts"><a class="b" href="'+PP.app+'">Build my healing plan</a><a class="b ghost" href="'+PP.course+'">Start the course</a></div>'+
+      '<div class="card steps"><b>Your first 5 minutes</b><ol><li>Open your app and fill in the short intake.</li><li>Pick a start date for your 7-day reset.</li><li>On your phone, tap <b>Install</b> to add the app to your home screen.</li><li>Watch the welcome lesson in the course.</li></ol></div>';
+  }
+  function fail(msg){
+    box.innerHTML='<div class="kick">Almost there</div><h1 class="t">We couldn\u2019t confirm <em>your payment</em> yet</h1><p class="lead" style="margin:0 auto">'+MTH.esc(msg)+'</p>'+
+      '<div class="acts"><button class="b" id="retry">Try again</button><a class="b ghost" href="mailto:marktalkshealth@gmail.com?subject='+encodeURIComponent(PP.name+' purchase')+'">Email Mark</a></div>';
+    document.getElementById("retry").onclick=function(){ location.reload(); };
+  }
+  if(MTH.owns(PK)) return done();
+  if(!sid) return fail("This page didn't receive a checkout reference. If you were charged, email us and we'll unlock it right away.");
+  for(var i=0;i<4;i++){
+    var j=await MTH.fn("mth-confirm",{ session_id:sid });
+    if(j.ok){ await MTH.refresh(); return done(); }
+    if(j.error==="not_paid"&&i<3){ await new Promise(function(r){ setTimeout(r,2500); }); continue; }
+    await MTH.refresh(); if(MTH.owns(PK)) return done();
+    return fail({ not_yours:"This checkout belongs to a different account. Sign in with the email you used at checkout.",
+                  not_paid:"Stripe hasn't marked the payment as complete yet. Give it a minute and try again.",
+                  stripe_not_configured:"Checkout isn't switched on yet." }[j.error]||"Something went wrong ("+(j.error||"unknown")+"). If you were charged, email us and we'll unlock it right away.");
+  }
+})();
+</script>
+</body>
+</html>

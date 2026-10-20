@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your course · Mark Talks Health</title>
+<meta name="theme-color" content="#f7f1e7">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<script src="assets/courses.js"></script>
+<style>
+.cx{max-width:1240px;margin:0 auto;padding:22px 20px 70px;display:grid;gap:28px}
+@media(min-width:980px){.cx{grid-template-columns:330px 1fr;align-items:start;padding-top:30px}}
+/* ---------- curriculum sidebar ---------- */
+.side{display:none}
+@media(min-width:980px){.side{display:block;position:sticky;top:calc(var(--hh) + 20px);max-height:calc(100vh - var(--hh) - 40px);overflow:auto;padding:18px 14px 18px 18px}}
+.side .ttl{font-family:var(--serif);font-size:24px;line-height:1.1;margin:4px 0 12px}
+.side .ttl a{text-decoration:none}
+.pbar{height:8px;border-radius:99px;background:var(--bg2);overflow:hidden}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--terra),var(--gold));border-radius:99px;transition:width .5s}
+.side .sec{margin-top:16px}
+.side .sec h4{margin:0 0 4px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.side a.ls{display:flex;gap:10px;align-items:center;padding:8px 8px;border-radius:12px;text-decoration:none;font-size:14.5px;line-height:1.3;color:var(--ink)}
+.side a.ls:hover{background:var(--bg)}
+.side a.ls.on{background:var(--terraS);font-weight:600}
+.dot{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;color:#fff;background:#fff}
+.dot.done{background:var(--sage);border-color:var(--sage)}
+.dot.done:before{content:"✓"}
+/* ---------- overview ---------- */
+.hero{display:grid;gap:18px;padding:26px 24px;background:var(--dark);color:#f3e9da;border-radius:24px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(192,98,63,.35),transparent 70%)}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,6vw,50px);line-height:1.02;margin:6px 0 4px;color:#fff}
+.hero h1 em{color:#e39a7e;font-style:italic}
+.hero p{margin:0;color:#cdbfad;max-width:520px}
+.hero .kick{color:#e3b77a}
+.hero .pr{display:flex;align-items:center;gap:14px;font-size:14px;color:#e9dfd2}
+.hero .pr .pbar{flex:1;max-width:340px;background:rgba(255,255,255,.12)}
+.hero .acts{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.hero .b.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.secs{display:grid;gap:14px}
+.sc{display:grid;grid-template-columns:96px 1fr;gap:0;overflow:hidden}
+@media(min-width:640px){.sc{grid-template-columns:150px 1fr}}
+.sc .im{background:#d8c4ad left center/cover;position:relative;min-height:100%}
+.sc .im b{position:absolute;left:10px;bottom:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,252,247,.92);display:grid;place-items:center;font-family:var(--serif);font-size:18px;color:var(--ink)}
+.sc .bd{padding:14px 16px 10px}
+.sc .bd .k{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
+.sc .bd h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.1;margin:2px 0 6px}
+.sc a.lr{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);text-decoration:none;font-size:15px}
+.sc a.lr span.t{flex:1}
+.sc a.lr small{color:var(--faint);font-size:12.5px;white-space:nowrap}
+.appcard{display:flex;gap:16px;align-items:center;padding:18px 20px}
+.appcard img{width:56px;height:56px;border-radius:14px}
+.appcard .tx{flex:1}
+.appcard b{font-family:var(--serif);font-size:22px;font-weight:500;display:block;line-height:1.1}
+/* ---------- lesson ---------- */
+.crumb{display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--muted);margin-bottom:8px}
+.crumb a{color:var(--muted)}
+.lt{font-family:var(--serif);font-weight:500;font-size:clamp(32px,5.4vw,46px);line-height:1.03;margin:4px 0 14px;letter-spacing:-.01em}
+.vid{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#1d1a17;box-shadow:0 22px 50px rgba(43,39,36,.18)}
+.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.vid.ph{background:#2b2724 center/cover}
+.vid.ph:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,15,.25),rgba(20,17,15,.8))}
+.vid.ph .in{position:absolute;left:22px;right:22px;bottom:20px;color:#fff}
+.vid.ph .in b{display:block;font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.1}
+.vid.ph .in small{display:block;margin-top:6px;font-size:13px;color:#e4d8c8}
+.about{font-size:16.5px;color:var(--ink);margin:18px 0 0;max-width:720px}
+.blk{margin-top:22px;padding:18px 20px}
+.blk h3{margin:0 0 4px;font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.1}
+.ebook{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.ebook .ic{width:54px;height:66px;border-radius:8px;background:linear-gradient(150deg,var(--terra),#7e3b25);color:#fff;display:grid;place-items:center;font-family:var(--serif);font-size:22px;flex:none;box-shadow:0 8px 18px rgba(126,59,37,.25)}
+.ebook .tx{flex:1;min-width:200px}
+.ebook .acts{display:flex;gap:8px;flex-wrap:wrap}
+/* quiz */
+.qz .q{padding:16px 0;border-top:1px solid var(--line)}
+.qz .q:first-of-type{border-top:0}
+.qz .q p.qq{font-weight:600;margin:0 0 10px;font-size:16px}
+.qz .q p.qq span{color:var(--faint);font-weight:500;margin-right:6px}
+.qz .opts{display:grid;gap:8px}
+.qz .op{display:flex;gap:10px;align-items:center;text-align:left;width:100%;min-height:48px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:15px;color:var(--ink);transition:border-color .15s,background .15s}
+.qz .op:hover:not(:disabled){border-color:var(--terra)}
+.qz .op i{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;color:var(--muted)}
+.qz .op:disabled{cursor:default}
+.qz .op.right{border-color:var(--sage);background:var(--sageS)}
+.qz .op.right i{background:var(--sage);border-color:var(--sage);color:#fff}
+.qz .op.wrong{border-color:#d9a08b;background:#f8e9e3}
+.qz .op.wrong i{background:#c0623f;border-color:#c0623f;color:#fff}
+.qz .fb{margin:10px 0 0;font-size:14.5px;color:var(--muted);padding:10px 12px;border-radius:12px;background:var(--bg)}
+.qz .fb b{color:var(--ink)}
+.qz .sum{margin-top:12px;padding:16px;border-radius:16px;background:var(--sageS);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.qz .sum b{font-family:var(--serif);font-size:24px;font-weight:500}
+.nav2{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:26px;flex-wrap:wrap}
+.nav2 .done{display:flex;gap:10px;align-items:center}
+.reader{position:fixed;inset:0;z-index:85;background:var(--bg);display:flex;flex-direction:column}
+.reader .bar{display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;border-bottom:1px solid var(--line)}
+.reader .bar b{flex:1;font-family:var(--serif);font-size:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reader iframe{flex:1;border:0;width:100%;background:#fff}
+@media(max-width:979px){.cx{padding-top:14px}}
+</style>
+</head>
+<body>
+<main class="cx" id="cx"><div class="mx-wait" style="grid-column:1/-1">Opening your course…</div></main>
+<script>
+(async function(){
+  await MTH.ready;
+  var PK=MTH.product();
+  if(MTH.user&&!MTH.owns(PK)&&MTH.ownsAny()&&!MTH.qs("p")) PK=MTH.owned[0];
+  await MTH.require(PK);
+  MTH.remember(PK);
+  var C=window.MTH_COURSES[PK], sb=MTH.sb, esc=MTH.esc, uid=MTH.user.id, PP=MTH.config.products[PK];
+  var IMG=MTH.config.assets+"steps/";
+  var flat=[]; C.sections.forEach(function(s){ s.lessons.forEach(function(l){ l.sec=s; flat.push(l); }); });
+  var byId={}; flat.forEach(function(l,i){ l.i=i; byId[l.id]=l; });
+  var media={}, prog={};
+  var LAST="mth_course_last_"+C.product;
+
+  /* ---------- load members-only media + progress ---------- */
+  try{
+    var r1=await sb.from("mth_lesson_media").select("lesson_id,video_url,ebook_url").eq("product",C.product);
+    (r1.data||[]).forEach(function(m){ media[m.lesson_id]=m; });
+  }catch(e){ console.warn("media",e); }
+  try{
+    var r2=await sb.from("mth_progress").select("lesson_id,done,quiz").eq("product",C.product);
+    (r2.data||[]).forEach(function(p){ prog[p.lesson_id]=p; });
+  }catch(e){ console.warn("progress",e); }
+
+  function isDone(id){ return !!(prog[id]&&prog[id].done); }
+  function pct(){ var d=flat.filter(function(l){ return isDone(l.id); }).length; return { d:d, n:flat.length, p:Math.round(100*d/flat.length) }; }
+  async function save(id,patch){
+    var row=Object.assign({ user_id:uid, product:C.product, lesson_id:id, updated_at:new Date().toISOString() },prog[id]?{ done:prog[id].done, quiz:prog[id].quiz }:{},patch);
+    prog[id]=row; side();
+    var r=await sb.from("mth_progress").upsert(row,{ onConflict:"user_id,product,lesson_id" });
+    if(r.error){ console.warn(r.error); MTH.toast("Couldn’t save your progress. Check your connection."); }
+  }
+
+  var root=document.getElementById("cx");
+  root.innerHTML='<aside class="side card" aria-label="Course lessons"></aside><section id="main" aria-live="polite"></section>';
+  var SIDE=root.querySelector(".side"), MAIN=document.getElementById("main"), cur=null;
+
+  function side(){
+    var P=pct();
+    SIDE.innerHTML='<div class="kick">Your course</div><div class="ttl"><a href="course.html?p='+PK+'" data-go="">'+esc(C.title)+'</a></div>'+
+      '<div class="pbar" aria-label="'+P.p+'% complete"><i style="width:'+P.p+'%"></i></div><div class="small" style="margin-top:6px">'+P.d+' of '+P.n+' lessons complete</div>'+
+      C.sections.map(function(s){ return '<div class="sec"><h4>'+(s.step?'Step '+s.step+' · ':'')+esc(s.title)+'</h4>'+
+        s.lessons.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
+  }
+
+  /* ---------- overview ---------- */
+  function overview(){
+    cur=null; side(); document.title=C.title+" · Mark Talks Health";
+    var P=pct(), last=null; try{ last=localStorage.getItem(LAST); }catch(e){}
+    var next=flat.filter(function(l){ return !isDone(l.id); })[0]||flat[0];
+    var resume=byId[last]&&!isDone(last)?byId[last]:next;
+    MAIN.innerHTML='<div class="hero"><div><div class="kick">'+(P.d?'Welcome back':'Welcome')+'</div><h1>'+esc(C.title.replace(/^The /,"")).replace(/ Protocol$/," <em>Protocol</em>")+'</h1><p>Seven steps, one for each day of your reset. Each lesson has a video, the ebook to keep, and a quick refresher quiz.</p></div>'+
+      '<div class="pr"><div class="pbar"><i style="width:'+P.p+'%"></i></div><span>'+P.p+'% complete</span></div>'+
+      '<div class="acts"><a class="b" href="?p='+PK+'&l='+resume.id+'" data-go="'+resume.id+'">'+(P.d?'Continue: ':'Start: ')+esc(resume.title)+'</a><a class="b ghost" href="'+PP.app+'">Open my app</a></div></div>'+
+      '<div class="card appcard" style="margin-top:16px"><img src="assets/app-icon-180.png" alt=""><div class="tx"><b>Your healing app</b><span class="small">Your personal plan, cleanse, meals and daily tracker. On your phone it installs like an app.</span></div><a class="b sm dark" href="'+PP.app+'">Open</a></div>'+
+      '<div class="card appcard" style="margin-top:12px"><img src="assets/app-icon-180.png" alt="" style="filter:hue-rotate(60deg) saturate(.6)"><div class="tx"><b>The Healing Hub</b><span class="small">Check in, ask Mark questions and join the live sessions.</span></div><a class="b sm ghost" href="community.html">Join</a></div>'+
+      '<div class="secs" style="margin-top:16px">'+C.sections.map(function(s){
+        var d=s.lessons.filter(function(l){ return isDone(l.id); }).length;
+        return '<div class="card sc"><div class="im" style="background-image:url('+IMG+s.img+'.jpg)">'+(s.step?'<b>'+s.step+'</b>':'')+'</div><div class="bd"><div class="k">'+(s.step?'Step '+s.step:'Start here')+' · '+d+'/'+s.lessons.length+'</div><h3>'+esc(s.title)+'</h3>'+
+          s.lessons.map(function(l){ return '<a class="lr" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span class="t">'+esc(l.title)+'</span><small>'+(l.quiz?'Video · ebook · quiz':l.app?'App':'Video · ebook')+'</small></a>'; }).join("")+'</div></div>';
+      }).join("")+'</div>';
+    window.scrollTo(0,0);
+  }
+
+  /* ---------- video ---------- */
+  function videoHtml(l){
+    var u=(media[l.id]&&media[l.id].video_url||"").trim(), m;
+    if(!u) return '<div class="vid ph" style="background-image:url('+IMG+l.sec.img+'.jpg)"><div class="in"><b>Video coming soon</b><small>Mark is filming this lesson. The ebook and quiz below are ready now.</small></div></div>';
+    if((m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{6,})/))) return '<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0&modestbranding=1" title="'+esc(l.title)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
+    if((m=u.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-z0-9]+))?/i))) return '<div class="vid"><iframe src="https://player.vimeo.com/video/'+m[1]+(m[2]?'?h='+m[2]:'')+'" title="'+esc(l.title)+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
+    if((m=u.match(/^wistia:([a-z0-9]+)$/i))||(m=u.match(/wistia\.(?:com|net)\/(?:medias|embed\/iframe)\/([a-z0-9]+)/i))) return '<div class="vid"><iframe src="https://fast.wistia.net/embed/iframe/'+m[1]+'?playerColor=c0623f&videoFoam=false" title="'+esc(l.title)+'" allow="autoplay; fullscreen" allowfullscreen></iframe></div>';
+    if(/^https?:\/\//i.test(u)) return '<div class="vid"><video controls playsinline preload="metadata" src="'+esc(u)+'"></video></div>';
+    return '<div class="vid" data-storage-video="'+esc(u)+'"><video controls playsinline preload="metadata"></video></div>';   /* a file in the course-files bucket */
+  }
+  async function storageVideos(){
+    var el=MAIN.querySelector("[data-storage-video]"); if(!el) return;
+    var r=await sb.storage.from("course-files").createSignedUrl(el.getAttribute("data-storage-video"),60*60*6);
+    if(r.data) el.querySelector("video").src=r.data.signedUrl;
+  }
+
+  /* ---------- ebook ---------- */
+  function ebookHtml(l){
+    var u=(media[l.id]&&media[l.id].ebook_url||"").trim();
+    if(l.app) return '';
+    if(!u) return '<div class="card blk ebook"><div class="ic">e</div><div class="tx"><h3>The '+esc(l.title.toLowerCase().replace(/^the /,""))+' ebook</h3><span class="small">Your ebook for this lesson is being added. Check back soon.</span></div></div>';
+    return '<div class="card blk ebook"><div class="ic">e</div><div class="tx"><h3>The '+esc(l.title.toLowerCase().replace(/^the /,""))+' ebook</h3><span class="small">Read it here or download a copy to keep.</span></div><div class="acts"><button class="b sm" data-read>Read ebook</button><button class="b sm ghost" data-dl>Download</button></div></div>';
+  }
+  async function ebookBlob(u){
+    if(/^https?:\/\//i.test(u)){ return null; }
+    var r=await sb.storage.from("course-files").download(u);
+    if(r.error) throw r.error; return r.data;
+  }
+  function wireEbook(l){
+    var u=(media[l.id]&&media[l.id].ebook_url||"").trim(); if(!u) return;
+    var name=u.split("/").pop()||"ebook";
+    var rd=MAIN.querySelector("[data-read]"), dl=MAIN.querySelector("[data-dl]");
+    rd&&rd.addEventListener("click",async function(){
+      if(/^https?:\/\//i.test(u)){ window.open(u,"_blank","noopener"); return; }
+      rd.disabled=true; rd.textContent="Opening…";
+      try{
+        var b=await ebookBlob(u), html=/\.html?$/i.test(u);
+        var rdr=document.createElement("div"); rdr.className="reader";
+        rdr.innerHTML='<div class="bar"><button class="b sm ghost" type="button">Close</button><b>'+esc(l.title)+'</b></div><iframe title="'+esc(l.title)+' ebook" sandbox="allow-scripts allow-popups allow-downloads allow-modals allow-forms"></iframe>';
+        var fr=rdr.querySelector("iframe");
+        if(html){ /* the ebook runs sandboxed (no access to the member's sign-in); give it a private notepad instead of localStorage */
+          var shim='<script>(function(){function S(){var d={};return{getItem:function(k){return k in d?d[k]:null},setItem:function(k,v){d[k]=String(v)},removeItem:function(k){delete d[k]},clear:function(){d={}},key:function(i){return Object.keys(d)[i]||null},get length(){return Object.keys(d).length}}}["localStorage","sessionStorage"].forEach(function(n){try{window[n].length}catch(e){try{Object.defineProperty(window,n,{value:S(),configurable:true})}catch(x){}}})})()<\/script>';
+          var src=await b.text(); fr.srcdoc=/<head[^>]*>/i.test(src)?src.replace(/<head[^>]*>/i,function(m){ return m+shim; }):shim+src; } else { fr.removeAttribute("sandbox"); fr.src=URL.createObjectURL(b); }
+        rdr.querySelector("button").onclick=function(){ rdr.remove(); document.body.style.overflow=""; };
+        document.body.appendChild(rdr); document.body.style.overflow="hidden";
+        if(!isDone(l.id)&&!l.quiz) save(l.id,{ done:true });
+      }catch(e){ MTH.toast("Couldn’t open the ebook. Please try again."); console.warn(e); }
+      rd.disabled=false; rd.textContent="Read ebook";
+    });
+    dl&&dl.addEventListener("click",async function(){
+      if(/^https?:\/\//i.test(u)){ var a0=document.createElement("a"); a0.href=u; a0.download=name; a0.target="_blank"; a0.rel="noopener"; a0.click(); return; }
+      dl.disabled=true;
+      try{ var b=await ebookBlob(u), a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); a.remove(); }
+      catch(e){ MTH.toast("Couldn’t download the ebook. Please try again."); }
+      dl.disabled=false;
+    });
+  }
+
+  /* ---------- quiz (no pass mark) ---------- */
+  function quizHtml(l){
+    if(!l.quiz) return "";
+    return '<div class="card blk qz" id="qz"><div class="kick">Refresher</div><h3>Quick knowledge check</h3><p class="small" style="margin:0 0 6px">'+l.quiz.length+' questions, no pass mark. You’ll see a short explanation after each answer.</p><div class="qs"></div><div class="out"></div></div>';
+  }
+  function runQuiz(l){
+    var box=MAIN.querySelector("#qz"); if(!box) return;
+    var qs=box.querySelector(".qs"), out=box.querySelector(".out"), ans=[];
+    function draw(){
+      ans=[]; out.innerHTML="";
+      qs.innerHTML=l.quiz.map(function(q,i){ return '<div class="q" data-q="'+i+'"><p class="qq"><span>'+(i+1)+'.</span>'+esc(q.q)+'</p><div class="opts">'+
+        q.o.map(function(o,j){ return '<button class="op" type="button" data-o="'+j+'"><i>'+"ABCD"[j]+'</i><span>'+esc(o)+'</span></button>'; }).join("")+'</div></div>'; }).join("");
+      qs.querySelectorAll(".q").forEach(function(qe){
+        var i=+qe.dataset.q, q=l.quiz[i];
+        qe.querySelectorAll(".op").forEach(function(b){ b.addEventListener("click",function(){
+          if(ans[i]!=null) return; var j=+b.dataset.o; ans[i]=j;
+          qe.querySelectorAll(".op").forEach(function(x){ x.disabled=true; var k=+x.dataset.o; if(k===q.a) x.classList.add("right"); else if(k===j) x.classList.add("wrong"); });
+          var f=document.createElement("p"); f.className="fb"; f.innerHTML='<b>'+(j===q.a?'Right.':'Not quite.')+'</b> '+esc(q.fb); qe.appendChild(f);
+          if(ans.filter(function(x){ return x!=null; }).length===l.quiz.length) finish();
+        }); });
+      });
+    }
+    function finish(){
+      var score=ans.filter(function(a,i){ return a===l.quiz[i].a; }).length, n=l.quiz.length;
+      out.innerHTML='<div class="sum"><div style="flex:1"><b>'+score+' of '+n+'</b><div class="small">'+(score===n?'Perfect. You know this step inside out.':score>=n-1?'Great refresher.':'Nice work. The explanations above cover anything you missed.')+'</div></div><button class="b sm ghost" type="button">Try again</button></div>';
+      out.querySelector("button").onclick=function(){ draw(); box.scrollIntoView({behavior:"smooth",block:"start"}); };
+      save(l.id,{ done:true, quiz:{ score:score, total:n, at:new Date().toISOString() } });
+      MTH.toast("Lesson complete ✓");
+      var mk=MAIN.querySelector("[data-mark]"); if(mk) markBtn(mk,l);
+    }
+    draw();
+    var pq=prog[l.id]&&prog[l.id].quiz; if(pq) out.innerHTML='<p class="small" style="margin:12px 0 0">Last time: '+pq.score+' of '+pq.total+'. Take it again any time.</p>';
+  }
+
+  function markBtn(b,l){ var d=isDone(l.id); b.className="b sm "+(d?"sage":"ghost"); b.textContent=d?"Completed ✓":"Mark as complete"; }
+
+  /* ---------- one lesson ---------- */
+  function lesson(id){
+    var l=byId[id]; if(!l) return overview();
+    cur=id; side(); try{ localStorage.setItem(LAST,id); }catch(e){}
+    document.title=l.title+" · "+PP.name;
+    var prev=flat[l.i-1], next=flat[l.i+1];
+    MAIN.innerHTML='<div class="crumb"><a href="course.html?p='+PK+'" data-go="">Course</a><span>›</span><span>'+(l.sec.step?'Step '+l.sec.step+' · ':'')+esc(l.sec.title)+'</span></div>'+
+      '<h1 class="lt">'+esc(l.title)+'</h1>'+videoHtml(l)+'<p class="about">'+esc(l.text)+'</p>'+
+      (l.app?'<div class="card blk appcard"><img src="assets/app-icon-180.png" alt=""><div class="tx"><b>Open your healing app</b><span class="small">Fill in the intake, choose your cleanse level and pick your start date.</span></div><a class="b sm" href="'+PP.app+'">Open app</a></div>':'')+
+      ebookHtml(l)+quizHtml(l)+
+      '<div class="nav2"><div class="done"><button type="button" data-mark></button></div><div style="display:flex;gap:8px">'+
+        (prev?'<a class="b sm ghost" href="?p='+PK+'&l='+prev.id+'" data-go="'+prev.id+'">← Back</a>':'')+
+        (next?'<a class="b sm" href="?p='+PK+'&l='+next.id+'" data-go="'+next.id+'" data-next>Next lesson →</a>':'<a class="b sm" href="course.html?p='+PK+'" data-go="">Finish</a>')+'</div></div>';
+    var mk=MAIN.querySelector("[data-mark]"); markBtn(mk,l);
+    mk.addEventListener("click",function(){ save(l.id,{ done:!isDone(l.id) }); markBtn(mk,l); });
+    var nx=MAIN.querySelector("[data-next]"); if(nx) nx.addEventListener("click",function(){ if(!isDone(l.id)&&!l.quiz) save(l.id,{ done:true }); });
+    wireEbook(l); runQuiz(l); storageVideos();
+    window.scrollTo(0,0);
+  }
+
+  /* ---------- in-page navigation ---------- */
+  function route(){ var id=MTH.qs("l"); if(id&&byId[id]) lesson(id); else overview(); }
+  document.addEventListener("click",function(e){
+    var a=e.target.closest&&e.target.closest("a[data-go]"); if(!a||e.metaKey||e.ctrlKey||e.shiftKey) return;
+    e.preventDefault(); var id=a.getAttribute("data-go");
+    history.pushState(null,"",id?"?p="+PK+"&l="+id:"course.html?p="+PK); route();
+  });
+  window.addEventListener("popstate",route);
+  route();
+})();
+</script>
+</body>
+</html>

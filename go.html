@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mark Talks Health</title>
+<style>html,body{margin:0;height:100%;background:#f7f1e7;font:400 22px Georgia,serif;color:#a8998b;display:grid;place-items:center}</style>
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+</head>
+<body>
+<p>Mark Talks Health</p>
+<script>
+/* Tracking links from social posts:  go.html?p=<post-link-name>&s=<platform>
+   Sends the visitor to the right page with tracking tags, so the admin can see
+   which post brought each visit, sign-up and sale. */
+(async function(){
+  var q=new URLSearchParams(location.search), slug=(q.get("p")||"").slice(0,80), src=(q.get("s")||"social").replace(/[^a-z0-9_-]/gi,"").slice(0,30)||"social";
+  var dest={ page:"index.html", campaign:"social", post:null };
+  try{
+    var sb=window.supabase.createClient("https://oihefcsonqjeicelezln.supabase.co","sb_publishable_vxaKCnn-2XlvV7MmoV3wqg_dxgdqtz2",{ auth:{ persistSession:false } });
+    var r=await Promise.race([sb.rpc("mth_link",{ p_slug:slug }), new Promise(function(res){ setTimeout(function(){ res({}); },2500); })]);
+    if(r&&r.data) dest=r.data;
+  }catch(e){}
+  var page=/^[a-z0-9-]+\.html(\?[^#]*)?$/i.test(dest.page||"")?dest.page:"index.html";
+  var u=new URL(page,location.href);
+  u.searchParams.set("utm_source",src); u.searchParams.set("utm_medium","social");
+  u.searchParams.set("utm_campaign",String(dest.campaign||"social").toLowerCase().replace(/[^a-z0-9_-]+/g,"-").slice(0,40));
+  if(dest.post) u.searchParams.set("utm_content","post-"+dest.post);
+  location.replace(u.href);
+})();
+</script>
+</body>
+</html>

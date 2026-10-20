@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in · Mark Talks Health</title>
+<meta name="theme-color" content="#f7f1e7">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<style>
+.auth{min-height:calc(100vh - 140px);display:grid;place-items:center;padding:36px 16px 56px}
+.auth .card{width:100%;max-width:440px;padding:30px 26px 26px;position:relative;overflow:hidden}
+.auth .card:before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,var(--terra),var(--gold),var(--sage))}
+.auth h1{font-family:var(--serif);font-weight:500;font-size:36px;line-height:1.05;margin:10px 0 8px;letter-spacing:-.01em}
+.auth h1 em{font-style:italic;color:var(--terra)}
+.auth p.sub{color:var(--muted);margin:0 0 22px;font-size:15px}
+.auth .row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 0 18px}
+.auth .link{background:none;border:0;padding:0;color:var(--terra);font-weight:600;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.auth .link:disabled{color:var(--faint);cursor:default;text-decoration:none}
+.auth .fine{font-size:12.5px;color:var(--faint);margin:16px 0 0;text-align:center}
+.auth .who{font-weight:600;color:var(--ink);word-break:break-all}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:12px;background:#fff!important;color:#2a2622!important;border:1px solid rgba(42,38,34,.22)!important;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.or{display:flex;align-items:center;gap:12px;margin:20px 0 16px;color:#8a8073;font-size:13px}
+.or:before,.or:after{content:"";flex:1;height:1px;background:rgba(42,38,34,.15)}
+.gbtn:hover{background:#faf6ef!important}
+</style>
+</head>
+<body>
+<main class="auth">
+  <div class="card">
+    <!-- step 1: email -->
+    <form id="s1" autocomplete="on" novalidate>
+      <div class="kick">Mark Talks Health</div>
+      <h1>Sign <em>in</em></h1>
+      <p class="sub">Continue with Google, or get a 6-digit code by email. No password to remember. New here? This also creates your account.</p>
+      <div id="m1" class="msg hidden" role="alert"></div>
+      <label class="check" style="margin:0 0 18px"><input type="checkbox" id="rem" checked> Remember me on this device</label>
+      <button class="b full gbtn" id="google" type="button"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg><span>Continue with Google</span></button>
+      <div class="or"><span>or use your email</span></div>
+      <div id="emailBox">
+      <div class="field"><label for="em">Email</label><input class="inp" id="em" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="you@example.com" required></div>
+      <button class="b full" id="send" type="submit">Email me a code</button>
+      </div>
+      <p class="fine">On a shared computer, untick "Remember me" and you'll be signed out when the browser closes.</p>
+    </form>
+    <!-- step 2: code -->
+    <form id="s2" class="hidden" autocomplete="off" novalidate>
+      <div class="kick">Check your email</div>
+      <h1>Enter your <em>code</em></h1>
+      <p class="sub">We sent a code to <span class="who" id="who"></span>. It can take a minute to arrive; check spam too.</p>
+      <div id="m2" class="msg hidden" role="alert"></div>
+      <div class="field"><label for="cd">6-digit code</label><input class="inp code" id="cd" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="8" placeholder="••••••" required></div>
+      <button class="b full" id="go" type="submit">Sign in</button>
+      <div class="row" style="margin-top:16px"><button class="link" type="button" id="back">Use a different email</button><button class="link" type="button" id="again" disabled>Resend code</button></div>
+      <p class="fine">Got a sign-in link instead of a code? Tapping the link works too.</p>
+    </form>
+  </div>
+</main>
+<script>
+(function(){
+  var $=function(id){ return document.getElementById(id); };
+  var next=MTH.qs("next")||"";
+  if(!/^[a-z0-9-]+\.html([?#].*)?$/i.test(next)) next="account.html";
+  var email="", timer=null;
+  /* phones default to "remember me"; desktop too, but it's easy to untick */
+  try{ $("rem").checked=MTH.remembered(); }catch(e){}
+
+  function show(id,kind,text){ var m=$(id); m.className="msg "+kind; m.textContent=text; }
+  function hide(id){ $(id).className="msg hidden"; }
+  function go(){ location.replace(next); }
+  function friendly(e){
+    var t=(e&&(e.message||e.error_description||e.msg))||String(e||"");
+    var c=e&&(e.status||e.code);
+    if(c===429||/rate|too many|security purposes/i.test(t)) return "Too many codes requested. Please wait a minute, then try again.";
+    if(/expired|invalid|otp/i.test(t)) return "That code didn't work or has expired. Check the latest email, or tap Resend code.";
+    if(/email.*(not|isn).*(authori|allow)|address not authorized/i.test(t)) return "Sign-in emails can't be sent to this address yet (the site's email sender isn't set up). Please try again later.";
+    if(/fetch|network/i.test(t)) return "We couldn't reach the sign-in service. Check your connection and try again.";
+    return t||"Something went wrong. Please try again.";
+  }
+  function countdown(){
+    var n=60, b=$("again"); b.disabled=true; clearInterval(timer);
+    b.textContent="Resend code (60s)";
+    timer=setInterval(function(){ n--; if(n<=0){ clearInterval(timer); b.disabled=false; b.textContent="Resend code"; } else b.textContent="Resend code ("+n+"s)"; },1000);
+  }
+  async function send(){
+    var sb=MTH.sb;
+    var r=await sb.auth.signInWithOtp({ email:email, options:{ shouldCreateUser:true, emailRedirectTo:MTH.base+"login.html?next="+encodeURIComponent(next) } });
+    if(r.error) throw r.error;
+  }
+
+  /* already signed in (or arriving from the email link): carry on */
+  MTH.ready.then(function(){ if(MTH.user) go(); });
+  MTH.sb.auth.onAuthStateChange(function(ev,s){ if(ev==="SIGNED_IN"&&s) setTimeout(go,50); });
+
+  $("google").addEventListener("click",async function(){
+    hide("m1"); MTH.setRemember($("rem").checked);
+    var b=this; b.disabled=true; b.querySelector("span").textContent="Opening Google…";
+    try{
+      var r=await MTH.sb.auth.signInWithOAuth({ provider:"google", options:{ redirectTo:MTH.base+"login.html?next="+encodeURIComponent(next), queryParams:{ prompt:"select_account" } } });
+      if(r.error) throw r.error;
+    }catch(err){
+      var t=(err&&err.message)||"";
+      show("m1","err",/provider is not enabled|unsupported provider/i.test(t)?"Google sign-in isn't available right now. Please use your email below.":friendly(err));
+      b.disabled=false; b.querySelector("span").textContent="Continue with Google";
+    }
+  });
+  $("s1").addEventListener("submit",async function(e){
+    e.preventDefault(); hide("m1");
+    email=$("em").value.trim().toLowerCase();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ show("m1","err","Please enter a valid email address."); $("em").focus(); return; }
+    MTH.setRemember($("rem").checked);
+    var b=$("send"); b.disabled=true; b.textContent="Sending…";
+    try{
+      await send();
+      $("who").textContent=email; $("s1").classList.add("hidden"); $("s2").classList.remove("hidden");
+      countdown(); setTimeout(function(){ $("cd").focus(); },50);
+    }catch(err){ show("m1","err",friendly(err)); }
+    b.disabled=false; b.textContent="Email me a code";
+  });
+  $("cd").addEventListener("input",function(){ var v=this.value.replace(/\D/g,"").slice(0,8); if(v!==this.value) this.value=v; if(v.length===6&&!this._auto){ this._auto=1; $("s2").requestSubmit?$("s2").requestSubmit():$("go").click(); } if(v.length<6) this._auto=0; });
+  $("s2").addEventListener("submit",async function(e){
+    e.preventDefault(); hide("m2");
+    var code=$("cd").value.replace(/\D/g,"");
+    if(code.length<6){ show("m2","err","Enter the 6-digit code from the email."); return; }
+    var b=$("go"); b.disabled=true; b.textContent="Signing in…";
+    try{
+      var r=await MTH.sb.auth.verifyOtp({ email:email, token:code, type:"email" });
+      if(r.error) throw r.error;
+      b.textContent="Signed in ✓"; go(); return;
+    }catch(err){ show("m2","err",friendly(err)); $("cd")._auto=0; }
+    b.disabled=false; b.textContent="Sign in";
+  });
+  $("again").addEventListener("click",async function(){
+    hide("m2"); this.disabled=true;
+    try{ await send(); show("m2","ok","A new code is on its way."); countdown(); }catch(err){ show("m2","err",friendly(err)); this.disabled=false; }
+  });
+  $("back").addEventListener("click",function(){ $("s2").classList.add("hidden"); $("s1").classList.remove("hidden"); $("cd").value=""; hide("m2"); $("em").focus(); });
+})();
+</script>
+</body>
+</html>
