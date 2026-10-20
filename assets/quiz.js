@@ -9,6 +9,17 @@
   var Core = window.MTHQuizCore;
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
+  function arcHtml(r) {
+    var I = r.arcInfo, maxH = 120;
+    var cols = r.arc.map(function (d) {
+      return '<div class="mq-sc"><span class="mq-pc">' + d.p + '%</span><span class="mq-kc">' + d.kcal.toLocaleString("en-US") + ' kcal</span>' +
+        '<i class="mq-ph ph-' + d.ph + '" style="height:' + Math.max(8, Math.round(d.p / 100 * maxH)) + 'px"></i><span class="mq-lb">' + esc(d.l) + "</span></div>"; }).join("");
+    return '<div class="mq-arcc"><div class="mq-arct">' + I.emoji + " Level " + I.lvl + " · " + esc(I.name) + ' — 7-Day Arc <span class="mq-chip l' + I.lvl + '">' + esc(I.diff) + "</span></div>" +
+      '<div class="mq-arcs">' + esc(I.sub) + '</div><div class="mq-slope">' + cols + "</div>" +
+      '<div class="mq-leg">' + I.legend.map(function (x) { return '<span><i class="ph-' + x[0] + '"></i>' + esc(x[1]) + "</span>"; }).join("") + "</div></div>" +
+      '<ol class="mq-days">' + r.arc.map(function (d) { return '<li><i class="ph-' + d.ph + '"></i><div><b>' + esc(d.t) + "</b><span>" + esc(d.n) + "</span></div></li>"; }).join("") + "</ol>";
+  }
+
   function mount(el, product) {
     if (!el || el.getAttribute("data-on")) return; el.setAttribute("data-on", "1");
     var C = Core.QUIZ[product] || Core.QUIZ.gut, Q = C.questions, N = Q.length;
@@ -56,7 +67,7 @@
             var list = (A[q.id] || []).slice(), at = list.indexOf(k);
             if (k === "nothing") list = at >= 0 ? [] : ["nothing"]; else { if (at >= 0) list.splice(at, 1); else list.push(k); list = list.filter(function (x) { return x !== "nothing"; }); }
             A[q.id] = list; save(); live(); draw();
-          } else { A[q.id] = k; save(); live(); draw(); setTimeout(function () { if (i < N && Q[i] === q) { i++; draw(); } }, 260); }
+          } else { A[q.id] = k; save(); live(); draw(); }
         });
       });
     }
@@ -91,15 +102,13 @@
       done = true;
       $(".mq-grid").hidden = true;
       var box = $(".mq-full"); box.hidden = false;
-      var max = Math.max.apply(null, r.arc.map(function (d) { return d.kcal; }));
       box.innerHTML =
         '<div class="mq-head"><div class="mq-k">Your gut assessment' + (name ? " · " + esc(name) : "") + '</div><h3>' + esc(r.impression) + '</h3>' +
           '<p>Gut stress: <b>' + esc(r.stress) + '</b> · Suggested start: <b>' + esc(r.levelName) + '</b></p>' +
           (emailed ? '<p class="mq-sent">✓ A copy is on its way to your inbox.</p>' : "") + '</div>' +
         (r.patterns.length ? '<div class="mq-sec"><h4>Areas to focus on</h4>' + r.patterns.map(function (p) { return '<div class="mq-pat"><b>' + esc(p.label) + "</b><p>" + esc(p.text) + "</p></div>"; }).join("") + "</div>" : "") +
         '<div class="mq-sec"><h4>Your 7 healing steps, ranked for you</h4>' + r.plan.map(function (b) { return '<div class="mq-bar"><span>' + esc(b.step) + '</span><i><em style="width:' + b.pct + '%"></em></i><small>' + b.pct + "%</small></div>"; }).join("") + "</div>" +
-        '<div class="mq-sec"><h4>Your first 7 days</h4><div class="mq-arc">' + r.arc.map(function (d) {
-          return '<div class="mq-day"><div class="mq-col"><em style="height:' + Math.round(d.kcal / max * 100) + '%"></em></div><b>Day ' + d.d + "</b><span>" + esc(d.t) + "</span><small>" + esc(d.n) + "</small></div>"; }).join("") + "</div></div>" +
+        '<div class="mq-sec"><h4>Your first 7 days</h4>' + arcHtml(r) + "</div>" +
         '<div class="mq-cta"><p>Your full protocol builds on this with your test results, a day-by-day plan, high-protein meals and the 7-part course.</p>' +
           '<button type="button" class="mq-buy">Start ' + esc(C.name) + ' · $97</button><p class="mq-fine">An educational assessment, not a medical diagnosis.</p></div>';
       box.querySelector(".mq-buy").addEventListener("click", function () { if (window.MTH) MTH.buy(C.product, this); else location.href = C.sales + "#checkout"; });

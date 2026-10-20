@@ -81,18 +81,33 @@
     var plan = STEPS.map(function (n, i) { return { step: n, pct: Math.round(40 + 60 * bars[i] / mx) }; });
     var focus = plan.map(function (b, i) { return [i, b.pct]; }).sort(function (x, y) { return y[1] - x[1]; }).slice(0, 3).map(function (x) { return STEPS[x[0]]; });
 
-    // first 7 days
-    var cl = level === 1 ? "Ice cream cleanse" : "Green juice cleanse";
-    var arc = [
-      { d: 1, t: cl + " · day 1", n: "Mostly rest: sleep, clean air, meditation and music", kcal: level === 1 ? 700 : 500 },
-      { d: 2, t: cl + " · day 2", n: "Gentle walk, journal, early night", kcal: level === 1 ? 700 : 500 },
-      { d: 3, t: cl + " · day 3", n: "Light movement starts; digestion is fully resting", kcal: level === 1 ? 700 : 500 },
-      { d: 4, t: "Transition day", n: "Warm bone broth, soups and soft vegetables", kcal: 1000 },
-      { d: 5, t: "Rebuild", n: "Gentle high-protein meals; nature and sunlight", kcal: 1400 },
-      { d: 6, t: "Rebuild", n: "High-protein meals; strength or cardio begins", kcal: 1600 },
-      { d: 7, t: "Full protocol", n: "All 7 healing steps; your daily fasting window", kcal: 1700 }
+    // first 7 days: the same healing arc as the app (prep, cleanse, refeed, normal),
+    // bar height = calories as a share of a normal day (≈2,000 kcal)
+    var NORM = 2000, cl = level === 1 ? "icecream" : "juice";
+    var A1 = level === 1 ? [
+      ["Prep", "Prep day", "Light meals and an early night; get your ice cream ready", 70, "prep"],
+      ["Cleanse 1", "Ice cream cleanse · day 1", "Mostly rest: sleep, clean air, meditation and music", 35, "fast", 700],
+      ["Cleanse 2", "Ice cream cleanse · day 2", "Gentle walk, journal, early night", 35, "fast", 700],
+      ["Cleanse 3", "Ice cream cleanse · day 3", "Light movement starts; digestion is fully resting", 35, "fast", 700],
+      ["Cleanse 4", "Ice cream cleanse · day 4", "Nature and sunlight; last cleanse day", 35, "fast", 700],
+      ["Transition", "Transition day", "Soft-boiled eggs, bone broth and soft cooked vegetables", 70, "r2"],
+      ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
+    ] : [
+      ["Prep", "Prep day", "Light plant-based meals and an early night", 70, "prep"],
+      ["Juice 1", "Green juice cleanse · day 1", "Juice plus an avocado or nut dinner; mostly rest, meditation and music", 20, "fast", 400],
+      ["Juice 2", "Green juice cleanse · day 2", "Gentle walk, journal, early night", 20, "fast", 400],
+      ["Juice 3", "Green juice cleanse · day 3", "Light movement starts; digestion is fully resting", 20, "fast", 400],
+      ["Refeed 1", "Refeed day 1", "Warm bone broth, soups and soft vegetables", 55, "r2"],
+      ["Refeed 2", "Refeed day 2", "Gentle high-protein meals; strength or cardio begins", 80, "r3"],
+      ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
     ];
-    return { product: C.product, name: C.name, pct: pct, stress: stress, impression: impression, patterns: pats.slice(0, 3), level: level, levelName: levelName, plan: plan, focus: focus, arc: arc, answered: sym.length > 0 };
+    var arc = A1.map(function (x, k) { return { d: k + 1, l: x[0], t: x[1], n: x[2], p: x[3], ph: x[4], kcal: x[5] || Math.round(NORM * x[3] / 100) }; });
+    var arcInfo = level === 1
+      ? { lvl: 1, emoji: "🍨", name: "Ice Cream Cleanse", diff: "Easy", sub: "Calories as a share of normal intake. One light prep day, then 4 easy days of avocado or coconut-cream ice cream at breakfast and dinner (≈700 kcal), then one transition day back to whole food.",
+          legend: [["prep", "Prep day (light meals)"], ["fast", "Ice cream days (≈700 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] }
+      : { lvl: 2, emoji: "🥬", name: "Green Juice Cleanse", diff: "Medium", sub: "Calories as a share of normal intake. One light plant-based prep day, then 3 simple days of a vegetable-forward juice plus an avocado or nut dinner (≈400 kcal), then two days easing back into whole food.",
+          legend: [["prep", "Prep day (light meals)"], ["fast", "Green juice days (≈400 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] };
+    return { product: C.product, name: C.name, pct: pct, stress: stress, impression: impression, patterns: pats.slice(0, 3), level: level, levelName: levelName, plan: plan, focus: focus, arc: arc, arcInfo: arcInfo, cleanse: cl, answered: sym.length > 0 };
   }
 
   G.MTHQuizCore = { QUIZ: QUIZ, STEPS: STEPS, score: score };
