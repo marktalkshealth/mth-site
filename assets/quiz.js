@@ -107,7 +107,7 @@
           '<p>Gut stress: <b>' + esc(r.stress) + '</b> · Suggested start: <b>' + esc(r.levelName) + '</b></p>' +
           (emailed ? '<p class="mq-sent">✓ A copy is on its way to your inbox.</p>' : "") + '</div>' +
         (r.patterns.length ? '<div class="mq-sec"><h4>Areas to focus on</h4>' + r.patterns.map(function (p) { return '<div class="mq-pat"><b>' + esc(p.label) + "</b><p>" + esc(p.text) + "</p></div>"; }).join("") + "</div>" : "") +
-        '<div class="mq-sec"><h4>Your 7 healing steps, ranked for you</h4>' + r.plan.map(function (b) { return '<div class="mq-bar"><span>' + esc(b.step) + '</span><i><em style="width:' + b.pct + '%"></em></i><small>' + b.pct + "%</small></div>"; }).join("") + "</div>" +
+        '<div class="mq-sec"><h4>Your 7 healing steps, ranked for you</h4>' + r.plan.map(function (b) { return '<div class="mq-bar' + (r.focus.indexOf(b.step) >= 0 ? " top" : "") + '"><span>' + esc(b.step) + '</span><i><em style="width:' + b.pct + '%"></em></i><small>' + b.pct + "%</small></div>"; }).join("") + "</div>" +
         '<div class="mq-sec"><h4>Your first 7 days</h4>' + arcHtml(r) + "</div>" +
         '<div class="mq-cta"><p>Your full protocol builds on this with your test results, a day-by-day plan, high-protein meals and the 7-part course.</p>' +
           '<button type="button" class="mq-buy">Start ' + esc(C.name) + ' · $97</button><p class="mq-fine">An educational assessment, not a medical diagnosis.</p></div>';

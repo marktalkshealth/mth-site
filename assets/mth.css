@@ -211,8 +211,10 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 :is(#mqx,html) .mq-pat b{display:block;font-size:16px}
 :is(#mqx,html) .mq-pat p{margin:2px 0 0;color:var(--muted,#6e6259);font-size:14.5px}
 :is(#mqx,html) .mq-bar{display:grid;grid-template-columns:minmax(0,1.3fr) 2fr 42px;gap:10px;align-items:center;margin:8px 0;font-size:14px}
-:is(#mqx,html) .mq-bar i{height:10px;border-radius:999px;background:var(--bg2,#efe5d6);overflow:hidden}
-:is(#mqx,html) .mq-bar em{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold,#b8924a),var(--mqT))}
+:is(#mqx,html) .mq-bar i{height:12px;border-radius:999px;background:var(--bg2,#efe5d6);overflow:hidden}
+:is(#mqx,html) .mq-bar em{display:block;height:100%;border-radius:999px;background:var(--sage,#7a8f6e)}
+:is(#mqx,html) .mq-bar.top em{background:var(--mqT)}
+:is(#mqx,html) .mq-bar.top span{font-weight:600}
 :is(#mqx,html) .mq-bar small{text-align:right;color:var(--muted,#6e6259)}
 :is(#mqx,html) .mq-arcc{background:#fff;border:1px solid var(--line,#e7dccb);border-radius:20px;padding:24px 22px 18px;box-shadow:0 2px 16px rgba(0,0,0,.04)}
 :is(#mqx,html) .mq-arct{font-family:var(--serif,'Cormorant Garamond',Georgia,serif);font-size:22px;line-height:1.2;color:var(--ink,#2b2724);margin-bottom:6px}
