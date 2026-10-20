@@ -127,8 +127,8 @@
   M.buy=async function(product,btn){
     product=product||"gut";
     await M.ready;
-    if(!M.user){ location.href=M.loginUrl(CONFIG.products[product].sales+"?buy=1"); return; }
-    if(M.owns(product)){ location.href=CONFIG.products[product].course; return; }
+    /* no sign-in needed to buy: Stripe asks for the email and the account is made after payment */
+    if(M.user&&M.owns(product)){ location.href=CONFIG.products[product].course; return; }
     var old=btn&&btn.innerHTML; if(btn){ btn.disabled=true; btn.innerHTML="Opening secure checkout…"; }
     M.track("checkout",product);
     try{
