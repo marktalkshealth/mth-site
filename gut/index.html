@@ -5574,7 +5574,7 @@ const protOf = p => ['A', 'B', 'L', 'T', 'D', 'S'].reduce((t, k) => t + (p && p[
 const snackPool = () => { const s = R.filter(r => r.cat === 'Protein Snack'); return s.length ? s : R.filter(r => r.cat === 'Treat'); };
 
 /* ---------- meal planning ---------- */
-const GENTLE = { B: ['r09', 'r14', 'r15', 'r18', 'r19', 'k03'], L: ['r12', 'r13', 'r21', 'r22', 'r26', 'k11'], D: ['r10', 'r11', 'r28', 'r31', 'r32', 'k26'] };
+const GENTLE = { B: ['g01', 'g02', 'g03', 'r20', 'g05', 'k03'], L: ['g06', 'r13', 'g07', 'r27', 'g10', 'g09'], D: ['g14', 'r11', 'g11', 'r10', 'g13', 'r28'] };
 function refeedPlan(M, k) {
   if (M.type === 'icecream') return { B: 'r09', L: 'r13', D: 'r12' };
   if (M.type === 'juice') return k === 1 ? { B: 'r09', L: 'r21', D: 'r12' } : { B: 'r09', L: 'r26', D: 'r11' };
@@ -5588,7 +5588,10 @@ function cleansePlan(M, d) {
 }
 const kOf = id => (byId(id) || {}).kcal || 0;
 const sumK = p => ['A', 'B', 'L', 'D', 'S'].reduce((t, k) => t + (p && p[k] ? kOf(p[k]) : 0), 0);
-function pool(cat) { return R.filter(r => r.cat === cat && (r.phase || []).includes('restore') && !/^j0|^r0[1-5]$/.test(r.id)); }
+// High Protein Meal Plan: plan from lean, protein-rich meals (at least 28% of calories from protein, 650 kcal or less).
+// Richer dishes stay in the recipe library to browse, but are not planned automatically.
+const leanEnough = r => r && r.kcal > 0 && r.kcal <= 650 && (r.protein * 4) / r.kcal >= 0.28;
+function pool(cat) { const all = R.filter(r => r.cat === cat && (r.phase || []).includes('restore') && !/^j0|^r0[1-5]$/.test(r.id)); const lean = all.filter(leanEnough); return lean.length >= 4 ? lean : all; }
 function freeDay(kind, used, target) {
   const P = kind === 'gentle'
     ? { B: GENTLE.B.filter(byId), L: GENTLE.L.filter(byId), D: GENTLE.D.filter(byId) }
@@ -5596,11 +5599,11 @@ function freeDay(kind, used, target) {
   let best = null, bs = 1e12;
   for (let t = 0; t < 60; t++) {
     const p = {};
-    ['B', 'L', 'D'].forEach(k => { const fresh = P[k].filter(id => !used.has(id)); p[k] = pick(fresh.length ? fresh : P[k]); });
+    ['B', 'L', 'D'].forEach(k => { const fresh = P[k].filter(id => !used.has(id)); p[k] = pick(fresh.length && Math.random() < 0.75 ? fresh : P[k]); });
     const gap = target - sumK(p);
-    if (gap > 250) { const sn = snackPool().filter(r => !used.has(r.id)); const near = sn.filter(r => Math.abs(gap - r.kcal) < 150); const s = near.length ? pick(near) : sn.sort((a, b) => Math.abs(gap - a.kcal) - Math.abs(gap - b.kcal))[0]; if (s) p.S = s.id; }
+    if (gap > 250) { const sn = (gap > 300 ? snackPool().concat(R.filter(r => r.cat === 'Treat')) : snackPool()).filter(r => !used.has(r.id)); const near = sn.filter(r => Math.abs(gap - r.kcal) < 150); const s = near.length ? pick(near) : sn.sort((a, b) => Math.abs(gap - a.kcal) - Math.abs(gap - b.kcal))[0]; if (s) p.S = s.id; }
     const carbs = ['B', 'L', 'D', 'S'].reduce((c, k) => c + (p[k] ? byId(p[k]).carbs : 0), 0);
-    const sc = Math.max(0, Math.abs(sumK(p) - target) - 100) ** 2 + (kind === 'keto' && carbs > 60 ? (carbs - 60) * 5000 : 0) + Math.max(0, protTarget().lo - protOf(p)) ** 2 * 40;
+    const sc = Math.max(0, Math.abs(sumK(p) - target) - 100) ** 2 + (kind === 'keto' && carbs > 60 ? (carbs - 60) * 5000 : 0) + Math.max(0, protTarget().lo - protOf(p)) ** 2 * 40 + ['B', 'L', 'D'].filter(k => used.has(p[k])).length * 15000;
     if (sc < bs) { bs = sc; best = p; }
   }
   return best;
