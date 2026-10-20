@@ -5568,8 +5568,8 @@ document.addEventListener('click', function(e) {
 // Animate slope bars on load
 window.addEventListener('load', () => { setTimeout(animateSlopeBars, 300); });
 </script>
-<script src="https://marktalkshealth.github.io/mth-protocols/shared/train.js?v=1"></script>
-<script src="https://marktalkshealth.github.io/mth-protocols/shared/kitchen.js?v=1"></script>
+<script src="/media/shared/train.js?v=1"></script>
+<script src="/media/shared/kitchen.js?v=1"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════
    EAT & MOVE: daily food + movement tracker
@@ -6617,6 +6617,6 @@ fxRender(); fxLoadLive();
 </script>
 <script>/* mth-embed-resize: tells the course page how tall the app is */(function(){if(window.parent===window)return;var last=0;function send(){var h=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);if(h!==last){last=h;try{parent.postMessage({type:"mth-height",h:h},"*")}catch(e){}}}if(window.ResizeObserver)new ResizeObserver(send).observe(document.documentElement);window.addEventListener("load",send);setInterval(send,1500);send();})();</script>
 <script>/* phone app layout: only on the members' /app page (?mode=app), never inside the course lessons */
-if(/[?&]mode=app\b/.test(location.search)){var s=document.createElement('script');s.src='https://marktalkshealth.github.io/mth-protocols/shared/app.js?v=11';document.body.appendChild(s);}</script>
+if(/[?&]mode=app\b/.test(location.search)){var s=document.createElement('script');s.src='/media/shared/app.js?v=11';document.body.appendChild(s);}</script>
 </body>
 </html>

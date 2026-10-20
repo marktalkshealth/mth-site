@@ -19,7 +19,7 @@
     },
     order:["gut","sugar","glp1"],
     testMode:false,                      /* shows the "test checkout" ribbon; set false when Stripe is live */
-    assets:"https://marktalkshealth.github.io/mth-protocols/site/"   /* photos already hosted with the old site */
+    assets:"/media/site/"   /* photos already hosted with the old site */
   };
   var H=document.documentElement;
   var REMEMBER="mth_remember";

@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="Mark Talks Health">
 <meta property="og:title" content="The GLP-1 Weight Loss Protocol · Mark Talks Health">
 <meta property="og:description" content="Lose the weight on a GLP-1 and keep it off: protect your muscle with a personalised plan, a 7-part course and your own app.">
-<meta property="og:image" content="https://marktalkshealth.github.io/mth-protocols/site/mark-kitchen.jpg">
+<meta property="og:image" content="/media/site/mark-kitchen.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f7f1e7">
 <link rel="icon" href="assets/app-icon-192.png">
@@ -301,7 +301,7 @@
 
 <!-- STORY -->
 <section class="story"><div class="w">
-  <div class="portrait rv" style="background-image:url('https://marktalkshealth.github.io/mth-protocols/site/mark-kitchen.jpg')"></div>
+  <div class="portrait rv" style="background-image:url('/media/site/mark-kitchen.jpg')"></div>
   <div class="rv">
     <div class="k">Why I made this</div><h2>For me, this is <em>personal</em></h2>
     <p>I struggled with my weight for most of my life. Like many people, I tried diet after diet without a clear plan for my body.</p>
@@ -375,7 +375,7 @@ var DAYS=[
  ["Reset outdoors","Morning light and outdoor walks support steady energy and appetite rhythms.",["Sunlight within an hour of waking","A 30-minute walk outside","Compare your Day 1 and Day 7 check-ins"]]
 ];
 var SIMG=["1-fasting","2-meditation","3-high-protein","4-cardio","5-music","6-sleep","7-nature"];
-$("g2TL").innerHTML=DAYS.map(function(d,i){ return '<button class="td ph" data-d="'+i+'" aria-label="Day '+(i+1)+': '+esc(STEP[i])+'" style="background-image:url(https://marktalkshealth.github.io/mth-protocols/site/steps/'+SIMG[i]+'.jpg)"><b>'+(i+1)+'</b></button>'; }).join("");
+$("g2TL").innerHTML=DAYS.map(function(d,i){ return '<button class="td ph" data-d="'+i+'" aria-label="Day '+(i+1)+': '+esc(STEP[i])+'" style="background-image:url(/media/site/steps/'+SIMG[i]+'.jpg)"><b>'+(i+1)+'</b></button>'; }).join("");
 function day(i){ R.querySelectorAll(".td").forEach(function(b,j){b.classList.toggle("on",j===i);});
   $("g2DK").textContent="Day "+(i+1)+" · "+STEP[i]; $("g2DT").textContent=DAYS[i][0]; $("g2DD").textContent=DAYS[i][1];
   $("g2DL").innerHTML=DAYS[i][2].map(function(t){return "<li>"+esc(t)+"</li>";}).join(""); }
