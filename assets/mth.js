@@ -18,6 +18,7 @@
       glp1: { name:"GLP-1 Weight Loss Protocol", short:"GLP-1", price:"$97", was:"$147", sales:"glp1.html",   course:"course.html?p=glp1",  app:"app.html?p=glp1",  img:"4-cardio",  line:"Lose fat while protecting muscle. A customised roadmap for using GLP-1s intelligently." }
     },
     order:["gut","sugar","glp1"],
+    stripeKey:"",                        /* Stripe publishable key (pk_live_…): turns on the pop-up checkout. Empty = full-page Stripe checkout */
     testMode:false,                      /* shows the "test checkout" ribbon; set false when Stripe is live */
     assets:"/media/site/"   /* photos already hosted with the old site */
   };
@@ -132,6 +133,12 @@
     var old=btn&&btn.innerHTML; if(btn){ btn.disabled=true; btn.innerHTML="Opening secure checkout…"; }
     M.track("checkout",product);
     try{
+      if(CONFIG.stripeKey){
+        var e=await M.fn("mth-checkout",{ product:product, return_base:M.base, embedded:true });
+        if(e.client_secret){ await M.payPopup(e.client_secret,product); if(btn){ btn.disabled=false; btn.innerHTML=old; } return; }
+        if(e.already){ await M.refresh(); location.href=CONFIG.products[product].course; return; }
+        /* anything else: fall back to the full-page checkout below */
+      }
       var j=await M.fn("mth-checkout",{ product:product, return_base:M.base });
       if(j.url){ location.href=j.url; return; }
       if(j.already){ await M.refresh(); location.href=CONFIG.products[product].course; return; }
@@ -141,6 +148,34 @@
       M.modal("Checkout unavailable",why,[["OK",null,"dark"]]);
     }catch(e){ M.modal("Checkout unavailable","We couldn't reach checkout. Check your connection and try again.",[["OK",null,"dark"]]); }
     if(btn){ btn.disabled=false; btn.innerHTML=old; }
+  };
+
+  /* ---------- pop-up checkout: Stripe's own secure form, shown on our page ---------- */
+  var stripeJs=null;
+  function loadStripe(){
+    if(stripeJs) return stripeJs;
+    stripeJs=new Promise(function(ok,bad){ if(window.Stripe) return ok(window.Stripe);
+      var sc=document.createElement("script"); sc.src="https://js.stripe.com/v3/"; sc.onload=function(){ ok(window.Stripe); }; sc.onerror=function(){ stripeJs=null; bad(new Error("stripe.js")); }; document.head.appendChild(sc); });
+    return stripeJs;
+  }
+  M.payPopup=async function(secret,product){
+    var P=CONFIG.products[product]||{};
+    var m=document.createElement("div"); m.className="mx-pay"; m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true"); m.setAttribute("aria-label","Secure checkout");
+    m.innerHTML='<div class="sheet"><div class="hd"><div><small>Secure checkout</small><b>'+M.esc(P.name||"Your protocol")+'</b></div><button type="button" class="x" aria-label="Close checkout">✕</button></div><div class="body"><div class="mx-wait">Loading secure checkout…</div><div id="mxPayMount"></div></div></div>';
+    document.body.appendChild(m); document.body.style.overflow="hidden";
+    var co=null;
+    function close(){ try{ co&&co.destroy(); }catch(e){} m.remove(); document.body.style.overflow=""; }
+    m.querySelector(".x").addEventListener("click",close);
+    m.addEventListener("click",function(e){ if(e.target===m) close(); });
+    document.addEventListener("keydown",function k(e){ if(e.key==="Escape"&&document.body.contains(m)){ close(); document.removeEventListener("keydown",k); } });
+    try{
+      var S=(await loadStripe())(CONFIG.stripeKey);
+      co=await S.initEmbeddedCheckout({ fetchClientSecret:function(){ return Promise.resolve(secret); } });
+      var w=m.querySelector(".mx-wait"); if(w) w.remove();
+      co.mount("#mxPayMount");
+    }catch(err){
+      close(); M.modal("Checkout unavailable","We couldn't open the secure checkout. Check your connection and try again.",[["OK",null,"dark"]]);
+    }
   };
 
   /* ---------- small UI helpers ---------- */

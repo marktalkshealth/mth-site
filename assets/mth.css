@@ -151,3 +151,14 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 .mx-list .inp{flex:1 1 220px;min-height:50px}
 .mx-list button{flex:none;min-height:50px;border:0;cursor:pointer}
 .mx-list-ok{font-family:var(--serif);font-size:24px;color:var(--sage);margin:4px 0 0}
+
+/* pop-up checkout */
+.mx-pay{position:fixed;inset:0;z-index:90;background:rgba(43,39,36,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+.mx-pay .sheet{background:#fff;border-radius:22px;width:100%;max-width:560px;max-height:calc(100dvh - 32px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.mx-pay .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px 12px 20px;border-bottom:1px solid rgba(43,39,36,.1);background:var(--bg)}
+.mx-pay .hd small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mx-pay .hd b{font-family:var(--serif);font-weight:500;font-size:20px;line-height:1.15}
+.mx-pay .x{width:40px;height:40px;border-radius:50%;border:1px solid rgba(43,39,36,.15);background:#fff;font-size:16px;cursor:pointer;flex:none}
+.mx-pay .body{overflow:auto;-webkit-overflow-scrolling:touch;padding:8px 0;min-height:240px}
+.mx-pay .mx-wait{padding:40px 20px;text-align:center}
+@media (max-width:600px){ .mx-pay{padding:0;align-items:flex-end} .mx-pay .sheet{border-radius:20px 20px 0 0;max-height:94dvh} }
