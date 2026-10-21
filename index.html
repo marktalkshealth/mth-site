@@ -16,9 +16,9 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610202312">
+<link rel="stylesheet" href="assets/mth.css?v=202610202046">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610202312"></script>
+<script src="assets/mth.js?v=202610202046"></script>
 <script src="assets/quiz-core.js?v=202610202312"></script>
 <script src="assets/quiz.js?v=202610202312"></script>
 </head>
@@ -45,13 +45,14 @@
 #mh .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
 #mh .rv.in{opacity:1;transform:none}
 /* hero */
-#mh .hero{padding:36px 0 48px;background:radial-gradient(90% 60% at 90% 0%,rgba(192,98,63,.15),transparent 60%)}
+#mh .hero{padding:6px 0 32px;background:radial-gradient(90% 60% at 90% 0%,rgba(192,98,63,.15),transparent 60%)}
 #mh .hero .w{display:grid;gap:22px;align-items:center}
-#mh .hero h1{font-size:clamp(44px,11vw,76px);margin:12px 0 14px}
+#mh .hero h1{font-size:clamp(44px,11vw,76px);margin:0 0 14px}
 #mh .hero .cta.under{justify-content:center;margin-top:18px}
 #mh .hero .w{grid-template-areas:"top" "vid" "bot";gap:0}
 #mh .hero .htop{grid-area:top}#mh .hero .hbot{grid-area:bot}
-#mh .hero .hvid{grid-area:vid;margin:6px 0 24px}
+#mh .hero .hvid{grid-area:vid;margin:4px 0 16px}
+#mh .hero .mthv{max-width:290px}
 #mh .hero h1{margin-bottom:6px}
 #mh .tryapp{display:flex;flex-direction:column;align-items:center}
 #mh .tryapp .tryit{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0 0 12px;padding-right:72px}
@@ -152,7 +153,8 @@
 #mh .sig{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:30px;color:#c0623f}
 @media(min-width:860px){
   #mh section{padding:88px 0}
-  #mh .hero{padding:72px 0 88px}
+  #mh .hero{padding:24px 0 64px}
+  #mh .hero .mthv{max-width:340px}
   #mh .rail{margin:0;padding:6px 2px 14px}
   #mh .pcard{flex-basis:calc(33.333% - 10px)}
   #mh .step{flex-basis:calc(14.285% - 12px);min-width:130px}

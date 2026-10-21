@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610202312">
+<link rel="stylesheet" href="assets/mth.css?v=202610202046">
 <script>
 /* Phones and the installed home-screen app: full-screen app, no site header.
    Computers: site header, then the full desktop software in a frame.
@@ -34,7 +34,7 @@ window.addEventListener("beforeinstallprompt",function(e){ e.preventDefault(); w
 window.addEventListener("appinstalled",function(){ window.__INSTALL=null; if(window.__mthInstalled) window.__mthInstalled(); });
 </script>
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610202312"></script>
+<script src="assets/mth.js?v=202610202046"></script>
 <style>
 /* ---------- phone: full-screen app ---------- */
 html.app-phone,html.app-phone body{height:100%;overflow:hidden;background:#f6f1ea}
@@ -52,7 +52,7 @@ html.app-desk #shell .sw{padding:10px 14px;font-size:14px;max-width:none}
 #shell .ab .me{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#2b2622;color:#fff;text-decoration:none;font:700 14px 'DM Sans',sans-serif}
 #shell .ins{flex:none;display:none;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:0;background:#2b2622;color:#fff;font:600 13px 'DM Sans',system-ui,sans-serif;cursor:pointer}
 #shell .ins svg{width:15px;height:15px}
-#shell.can-install .ins{display:inline-flex}
+#shell .ins,#shell.can-install .ins{display:none!important} /* Install button retired */
 @media (max-width:440px){#shell .ins{width:38px;height:38px;padding:0;justify-content:center}#shell .ins span{display:none}#shell .ins svg{width:18px;height:18px}}
 #shell iframe{flex:1;width:100%;border:0;display:block;background:#f6f1ea}
 html.app-phone #shell .frame{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}

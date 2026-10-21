@@ -29,7 +29,7 @@ window.MTH_COURSES={
       "title": "Set up your healing app",
       "mins": 5,
       "app": true,
-      "text": "Your app turns your symptoms and test results into a day-by-day plan. Fill in the short intake, choose your cleanse level and pick a start date. On your phone, tap Install to keep it on your home screen."
+      "text": "Your app turns your symptoms and test results into a day-by-day plan. Fill in the short intake, choose your cleanse level and pick a start date."
      }
     ]
    },
@@ -824,7 +824,7 @@ window.MTH_COURSES={
       "title": "Set up your healing app",
       "mins": 5,
       "app": true,
-      "text": "Your app turns your symptoms and test results (like HbA1c and fasting glucose) into a day-by-day plan. Fill in the short intake, choose your cleanse level and pick a start date. On your phone, tap Install to keep it on your home screen."
+      "text": "Your app turns your symptoms and test results (like HbA1c and fasting glucose) into a day-by-day plan. Fill in the short intake, choose your cleanse level and pick a start date."
      }
     ]
    },
@@ -1619,7 +1619,7 @@ window.MTH_COURSES={
       "title": "Set up your healing app",
       "mins": 5,
       "app": true,
-      "text": "Your app builds your plan around your weight, goals and symptoms: protein targets, a gentle cleanse level and your daily tracker. Fill in the short intake and pick a start date. On your phone, tap Install to keep it on your home screen."
+      "text": "Your app builds your plan around your weight, goals and symptoms: protein targets, a gentle cleanse level and your daily tracker. Fill in the short intake and pick a start date."
      }
     ]
    },
