@@ -12,6 +12,7 @@
     gut: {
       product: "gut",
       name: "The Gut Health Protocol",
+      kind: "gut", area: "Gut",
       sales: "gut.html",
       questions: [
         { id: "sym", type: "multi", q: "What do you deal with?", hint: "Tap everything that applies.",
@@ -48,6 +49,86 @@
           text: "Your gut and nervous system talk constantly. Calming the stress response and sleeping deeper often settles digestion too.", steps: [1, 5, 4] }
       },
       boost: { daily: 6, weekly: 3, some: 1, m3: 1, y1: 2, y5: 3, y5p: 4 }
+    },
+
+    sugar: {
+      product: "sugar",
+      name: "The Diabetes Protocol",
+      kind: "blood sugar", area: "Blood sugar",
+      sales: "diabetes.html",
+      gentle: ["meds"],
+      questions: [
+        { id: "sym", type: "multi", q: "What do you deal with?", hint: "Tap everything that applies.",
+          o: [["crash", "Energy crashes"], ["crave", "Sugar cravings"], ["fog", "Brain fog after meals"], ["morning", "High morning readings"], ["belly", "Belly weight"], ["thirst", "Always thirsty"],
+              ["tingle", "Tingling hands or feet"], ["bp", "High blood pressure"], ["sleep", "Poor sleep"], ["stress", "Stress & anxiety"], ["lowact", "Low activity"], ["night", "Snacking at night"]] },
+        { id: "freq", type: "one", q: "How often do you notice these?",
+          o: [["daily", "Every day"], ["weekly", "A few times a week"], ["some", "Now and then"]] },
+        { id: "dur", type: "one", q: "How long has blood sugar been a concern?",
+          o: [["m3", "Less than 3 months"], ["y1", "3 to 12 months"], ["y5", "1 to 5 years"], ["y5p", "More than 5 years"]] },
+        { id: "trig", type: "multi", q: "Does any of this sound like you?", hint: "Tap any that fit, or skip.",
+          o: [["meds", "On diabetes medication or insulin"], ["a1c", "HbA1c or fasting glucose above normal"], ["carbs", "Lots of bread, pasta or sweets"], ["sitting", "Sitting most of the day"], ["family", "Diabetes runs in my family"], ["late", "Eating late at night"]] },
+        { id: "tried", type: "multi", q: "What have you tried so far?", hint: "Tap any that fit.",
+          o: [["diets", "Low-carb or keto diets"], ["doctor", "Medication from my doctor"], ["track", "Tracking glucose or a CGM"], ["exercise", "More exercise"], ["nothing", "Nothing yet"]] },
+        { id: "impact", type: "one", q: "How much is it affecting your life?",
+          o: [["little", "A little"], ["some", "Some days are hard"], ["most", "Most days"], ["runs", "It runs my life"]] },
+        { id: "goal", type: "one", q: "What would you love most?",
+          o: [["a1c", "Lower my HbA1c and readings"], ["energy", "Steady energy all day"], ["weight", "Lose belly weight"], ["fewer", "Need less medication, with my doctor"], ["cravings", "Stop the sugar cravings"]] }
+      ],
+      sym: { crash: [2, [2, 3]], crave: [3, [2, 0]], fog: [2, [2, 3]], morning: [3, [0, 5]], belly: [2, [3, 2]], thirst: [3, [2, 0]],
+             tingle: [3, [3, 2]], bp: [2, [1, 3]], sleep: [2, [5, 1]], stress: [2, [1, 4]], lowact: [2, [3, 6]], night: [2, [0, 5]] },
+      patterns: {
+        ir: { label: "Insulin resistance pattern", w: { crave: 2, crash: 2, belly: 2, carbs: 2, fog: 1 },
+          text: "Crashes, cravings and belly weight often mean your cells have stopped listening to insulin. Protein-first meals, a shorter eating window and moving after meals help most.", steps: [2, 0, 3] },
+        dawn: { label: "Night and morning spikes", w: { morning: 3, night: 2, late: 2, sleep: 1 },
+          text: "High morning readings and late eating go together. An earlier last meal and deeper sleep usually bring morning numbers down.", steps: [0, 5, 2] },
+        high: { label: "Raised glucose signs", w: { thirst: 3, tingle: 3, a1c: 3 },
+          text: "Thirst, tingling and raised HbA1c are signs to take seriously. Work with your doctor, and use food, movement and sleep to support the numbers.", steps: [2, 3, 0] },
+        stress: { label: "Stress-driven sugar", w: { stress: 3, sleep: 2, night: 1, crave: 1 },
+          text: "Stress hormones push blood sugar up on their own. Calming the nervous system and sleeping well often steadies readings.", steps: [1, 5, 4] },
+        still: { label: "Low-movement pattern", w: { lowact: 3, sitting: 3, belly: 1 },
+          text: "Muscles are where most sugar gets used. A short walk after meals and two strength sessions a week make a real difference.", steps: [3, 6, 2] },
+        heart: { label: "Heart and metabolic load", w: { bp: 3, belly: 1, family: 2 },
+          text: "Blood pressure, belly weight and family history add up. Steady weight loss, movement and less stress ease the whole system.", steps: [3, 1, 2] }
+      }
+    },
+
+    glp1: {
+      product: "glp1",
+      name: "The GLP-1 Weight Loss Protocol",
+      kind: "GLP-1", area: "Metabolic",
+      sales: "glp1.html",
+      gentle: ["onglp"],
+      questions: [
+        { id: "sym", type: "multi", q: "What do you deal with?", hint: "Tap everything that applies.",
+          o: [["nausea", "Nausea or reflux"], ["constip", "Constipation"], ["lowenergy", "Low energy"], ["muscle", "Losing muscle or strength"], ["hair", "Hair thinning"], ["plateau", "Weight-loss plateau"],
+              ["cravings", "Cravings coming back"], ["regain", "Worried about regain"], ["sleep", "Poor sleep"], ["stresseat", "Stress eating"], ["lowact", "Low activity"], ["skip", "Skipping meals"]] },
+        { id: "freq", type: "one", q: "How often do these show up?",
+          o: [["daily", "Every day"], ["weekly", "A few times a week"], ["some", "Now and then"]] },
+        { id: "dur", type: "one", q: "How long have you been on a GLP-1?",
+          o: [["m3", "Not yet, or under 3 months"], ["y1", "3 to 12 months"], ["y5", "1 to 2 years"], ["y5p", "More than 2 years"]] },
+        { id: "trig", type: "multi", q: "Does any of this sound like you?", hint: "Tap any that fit, or skip.",
+          o: [["onglp", "On a GLP-1 medication now"], ["lowprot", "Low appetite, little protein"], ["nostr", "No strength training"], ["stopping", "Planning to come off it"], ["yoyo", "Lost and regained weight before"], ["alcohol", "Regular alcohol"]] },
+        { id: "tried", type: "multi", q: "What have you tried so far?", hint: "Tap any that fit.",
+          o: [["diets", "Diets or calorie counting"], ["meds", "Other weight-loss medication"], ["gym", "A gym or training plan"], ["coach", "A coach or program"], ["nothing", "Nothing yet"]] },
+        { id: "impact", type: "one", q: "How much is it affecting your life?",
+          o: [["little", "A little"], ["some", "Some days are hard"], ["most", "Most days"], ["runs", "It runs my life"]] },
+        { id: "goal", type: "one", q: "What would you love most?",
+          o: [["fat", "Lose fat, keep muscle"], ["keep", "Keep the weight off for good"], ["energy", "More energy"], ["taper", "Come off it, with my doctor"], ["strong", "Feel strong and confident"]] }
+      ],
+      sym: { nausea: [2, [2, 5]], constip: [2, [2, 6]], lowenergy: [2, [2, 3]], muscle: [3, [3, 2]], hair: [2, [2, 5]], plateau: [3, [3, 0]],
+             cravings: [3, [2, 1]], regain: [3, [3, 2]], sleep: [2, [5, 1]], stresseat: [2, [1, 4]], lowact: [2, [3, 6]], skip: [2, [2, 0]] },
+      patterns: {
+        muscle: { label: "Muscle loss risk", w: { muscle: 3, lowprot: 3, nostr: 2, skip: 2, hair: 1, lowenergy: 1 },
+          text: "Eating very little can strip muscle along with fat. Hitting your protein target and lifting twice a week protects it.", steps: [2, 3, 5] },
+        gi: { label: "Gut side effects", w: { nausea: 3, constip: 3 },
+          text: "Nausea and constipation are common on GLP-1s. Smaller meals, water, fibre from vegetables and gentle walks usually help.", steps: [2, 6, 5] },
+        regain: { label: "Regain risk", w: { regain: 3, stopping: 3, yoyo: 2, cravings: 1 },
+          text: "Weight often returns when the medication stops unless habits and muscle are in place. Building them now is the safest exit plan.", steps: [3, 2, 1] },
+        plateau: { label: "Plateau pattern", w: { plateau: 3, lowact: 2, sleep: 1, alcohol: 1 },
+          text: "Plateaus usually ease with more daily movement, strength work, deeper sleep and less alcohol.", steps: [3, 5, 0] },
+        emotional: { label: "Stress and cravings", w: { stresseat: 3, cravings: 2, sleep: 1 },
+          text: "Cravings coming back often follow stress and short sleep. Calming the stress response keeps appetite steady.", steps: [1, 5, 4] }
+      }
     }
   };
 
@@ -72,8 +153,10 @@
 
     var top = pats[0];
     var impression = !sym.length ? "" : top ? top.label : "Mild imbalance";
-    var level = pct < 40 ? 1 : 2;
-    var levelName = level === 1 ? "Level 1 · Ice cream cleanse" : pct < 70 ? "Level 2 · Green juice cleanse" : "Level 2 · Green juice cleanse, with guidance";
+    // on medication (insulin, diabetes pills, a GLP-1): gentlest level, with their doctor
+    var gentle = (C.gentle || []).some(function (k) { return has(a, k); });
+    var level = gentle || pct < 40 ? 1 : 2;
+    var levelName = level === 1 ? "Level 1 · Ice cream cleanse" + (gentle ? ", with your doctor" : "") : pct < 70 ? "Level 2 · Green juice cleanse" : "Level 2 · Green juice cleanse, with guidance";
     var stress = pct < 35 ? "mild" : pct < 70 ? "moderate" : "high";
 
     // protocol bars: every step is in the plan; emphasis 40–100%
@@ -107,7 +190,7 @@
           legend: [["prep", "Prep day (light meals)"], ["fast", "Ice cream days (≈700 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] }
       : { lvl: 2, emoji: "🥬", name: "Green Juice Cleanse", diff: "Medium", sub: "Calories as a share of normal intake. One light plant-based prep day, then 3 simple days of a vegetable-forward juice plus an avocado or nut dinner (≈400 kcal), then two days easing back into whole food.",
           legend: [["prep", "Prep day (light meals)"], ["fast", "Green juice days (≈400 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] };
-    return { product: C.product, name: C.name, pct: pct, stress: stress, impression: impression, patterns: pats.slice(0, 3), level: level, levelName: levelName, plan: plan, focus: focus, arc: arc, arcInfo: arcInfo, cleanse: cl, answered: sym.length > 0 };
+    return { product: C.product, name: C.name, kind: C.kind, area: C.area, gentle: gentle, pct: pct, stress: stress, impression: impression, patterns: pats.slice(0, 3), level: level, levelName: levelName, plan: plan, focus: focus, arc: arc, arcInfo: arcInfo, cleanse: cl, answered: sym.length > 0 };
   }
 
   G.MTHQuizCore = { QUIZ: QUIZ, STEPS: STEPS, score: score };

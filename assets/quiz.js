@@ -32,7 +32,7 @@
         '<div class="mq-card"><div class="mq-top"><span class="mq-step"></span><div class="mq-prog"><i></i></div></div><div class="mq-body"></div>' +
           '<div class="mq-nav"><button type="button" class="mq-back">Back</button><button type="button" class="mq-next">Next</button></div></div>' +
         '<aside class="mq-live" aria-live="polite"><div class="mq-k">Your first impression</div><div class="mq-imp">Answer to see it</div>' +
-          '<div class="mq-meter"><i></i></div><div class="mq-lvl">Gut stress level will show here</div><div class="mq-foc"></div>' +
+          '<div class="mq-meter"><i></i></div><div class="mq-lvl">' + C.area + ' stress level will show here</div><div class="mq-foc"></div>' +
           '<p class="mq-fine">An educational pattern, not a diagnosis.</p></aside>' +
       '</div>' +
       '<div class="mq-full" hidden></div>';
@@ -43,7 +43,7 @@
       var r = Core.score(C.product, A);
       $(".mq-imp").textContent = r.answered ? r.impression : "Answer to see it";
       $(".mq-meter i").style.width = r.pct + "%";
-      $(".mq-lvl").textContent = r.answered ? "Gut stress: " + r.stress + (A.freq ? " · suggested start: " + r.levelName.split(" · ")[0] : "") : "Gut stress level will show here";
+      $(".mq-lvl").textContent = r.answered ? C.area + " stress: " + r.stress + (A.freq ? " · suggested start: " + r.levelName.split(" · ")[0] : "") : C.area + " stress level will show here";
       $(".mq-foc").innerHTML = r.answered ? '<span>Your plan would lean on</span>' + r.focus.map(function (f) { return "<b>" + esc(f) + "</b>"; }).join("") : "";
       return r;
     }
@@ -120,8 +120,8 @@
       $(".mq-grid").hidden = true;
       var box = $(".mq-full"); box.hidden = false;
       box.innerHTML =
-        '<div class="mq-head"><div class="mq-k">Your gut assessment' + (name ? " · " + esc(name) : "") + '</div><h3>' + esc(r.impression) + '</h3>' +
-          '<p>Gut stress: <b>' + esc(r.stress) + '</b> · Suggested start: <b>' + esc(r.levelName) + '</b></p>' +
+        '<div class="mq-head"><div class="mq-k">Your ' + esc(C.kind) + ' assessment' + (name ? " · " + esc(name) : "") + '</div><h3>' + esc(r.impression) + '</h3>' +
+          '<p>' + esc(C.area) + ' stress: <b>' + esc(r.stress) + '</b> · Suggested start: <b>' + esc(r.levelName) + '</b></p>' +
           (emailed ? '<p class="mq-sent">✓ A copy is on its way to your inbox.</p>' : "") + '</div>' +
         (r.patterns.length ? '<div class="mq-sec"><h4>Areas to focus on</h4>' + r.patterns.map(function (p) { return '<div class="mq-pat"><b>' + esc(p.label) + "</b><p>" + esc(p.text) + "</p></div>"; }).join("") + "</div>" : "") +
         '<div class="mq-sec"><h4>Your 7 healing steps, ranked for you</h4>' + r.plan.map(function (b) { return '<div class="mq-bar' + (r.focus.indexOf(b.step) >= 0 ? " top" : "") + '"><span>' + esc(b.step) + '</span><i><em style="width:' + b.pct + '%"></em></i><small>' + b.pct + "%</small></div>"; }).join("") + "</div>" +
