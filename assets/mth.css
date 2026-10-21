@@ -262,8 +262,8 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 :is(#mqx,html) .mq-hint{font-size:13.5px;margin:0 0 6px}
 :is(#mqx,html) .mq-opts{margin-top:8px;gap:6px}
 :is(#mqx,html) .mq-opts.multi{display:grid;grid-template-columns:1fr 1fr}
-:is(#mqx,html) .mq-o{font-size:14px;padding:10px 12px;border-radius:12px;line-height:1.25}
-:is(#mqx,html) .mq-opts.one .mq-o{padding:12px 14px;border-radius:12px}
+:is(#mqx,html) .mq-o{font-size:13.5px;padding:8px 10px;border-radius:11px;line-height:1.2}
+:is(#mqx,html) .mq-opts.one .mq-o{padding:10px 12px;border-radius:11px}
 :is(#mqx,html) .mq-opts.one{grid-template-columns:1fr;gap:6px}
 :is(#mqx,html) .mq-nav{margin-top:12px}
 :is(#mqx,html) .mq-next,:is(#mqx,html) .mq-go{padding:12px 26px;font-size:15.5px}
