@@ -119,16 +119,12 @@
       done = true;
       $(".mq-grid").hidden = true;
       var box = $(".mq-full"); box.hidden = false;
+      /* simple result: a short heading, the focus areas in a few lines, the 7-day arc, then the inbox note */
       box.innerHTML =
-        '<div class="mq-head"><div class="mq-k">Your ' + esc(C.kind) + ' assessment' + (name ? " · " + esc(name) : "") + '</div><h3>' + esc(r.impression) + '</h3>' +
-          '<p>' + esc(C.area) + ' stress: <b>' + esc(r.stress) + '</b> · Suggested start: <b>' + esc(r.levelName) + '</b></p>' +
-          (emailed ? '<p class="mq-sent">✓ A copy is on its way to your inbox.</p>' : "") + '</div>' +
-        (r.patterns.length ? '<div class="mq-sec"><h4>Areas to focus on</h4>' + r.patterns.map(function (p) { return '<div class="mq-pat"><b>' + esc(p.label) + "</b><p>" + esc(p.text) + "</p></div>"; }).join("") + "</div>" : "") +
-        '<div class="mq-sec"><h4>Your 7 healing steps, ranked for you</h4>' + r.plan.map(function (b) { return '<div class="mq-bar' + (r.focus.indexOf(b.step) >= 0 ? " top" : "") + '"><span>' + esc(b.step) + '</span><i><em style="width:' + b.pct + '%"></em></i><small>' + b.pct + "%</small></div>"; }).join("") + "</div>" +
-        '<div class="mq-sec"><h4>Your first 7 days</h4>' + arcHtml(r) + "</div>" +
-        '<div class="mq-cta"><p>Your full protocol builds on this with your test results, a day-by-day plan, high-protein meals and the 7-part course.</p>' +
-          '<button type="button" class="mq-buy">Start ' + esc(C.name) + ' · $97</button><p class="mq-fine">An educational assessment, not a medical diagnosis.</p></div>';
-      box.querySelector(".mq-buy").addEventListener("click", function () { if (window.MTH) MTH.buy(C.product, this); else location.href = C.sales + "#checkout"; });
+        '<div class="mq-k">Your ' + esc(C.kind) + ' assessment' + (name ? " · " + esc(name) : "") + '</div>' +
+        (r.patterns.length ? '<div class="mq-pats">' + r.patterns.slice(0, 2).map(function (p) { return '<p><b>' + esc(p.label) + ':</b> ' + esc(p.text) + "</p>"; }).join("") + "</div>" : "") +
+        arcHtml(r) +
+        '<p class="mq-inbox">' + "✓ Check your inbox for your full protocol." + "</p>";
       box.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 

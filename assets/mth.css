@@ -201,7 +201,11 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 :is(#mqx,html) .mq-in{font:inherit;font-size:16px;border:1.5px solid var(--line,#e7dccb);border-radius:14px;padding:14px 16px;background:#fff;color:var(--ink,#2b2724);width:100%}
 :is(#mqx,html) .mq-in:focus{outline:none;border-color:var(--mqT)}
 :is(#mqx,html) .mq-in.bad{border-color:#b3261e}
-:is(#mqx,html) .mq-full{padding:24px;scroll-margin-top:84px}
+:is(#mqx,html) .mq-full{padding:18px;scroll-margin-top:84px}
+:is(#mqx,html) .mq-pats{margin:6px 0 12px}
+:is(#mqx,html) .mq-pats p{margin:0 0 6px;font-size:14px;line-height:1.4;color:var(--muted,#6e6259)}
+:is(#mqx,html) .mq-pats b{color:var(--ink,#2b2724)}
+:is(#mqx,html) .mq-inbox{margin:14px 0 0;text-align:center;font-weight:600;color:var(--sage,#7a8f6e)}
 :is(#mqx,html) .mq-head h3{font-family:var(--serif,'Cormorant Garamond',Georgia,serif);font-weight:500;font-size:clamp(34px,7vw,46px);line-height:1.02;margin:6px 0 8px;color:var(--ink,#2b2724)}
 :is(#mqx,html) .mq-head p{color:var(--muted,#6e6259);margin:0}
 :is(#mqx,html) .mq-sent{color:var(--sage,#7a8f6e)!important;font-weight:600;margin-top:8px!important}
@@ -275,7 +279,8 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 :is(#mqx,html) .mq-foc b{font-size:12px;padding:4px 9px}
 :is(#mqx,html) .mq-fine{font-size:11px;margin-top:8px}
 :is(#mqx,html) .mq-in{padding:12px 14px}
-:is(#mqx,html) .mq-full{padding:16px 14px}
+:is(#mqx,html) .mq-full{padding:12px 12px 14px}
+:is(#mqx,html) .mq-pats p{font-size:13px}
 :is(#mqx,html) .mq-head h3{font-size:32px}
 :is(#mqx,html) .mq-head p{font-size:14px}
 :is(#mqx,html) .mq-sec{margin-top:16px;padding-top:14px}
