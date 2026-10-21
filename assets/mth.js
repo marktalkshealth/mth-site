@@ -228,9 +228,8 @@
   function footer(){
     if(document.querySelector(".mx-f")||H.classList.contains("mx-bare")) return;
     var f=document.createElement("footer"); f.className="mx-f";
-    f.innerHTML='<div class="in"><div class="brand">Mark Talks Health<small>Natural healing meets modern science. Personalised protocols, guided day by day.</small></div>'+
-      '<nav aria-label="Footer"><a href="index.html">Home</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a></nav>'+
-      '<div class="fine">Educational program, not a substitute for professional medical advice, diagnosis or treatment. Individual results vary. Consult your healthcare provider before starting any fasting or cleansing protocol. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
+    f.innerHTML='<div class="in"><nav aria-label="Footer"><a href="index.html">Home</a><a href="'+(M.ownsAny()?"course.html":"protocols.html")+'">Courses</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'</nav>'+
+      '<div class="fine">&copy; '+new Date().getFullYear()+' Mark Talks Health · Educational, not medical advice · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div></div>';
     document.body.appendChild(f);
   }
   M.chrome=function(){ header(); footer(); };
@@ -339,7 +338,7 @@
     var scripts=[].slice.call(box.querySelectorAll("script"));
     target.appendChild(box);
     scripts.forEach(function(old){ var s=document.createElement("script"); if(old.src) s.src=old.src; else s.textContent=old.textContent; old.parentNode.replaceChild(s,old); });
-    if(box.querySelector(".mthp[data-proto]")&&!document.getElementById("mthp-js")){ var s=document.createElement("script"); s.id="mthp-js"; s.src=BASE+"phone.js?v=4"; document.head.appendChild(s); }
+    if(box.querySelector(".mthp[data-proto]")&&!document.getElementById("mthp-js")){ var s=document.createElement("script"); s.id="mthp-js"; s.src=BASE+"phone.js?v=5"; document.head.appendChild(s); }
     if(box.querySelector(".mthv")) videos(box);
     try{ rails(box); }catch(e){}
     return box;

@@ -68,15 +68,15 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 }
 
 /* ---------- footer ---------- */
-.mx-f{background:var(--dark);color:#e9dfd2;padding:34px 20px calc(26px + env(safe-area-inset-bottom));margin-top:0}
-.mx-f .in{max-width:1120px;margin:0 auto;display:grid;gap:16px}
+.mx-f{background:var(--dark);color:#e9dfd2;padding:14px 16px calc(12px + env(safe-area-inset-bottom));margin-top:0}
+.mx-f .in{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
 .mx-f .brand{font-family:var(--serif);font-size:24px;color:#fff}
 .mx-f .brand small{display:block;font-family:var(--sans);font-size:13px;color:#b9ab9b;margin-top:4px;max-width:360px}
 .mx-f nav{display:flex;flex-wrap:wrap;gap:8px}
-.mx-f nav a{color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border:1px solid rgba(255,255,255,.18);border-radius:999px}
+.mx-f nav a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px}
 .mx-f nav a:hover{background:rgba(255,255,255,.08)}
-.mx-f .fine{font-size:11px;color:#9d9083;line-height:1.55;border-top:1px solid rgba(255,255,255,.1);padding-top:12px}
-@media(min-width:800px){.mx-f .in{grid-template-columns:1fr auto;align-items:center}.mx-f .fine{grid-column:1/-1}}
+.mx-f .fine{font-size:10.5px;color:#9d9083;line-height:1.4}.mx-f .fine a{color:#9d9083}
+
 
 /* ---------- cards, forms ---------- */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 1px 0 rgba(43,39,36,.02)}

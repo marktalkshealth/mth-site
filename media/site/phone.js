@@ -81,7 +81,7 @@
 .mthp{display:flex;flex-direction:column;align-items:center;font-family:Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}\
 .mthp *{box-sizing:border-box;margin:0;padding:0}\
 .mthp button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;text-align:left}\
-.mthp-phone{width:min(290px,80vw);aspect-ratio:9/19.5;border-radius:42px;background:#111;padding:10px;box-shadow:0 34px 70px rgba(43,39,36,.25);position:relative}\
+.mthp-phone{width:min(290px,80vw);aspect-ratio:9/18.7;zoom:.92;border-radius:42px;background:#111;padding:10px;box-shadow:0 34px 70px rgba(43,39,36,.25);position:relative}\
 .mthp-scr{width:100%;height:100%;border-radius:33px;background:#fffcf7;color:#2b2724;overflow:hidden;position:relative;font-size:11px;touch-action:pan-y;-webkit-user-select:none;user-select:none}\
 .mthp-notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:86px;height:22px;border-radius:12px;background:#111;z-index:6}\
 .mthp-pane{position:absolute;inset:0;padding:38px 12px 64px;overflow:hidden;touch-action:pan-y;transform:translateX(100%);transition:transform .38s cubic-bezier(.3,.7,.2,1);background:#fffcf7}\

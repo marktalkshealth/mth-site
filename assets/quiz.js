@@ -49,16 +49,33 @@
     }
     function answered(q) { var v = A[q.id]; return q.type === "multi" ? (q.id !== "sym" || (v && v.length)) : !!v; }
 
+    function qHtml(q, v) {
+      return '<h3 class="mq-q">' + esc(q.q) + "</h3>" + (q.hint ? '<p class="mq-hint">' + esc(q.hint) + "</p>" : "") +
+        '<div class="mq-opts ' + (q.type === "multi" ? "multi" : "one") + '">' + q.o.map(function (o) {
+          var on = q.type === "multi" ? (v || []).indexOf(o[0]) >= 0 : v === o[0];
+          return '<button type="button" class="mq-o' + (on ? " on" : "") + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + "</button>"; }).join("") + "</div>";
+    }
+    /* keep the question box one fixed height (the tallest question), so Next never moves */
+    var fitW = 0;
+    function fit(force) {
+      var body = $(".mq-body"); if (!body || done) return;
+      var w = body.clientWidth; if (!w || (w === fitW && !force)) return; fitW = w;
+      var keep = document.createDocumentFragment(), max = 0;
+      while (body.firstChild) keep.appendChild(body.firstChild);   /* set aside the live question (keeps its taps working) */
+      body.style.minHeight = "0";
+      Q.forEach(function (q) { body.innerHTML = qHtml(q, A[q.id]); max = Math.max(max, body.scrollHeight); });
+      body.innerHTML = ""; body.appendChild(keep); body.style.minHeight = max + "px";
+    }
+    window.addEventListener("resize", function () { if (i < N) fit(); });
+
     function draw() {
       $(".mq-prog i").style.width = Math.round((i / (N + 1)) * 100) + "%";
       $(".mq-back").style.visibility = i ? "visible" : "hidden";
       if (i >= N) return drawEmail();
       var q = Q[i], v = A[q.id];
       $(".mq-step").textContent = "Question " + (i + 1) + " of " + N;
-      $(".mq-body").innerHTML = '<h3 class="mq-q">' + esc(q.q) + "</h3>" + (q.hint ? '<p class="mq-hint">' + esc(q.hint) + "</p>" : "") +
-        '<div class="mq-opts ' + (q.type === "multi" ? "multi" : "one") + '">' + q.o.map(function (o) {
-          var on = q.type === "multi" ? (v || []).indexOf(o[0]) >= 0 : v === o[0];
-          return '<button type="button" class="mq-o' + (on ? " on" : "") + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + "</button>"; }).join("") + "</div>";
+      $(".mq-body").innerHTML = qHtml(q, v);
+      fit();
       var nx = $(".mq-next"); nx.hidden = false; nx.textContent = q.type === "multi" && !(v && v.length) && q.id !== "sym" ? "Skip" : "Next"; nx.disabled = !answered(q);
       [].forEach.call(el.querySelectorAll(".mq-o"), function (b) {
         b.addEventListener("click", function () {

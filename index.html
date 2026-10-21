@@ -16,11 +16,11 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610202046">
+<link rel="stylesheet" href="assets/mth.css?v=202610202053">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610202046"></script>
-<script src="assets/quiz-core.js?v=202610202312"></script>
-<script src="assets/quiz.js?v=202610202312"></script>
+<script src="assets/mth.js?v=202610202053"></script>
+<script src="assets/quiz-core.js?v=202610202053"></script>
+<script src="assets/quiz.js?v=202610202053"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">Mark Talks Health</div></main>
@@ -41,7 +41,7 @@
 #mh .btn:hover{background:#a8522f;transform:translateY(-1px);box-shadow:0 10px 24px rgba(192,98,63,.3)}
 #mh .btn.ghost{background:#fffcf7;color:#2b2724!important;border:1px solid #e7dccb}
 #mh .btn.ghost:hover{background:#fff;box-shadow:0 8px 20px rgba(43,39,36,.08)}
-#mh section{padding:56px 0}
+#mh section{padding:28px 0}
 #mh .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
 #mh .rv.in{opacity:1;transform:none}
 /* hero */
@@ -93,7 +93,7 @@
 #mh .step span{font-weight:700;font-size:15px;line-height:1.2;position:relative;z-index:1}
 #mh .step small{display:block;font-weight:500;font-size:12px;opacity:.85;margin-top:3px}
 /* features */
-#mh .feat{display:grid;gap:12px;margin-top:20px}
+#mh .feat{display:grid;gap:10px;margin-top:14px}
 #mh .fc{background:#fffcf7;border:1px solid #e7dccb;border-radius:18px;padding:20px;transition:transform .2s,box-shadow .2s}
 #mh .fc:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(43,39,36,.08)}
 #mh .fc .ic{width:44px;height:44px;border-radius:12px;background:#f6dccf;color:#c0623f;display:grid;place-items:center;font-size:20px;margin-bottom:12px}
@@ -141,7 +141,7 @@
 #mh .sys-dots i{width:7px;height:7px;border-radius:50%;background:#dccdb9;transition:all .25s;cursor:pointer}#mh .sys-dots i.on{width:20px;border-radius:5px;background:#c0623f}
 @media(min-width:860px){#mh .sys{margin:26px 0 0;padding:6px 2px 12px}#mh .sc{flex:0 0 320px}}
 /* hub promo */
-#mh .hub{display:grid;gap:24px;align-items:center;background:#fffcf7;border:1px solid #e7dccb;border-radius:24px;padding:24px;box-shadow:0 24px 60px rgba(43,39,36,.08)}
+#mh .hub{display:grid;gap:12px;align-items:center;background:#fffcf7;border:1px solid #e7dccb;border-radius:20px;padding:14px;box-shadow:0 24px 60px rgba(43,39,36,.08)}
 #mh .feed{display:grid;gap:8px}
 #mh .post{background:#f7f1e7;border-radius:14px;padding:12px;display:flex;gap:10px;font-size:13.5px;line-height:1.45}
 #mh .post .av{width:32px;height:32px;border-radius:50%;background:#efe5d6;display:grid;place-items:center;flex:none}
@@ -152,14 +152,14 @@
 #mh .founder p{font-size:16px;line-height:1.7;color:#6e6259;margin-bottom:12px;max-width:560px}
 #mh .sig{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:30px;color:#c0623f}
 @media(min-width:860px){
-  #mh section{padding:88px 0}
+  #mh section{padding:48px 0}
   #mh .hero{padding:24px 0 64px}
   #mh .hero .mthv{max-width:340px}
   #mh .rail{margin:0;padding:6px 2px 14px}
   #mh .pcard{flex-basis:calc(33.333% - 10px)}
   #mh .step{flex-basis:calc(14.285% - 12px);min-width:130px}
   #mh .feat{grid-template-columns:repeat(4,1fr)}
-  #mh .hub{grid-template-columns:1fr 1fr;padding:40px}
+  #mh .hub{grid-template-columns:1fr 1fr;padding:24px}
   #mh .founder{grid-template-columns:.8fr 1.2fr}
 }
 #mh .step.ph{flex:0 0 68%;max-width:290px}
@@ -190,6 +190,11 @@
   <div class="mthp" data-proto="all" data-hint="off"></div>
 </div></section>
 
+<section class="alt" id="quiz" style="padding-top:8px"><div class="w">
+  <div class="rv"><div class="k">Free 60-second gut quiz</div><h2>What is your gut <em>telling you?</em></h2><p class="lead">Answer 7 quick questions. Your first impression updates as you go, and your full assessment is free.</p></div>
+  <div data-mth-quiz="gut" data-source="home"></div>
+</div></section>
+
 <section class="dark"><div class="w">
   <div class="rv"><div class="k">The method</div><h2>Seven days, <em>seven healing steps</em></h2><p class="lead">When you combine 7 healing methods at once, your body undergoes a rapid healing process.</p></div>
   <div class="rail rv" id="mhSteps" style="margin-top:22px"></div>
@@ -200,14 +205,11 @@
   <div class="rail rv" id="mhCards"></div>
 </div></section>
 
-<section class="alt" id="quiz"><div class="w">
-  <div class="rv"><div class="k">Free 60-second gut quiz</div><h2>What is your gut <em>telling you?</em></h2><p class="lead">Answer 7 quick questions. Your first impression updates as you go, and your full assessment is free.</p></div>
-  <div data-mth-quiz="gut" data-source="home"></div>
-</div></section>
+
 
 <section style="padding-top:0"><div class="w">
   <div class="hub rv">
-    <div><div class="k">The Healing Hub</div><h2>Heal <em>together</em></h2><p class="lead" style="margin-bottom:20px">A private community for members: daily check-ins, fasting milestones, questions answered by Mark, and live sessions.</p><a class="btn" id="mhHub" href="protocols.html">Choose your protocol</a></div>
+    <div><div class="k">The Healing Hub</div><h2>Heal <em>together</em></h2><p class="lead" style="margin-bottom:10px">A private community for members: daily check-ins, fasting milestones, questions answered by Mark, and live sessions.</p><a class="btn" id="mhHub" href="protocols.html">Choose your protocol</a></div>
     <div class="feed">
       <div class="post"><span class="av">🌸</span><div><b>Sarah</b><span class="tg">DAY 3</span><br>Bone broth in the morning is becoming my favourite ritual.</div></div>
       <div class="post"><span class="av">🌊</span><div><b>James</b><span class="tg">FAST</span><br>Finished a 16-hour fast. Steadiest morning reading all month.</div></div>
