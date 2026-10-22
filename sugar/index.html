@@ -1685,6 +1685,7 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-sb.sel text { fill: var(--text); font-weight: 700; }
 #testsSlot { display: none !important; }
 </style>
+<script src="/media/shared/labs-extra.js?v=1"></script>
 </head>
 <body>
 
@@ -2413,6 +2414,7 @@ const LAB_MARKERS = [
     a:/\b(ha?emoglobin|hgb|hb)\b/i, not:/a1c|glycat|glyco|urine/i, lo:{}, fast:'lo',
     mean:'Oxygen-carrying protein. Anemia changes how long red cells live, which can make HbA1c read falsely high or low.', tie:'Anemia is a reason to skip water fasting until it is treated; use Level 1 or 2 instead.', next:'Add ferritin, B12 and folate.' },
 ];
+if (window.MTH_LAB_EXTRA) window.MTH_LAB_EXTRA('sugar', LAB_MARKERS, LAB_GROUPS);   // hormones, lipids, full blood, urine, stool, GI-MAP, microbiome
 // Scan / exam findings read from imaging, eye, foot and sleep reports
 const LAB_FINDINGS = [
   { k:'img_fatty', n:'Fatty liver', re:/fatty liver|hepatic steatosis|\bsteatosis\b|masld|nafld|increased (hepatic )?echogenicity/i, add:{masld:26, metsyn:4, ir:4}, mean:'Fat build-up in the liver, the engine of insulin resistance.', tie:'High-protein low-sugar meals, fasting windows and cutting fructose and alcohol are the main levers; liver fat can fall 30–50% in weeks.', next:'Recheck ALT and GGT in 3 months; ask for a FIB-4 score.' },
@@ -2496,7 +2498,7 @@ function labSnapshot() {
     for (const c in w) {
       const pts = w[c] * f; if (!pts) continue;
       add[c] = (add[c] || 0) + pts;
-      (why[c] = why[c] || []).push(m.n + (m.img ? '' : m.q ? (LAB.items[k].val ? ' positive' : ' negative') : gr.st === 'opt' ? ' normal' : gr.side === 'lo' ? ' low' : ' high'));
+      (why[c] = why[c] || []).push(m.n + (m.img ? '' : m.q ? ' ' + (LAB.items[k].val ? (m.qlab || ['positive'])[0] : (m.qlab || [0, 'negative'])[1]).toLowerCase() : gr.st === 'opt' ? ' normal' : gr.side === 'lo' ? ' low' : ' high'));
     }
   });
   for (const c in add) add[c] = Math.max(-12, Math.min(32, add[c]));
@@ -2530,10 +2532,11 @@ function labFindUnit(m, rest) {
   }
   return null;
 }
-function labQual(rest) {
+function labQual(rest, m) {
   const s = rest.toLowerCase();
-  if (/(not detected|non[\s-]?reactive|negative|\bneg\b|absent|none (seen|detected)|not seen|\bnil\b|within normal)/.test(s)) return 0;
-  if (/(positive|\bpos\b|detected|reactive|present|abnormal|\bseen\b|\+)/.test(s)) return 1;
+  if (m && (m.qpos || m.qneg)) { if (m.qneg && m.qneg.test(s)) return 0; if (m.qpos && m.qpos.test(s)) return 1; return null; }
+  if (/(not detected|non[\s-]?reactive|negative|\bneg\b|absent|none (seen|detected)|not seen|\bnil\b|within normal|<\s*dl|below detection)/.test(s)) return 0;
+  if (/(positive|\bpos\b|detected|reactive|present|abnormal|\bseen\b|\bhigh\b|elevated|\+)/.test(s)) return 1;
   return null;
 }
 const LAB_NEG = /\b(no|not|without|negative for|absence of|free of|rule out|r\/o|no evidence of|no sign of|resolved|history of)\b[^.;:]*$/i;
@@ -2544,10 +2547,10 @@ function labParseText(text) {
     const L = line.replace(/\t/g, '  ').trim(); if (!L) return;
     for (const m of LAB_MARKERS) {
       const mt = L.match(m.a); if (!mt) continue;
-      if (m.not && m.not.test(L)) continue;
+      if (m.not && m.not.test(L.replace(/\s[<>≤≥]?\s*\d[\s\S]*$/, ''))) continue;   // only the test name, not units like mmol/L
       const rest = L.slice(mt.index + mt[0].length);
       if (m.q) {
-        const q = labQual(rest) ?? labQual(L.slice(0, mt.index)); if (q == null) continue;
+        const q = labQual(rest, m) ?? labQual(L.slice(0, mt.index), m); if (q == null) continue;
         out.push({ k: m.k, val: q }); seen.add(m.k); break;
       }
       const nm = labNum(rest.replace(/^[^\d<>≤≥]*?(?=[<>≤≥]?\s*\d)/, '')); if (!nm || !isFinite(nm.v)) continue;
@@ -2652,7 +2655,7 @@ function labRenderTable() {
     const m = LAB_BY[k], it = LAB.items[k], gr = labGrade(k) || { st: 'opt' };
     let cell;
     if (m.img) cell = `<td colspan="2" class="lt-found">Found on report</td>`;
-    else if (m.q) cell = `<td colspan="2"><select data-k="${k}" data-f="q"><option value="1"${it.val ? ' selected' : ''}>Positive / detected</option><option value="0"${!it.val ? ' selected' : ''}>Negative</option></select></td>`;
+    else if (m.q) cell = `<td colspan="2"><select data-k="${k}" data-f="q"><option value="1"${it.val ? ' selected' : ''}>${(m.qlab || ['Positive / detected'])[0]}</option><option value="0"${!it.val ? ' selected' : ''}>${(m.qlab || [0, 'Negative'])[1]}</option></select></td>`;
     else cell = `<td class="lt-val"><input type="text" inputmode="decimal" value="${it.val}" data-k="${k}" data-f="v" aria-label="${m.n} value"></td>` +
       `<td class="lt-unit"><select data-k="${k}" data-f="u" aria-label="${m.n} unit">${labUnits(m).map(u => `<option${u[0] === it.unit ? ' selected' : ''}>${u[0]}</option>`).join('')}</select></td>`;
     const rng = !m.q && !m.img ? labRangeTxt(m, it.unit) : '';
@@ -2677,7 +2680,7 @@ function labRenderReport() {
     .map(k => GUT_CONDITIONS.find(x => x.key === k).title.replace(/ \(.*\)$/, ''));
   const name = (document.getElementById('diName').value.trim()) || 'Your';
   const who = name === 'Your' ? 'Your' : labEsc(name) + '\'s';
-  const val = r => r.m.img ? 'Found' : r.m.q ? (r.it.val ? 'Positive' : 'Negative') : `${r.it.val} ${r.it.unit}`;
+  const val = r => r.m.img ? 'Found' : r.m.q ? (r.it.val ? (r.m.qlab || ['Positive'])[0] : (r.m.qlab || [0, 'Negative'])[1]) : `${r.it.val} ${r.it.unit}`;
   const card = (r, open) => `<details class="lr-item" style="--lc:${LAB_COL[r.gr.st]}"${open ? ' open' : ''}><summary class="lr-item-top"><span class="lr-item-name">${r.m.n}${!r.m.q && !r.m.img ? ` <span class="lr-item-ref">ref ${labRangeTxt(r.m, r.it.unit)}</span>` : ''}</span><span class="lr-item-val">${val(r)}${!r.m.q && !r.m.img && r.gr.side ? (r.gr.side === 'hi' ? ' ↑' : ' ↓') : ''}</span></summary>` +
     `<div class="lr-item-txt">${r.m.mean} <b>Protocol:</b> ${r.m.tie}${r.m.next && r.m.next !== '—' ? ` <b>Next:</b> ${r.m.next}` : ''}</div></details>`;
   const crit = rows.filter(r => r.gr.st === 'crit'), fast = rows.filter(r => labFastCaution(r.k, r.gr));
@@ -2752,7 +2755,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sel.innerHTML = Object.keys(LAB_GROUPS).filter(gk => gk !== 'img').map(gk => `<optgroup label="${LAB_GROUPS[gk]}">${LAB_MARKERS.filter(m => m.g === gk).map(m => `<option value="${m.k}">${m.n}</option>`).join('')}</optgroup>`).join('');
   const syncUnit = () => {
     const m = LAB_BY[sel.value];
-    if (m.q) { unit.innerHTML = '<option value="1">Positive</option><option value="0">Negative</option>'; val.style.visibility = 'hidden'; }
+    if (m.q) { unit.innerHTML = '<option value="1">' + (m.qlab || ['Positive'])[0] + '</option><option value="0">' + (m.qlab || [0, 'Negative'])[1] + '</option>'; val.style.visibility = 'hidden'; }
     else { unit.innerHTML = labUnits(m).map(u => `<option>${u[0]}</option>`).join(''); val.style.visibility = ''; }
   };
   sel.addEventListener('change', syncUnit); syncUnit();
