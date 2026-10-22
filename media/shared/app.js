@@ -327,7 +327,7 @@ html.mth-app.mth-wait body::after { content: 'Opening your plan…'; position: f
     if (!F || !F.items.length) F = { items: [
       { label: 'Breakfast', text: 'Eggs with soft cooked vegetables' },
       { label: 'Lunch', text: 'A big salad with olive oil and fish or chicken' },
-      { label: 'Dinner', text: 'Protein with cooked vegetables, and a cup of bone broth first' }], tip: 'Small portions, eaten slowly.' };
+      { label: 'Dinner', text: 'Protein with cooked vegetables, and a glass of water first' }], tip: 'Small portions, eaten slowly.' };
     F.items.forEach(function (i) { i.e = foodEmoji(i.text); });
     return F;
   }

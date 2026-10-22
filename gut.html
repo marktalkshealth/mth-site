@@ -16,11 +16,11 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610221015">
+<link rel="stylesheet" href="assets/mth.css?v=202610221130">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610221015"></script>
-<script src="assets/quiz-core.js?v=202610221015"></script>
-<script src="assets/quiz.js?v=202610221015"></script>
+<script src="assets/mth.js?v=202610221130"></script>
+<script src="assets/quiz-core.js?v=202610221130"></script>
+<script src="assets/quiz.js?v=202610221130"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">The Gut Health Protocol</div></main>
@@ -330,13 +330,13 @@ R.querySelectorAll(".g2-buy").forEach(function(b){ b.addEventListener("click",bu
 if(location.hash==="#checkout"){ setTimeout(function(){ var el=findCheckout(); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },350); }
 
 /* ---- assessment quiz ---- */
-var STEP=["Fasting & cleanse","Meditation & journaling","High protein & healing broths","Cardio & strength","Music therapy & spirit","Sleep & clean air","Nature: forest & sun"];
+var STEP=["Fasting & cleanse","Meditation & journaling","Nature & sun","Sleep & clean air","Music & spirituality","Cardio & weights","High-protein diet"];
 if(window.MTHQuiz) MTHQuiz.mountAll(R);
 
 /* ---- cleanse levels ---- */
 var LV=[
- {t:"Gentle ice cream cleanse",d:"Creamy avocado and coconut-cream ice creams at breakfast and dinner, with a light green juice lunch. The easiest way to start.",n:1,p:[["Breakfast","Avocado coconut ice cream"],["Lunch","Green juice"],["Dinner","Cacao avocado ice cream"],["All day","Water, herbal tea, broth"]]},
- {t:"Classic green juice cleanse",d:"Signature green juices through the day to give digestion a deeper rest, with broth to keep you steady.",n:2,p:[["Morning","Green juice"],["Midday","Green juice"],["Evening","Green juice or warm broth"],["All day","Water and mineral salts"]]},
+ {t:"Gentle ice cream cleanse",d:"Creamy avocado and coconut-cream ice creams at breakfast and dinner, with a light green juice lunch. The easiest way to start.",n:1,p:[["Breakfast","Avocado coconut ice cream"],["Lunch","Green juice"],["Dinner","Cacao avocado ice cream"],["All day","Water and herbal tea"]]},
+ {t:"Classic green juice cleanse",d:"Signature green juices through the day to give digestion a deeper rest, with mineral water to keep you steady.",n:2,p:[["Morning","Green juice"],["Midday","Green juice"],["Evening","Green juice or herbal tea"],["All day","Water and mineral salts"]]},
  {t:"Deep mineral water fast",d:"The deepest rest for the gut: mineral water and electrolytes only. For experienced fasters, ideally with medical guidance.",n:3,p:[["Morning","Mineral water + salts"],["Midday","Herbal tea"],["Evening","Mineral water"],["Note","Check with your doctor first"]]}
 ];
 function level(i){ var L=LV[i]; R.querySelectorAll("#g2Seg button").forEach(function(b,j){b.classList.toggle("on",j===i);});
@@ -349,13 +349,12 @@ R.querySelectorAll("#g2Seg button").forEach(function(b){ b.addEventListener("cli
 var DAYS=[
  ["Give digestion a rest","Start your cleanse level and track it on the built-in fasting clock.",["Start your fast on the clock","2–3 litres of water","Note how you feel tonight"]],
  ["Calm the nervous system","Stress shows up in the gut. Today is about switching into rest-and-repair.",["10-minute guided meditation","One page of journaling","Slow breaths before meals"]],
- ["Feed repair","High-protein whole foods and a warm cup of healing broth.",["One cup of bone or veg broth","Protein + vegetables at every meal","Prep tomorrow from the recipe library"]],
- ["Move to heal","A short walk and a little strength work to wake up your metabolism.",["20–30 minute brisk walk","10 minutes of strength","5 minutes of stretching"]],
- ["Sound as medicine","Music, prayer, gratitude or stillness. The part of healing labs can't measure.",["Music therapy session","10 minutes of gratitude or silence","Reach out to one person"]],
+ ["Reset outdoors","Morning light and time among trees to calm your whole system.",["Sunlight within an hour of waking","A walk in a park or forest","20 minutes of midday sun"]],
  ["Repair happens at night","Set up your room and routine for deep, restorative sleep.",["Screens off an hour before bed","Air out and cool your bedroom","Same bedtime tonight and tomorrow"]],
- ["Reset outdoors","Morning light and time among trees to finish the week.",["Sunlight within an hour of waking","A walk in a park or forest","Share your win in the community"]]
-];
-var SIMG=["1-fasting","2-meditation","3-high-protein","4-cardio","5-music","6-sleep","7-nature"];
+ ["Sound as medicine","Music, prayer, gratitude or stillness. The part of healing labs can't measure.",["Music therapy session","10 minutes of gratitude or silence","Reach out to one person"]],
+ ["Move to heal","A short walk and a little strength work to wake up your metabolism.",["20–30 minute brisk walk","10 minutes of strength","5 minutes of stretching"]],
+ ["Feed repair","High-protein whole foods and plenty of water to finish the week.",["Protein + vegetables at every meal","2–3 litres of water through the day","Share your win in the community"]]];
+var SIMG=["1-fasting","2-meditation","7-nature","6-sleep","5-music","4-cardio","3-high-protein"];
 $("g2TL").innerHTML=DAYS.map(function(d,i){ return '<button class="td ph" data-d="'+i+'" aria-label="Day '+(i+1)+': '+esc(STEP[i])+'" style="background-image:url(/media/site/steps/'+SIMG[i]+'.jpg)"><b>'+(i+1)+'</b></button>'; }).join("");
 function day(i){ R.querySelectorAll(".td").forEach(function(b,j){b.classList.toggle("on",j===i);});
   $("g2DK").textContent="Day "+(i+1)+" · "+STEP[i]; $("g2DT").textContent=DAYS[i][0]; $("g2DD").textContent=DAYS[i][1];

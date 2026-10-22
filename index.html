@@ -16,11 +16,11 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610221015">
+<link rel="stylesheet" href="assets/mth.css?v=202610221130">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610221015"></script>
-<script src="assets/quiz-core.js?v=202610221015"></script>
-<script src="assets/quiz.js?v=202610221015"></script>
+<script src="assets/mth.js?v=202610221130"></script>
+<script src="assets/quiz-core.js?v=202610221130"></script>
+<script src="assets/quiz.js?v=202610221130"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">Mark Talks Health</div></main>
@@ -292,9 +292,9 @@
     box.innerHTML=COURSES.map(function(c){ var href=own(c)?c.course:c.funnel+"#checkout";
       return '<div class="bo"><div class="im" style="background-image:url(\''+IMG.replace("{id}",c.img)+'\')"></div><div class="tx"><h3>'+esc(c.t)+'</h3><p>Course, software &amp; community</p><div class="r">'+(own(c)?'<span></span>':'<b>'+esc(c.price)+'</b>')+'<a class="btn" href="'+href+'">'+(own(c)?'Open':'Get instant access')+'</a></div></div></div>'; }).join("");
   })();
-  var SIMG=["1-fasting","2-meditation","3-high-protein","4-cardio","5-music","6-sleep","7-nature"];
-  var STEPS=[["Fasting & cleanse","Rest digestion"],["Meditation & journaling","Calm the nervous system"],["High protein","Feed repair"],["Cardio & strength","Move to heal"],["Music & spirit","Sound as medicine"],["Sleep & clean air","Repair at night"],["Nature & sun","Reset outdoors"]];
-  var TILE=[["#c0623f","#7e3b25"],["#7a8f6e","#3f4b38"],["#b8924a","#6e5427"],["#8a7b6e","#463b33"],["#a8735a","#5a3a2b"],["#6f7a8c","#363c48"],["#7a8f6e","#2f3d2c"]];
+  var SIMG=["1-fasting","2-meditation","7-nature","6-sleep","5-music","4-cardio","3-high-protein"];
+  var STEPS=[["Fasting & cleanse","Rest digestion"],["Meditation & journaling","Calm the nervous system"],["Nature & sun","Reset outdoors"],["Sleep & clean air","Repair at night"],["Music & spirituality","Sound as medicine"],["Cardio & weights","Move to heal"],["High-protein diet","Feed repair"]];
+  var TILE=[["#c0623f","#7e3b25"],["#7a8f6e","#3f4b38"],["#7a8f6e","#2f3d2c"],["#6f7a8c","#363c48"],["#a8735a","#5a3a2b"],["#8a7b6e","#463b33"],["#b8924a","#6e5427"]];
   document.getElementById("mhSteps").innerHTML=STEPS.map(function(s,i){ return '<div class="step ph" role="img" aria-label="Step '+(i+1)+': '+esc(s[0])+'" style="background-image:url(/media/site/steps/'+SIMG[i]+'.jpg)"><b>'+(i+1)+'</b></div>'; }).join("");
   /* system cards: dots follow the swipe */
   (function(){ var t=document.getElementById("mhSys"), d=ROOT.querySelectorAll(".sys-dots i"); if(!t) return;

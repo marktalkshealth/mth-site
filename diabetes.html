@@ -16,11 +16,11 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610221015">
+<link rel="stylesheet" href="assets/mth.css?v=202610221130">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/quiz-core.js?v=202610221015"></script>
-<script src="assets/quiz.js?v=202610221015"></script>
-<script src="assets/mth.js?v=202610221015"></script>
+<script src="assets/quiz-core.js?v=202610221130"></script>
+<script src="assets/quiz.js?v=202610221130"></script>
+<script src="assets/mth.js?v=202610221130"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">The Diabetes Protocol</div></main>
@@ -330,7 +330,7 @@ R.querySelectorAll(".g2-buy").forEach(function(b){ b.addEventListener("click",bu
 if(location.hash==="#checkout"){ setTimeout(function(){ var el=findCheckout(); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },350); }
 
 /* ---- assessment quiz ---- */
-var STEP=["Eating window & fasting","Meditation & journaling","High-protein food order","Movement after meals","Music therapy & spirit","Sleep & clean air","Nature: light & walking"];
+var STEP=["Eating window & fasting","Meditation & journaling","Nature: light & walking","Sleep & clean air","Music & spirituality","Movement after meals","High-protein food order"];
 if(window.MTHQuiz) MTHQuiz.mountAll(R);
 
 /* ---- cleanse levels ---- */
@@ -349,13 +349,12 @@ R.querySelectorAll("#g2Seg button").forEach(function(b){ b.addEventListener("cli
 var DAYS=[
  ["Reset your eating window","Start your level and track your overnight window on the built-in clock.",["Set your eating window","Log your morning reading","2–3 litres of water"]],
  ["Calm the stress response","Stress hormones push glucose up. Today is about switching into rest-and-repair.",["10-minute guided meditation","One page of journaling","Slow breaths before meals"]],
- ["Eat in the right order","High-protein whole foods, with protein and vegetables before any carbohydrate.",["Veg first, carbs last","Protein at every meal","Prep tomorrow from the recipe library"]],
- ["Move after meals","A short walk after eating is one of the simplest ways to blunt a glucose spike.",["10–15 minute walk after meals","10 minutes of strength","Log a post-meal reading"]],
- ["Sound as medicine","Music, prayer, gratitude or stillness, to lower stress that drives cravings.",["Music therapy session","10 minutes of gratitude or silence","Reach out to one person"]],
+ ["Reset outdoors","Morning light and an outdoor walk support healthier glucose rhythms.",["Sunlight within an hour of waking","A 30-minute walk outside","20 minutes of midday sun"]],
  ["Sleep steadies glucose","Short sleep raises next-day blood sugar. Set up your night for deep rest.",["Screens off an hour before bed","Cool, dark bedroom","Same bedtime tonight and tomorrow"]],
- ["Reset outdoors","Morning light and an outdoor walk support healthier glucose rhythms.",["Sunlight within an hour of waking","A 30-minute walk outside","Compare your Day 1 and Day 7 readings"]]
-];
-var SIMG=["1-fasting","2-meditation","3-high-protein","4-cardio","5-music","6-sleep","7-nature"];
+ ["Sound as medicine","Music, prayer, gratitude or stillness, to lower stress that drives cravings.",["Music therapy session","10 minutes of gratitude or silence","Reach out to one person"]],
+ ["Move after meals","A short walk after eating is one of the simplest ways to blunt a glucose spike.",["10–15 minute walk after meals","10 minutes of strength","Log a post-meal reading"]],
+ ["Eat in the right order","High-protein whole foods, with protein and vegetables before any carbohydrate.",["Veg first, carbs last","Protein at every meal","Compare your Day 1 and Day 7 readings"]]];
+var SIMG=["1-fasting","2-meditation","7-nature","6-sleep","5-music","4-cardio","3-high-protein"];
 $("g2TL").innerHTML=DAYS.map(function(d,i){ return '<button class="td ph" data-d="'+i+'" aria-label="Day '+(i+1)+': '+esc(STEP[i])+'" style="background-image:url(/media/site/steps/'+SIMG[i]+'.jpg)"><b>'+(i+1)+'</b></button>'; }).join("");
 function day(i){ R.querySelectorAll(".td").forEach(function(b,j){b.classList.toggle("on",j===i);});
   $("g2DK").textContent="Day "+(i+1)+" · "+STEP[i]; $("g2DT").textContent=DAYS[i][0]; $("g2DD").textContent=DAYS[i][1];

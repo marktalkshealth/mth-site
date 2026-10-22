@@ -6,7 +6,7 @@
    Results are educational patterns, never a diagnosis.
 ================================================================= */
 (function (G) {
-  var STEPS = ["Fasting & cleanse", "Meditation & journaling", "High protein & healing broths", "Cardio & strength", "Music therapy & spirit", "Sleep & clean air", "Nature: forest & sun"];
+  var STEPS = ["Fasting & cleanse", "Meditation & journaling", "Nature & sun", "Sleep & clean air", "Music & spirituality", "Cardio & weights", "High-protein diet"];
 
   var QUIZ = {
     gut: {
@@ -32,21 +32,21 @@
           o: [["flat", "A calm, flat stomach"], ["regular", "Regular, easy digestion"], ["energy", "More energy and a clear head"], ["weight", "To lose weight"], ["skin", "Clearer skin"]] }
       ],
       // symptom weight and the healing steps it leans on (index into STEPS)
-      sym: { bloat: [3, [0, 2]], pain: [3, [0, 1]], reflux: [3, [2, 5]], constip: [2, [2, 3]], loose: [3, [0, 2]], fatigue: [2, [5, 1]], fog: [2, [1, 5]],
-             sleep: [2, [5, 4]], foodsens: [3, [0, 2]], skin: [2, [2, 6]], cravings: [2, [0, 1]], stress: [2, [1, 4]] },
+      sym: { bloat: [3, [0, 6]], pain: [3, [0, 1]], reflux: [3, [6, 3]], constip: [2, [6, 5]], loose: [3, [0, 6]], fatigue: [2, [3, 1]], fog: [2, [1, 3]],
+             sleep: [2, [3, 4]], foodsens: [3, [0, 6]], skin: [2, [6, 2]], cravings: [2, [0, 1]], stress: [2, [1, 4]] },
       patterns: {
         ibs: { label: "IBS-type pattern", w: { bloat: 2, pain: 3, constip: 2, loose: 2, stressflare: 2, stress: 1, _both: 3 },
-          text: "Bloating, cramps and changing bowel habits often travel together. Calming the gut, steady meals and lowering stress usually matter most.", steps: [0, 1, 2] },
+          text: "Bloating, cramps and changing bowel habits often travel together. Calming the gut, steady meals and lowering stress usually matter most.", steps: [0, 1, 6] },
         reflux: { label: "Reflux pattern", w: { reflux: 5, meals: 1 },
-          text: "Burning and reflux often ease with an earlier last meal, smaller portions and giving digestion a real rest.", steps: [0, 5, 2] },
+          text: "Burning and reflux often ease with an earlier last meal, smaller portions and giving digestion a real rest.", steps: [0, 3, 6] },
         lining: { label: "Gut lining stress", w: { foodsens: 3, skin: 2, foods: 2, fatigue: 1, fog: 1 },
-          text: "Reacting to foods, skin flare-ups and low energy can point to a stressed gut lining. Rest, broths and protein help it rebuild.", steps: [0, 2, 6] },
+          text: "Reacting to foods, skin flare-ups and low energy can point to a stressed gut lining. Rest, protein and plenty of water help it rebuild.", steps: [0, 6, 2] },
         flora: { label: "Flora imbalance", w: { bloat: 2, cravings: 2, abx: 3, sugar: 2, alcohol: 1, meals: 1 },
-          text: "Antibiotics, sugar and alcohol shift the bacteria in your gut. A cleanse followed by whole, high-protein meals helps reset the balance.", steps: [0, 2, 3] },
+          text: "Antibiotics, sugar and alcohol shift the bacteria in your gut. A cleanse followed by whole, high-protein meals helps reset the balance.", steps: [0, 6, 5] },
         slow: { label: "Slow digestion", w: { constip: 4, bloat: 1 },
-          text: "Slow, sluggish digestion responds well to water, movement every day and fibre from vegetables.", steps: [3, 2, 6] },
+          text: "Slow, sluggish digestion responds well to water, movement every day and fibre from vegetables.", steps: [5, 6, 2] },
         brain: { label: "Gut–brain strain", w: { stress: 3, sleep: 2, fog: 2, fatigue: 1, stressflare: 2 },
-          text: "Your gut and nervous system talk constantly. Calming the stress response and sleeping deeper often settles digestion too.", steps: [1, 5, 4] }
+          text: "Your gut and nervous system talk constantly. Calming the stress response and sleeping deeper often settles digestion too.", steps: [1, 3, 4] }
       },
       boost: { daily: 6, weekly: 3, some: 1, m3: 1, y1: 2, y5: 3, y5p: 4 }
     },
@@ -74,21 +74,21 @@
         { id: "goal", type: "one", q: "What would you love most?",
           o: [["a1c", "Lower my HbA1c and readings"], ["energy", "Steady energy all day"], ["weight", "Lose belly weight"], ["fewer", "Need less medication, with my doctor"], ["cravings", "Stop the sugar cravings"]] }
       ],
-      sym: { crash: [2, [2, 3]], crave: [3, [2, 0]], fog: [2, [2, 3]], morning: [3, [0, 5]], belly: [2, [3, 2]], thirst: [3, [2, 0]],
-             tingle: [3, [3, 2]], bp: [2, [1, 3]], sleep: [2, [5, 1]], stress: [2, [1, 4]], lowact: [2, [3, 6]], night: [2, [0, 5]] },
+      sym: { crash: [2, [6, 5]], crave: [3, [6, 0]], fog: [2, [6, 5]], morning: [3, [0, 3]], belly: [2, [5, 6]], thirst: [3, [6, 0]],
+             tingle: [3, [5, 6]], bp: [2, [1, 5]], sleep: [2, [3, 1]], stress: [2, [1, 4]], lowact: [2, [5, 2]], night: [2, [0, 3]] },
       patterns: {
         ir: { label: "Insulin resistance pattern", w: { crave: 2, crash: 2, belly: 2, carbs: 2, fog: 1 },
-          text: "Crashes, cravings and belly weight often mean your cells have stopped listening to insulin. Protein-first meals, a shorter eating window and moving after meals help most.", steps: [2, 0, 3] },
+          text: "Crashes, cravings and belly weight often mean your cells have stopped listening to insulin. Protein-first meals, a shorter eating window and moving after meals help most.", steps: [6, 0, 5] },
         dawn: { label: "Night and morning spikes", w: { morning: 3, night: 2, late: 2, sleep: 1 },
-          text: "High morning readings and late eating go together. An earlier last meal and deeper sleep usually bring morning numbers down.", steps: [0, 5, 2] },
+          text: "High morning readings and late eating go together. An earlier last meal and deeper sleep usually bring morning numbers down.", steps: [0, 3, 6] },
         high: { label: "Raised glucose signs", w: { thirst: 3, tingle: 3, a1c: 3 },
-          text: "Thirst, tingling and raised HbA1c are signs to take seriously. Work with your doctor, and use food, movement and sleep to support the numbers.", steps: [2, 3, 0] },
+          text: "Thirst, tingling and raised HbA1c are signs to take seriously. Work with your doctor, and use food, movement and sleep to support the numbers.", steps: [6, 5, 0] },
         stress: { label: "Stress-driven sugar", w: { stress: 3, sleep: 2, night: 1, crave: 1 },
-          text: "Stress hormones push blood sugar up on their own. Calming the nervous system and sleeping well often steadies readings.", steps: [1, 5, 4] },
+          text: "Stress hormones push blood sugar up on their own. Calming the nervous system and sleeping well often steadies readings.", steps: [1, 3, 4] },
         still: { label: "Low-movement pattern", w: { lowact: 3, sitting: 3, belly: 1 },
-          text: "Muscles are where most sugar gets used. A short walk after meals and two strength sessions a week make a real difference.", steps: [3, 6, 2] },
+          text: "Muscles are where most sugar gets used. A short walk after meals and two strength sessions a week make a real difference.", steps: [5, 2, 6] },
         heart: { label: "Heart and metabolic load", w: { bp: 3, belly: 1, family: 2 },
-          text: "Blood pressure, belly weight and family history add up. Steady weight loss, movement and less stress ease the whole system.", steps: [3, 1, 2] }
+          text: "Blood pressure, belly weight and family history add up. Steady weight loss, movement and less stress ease the whole system.", steps: [5, 1, 6] }
       }
     },
 
@@ -115,19 +115,19 @@
         { id: "goal", type: "one", q: "What would you love most?",
           o: [["fat", "Lose fat, keep muscle"], ["keep", "Keep the weight off for good"], ["energy", "More energy"], ["taper", "Come off it, with my doctor"], ["strong", "Feel strong and confident"]] }
       ],
-      sym: { nausea: [2, [2, 5]], constip: [2, [2, 6]], lowenergy: [2, [2, 3]], muscle: [3, [3, 2]], hair: [2, [2, 5]], plateau: [3, [3, 0]],
-             cravings: [3, [2, 1]], regain: [3, [3, 2]], sleep: [2, [5, 1]], stresseat: [2, [1, 4]], lowact: [2, [3, 6]], skip: [2, [2, 0]] },
+      sym: { nausea: [2, [6, 3]], constip: [2, [6, 2]], lowenergy: [2, [6, 5]], muscle: [3, [5, 6]], hair: [2, [6, 3]], plateau: [3, [5, 0]],
+             cravings: [3, [6, 1]], regain: [3, [5, 6]], sleep: [2, [3, 1]], stresseat: [2, [1, 4]], lowact: [2, [5, 2]], skip: [2, [6, 0]] },
       patterns: {
         muscle: { label: "Muscle loss risk", w: { muscle: 3, lowprot: 3, nostr: 2, skip: 2, hair: 1, lowenergy: 1 },
-          text: "Eating very little can strip muscle along with fat. Hitting your protein target and lifting twice a week protects it.", steps: [2, 3, 5] },
+          text: "Eating very little can strip muscle along with fat. Hitting your protein target and lifting twice a week protects it.", steps: [6, 5, 3] },
         gi: { label: "Gut side effects", w: { nausea: 3, constip: 3 },
-          text: "Nausea and constipation are common on GLP-1s. Smaller meals, water, fibre from vegetables and gentle walks usually help.", steps: [2, 6, 5] },
+          text: "Nausea and constipation are common on GLP-1s. Smaller meals, water, fibre from vegetables and gentle walks usually help.", steps: [6, 2, 3] },
         regain: { label: "Regain risk", w: { regain: 3, stopping: 3, yoyo: 2, cravings: 1 },
-          text: "Weight often returns when the medication stops unless habits and muscle are in place. Building them now is the safest exit plan.", steps: [3, 2, 1] },
+          text: "Weight often returns when the medication stops unless habits and muscle are in place. Building them now is the safest exit plan.", steps: [5, 6, 1] },
         plateau: { label: "Plateau pattern", w: { plateau: 3, lowact: 2, sleep: 1, alcohol: 1 },
-          text: "Plateaus usually ease with more daily movement, strength work, deeper sleep and less alcohol.", steps: [3, 5, 0] },
+          text: "Plateaus usually ease with more daily movement, strength work, deeper sleep and less alcohol.", steps: [5, 3, 0] },
         emotional: { label: "Stress and cravings", w: { stresseat: 3, cravings: 2, sleep: 1 },
-          text: "Cravings coming back often follow stress and short sleep. Calming the stress response keeps appetite steady.", steps: [1, 5, 4] }
+          text: "Cravings coming back often follow stress and short sleep. Calming the stress response keeps appetite steady.", steps: [1, 3, 4] }
       }
     }
   };
@@ -173,14 +173,14 @@
       ["Cleanse 2", "Ice cream cleanse · day 2", "Gentle walk, journal, early night", 35, "fast", 700],
       ["Cleanse 3", "Ice cream cleanse · day 3", "Light movement starts; digestion is fully resting", 35, "fast", 700],
       ["Cleanse 4", "Ice cream cleanse · day 4", "Nature and sunlight; last cleanse day", 35, "fast", 700],
-      ["Transition", "Transition day", "Soft-boiled eggs, bone broth and soft cooked vegetables", 70, "r2"],
+      ["Transition", "Transition day", "Soft-boiled eggs, Greek yogurt and soft cooked vegetables", 70, "r2"],
       ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
     ] : [
       ["Prep", "Prep day", "Light plant-based meals and an early night", 70, "prep"],
       ["Juice 1", "Green juice cleanse · day 1", "Juice plus an avocado or nut dinner; mostly rest, meditation and music", 20, "fast", 400],
       ["Juice 2", "Green juice cleanse · day 2", "Gentle walk, journal, early night", 20, "fast", 400],
       ["Juice 3", "Green juice cleanse · day 3", "Light movement starts; digestion is fully resting", 20, "fast", 400],
-      ["Refeed 1", "Refeed day 1", "Warm bone broth, soups and soft vegetables", 55, "r2"],
+      ["Refeed 1", "Refeed day 1", "Diluted green juice, coconut water and soft vegetables", 55, "r2"],
       ["Refeed 2", "Refeed day 2", "Gentle high-protein meals; strength or cardio begins", 80, "r3"],
       ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
     ];

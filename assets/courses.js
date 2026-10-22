@@ -241,428 +241,8 @@ window.MTH_COURSES={
     ]
    },
    {
-    "id": "s3",
-    "step": 3,
-    "title": "High protein & healing broths",
-    "sub": "Feed repair",
-    "img": "3-high-protein",
-    "lessons": [
-     {
-      "id": "keto",
-      "title": "The High Protein Meal Plan",
-      "mins": 12,
-      "text": "How protein-first meals keep you full, protect muscle while you lose fat, and give your gut lining the building blocks to repair, and how to build a high-protein plate after your cleanse.",
-      "quiz": [
-       {
-        "q": "Which nutrient keeps you full the longest per calorie?",
-        "o": [
-         "Protein",
-         "Sugar",
-         "Fat",
-         "Alcohol"
-        ],
-        "a": 0,
-        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
-       },
-       {
-        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
-        "o": [
-         "0.3 g",
-         "About 1.2–1.6 g",
-         "5 g",
-         "No target needed"
-        ],
-        "a": 1,
-        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
-       },
-       {
-        "q": "About how much protein per meal helps your muscles rebuild best?",
-        "o": [
-         "5 g",
-         "About 25–40 g",
-         "100 g",
-         "It doesn't matter"
-        ],
-        "a": 1,
-        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
-       },
-       {
-        "q": "Why does protein help when you're losing weight?",
-        "o": [
-         "It protects muscle so the weight you lose is fat",
-         "It adds water weight",
-         "It stops digestion",
-         "It replaces sleep"
-        ],
-        "a": 0,
-        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
-       },
-       {
-        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
-        "o": [
-         "About 20–30%",
-         "1%",
-         "Over 80%",
-         "None"
-        ],
-        "a": 0,
-        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
-       }
-      ]
-     },
-     {
-      "id": "broth",
-      "title": "Bone broth & juicing",
-      "mins": 8,
-      "text": "Warm, mineral-rich broths and green juices that support the gut lining. Recipes, batch-prep tips and how to fit them into your week."
-     }
-    ]
-   },
-   {
-    "id": "s4",
-    "step": 4,
-    "title": "Cardio & strength",
-    "sub": "Move to heal",
-    "img": "4-cardio",
-    "lessons": [
-     {
-      "id": "exercise",
-      "title": "Exercise",
-      "mins": 10,
-      "text": "Walking, cardio and simple strength work that wake up your metabolism without draining you, with how to progress week by week.",
-      "quiz": [
-       {
-        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
-        "o": [
-         "15 minutes",
-         "150 minutes",
-         "1,500 minutes",
-         "Any amount over 10 hours"
-        ],
-        "a": 1,
-        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
-       },
-       {
-        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
-        "o": [
-         "Stretching only",
-         "Strength (resistance) training",
-         "Walking slowly",
-         "Sitting upright"
-        ],
-        "a": 1,
-        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
-       },
-       {
-        "q": "What is the \"afterburn\" (EPOC) effect?",
-        "o": [
-         "Sore muscles the next day",
-         "A raised metabolism for hours after a hard workout",
-         "Sunburn from outdoor exercise",
-         "Heartburn after eating"
-        ],
-        "a": 1,
-        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
-       },
-       {
-        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
-        "o": [
-         "Visceral fat",
-         "Fat under the skin on your arms",
-         "Fat in your feet",
-         "Brown fat"
-        ],
-        "a": 0,
-        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
-       },
-       {
-        "q": "How does exercise lower blood sugar without needing insulin?",
-        "o": [
-         "It makes you sweat out sugar",
-         "Working muscles pull sugar in through GLUT4 transporters",
-         "It stops the liver from working",
-         "It doesn't lower blood sugar"
-        ],
-        "a": 1,
-        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
-       }
-      ]
-     },
-     {
-      "id": "massage",
-      "title": "Massage therapy",
-      "mins": 6,
-      "text": "Hands-on recovery for muscles and the nervous system, including simple self-massage you can do at home.",
-      "quiz": [
-       {
-        "q": "What happens to cortisol, the stress hormone, after a massage?",
-        "o": [
-         "It rises",
-         "It drops",
-         "It stays the same",
-         "It turns into sugar"
-        ],
-        "a": 1,
-        "fb": "Across 38 studies, cortisol fell after massage. It was measured in saliva and urine, not just how people felt."
-       },
-       {
-        "q": "Which two \"feel-good\" chemicals rose after massage in those studies?",
-        "o": [
-         "Serotonin and dopamine",
-         "Insulin and glucagon",
-         "Adrenaline and histamine",
-         "Caffeine and nicotine"
-        ],
-        "a": 0,
-        "fb": "Serotonin steadies mood and dopamine drives motivation. Massage nudges both up naturally."
-       },
-       {
-        "q": "Where is more than 90% of the body's serotonin made?",
-        "o": [
-         "In the brain",
-         "In the gut",
-         "In the lungs",
-         "In the skin"
-        ],
-        "a": 1,
-        "fb": "Your gut makes most of your serotonin, one reason gut health and mood are so closely linked."
-       },
-       {
-        "q": "Which hormone, released by touch, builds trust and calms the stress response?",
-        "o": [
-         "Oxytocin",
-         "Cortisol",
-         "Testosterone",
-         "Thyroxine"
-        ],
-        "a": 0,
-        "fb": "Oxytocin is the connection hormone. Caring touch is one of the strongest ways to release it."
-       },
-       {
-        "q": "About how long were the sessions that consistently produced measurable hormone changes?",
-        "o": [
-         "5 minutes",
-         "About 45 minutes",
-         "4 hours",
-         "Only overnight"
-        ],
-        "a": 1,
-        "fb": "Around 45 minutes gave the clearest results, though shorter sessions still helped."
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "s5",
-    "step": 5,
-    "title": "Music & spirit",
-    "sub": "Sound as medicine",
-    "img": "5-music",
-    "lessons": [
-     {
-      "id": "music",
-      "title": "Music therapy",
-      "mins": 8,
-      "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
-      "quiz": [
-       {
-        "q": "What happened to cortisol after surgery when patients listened to calming music?",
-        "o": [
-         "It rose",
-         "It dropped compared with silence",
-         "Nothing changed",
-         "It disappeared completely"
-        ],
-        "a": 1,
-        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
-       },
-       {
-        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
-        "o": [
-         "About 60 beats per minute",
-         "About 140 beats per minute",
-         "About 200 beats per minute",
-         "Tempo doesn't matter"
-        ],
-        "a": 0,
-        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
-       },
-       {
-        "q": "What is \"brainwave entrainment\"?",
-        "o": [
-         "Training your memory with flashcards",
-         "The brain gradually syncing its rhythm to a steady sound",
-         "A type of headphone",
-         "Sleeping with music on"
-        ],
-        "a": 1,
-        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
-       },
-       {
-        "q": "Which nerve does slow, steady music help activate to calm the body?",
-        "o": [
-         "The vagus nerve",
-         "The optic nerve",
-         "The sciatic nerve",
-         "The funny bone"
-        ],
-        "a": 0,
-        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
-       },
-       {
-        "q": "When does the brain release dopamine while listening to music?",
-        "o": [
-         "Only when the music stops",
-         "As it anticipates and reaches the musical \"payoff\" or resolution",
-         "Never",
-         "Only with loud music"
-        ],
-        "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "s6",
-    "step": 6,
-    "title": "Sleep & clean air",
-    "sub": "Repair at night",
-    "img": "6-sleep",
-    "lessons": [
-     {
-      "id": "sleep",
-      "title": "Sleep",
-      "mins": 10,
-      "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
-      "quiz": [
-       {
-        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
-        "o": [
-         "55–58°F",
-         "65–68°F",
-         "75–78°F",
-         "Above 80°F"
-        ],
-        "a": 1,
-        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
-       },
-       {
-        "q": "About how long is the half-life of caffeine in most adults?",
-        "o": [
-         "30 minutes",
-         "About 6 hours",
-         "24 hours",
-         "A week"
-        ],
-        "a": 1,
-        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
-       },
-       {
-        "q": "How long before bed should you avoid screens and bright blue light?",
-        "o": [
-         "5 minutes",
-         "About 1 hour",
-         "It doesn't matter",
-         "12 hours"
-        ],
-        "a": 1,
-        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
-       },
-       {
-        "q": "Why are blackout curtains recommended?",
-        "o": [
-         "They keep the room warm",
-         "Even a little light can cut melatonin, and darkness lets it rise fully",
-         "They block noise",
-         "They look better"
-        ],
-        "a": 1,
-        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
-       },
-       {
-        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
-        "o": [
-         "Its blue light and stimulating content keep your brain alert",
-         "It uses too much electricity",
-         "It makes the room hot",
-         "It has no effect on sleep"
-        ],
-        "a": 0,
-        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
-       }
-      ]
-     },
-     {
-      "id": "air",
-      "title": "Indoor air quality",
-      "mins": 6,
-      "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
-      "quiz": [
-       {
-        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
-        "o": [
-         "It is cleaner",
-         "It is 2–5 times more polluted",
-         "It is exactly the same",
-         "It has no pollutants"
-        ],
-        "a": 1,
-        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
-       },
-       {
-        "q": "Radon is dangerous partly because it is…",
-        "o": [
-         "Bright red and smelly",
-         "Colourless and odourless, so you need a monitor to detect it",
-         "Only found in big cities",
-         "Harmless in small amounts"
-        ],
-        "a": 1,
-        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
-       },
-       {
-        "q": "What are VOCs?",
-        "o": [
-         "Vitamins in vegetables",
-         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
-         "A type of mould",
-         "Oxygen molecules"
-        ],
-        "a": 1,
-        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
-       },
-       {
-        "q": "What does mould need to grow indoors?",
-        "o": [
-         "Sunlight",
-         "Moisture",
-         "Cold air",
-         "Electricity"
-        ],
-        "a": 1,
-        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
-       },
-       {
-        "q": "What is the target carbon dioxide level for good thinking and sleep?",
-        "o": [
-         "Below 800 ppm",
-         "Around 2,500 ppm",
-         "Over 4,000 ppm",
-         "It doesn't matter"
-        ],
-        "a": 0,
-        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
-       }
-      ]
-     }
-    ]
-   },
-   {
     "id": "s7",
-    "step": 7,
+    "step": 3,
     "title": "Nature & sun",
     "sub": "Reset outdoors",
     "img": "7-nature",
@@ -798,6 +378,426 @@ window.MTH_COURSES={
       "title": "Forest bathing",
       "mins": 6,
       "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week."
+     }
+    ]
+   },
+   {
+    "id": "s6",
+    "step": 4,
+    "title": "Sleep & clean air",
+    "sub": "Repair at night",
+    "img": "6-sleep",
+    "lessons": [
+     {
+      "id": "sleep",
+      "title": "Sleep",
+      "mins": 10,
+      "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
+      "quiz": [
+       {
+        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
+        "o": [
+         "55–58°F",
+         "65–68°F",
+         "75–78°F",
+         "Above 80°F"
+        ],
+        "a": 1,
+        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
+       },
+       {
+        "q": "About how long is the half-life of caffeine in most adults?",
+        "o": [
+         "30 minutes",
+         "About 6 hours",
+         "24 hours",
+         "A week"
+        ],
+        "a": 1,
+        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
+       },
+       {
+        "q": "How long before bed should you avoid screens and bright blue light?",
+        "o": [
+         "5 minutes",
+         "About 1 hour",
+         "It doesn't matter",
+         "12 hours"
+        ],
+        "a": 1,
+        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
+       },
+       {
+        "q": "Why are blackout curtains recommended?",
+        "o": [
+         "They keep the room warm",
+         "Even a little light can cut melatonin, and darkness lets it rise fully",
+         "They block noise",
+         "They look better"
+        ],
+        "a": 1,
+        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
+       },
+       {
+        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
+        "o": [
+         "Its blue light and stimulating content keep your brain alert",
+         "It uses too much electricity",
+         "It makes the room hot",
+         "It has no effect on sleep"
+        ],
+        "a": 0,
+        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
+       }
+      ]
+     },
+     {
+      "id": "air",
+      "title": "Indoor air quality",
+      "mins": 6,
+      "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
+      "quiz": [
+       {
+        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
+        "o": [
+         "It is cleaner",
+         "It is 2–5 times more polluted",
+         "It is exactly the same",
+         "It has no pollutants"
+        ],
+        "a": 1,
+        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
+       },
+       {
+        "q": "Radon is dangerous partly because it is…",
+        "o": [
+         "Bright red and smelly",
+         "Colourless and odourless, so you need a monitor to detect it",
+         "Only found in big cities",
+         "Harmless in small amounts"
+        ],
+        "a": 1,
+        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
+       },
+       {
+        "q": "What are VOCs?",
+        "o": [
+         "Vitamins in vegetables",
+         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
+         "A type of mould",
+         "Oxygen molecules"
+        ],
+        "a": 1,
+        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
+       },
+       {
+        "q": "What does mould need to grow indoors?",
+        "o": [
+         "Sunlight",
+         "Moisture",
+         "Cold air",
+         "Electricity"
+        ],
+        "a": 1,
+        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
+       },
+       {
+        "q": "What is the target carbon dioxide level for good thinking and sleep?",
+        "o": [
+         "Below 800 ppm",
+         "Around 2,500 ppm",
+         "Over 4,000 ppm",
+         "It doesn't matter"
+        ],
+        "a": 0,
+        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s5",
+    "step": 5,
+    "title": "Music & spirituality",
+    "sub": "Sound as medicine",
+    "img": "5-music",
+    "lessons": [
+     {
+      "id": "music",
+      "title": "Music therapy",
+      "mins": 8,
+      "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
+      "quiz": [
+       {
+        "q": "What happened to cortisol after surgery when patients listened to calming music?",
+        "o": [
+         "It rose",
+         "It dropped compared with silence",
+         "Nothing changed",
+         "It disappeared completely"
+        ],
+        "a": 1,
+        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
+       },
+       {
+        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
+        "o": [
+         "About 60 beats per minute",
+         "About 140 beats per minute",
+         "About 200 beats per minute",
+         "Tempo doesn't matter"
+        ],
+        "a": 0,
+        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
+       },
+       {
+        "q": "What is \"brainwave entrainment\"?",
+        "o": [
+         "Training your memory with flashcards",
+         "The brain gradually syncing its rhythm to a steady sound",
+         "A type of headphone",
+         "Sleeping with music on"
+        ],
+        "a": 1,
+        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
+       },
+       {
+        "q": "Which nerve does slow, steady music help activate to calm the body?",
+        "o": [
+         "The vagus nerve",
+         "The optic nerve",
+         "The sciatic nerve",
+         "The funny bone"
+        ],
+        "a": 0,
+        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
+       },
+       {
+        "q": "When does the brain release dopamine while listening to music?",
+        "o": [
+         "Only when the music stops",
+         "As it anticipates and reaches the musical \"payoff\" or resolution",
+         "Never",
+         "Only with loud music"
+        ],
+        "a": 1,
+        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s4",
+    "step": 6,
+    "title": "Cardio & weights",
+    "sub": "Move to heal",
+    "img": "4-cardio",
+    "lessons": [
+     {
+      "id": "exercise",
+      "title": "Exercise",
+      "mins": 10,
+      "text": "Walking, cardio and simple strength work that wake up your metabolism without draining you, with how to progress week by week.",
+      "quiz": [
+       {
+        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
+        "o": [
+         "15 minutes",
+         "150 minutes",
+         "1,500 minutes",
+         "Any amount over 10 hours"
+        ],
+        "a": 1,
+        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
+       },
+       {
+        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
+        "o": [
+         "Stretching only",
+         "Strength (resistance) training",
+         "Walking slowly",
+         "Sitting upright"
+        ],
+        "a": 1,
+        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
+       },
+       {
+        "q": "What is the \"afterburn\" (EPOC) effect?",
+        "o": [
+         "Sore muscles the next day",
+         "A raised metabolism for hours after a hard workout",
+         "Sunburn from outdoor exercise",
+         "Heartburn after eating"
+        ],
+        "a": 1,
+        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
+       },
+       {
+        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
+        "o": [
+         "Visceral fat",
+         "Fat under the skin on your arms",
+         "Fat in your feet",
+         "Brown fat"
+        ],
+        "a": 0,
+        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
+       },
+       {
+        "q": "How does exercise lower blood sugar without needing insulin?",
+        "o": [
+         "It makes you sweat out sugar",
+         "Working muscles pull sugar in through GLUT4 transporters",
+         "It stops the liver from working",
+         "It doesn't lower blood sugar"
+        ],
+        "a": 1,
+        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
+       }
+      ]
+     },
+     {
+      "id": "massage",
+      "title": "Massage therapy",
+      "mins": 6,
+      "text": "Hands-on recovery for muscles and the nervous system, including simple self-massage you can do at home.",
+      "quiz": [
+       {
+        "q": "What happens to cortisol, the stress hormone, after a massage?",
+        "o": [
+         "It rises",
+         "It drops",
+         "It stays the same",
+         "It turns into sugar"
+        ],
+        "a": 1,
+        "fb": "Across 38 studies, cortisol fell after massage. It was measured in saliva and urine, not just how people felt."
+       },
+       {
+        "q": "Which two \"feel-good\" chemicals rose after massage in those studies?",
+        "o": [
+         "Serotonin and dopamine",
+         "Insulin and glucagon",
+         "Adrenaline and histamine",
+         "Caffeine and nicotine"
+        ],
+        "a": 0,
+        "fb": "Serotonin steadies mood and dopamine drives motivation. Massage nudges both up naturally."
+       },
+       {
+        "q": "Where is more than 90% of the body's serotonin made?",
+        "o": [
+         "In the brain",
+         "In the gut",
+         "In the lungs",
+         "In the skin"
+        ],
+        "a": 1,
+        "fb": "Your gut makes most of your serotonin, one reason gut health and mood are so closely linked."
+       },
+       {
+        "q": "Which hormone, released by touch, builds trust and calms the stress response?",
+        "o": [
+         "Oxytocin",
+         "Cortisol",
+         "Testosterone",
+         "Thyroxine"
+        ],
+        "a": 0,
+        "fb": "Oxytocin is the connection hormone. Caring touch is one of the strongest ways to release it."
+       },
+       {
+        "q": "About how long were the sessions that consistently produced measurable hormone changes?",
+        "o": [
+         "5 minutes",
+         "About 45 minutes",
+         "4 hours",
+         "Only overnight"
+        ],
+        "a": 1,
+        "fb": "Around 45 minutes gave the clearest results, though shorter sessions still helped."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s3",
+    "step": 7,
+    "title": "High-protein diet",
+    "sub": "Feed repair",
+    "img": "3-high-protein",
+    "lessons": [
+     {
+      "id": "keto",
+      "title": "The High Protein Meal Plan",
+      "mins": 12,
+      "text": "How protein-first meals keep you full, protect muscle while you lose fat, and give your gut lining the building blocks to repair, and how to build a high-protein plate after your cleanse.",
+      "quiz": [
+       {
+        "q": "Which nutrient keeps you full the longest per calorie?",
+        "o": [
+         "Protein",
+         "Sugar",
+         "Fat",
+         "Alcohol"
+        ],
+        "a": 0,
+        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
+       },
+       {
+        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
+        "o": [
+         "0.3 g",
+         "About 1.2–1.6 g",
+         "5 g",
+         "No target needed"
+        ],
+        "a": 1,
+        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
+       },
+       {
+        "q": "About how much protein per meal helps your muscles rebuild best?",
+        "o": [
+         "5 g",
+         "About 25–40 g",
+         "100 g",
+         "It doesn't matter"
+        ],
+        "a": 1,
+        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
+       },
+       {
+        "q": "Why does protein help when you're losing weight?",
+        "o": [
+         "It protects muscle so the weight you lose is fat",
+         "It adds water weight",
+         "It stops digestion",
+         "It replaces sleep"
+        ],
+        "a": 0,
+        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
+       },
+       {
+        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
+        "o": [
+         "About 20–30%",
+         "1%",
+         "Over 80%",
+         "None"
+        ],
+        "a": 0,
+        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
+       }
+      ]
+     },
+     {
+      "id": "hydration",
+      "title": "High hydration",
+      "mins": 6,
+      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days."
      }
     ]
    }
@@ -1036,428 +1036,8 @@ window.MTH_COURSES={
     ]
    },
    {
-    "id": "s3",
-    "step": 3,
-    "title": "High protein & healing broths",
-    "sub": "Feed repair",
-    "img": "3-high-protein",
-    "lessons": [
-     {
-      "id": "keto",
-      "title": "High protein for steady glucose",
-      "mins": 12,
-      "text": "How protein-first meals blunt blood sugar spikes, keep you full for hours and protect muscle, and how to build a high-protein plate that keeps your energy steady all day.",
-      "quiz": [
-       {
-        "q": "Which nutrient keeps you full the longest per calorie?",
-        "o": [
-         "Protein",
-         "Sugar",
-         "Fat",
-         "Alcohol"
-        ],
-        "a": 0,
-        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
-       },
-       {
-        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
-        "o": [
-         "0.3 g",
-         "About 1.2–1.6 g",
-         "5 g",
-         "No target needed"
-        ],
-        "a": 1,
-        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
-       },
-       {
-        "q": "About how much protein per meal helps your muscles rebuild best?",
-        "o": [
-         "5 g",
-         "About 25–40 g",
-         "100 g",
-         "It doesn't matter"
-        ],
-        "a": 1,
-        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
-       },
-       {
-        "q": "Why does protein help when you're losing weight?",
-        "o": [
-         "It protects muscle so the weight you lose is fat",
-         "It adds water weight",
-         "It stops digestion",
-         "It replaces sleep"
-        ],
-        "a": 0,
-        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
-       },
-       {
-        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
-        "o": [
-         "About 20–30%",
-         "1%",
-         "Over 80%",
-         "None"
-        ],
-        "a": 0,
-        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
-       }
-      ]
-     },
-     {
-      "id": "broth",
-      "title": "Bone broth & juicing",
-      "mins": 8,
-      "text": "Warm, mineral-rich broths and green juices that support the gut lining. Recipes, batch-prep tips and how to fit them into your week."
-     }
-    ]
-   },
-   {
-    "id": "s4",
-    "step": 4,
-    "title": "Cardio & strength",
-    "sub": "Move to heal",
-    "img": "4-cardio",
-    "lessons": [
-     {
-      "id": "exercise",
-      "title": "Exercise",
-      "mins": 10,
-      "text": "Working muscles soak up glucose. Walking after meals, cardio and simple strength work that steady your blood sugar, with how to progress week by week.",
-      "quiz": [
-       {
-        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
-        "o": [
-         "15 minutes",
-         "150 minutes",
-         "1,500 minutes",
-         "Any amount over 10 hours"
-        ],
-        "a": 1,
-        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
-       },
-       {
-        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
-        "o": [
-         "Stretching only",
-         "Strength (resistance) training",
-         "Walking slowly",
-         "Sitting upright"
-        ],
-        "a": 1,
-        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
-       },
-       {
-        "q": "What is the \"afterburn\" (EPOC) effect?",
-        "o": [
-         "Sore muscles the next day",
-         "A raised metabolism for hours after a hard workout",
-         "Sunburn from outdoor exercise",
-         "Heartburn after eating"
-        ],
-        "a": 1,
-        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
-       },
-       {
-        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
-        "o": [
-         "Visceral fat",
-         "Fat under the skin on your arms",
-         "Fat in your feet",
-         "Brown fat"
-        ],
-        "a": 0,
-        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
-       },
-       {
-        "q": "How does exercise lower blood sugar without needing insulin?",
-        "o": [
-         "It makes you sweat out sugar",
-         "Working muscles pull sugar in through GLUT4 transporters",
-         "It stops the liver from working",
-         "It doesn't lower blood sugar"
-        ],
-        "a": 1,
-        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
-       }
-      ]
-     },
-     {
-      "id": "massage",
-      "title": "Massage therapy",
-      "mins": 6,
-      "text": "Hands-on recovery for muscles and the nervous system, including simple self-massage you can do at home.",
-      "quiz": [
-       {
-        "q": "What happens to cortisol, the stress hormone, after a massage?",
-        "o": [
-         "It rises",
-         "It drops",
-         "It stays the same",
-         "It turns into sugar"
-        ],
-        "a": 1,
-        "fb": "Across 38 studies, cortisol fell after massage. It was measured in saliva and urine, not just how people felt."
-       },
-       {
-        "q": "Which two \"feel-good\" chemicals rose after massage in those studies?",
-        "o": [
-         "Serotonin and dopamine",
-         "Insulin and glucagon",
-         "Adrenaline and histamine",
-         "Caffeine and nicotine"
-        ],
-        "a": 0,
-        "fb": "Serotonin steadies mood and dopamine drives motivation. Massage nudges both up naturally."
-       },
-       {
-        "q": "Where is more than 90% of the body's serotonin made?",
-        "o": [
-         "In the brain",
-         "In the gut",
-         "In the lungs",
-         "In the skin"
-        ],
-        "a": 1,
-        "fb": "Your gut makes most of your serotonin, one reason gut health and mood are so closely linked."
-       },
-       {
-        "q": "Which hormone, released by touch, builds trust and calms the stress response?",
-        "o": [
-         "Oxytocin",
-         "Cortisol",
-         "Testosterone",
-         "Thyroxine"
-        ],
-        "a": 0,
-        "fb": "Oxytocin is the connection hormone. Caring touch is one of the strongest ways to release it."
-       },
-       {
-        "q": "About how long were the sessions that consistently produced measurable hormone changes?",
-        "o": [
-         "5 minutes",
-         "About 45 minutes",
-         "4 hours",
-         "Only overnight"
-        ],
-        "a": 1,
-        "fb": "Around 45 minutes gave the clearest results, though shorter sessions still helped."
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "s5",
-    "step": 5,
-    "title": "Music & spirit",
-    "sub": "Sound as medicine",
-    "img": "5-music",
-    "lessons": [
-     {
-      "id": "music",
-      "title": "Music therapy",
-      "mins": 8,
-      "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
-      "quiz": [
-       {
-        "q": "What happened to cortisol after surgery when patients listened to calming music?",
-        "o": [
-         "It rose",
-         "It dropped compared with silence",
-         "Nothing changed",
-         "It disappeared completely"
-        ],
-        "a": 1,
-        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
-       },
-       {
-        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
-        "o": [
-         "About 60 beats per minute",
-         "About 140 beats per minute",
-         "About 200 beats per minute",
-         "Tempo doesn't matter"
-        ],
-        "a": 0,
-        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
-       },
-       {
-        "q": "What is \"brainwave entrainment\"?",
-        "o": [
-         "Training your memory with flashcards",
-         "The brain gradually syncing its rhythm to a steady sound",
-         "A type of headphone",
-         "Sleeping with music on"
-        ],
-        "a": 1,
-        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
-       },
-       {
-        "q": "Which nerve does slow, steady music help activate to calm the body?",
-        "o": [
-         "The vagus nerve",
-         "The optic nerve",
-         "The sciatic nerve",
-         "The funny bone"
-        ],
-        "a": 0,
-        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
-       },
-       {
-        "q": "When does the brain release dopamine while listening to music?",
-        "o": [
-         "Only when the music stops",
-         "As it anticipates and reaches the musical \"payoff\" or resolution",
-         "Never",
-         "Only with loud music"
-        ],
-        "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "s6",
-    "step": 6,
-    "title": "Sleep & clean air",
-    "sub": "Repair at night",
-    "img": "6-sleep",
-    "lessons": [
-     {
-      "id": "sleep",
-      "title": "Sleep",
-      "mins": 10,
-      "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
-      "quiz": [
-       {
-        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
-        "o": [
-         "55–58°F",
-         "65–68°F",
-         "75–78°F",
-         "Above 80°F"
-        ],
-        "a": 1,
-        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
-       },
-       {
-        "q": "About how long is the half-life of caffeine in most adults?",
-        "o": [
-         "30 minutes",
-         "About 6 hours",
-         "24 hours",
-         "A week"
-        ],
-        "a": 1,
-        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
-       },
-       {
-        "q": "How long before bed should you avoid screens and bright blue light?",
-        "o": [
-         "5 minutes",
-         "About 1 hour",
-         "It doesn't matter",
-         "12 hours"
-        ],
-        "a": 1,
-        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
-       },
-       {
-        "q": "Why are blackout curtains recommended?",
-        "o": [
-         "They keep the room warm",
-         "Even a little light can cut melatonin, and darkness lets it rise fully",
-         "They block noise",
-         "They look better"
-        ],
-        "a": 1,
-        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
-       },
-       {
-        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
-        "o": [
-         "Its blue light and stimulating content keep your brain alert",
-         "It uses too much electricity",
-         "It makes the room hot",
-         "It has no effect on sleep"
-        ],
-        "a": 0,
-        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
-       }
-      ]
-     },
-     {
-      "id": "air",
-      "title": "Indoor air quality",
-      "mins": 6,
-      "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
-      "quiz": [
-       {
-        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
-        "o": [
-         "It is cleaner",
-         "It is 2–5 times more polluted",
-         "It is exactly the same",
-         "It has no pollutants"
-        ],
-        "a": 1,
-        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
-       },
-       {
-        "q": "Radon is dangerous partly because it is…",
-        "o": [
-         "Bright red and smelly",
-         "Colourless and odourless, so you need a monitor to detect it",
-         "Only found in big cities",
-         "Harmless in small amounts"
-        ],
-        "a": 1,
-        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
-       },
-       {
-        "q": "What are VOCs?",
-        "o": [
-         "Vitamins in vegetables",
-         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
-         "A type of mould",
-         "Oxygen molecules"
-        ],
-        "a": 1,
-        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
-       },
-       {
-        "q": "What does mould need to grow indoors?",
-        "o": [
-         "Sunlight",
-         "Moisture",
-         "Cold air",
-         "Electricity"
-        ],
-        "a": 1,
-        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
-       },
-       {
-        "q": "What is the target carbon dioxide level for good thinking and sleep?",
-        "o": [
-         "Below 800 ppm",
-         "Around 2,500 ppm",
-         "Over 4,000 ppm",
-         "It doesn't matter"
-        ],
-        "a": 0,
-        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
-       }
-      ]
-     }
-    ]
-   },
-   {
     "id": "s7",
-    "step": 7,
+    "step": 3,
     "title": "Nature & sun",
     "sub": "Reset outdoors",
     "img": "7-nature",
@@ -1593,6 +1173,426 @@ window.MTH_COURSES={
       "title": "Forest bathing",
       "mins": 6,
       "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week."
+     }
+    ]
+   },
+   {
+    "id": "s6",
+    "step": 4,
+    "title": "Sleep & clean air",
+    "sub": "Repair at night",
+    "img": "6-sleep",
+    "lessons": [
+     {
+      "id": "sleep",
+      "title": "Sleep",
+      "mins": 10,
+      "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
+      "quiz": [
+       {
+        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
+        "o": [
+         "55–58°F",
+         "65–68°F",
+         "75–78°F",
+         "Above 80°F"
+        ],
+        "a": 1,
+        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
+       },
+       {
+        "q": "About how long is the half-life of caffeine in most adults?",
+        "o": [
+         "30 minutes",
+         "About 6 hours",
+         "24 hours",
+         "A week"
+        ],
+        "a": 1,
+        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
+       },
+       {
+        "q": "How long before bed should you avoid screens and bright blue light?",
+        "o": [
+         "5 minutes",
+         "About 1 hour",
+         "It doesn't matter",
+         "12 hours"
+        ],
+        "a": 1,
+        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
+       },
+       {
+        "q": "Why are blackout curtains recommended?",
+        "o": [
+         "They keep the room warm",
+         "Even a little light can cut melatonin, and darkness lets it rise fully",
+         "They block noise",
+         "They look better"
+        ],
+        "a": 1,
+        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
+       },
+       {
+        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
+        "o": [
+         "Its blue light and stimulating content keep your brain alert",
+         "It uses too much electricity",
+         "It makes the room hot",
+         "It has no effect on sleep"
+        ],
+        "a": 0,
+        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
+       }
+      ]
+     },
+     {
+      "id": "air",
+      "title": "Indoor air quality",
+      "mins": 6,
+      "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
+      "quiz": [
+       {
+        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
+        "o": [
+         "It is cleaner",
+         "It is 2–5 times more polluted",
+         "It is exactly the same",
+         "It has no pollutants"
+        ],
+        "a": 1,
+        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
+       },
+       {
+        "q": "Radon is dangerous partly because it is…",
+        "o": [
+         "Bright red and smelly",
+         "Colourless and odourless, so you need a monitor to detect it",
+         "Only found in big cities",
+         "Harmless in small amounts"
+        ],
+        "a": 1,
+        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
+       },
+       {
+        "q": "What are VOCs?",
+        "o": [
+         "Vitamins in vegetables",
+         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
+         "A type of mould",
+         "Oxygen molecules"
+        ],
+        "a": 1,
+        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
+       },
+       {
+        "q": "What does mould need to grow indoors?",
+        "o": [
+         "Sunlight",
+         "Moisture",
+         "Cold air",
+         "Electricity"
+        ],
+        "a": 1,
+        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
+       },
+       {
+        "q": "What is the target carbon dioxide level for good thinking and sleep?",
+        "o": [
+         "Below 800 ppm",
+         "Around 2,500 ppm",
+         "Over 4,000 ppm",
+         "It doesn't matter"
+        ],
+        "a": 0,
+        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s5",
+    "step": 5,
+    "title": "Music & spirituality",
+    "sub": "Sound as medicine",
+    "img": "5-music",
+    "lessons": [
+     {
+      "id": "music",
+      "title": "Music therapy",
+      "mins": 8,
+      "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
+      "quiz": [
+       {
+        "q": "What happened to cortisol after surgery when patients listened to calming music?",
+        "o": [
+         "It rose",
+         "It dropped compared with silence",
+         "Nothing changed",
+         "It disappeared completely"
+        ],
+        "a": 1,
+        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
+       },
+       {
+        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
+        "o": [
+         "About 60 beats per minute",
+         "About 140 beats per minute",
+         "About 200 beats per minute",
+         "Tempo doesn't matter"
+        ],
+        "a": 0,
+        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
+       },
+       {
+        "q": "What is \"brainwave entrainment\"?",
+        "o": [
+         "Training your memory with flashcards",
+         "The brain gradually syncing its rhythm to a steady sound",
+         "A type of headphone",
+         "Sleeping with music on"
+        ],
+        "a": 1,
+        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
+       },
+       {
+        "q": "Which nerve does slow, steady music help activate to calm the body?",
+        "o": [
+         "The vagus nerve",
+         "The optic nerve",
+         "The sciatic nerve",
+         "The funny bone"
+        ],
+        "a": 0,
+        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
+       },
+       {
+        "q": "When does the brain release dopamine while listening to music?",
+        "o": [
+         "Only when the music stops",
+         "As it anticipates and reaches the musical \"payoff\" or resolution",
+         "Never",
+         "Only with loud music"
+        ],
+        "a": 1,
+        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s4",
+    "step": 6,
+    "title": "Cardio & weights",
+    "sub": "Move to heal",
+    "img": "4-cardio",
+    "lessons": [
+     {
+      "id": "exercise",
+      "title": "Exercise",
+      "mins": 10,
+      "text": "Working muscles soak up glucose. Walking after meals, cardio and simple strength work that steady your blood sugar, with how to progress week by week.",
+      "quiz": [
+       {
+        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
+        "o": [
+         "15 minutes",
+         "150 minutes",
+         "1,500 minutes",
+         "Any amount over 10 hours"
+        ],
+        "a": 1,
+        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
+       },
+       {
+        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
+        "o": [
+         "Stretching only",
+         "Strength (resistance) training",
+         "Walking slowly",
+         "Sitting upright"
+        ],
+        "a": 1,
+        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
+       },
+       {
+        "q": "What is the \"afterburn\" (EPOC) effect?",
+        "o": [
+         "Sore muscles the next day",
+         "A raised metabolism for hours after a hard workout",
+         "Sunburn from outdoor exercise",
+         "Heartburn after eating"
+        ],
+        "a": 1,
+        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
+       },
+       {
+        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
+        "o": [
+         "Visceral fat",
+         "Fat under the skin on your arms",
+         "Fat in your feet",
+         "Brown fat"
+        ],
+        "a": 0,
+        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
+       },
+       {
+        "q": "How does exercise lower blood sugar without needing insulin?",
+        "o": [
+         "It makes you sweat out sugar",
+         "Working muscles pull sugar in through GLUT4 transporters",
+         "It stops the liver from working",
+         "It doesn't lower blood sugar"
+        ],
+        "a": 1,
+        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
+       }
+      ]
+     },
+     {
+      "id": "massage",
+      "title": "Massage therapy",
+      "mins": 6,
+      "text": "Hands-on recovery for muscles and the nervous system, including simple self-massage you can do at home.",
+      "quiz": [
+       {
+        "q": "What happens to cortisol, the stress hormone, after a massage?",
+        "o": [
+         "It rises",
+         "It drops",
+         "It stays the same",
+         "It turns into sugar"
+        ],
+        "a": 1,
+        "fb": "Across 38 studies, cortisol fell after massage. It was measured in saliva and urine, not just how people felt."
+       },
+       {
+        "q": "Which two \"feel-good\" chemicals rose after massage in those studies?",
+        "o": [
+         "Serotonin and dopamine",
+         "Insulin and glucagon",
+         "Adrenaline and histamine",
+         "Caffeine and nicotine"
+        ],
+        "a": 0,
+        "fb": "Serotonin steadies mood and dopamine drives motivation. Massage nudges both up naturally."
+       },
+       {
+        "q": "Where is more than 90% of the body's serotonin made?",
+        "o": [
+         "In the brain",
+         "In the gut",
+         "In the lungs",
+         "In the skin"
+        ],
+        "a": 1,
+        "fb": "Your gut makes most of your serotonin, one reason gut health and mood are so closely linked."
+       },
+       {
+        "q": "Which hormone, released by touch, builds trust and calms the stress response?",
+        "o": [
+         "Oxytocin",
+         "Cortisol",
+         "Testosterone",
+         "Thyroxine"
+        ],
+        "a": 0,
+        "fb": "Oxytocin is the connection hormone. Caring touch is one of the strongest ways to release it."
+       },
+       {
+        "q": "About how long were the sessions that consistently produced measurable hormone changes?",
+        "o": [
+         "5 minutes",
+         "About 45 minutes",
+         "4 hours",
+         "Only overnight"
+        ],
+        "a": 1,
+        "fb": "Around 45 minutes gave the clearest results, though shorter sessions still helped."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s3",
+    "step": 7,
+    "title": "High-protein diet",
+    "sub": "Feed repair",
+    "img": "3-high-protein",
+    "lessons": [
+     {
+      "id": "keto",
+      "title": "High protein for steady glucose",
+      "mins": 12,
+      "text": "How protein-first meals blunt blood sugar spikes, keep you full for hours and protect muscle, and how to build a high-protein plate that keeps your energy steady all day.",
+      "quiz": [
+       {
+        "q": "Which nutrient keeps you full the longest per calorie?",
+        "o": [
+         "Protein",
+         "Sugar",
+         "Fat",
+         "Alcohol"
+        ],
+        "a": 0,
+        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
+       },
+       {
+        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
+        "o": [
+         "0.3 g",
+         "About 1.2–1.6 g",
+         "5 g",
+         "No target needed"
+        ],
+        "a": 1,
+        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
+       },
+       {
+        "q": "About how much protein per meal helps your muscles rebuild best?",
+        "o": [
+         "5 g",
+         "About 25–40 g",
+         "100 g",
+         "It doesn't matter"
+        ],
+        "a": 1,
+        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
+       },
+       {
+        "q": "Why does protein help when you're losing weight?",
+        "o": [
+         "It protects muscle so the weight you lose is fat",
+         "It adds water weight",
+         "It stops digestion",
+         "It replaces sleep"
+        ],
+        "a": 0,
+        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
+       },
+       {
+        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
+        "o": [
+         "About 20–30%",
+         "1%",
+         "Over 80%",
+         "None"
+        ],
+        "a": 0,
+        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
+       }
+      ]
+     },
+     {
+      "id": "hydration",
+      "title": "High hydration",
+      "mins": 6,
+      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days."
      }
     ]
    }
@@ -1831,428 +1831,8 @@ window.MTH_COURSES={
     ]
    },
    {
-    "id": "s3",
-    "step": 3,
-    "title": "High protein & healing broths",
-    "sub": "Feed repair",
-    "img": "3-high-protein",
-    "lessons": [
-     {
-      "id": "keto",
-      "title": "Protein-first eating on a GLP-1",
-      "mins": 12,
-      "text": "Eating less on a GLP-1 makes every meal count. How to hit your protein so you lose fat, not muscle, with high-protein whole foods that are easy on the stomach.",
-      "quiz": [
-       {
-        "q": "Which nutrient keeps you full the longest per calorie?",
-        "o": [
-         "Protein",
-         "Sugar",
-         "Fat",
-         "Alcohol"
-        ],
-        "a": 0,
-        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
-       },
-       {
-        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
-        "o": [
-         "0.3 g",
-         "About 1.2–1.6 g",
-         "5 g",
-         "No target needed"
-        ],
-        "a": 1,
-        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
-       },
-       {
-        "q": "About how much protein per meal helps your muscles rebuild best?",
-        "o": [
-         "5 g",
-         "About 25–40 g",
-         "100 g",
-         "It doesn't matter"
-        ],
-        "a": 1,
-        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
-       },
-       {
-        "q": "Why does protein help when you're losing weight?",
-        "o": [
-         "It protects muscle so the weight you lose is fat",
-         "It adds water weight",
-         "It stops digestion",
-         "It replaces sleep"
-        ],
-        "a": 0,
-        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
-       },
-       {
-        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
-        "o": [
-         "About 20–30%",
-         "1%",
-         "Over 80%",
-         "None"
-        ],
-        "a": 0,
-        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
-       }
-      ]
-     },
-     {
-      "id": "broth",
-      "title": "Bone broth & juicing",
-      "mins": 8,
-      "text": "Warm, mineral-rich broths and green juices that support the gut lining. Recipes, batch-prep tips and how to fit them into your week."
-     }
-    ]
-   },
-   {
-    "id": "s4",
-    "step": 4,
-    "title": "Cardio & strength",
-    "sub": "Move to heal",
-    "img": "4-cardio",
-    "lessons": [
-     {
-      "id": "exercise",
-      "title": "Strength training to protect muscle",
-      "mins": 10,
-      "text": "The single best way to keep muscle while the weight comes off: simple strength sessions, plus walking and cardio, with how to progress week by week.",
-      "quiz": [
-       {
-        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
-        "o": [
-         "15 minutes",
-         "150 minutes",
-         "1,500 minutes",
-         "Any amount over 10 hours"
-        ],
-        "a": 1,
-        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
-       },
-       {
-        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
-        "o": [
-         "Stretching only",
-         "Strength (resistance) training",
-         "Walking slowly",
-         "Sitting upright"
-        ],
-        "a": 1,
-        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
-       },
-       {
-        "q": "What is the \"afterburn\" (EPOC) effect?",
-        "o": [
-         "Sore muscles the next day",
-         "A raised metabolism for hours after a hard workout",
-         "Sunburn from outdoor exercise",
-         "Heartburn after eating"
-        ],
-        "a": 1,
-        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
-       },
-       {
-        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
-        "o": [
-         "Visceral fat",
-         "Fat under the skin on your arms",
-         "Fat in your feet",
-         "Brown fat"
-        ],
-        "a": 0,
-        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
-       },
-       {
-        "q": "How does exercise lower blood sugar without needing insulin?",
-        "o": [
-         "It makes you sweat out sugar",
-         "Working muscles pull sugar in through GLUT4 transporters",
-         "It stops the liver from working",
-         "It doesn't lower blood sugar"
-        ],
-        "a": 1,
-        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
-       }
-      ]
-     },
-     {
-      "id": "massage",
-      "title": "Massage therapy",
-      "mins": 6,
-      "text": "Hands-on recovery for muscles and the nervous system, including simple self-massage you can do at home.",
-      "quiz": [
-       {
-        "q": "What happens to cortisol, the stress hormone, after a massage?",
-        "o": [
-         "It rises",
-         "It drops",
-         "It stays the same",
-         "It turns into sugar"
-        ],
-        "a": 1,
-        "fb": "Across 38 studies, cortisol fell after massage. It was measured in saliva and urine, not just how people felt."
-       },
-       {
-        "q": "Which two \"feel-good\" chemicals rose after massage in those studies?",
-        "o": [
-         "Serotonin and dopamine",
-         "Insulin and glucagon",
-         "Adrenaline and histamine",
-         "Caffeine and nicotine"
-        ],
-        "a": 0,
-        "fb": "Serotonin steadies mood and dopamine drives motivation. Massage nudges both up naturally."
-       },
-       {
-        "q": "Where is more than 90% of the body's serotonin made?",
-        "o": [
-         "In the brain",
-         "In the gut",
-         "In the lungs",
-         "In the skin"
-        ],
-        "a": 1,
-        "fb": "Your gut makes most of your serotonin, one reason gut health and mood are so closely linked."
-       },
-       {
-        "q": "Which hormone, released by touch, builds trust and calms the stress response?",
-        "o": [
-         "Oxytocin",
-         "Cortisol",
-         "Testosterone",
-         "Thyroxine"
-        ],
-        "a": 0,
-        "fb": "Oxytocin is the connection hormone. Caring touch is one of the strongest ways to release it."
-       },
-       {
-        "q": "About how long were the sessions that consistently produced measurable hormone changes?",
-        "o": [
-         "5 minutes",
-         "About 45 minutes",
-         "4 hours",
-         "Only overnight"
-        ],
-        "a": 1,
-        "fb": "Around 45 minutes gave the clearest results, though shorter sessions still helped."
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "s5",
-    "step": 5,
-    "title": "Music & spirit",
-    "sub": "Sound as medicine",
-    "img": "5-music",
-    "lessons": [
-     {
-      "id": "music",
-      "title": "Music therapy",
-      "mins": 8,
-      "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
-      "quiz": [
-       {
-        "q": "What happened to cortisol after surgery when patients listened to calming music?",
-        "o": [
-         "It rose",
-         "It dropped compared with silence",
-         "Nothing changed",
-         "It disappeared completely"
-        ],
-        "a": 1,
-        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
-       },
-       {
-        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
-        "o": [
-         "About 60 beats per minute",
-         "About 140 beats per minute",
-         "About 200 beats per minute",
-         "Tempo doesn't matter"
-        ],
-        "a": 0,
-        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
-       },
-       {
-        "q": "What is \"brainwave entrainment\"?",
-        "o": [
-         "Training your memory with flashcards",
-         "The brain gradually syncing its rhythm to a steady sound",
-         "A type of headphone",
-         "Sleeping with music on"
-        ],
-        "a": 1,
-        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
-       },
-       {
-        "q": "Which nerve does slow, steady music help activate to calm the body?",
-        "o": [
-         "The vagus nerve",
-         "The optic nerve",
-         "The sciatic nerve",
-         "The funny bone"
-        ],
-        "a": 0,
-        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
-       },
-       {
-        "q": "When does the brain release dopamine while listening to music?",
-        "o": [
-         "Only when the music stops",
-         "As it anticipates and reaches the musical \"payoff\" or resolution",
-         "Never",
-         "Only with loud music"
-        ],
-        "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "s6",
-    "step": 6,
-    "title": "Sleep & clean air",
-    "sub": "Repair at night",
-    "img": "6-sleep",
-    "lessons": [
-     {
-      "id": "sleep",
-      "title": "Sleep",
-      "mins": 10,
-      "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
-      "quiz": [
-       {
-        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
-        "o": [
-         "55–58°F",
-         "65–68°F",
-         "75–78°F",
-         "Above 80°F"
-        ],
-        "a": 1,
-        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
-       },
-       {
-        "q": "About how long is the half-life of caffeine in most adults?",
-        "o": [
-         "30 minutes",
-         "About 6 hours",
-         "24 hours",
-         "A week"
-        ],
-        "a": 1,
-        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
-       },
-       {
-        "q": "How long before bed should you avoid screens and bright blue light?",
-        "o": [
-         "5 minutes",
-         "About 1 hour",
-         "It doesn't matter",
-         "12 hours"
-        ],
-        "a": 1,
-        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
-       },
-       {
-        "q": "Why are blackout curtains recommended?",
-        "o": [
-         "They keep the room warm",
-         "Even a little light can cut melatonin, and darkness lets it rise fully",
-         "They block noise",
-         "They look better"
-        ],
-        "a": 1,
-        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
-       },
-       {
-        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
-        "o": [
-         "Its blue light and stimulating content keep your brain alert",
-         "It uses too much electricity",
-         "It makes the room hot",
-         "It has no effect on sleep"
-        ],
-        "a": 0,
-        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
-       }
-      ]
-     },
-     {
-      "id": "air",
-      "title": "Indoor air quality",
-      "mins": 6,
-      "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
-      "quiz": [
-       {
-        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
-        "o": [
-         "It is cleaner",
-         "It is 2–5 times more polluted",
-         "It is exactly the same",
-         "It has no pollutants"
-        ],
-        "a": 1,
-        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
-       },
-       {
-        "q": "Radon is dangerous partly because it is…",
-        "o": [
-         "Bright red and smelly",
-         "Colourless and odourless, so you need a monitor to detect it",
-         "Only found in big cities",
-         "Harmless in small amounts"
-        ],
-        "a": 1,
-        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
-       },
-       {
-        "q": "What are VOCs?",
-        "o": [
-         "Vitamins in vegetables",
-         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
-         "A type of mould",
-         "Oxygen molecules"
-        ],
-        "a": 1,
-        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
-       },
-       {
-        "q": "What does mould need to grow indoors?",
-        "o": [
-         "Sunlight",
-         "Moisture",
-         "Cold air",
-         "Electricity"
-        ],
-        "a": 1,
-        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
-       },
-       {
-        "q": "What is the target carbon dioxide level for good thinking and sleep?",
-        "o": [
-         "Below 800 ppm",
-         "Around 2,500 ppm",
-         "Over 4,000 ppm",
-         "It doesn't matter"
-        ],
-        "a": 0,
-        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
-       }
-      ]
-     }
-    ]
-   },
-   {
     "id": "s7",
-    "step": 7,
+    "step": 3,
     "title": "Nature & sun",
     "sub": "Reset outdoors",
     "img": "7-nature",
@@ -2388,6 +1968,426 @@ window.MTH_COURSES={
       "title": "Forest bathing",
       "mins": 6,
       "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week."
+     }
+    ]
+   },
+   {
+    "id": "s6",
+    "step": 4,
+    "title": "Sleep & clean air",
+    "sub": "Repair at night",
+    "img": "6-sleep",
+    "lessons": [
+     {
+      "id": "sleep",
+      "title": "Sleep",
+      "mins": 10,
+      "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
+      "quiz": [
+       {
+        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
+        "o": [
+         "55–58°F",
+         "65–68°F",
+         "75–78°F",
+         "Above 80°F"
+        ],
+        "a": 1,
+        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
+       },
+       {
+        "q": "About how long is the half-life of caffeine in most adults?",
+        "o": [
+         "30 minutes",
+         "About 6 hours",
+         "24 hours",
+         "A week"
+        ],
+        "a": 1,
+        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
+       },
+       {
+        "q": "How long before bed should you avoid screens and bright blue light?",
+        "o": [
+         "5 minutes",
+         "About 1 hour",
+         "It doesn't matter",
+         "12 hours"
+        ],
+        "a": 1,
+        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
+       },
+       {
+        "q": "Why are blackout curtains recommended?",
+        "o": [
+         "They keep the room warm",
+         "Even a little light can cut melatonin, and darkness lets it rise fully",
+         "They block noise",
+         "They look better"
+        ],
+        "a": 1,
+        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
+       },
+       {
+        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
+        "o": [
+         "Its blue light and stimulating content keep your brain alert",
+         "It uses too much electricity",
+         "It makes the room hot",
+         "It has no effect on sleep"
+        ],
+        "a": 0,
+        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
+       }
+      ]
+     },
+     {
+      "id": "air",
+      "title": "Indoor air quality",
+      "mins": 6,
+      "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
+      "quiz": [
+       {
+        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
+        "o": [
+         "It is cleaner",
+         "It is 2–5 times more polluted",
+         "It is exactly the same",
+         "It has no pollutants"
+        ],
+        "a": 1,
+        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
+       },
+       {
+        "q": "Radon is dangerous partly because it is…",
+        "o": [
+         "Bright red and smelly",
+         "Colourless and odourless, so you need a monitor to detect it",
+         "Only found in big cities",
+         "Harmless in small amounts"
+        ],
+        "a": 1,
+        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
+       },
+       {
+        "q": "What are VOCs?",
+        "o": [
+         "Vitamins in vegetables",
+         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
+         "A type of mould",
+         "Oxygen molecules"
+        ],
+        "a": 1,
+        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
+       },
+       {
+        "q": "What does mould need to grow indoors?",
+        "o": [
+         "Sunlight",
+         "Moisture",
+         "Cold air",
+         "Electricity"
+        ],
+        "a": 1,
+        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
+       },
+       {
+        "q": "What is the target carbon dioxide level for good thinking and sleep?",
+        "o": [
+         "Below 800 ppm",
+         "Around 2,500 ppm",
+         "Over 4,000 ppm",
+         "It doesn't matter"
+        ],
+        "a": 0,
+        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s5",
+    "step": 5,
+    "title": "Music & spirituality",
+    "sub": "Sound as medicine",
+    "img": "5-music",
+    "lessons": [
+     {
+      "id": "music",
+      "title": "Music therapy",
+      "mins": 8,
+      "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
+      "quiz": [
+       {
+        "q": "What happened to cortisol after surgery when patients listened to calming music?",
+        "o": [
+         "It rose",
+         "It dropped compared with silence",
+         "Nothing changed",
+         "It disappeared completely"
+        ],
+        "a": 1,
+        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
+       },
+       {
+        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
+        "o": [
+         "About 60 beats per minute",
+         "About 140 beats per minute",
+         "About 200 beats per minute",
+         "Tempo doesn't matter"
+        ],
+        "a": 0,
+        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
+       },
+       {
+        "q": "What is \"brainwave entrainment\"?",
+        "o": [
+         "Training your memory with flashcards",
+         "The brain gradually syncing its rhythm to a steady sound",
+         "A type of headphone",
+         "Sleeping with music on"
+        ],
+        "a": 1,
+        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
+       },
+       {
+        "q": "Which nerve does slow, steady music help activate to calm the body?",
+        "o": [
+         "The vagus nerve",
+         "The optic nerve",
+         "The sciatic nerve",
+         "The funny bone"
+        ],
+        "a": 0,
+        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
+       },
+       {
+        "q": "When does the brain release dopamine while listening to music?",
+        "o": [
+         "Only when the music stops",
+         "As it anticipates and reaches the musical \"payoff\" or resolution",
+         "Never",
+         "Only with loud music"
+        ],
+        "a": 1,
+        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s4",
+    "step": 6,
+    "title": "Cardio & weights",
+    "sub": "Move to heal",
+    "img": "4-cardio",
+    "lessons": [
+     {
+      "id": "exercise",
+      "title": "Strength training to protect muscle",
+      "mins": 10,
+      "text": "The single best way to keep muscle while the weight comes off: simple strength sessions, plus walking and cardio, with how to progress week by week.",
+      "quiz": [
+       {
+        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
+        "o": [
+         "15 minutes",
+         "150 minutes",
+         "1,500 minutes",
+         "Any amount over 10 hours"
+        ],
+        "a": 1,
+        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
+       },
+       {
+        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
+        "o": [
+         "Stretching only",
+         "Strength (resistance) training",
+         "Walking slowly",
+         "Sitting upright"
+        ],
+        "a": 1,
+        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
+       },
+       {
+        "q": "What is the \"afterburn\" (EPOC) effect?",
+        "o": [
+         "Sore muscles the next day",
+         "A raised metabolism for hours after a hard workout",
+         "Sunburn from outdoor exercise",
+         "Heartburn after eating"
+        ],
+        "a": 1,
+        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
+       },
+       {
+        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
+        "o": [
+         "Visceral fat",
+         "Fat under the skin on your arms",
+         "Fat in your feet",
+         "Brown fat"
+        ],
+        "a": 0,
+        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
+       },
+       {
+        "q": "How does exercise lower blood sugar without needing insulin?",
+        "o": [
+         "It makes you sweat out sugar",
+         "Working muscles pull sugar in through GLUT4 transporters",
+         "It stops the liver from working",
+         "It doesn't lower blood sugar"
+        ],
+        "a": 1,
+        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
+       }
+      ]
+     },
+     {
+      "id": "massage",
+      "title": "Massage therapy",
+      "mins": 6,
+      "text": "Hands-on recovery for muscles and the nervous system, including simple self-massage you can do at home.",
+      "quiz": [
+       {
+        "q": "What happens to cortisol, the stress hormone, after a massage?",
+        "o": [
+         "It rises",
+         "It drops",
+         "It stays the same",
+         "It turns into sugar"
+        ],
+        "a": 1,
+        "fb": "Across 38 studies, cortisol fell after massage. It was measured in saliva and urine, not just how people felt."
+       },
+       {
+        "q": "Which two \"feel-good\" chemicals rose after massage in those studies?",
+        "o": [
+         "Serotonin and dopamine",
+         "Insulin and glucagon",
+         "Adrenaline and histamine",
+         "Caffeine and nicotine"
+        ],
+        "a": 0,
+        "fb": "Serotonin steadies mood and dopamine drives motivation. Massage nudges both up naturally."
+       },
+       {
+        "q": "Where is more than 90% of the body's serotonin made?",
+        "o": [
+         "In the brain",
+         "In the gut",
+         "In the lungs",
+         "In the skin"
+        ],
+        "a": 1,
+        "fb": "Your gut makes most of your serotonin, one reason gut health and mood are so closely linked."
+       },
+       {
+        "q": "Which hormone, released by touch, builds trust and calms the stress response?",
+        "o": [
+         "Oxytocin",
+         "Cortisol",
+         "Testosterone",
+         "Thyroxine"
+        ],
+        "a": 0,
+        "fb": "Oxytocin is the connection hormone. Caring touch is one of the strongest ways to release it."
+       },
+       {
+        "q": "About how long were the sessions that consistently produced measurable hormone changes?",
+        "o": [
+         "5 minutes",
+         "About 45 minutes",
+         "4 hours",
+         "Only overnight"
+        ],
+        "a": 1,
+        "fb": "Around 45 minutes gave the clearest results, though shorter sessions still helped."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "s3",
+    "step": 7,
+    "title": "High-protein diet",
+    "sub": "Feed repair",
+    "img": "3-high-protein",
+    "lessons": [
+     {
+      "id": "keto",
+      "title": "Protein-first eating on a GLP-1",
+      "mins": 12,
+      "text": "Eating less on a GLP-1 makes every meal count. How to hit your protein so you lose fat, not muscle, with high-protein whole foods that are easy on the stomach.",
+      "quiz": [
+       {
+        "q": "Which nutrient keeps you full the longest per calorie?",
+        "o": [
+         "Protein",
+         "Sugar",
+         "Fat",
+         "Alcohol"
+        ],
+        "a": 0,
+        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
+       },
+       {
+        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
+        "o": [
+         "0.3 g",
+         "About 1.2–1.6 g",
+         "5 g",
+         "No target needed"
+        ],
+        "a": 1,
+        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
+       },
+       {
+        "q": "About how much protein per meal helps your muscles rebuild best?",
+        "o": [
+         "5 g",
+         "About 25–40 g",
+         "100 g",
+         "It doesn't matter"
+        ],
+        "a": 1,
+        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
+       },
+       {
+        "q": "Why does protein help when you're losing weight?",
+        "o": [
+         "It protects muscle so the weight you lose is fat",
+         "It adds water weight",
+         "It stops digestion",
+         "It replaces sleep"
+        ],
+        "a": 0,
+        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
+       },
+       {
+        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
+        "o": [
+         "About 20–30%",
+         "1%",
+         "Over 80%",
+         "None"
+        ],
+        "a": 0,
+        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
+       }
+      ]
+     },
+     {
+      "id": "hydration",
+      "title": "High hydration",
+      "mins": 6,
+      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days."
      }
     ]
    }

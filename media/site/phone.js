@@ -11,7 +11,7 @@
 (function(){
   if(window.MTHPhone) { window.MTHPhone.scan(); return; }
   var BASE="/media/site/";
-  var PICS=["1-fasting","2-meditation","3-high-protein","4-cardio","5-music","6-sleep","7-nature"];
+  var PICS=["1-fasting","2-meditation","7-nature","6-sleep","5-music","4-cardio","3-high-protein"];
 
   /* ======================= YOUR CONTENT =======================
      Recipes: [emoji, name, kcal, protein g, carbs g, fat g, ingredients]
@@ -20,28 +20,28 @@
   var PROTOS={
     gut:{
       name:"Gut Health Protocol", short:"Gut Health", fastGoal:16, fastNote:"Fat-burning shift · goal 16h",
-      steps:["Fasting & cleanse","Meditation & journaling","High protein meals","Cardio & strength","Music therapy & spirit","Sleep & clean air","Nature: forest & sun"],
-      days:[["Morning green juice","Ice cream cleanse meal","14-hour fasting window"],["10-minute meditation","Journal three lines","Bone broth, 1 cup"],
-            ["Morning green juice","Bone broth, 1 cup","Evening walk, 20 min"],["Strength circuit","20-minute brisk walk","Rate your energy"],
-            ["Music therapy session","Gratitude note","Morning green juice"],["No screens after 9pm","Lights out by 10:30","Log your sleep"],["20 minutes of morning sun","Forest or park walk","Day 7 check-in"]],
+      steps:["Fasting & cleanse","Meditation & journaling","Nature & sun","Sleep & clean air","Music & spirituality","Cardio & weights","High-protein diet"],
+      days:[["Morning green juice","Ice cream cleanse meal","14-hour fasting window"],["10-minute meditation","Journal three lines","2 litres of water"],
+            ["20 minutes of morning sun","Forest or park walk","Notice how calm you feel"],["No screens after 9pm","Lights out by 10:30","Log your sleep"],
+            ["Music therapy session","Gratitude note","Morning green juice"],["Strength circuit","20-minute brisk walk","Rate your energy"],["Protein at every meal","3 litres of water","Day 7 check-in"]],
       food:{goal:1600, carbLabel:"Carbs", t:{p:130,c:110,f:55}, style:"High protein",
         meals:{
           Breakfast:[["🥑","Avocado coconut ice cream",420,6,6,40,"Avocado · coconut cream · vanilla · monk fruit"],["🍳","Eggs, spinach & avocado",410,20,5,34,"3 eggs · spinach · ½ avocado · olive oil"],["🥬","Green juice + collagen",150,12,8,0,"Celery · cucumber · spinach · lemon · collagen"]],
-          Lunch:[["🍲","Bone broth & greens bowl",380,28,8,24,"Bone broth · kale · zucchini · olive oil · herbs"],["🐟","Salmon & cucumber salad",450,32,6,32,"Salmon · cucumber · dill · olive oil · lemon"],["🥗","Chicken & avocado salad",470,36,7,32,"Chicken · romaine · avocado · olive oil"]],
+          Lunch:[["🥗","Chicken & greens bowl",380,32,8,22,"Chicken · kale · zucchini · olive oil · herbs"],["🐟","Salmon & cucumber salad",450,32,6,32,"Salmon · cucumber · dill · olive oil · lemon"],["🥗","Chicken & avocado salad",470,36,7,32,"Chicken · romaine · avocado · olive oil"]],
           Dinner:[["🍫","Cacao avocado ice cream",430,7,8,40,"Avocado · cacao · coconut cream · cinnamon"],["🍗","Herb chicken & roast zucchini",480,42,7,30,"Chicken thighs · zucchini · rosemary · ghee"],["🥩","Beef & cauliflower mash",520,40,8,36,"Grass-fed beef · cauliflower · butter · chives"]],
-          Snack:[["🥣","Bone broth, 1 cup",50,10,1,1,"Bone broth · sea salt"],["🌰","Macadamias, small handful",200,2,2,21,"Macadamia nuts"],["🫒","Olives & cucumber",120,1,3,11,"Olives · cucumber"]]},
-        shop:[["Produce",["Avocados ×6","Spinach","Cucumber","Zucchini","Lemons"]],["Protein",["Chicken thighs","Wild salmon","Bone broth ×4","Eggs, dozen"]],["Pantry",["Coconut cream","Raw cacao","Olive oil","Collagen"]]]},
+          Snack:[["🥚","2 boiled eggs",140,12,1,10,"Eggs · sea salt"],["🌰","Macadamias, small handful",200,2,2,21,"Macadamia nuts"],["🫒","Olives & cucumber",120,1,3,11,"Olives · cucumber"]]},
+        shop:[["Produce",["Avocados ×6","Spinach","Cucumber","Zucchini","Lemons"]],["Protein",["Chicken thighs","Wild salmon","Greek yogurt","Eggs, dozen"]],["Pantry",["Coconut cream","Raw cacao","Olive oil","Collagen"]]]},
       move:{week:["Strength","Walk","Strength","Cardio","Strength","Walk","Rest"], today:2, name:"Strength A", mins:25, level:"Foundation", stepsGoal:8000,
         ex:[["Goblet squat",3,"10","8 kg"],["Incline push-up",3,"8","body"],["Glute bridge",3,"12","body"],["Bird dog",2,"10/side","body"],["Brisk walk",1,"20 min","easy"]], strength:false},
       chart:{title:"Bloating", sub:"Daily self-rating, 0–10", v:[82,74,60,48,40,32,26]},
-      posts:[["🌸","Sarah","DAY 3","Bone broth in the morning is becoming my favourite ritual.",24],["🌊","James","DAY 5","First week in years without bloating after dinner. Small win!",41],["🍃","Priya","CLEANSE","The cacao ice cream is unreal. Who knew a cleanse could taste like dessert?",18]]
+      posts:[["🌸","Sarah","DAY 3","A high-protein breakfast is keeping me full all morning.",24],["🌊","James","DAY 5","First week in years without bloating after dinner. Small win!",41],["🍃","Priya","CLEANSE","The cacao ice cream is unreal. Who knew a cleanse could taste like dessert?",18]]
     },
     sugar:{
       name:"Diabetes Protocol", short:"Diabetes", fastGoal:14, fastNote:"Overnight window · goal 14h",
-      steps:["Eating window & fasting","Meditation & journaling","High-protein food order","Movement after meals","Music therapy & spirit","Sleep & clean air","Nature: light & walking"],
+      steps:["Eating window & fasting","Meditation & journaling","Nature: light & walking","Sleep & clean air","Music & spirituality","Movement after meals","High-protein food order"],
       days:[["14-hour overnight window","Protein-first breakfast","Log fasting reading"],["10-minute meditation","Walk after lunch","Log your reading"],
-            ["Veg before carbs at lunch","10-minute walk after dinner","Log bedtime reading"],["Walk after every meal","15-minute strength","Log your reading"],
-            ["Music therapy session","High-protein lunch","Log your reading"],["No late-night snacks","Lights out by 10:30","Log your sleep"],["Morning sun, 20 min","Nature walk after a meal","Day 7 check-in"]],
+            ["Morning sun, 20 min","Nature walk after a meal","Notice your energy"],["No late-night snacks","Lights out by 10:30","Log your sleep"],
+            ["Music therapy session","High-protein lunch","Log your reading"],["Walk after every meal","15-minute strength","Log your reading"],["Veg before carbs at lunch","10-minute walk after dinner","Day 7 check-in"]],
       food:{goal:1750, carbLabel:"Carbs", t:{p:130,c:120,f:65}, style:"High protein · food order",
         meals:{
           Breakfast:[["🍳","Eggs, greens & avocado",420,22,6,34,"2 eggs · spinach · ½ avocado · olive oil"],["🫐","Greek yogurt, berries & walnuts",380,24,18,22,"Greek yogurt · berries · walnuts · cinnamon"],["🥞","Almond-flour protein pancakes",400,30,12,24,"Almond flour · eggs · protein · berries"]],
@@ -56,14 +56,14 @@
     },
     glp1:{
       name:"GLP-1 Protocol", short:"GLP-1", fastGoal:12, fastNote:"Overnight window · goal 12h",
-      steps:["Eating rhythm & fasting","Meditation & journaling","Protein-first nutrition","Strength & cardio","Music therapy & spirit","Sleep & clean air","Nature: light & walking"],
+      steps:["Eating rhythm & fasting","Meditation & journaling","Nature: light & walking","Sleep & clean air","Music & spirituality","Strength & cardio","Protein-first nutrition"],
       days:[["12-hour overnight window","30 g protein breakfast","Log weight & dose day"],["10-minute meditation","Protein at every meal","Short walk after lunch"],
-            ["30 g protein breakfast","Strength session","Water + electrolytes"],["Strength test","Protein snack after training","Log your lifts"],
-            ["Music therapy session","High-protein lunch","Water + electrolytes"],["Lights out by 10:30","No screens after 9pm","Log your sleep"],["Morning sun, 20 min","Nature walk","Day 7 check-in"]],
+            ["Morning sun, 20 min","Nature walk","Notice your energy"],["Lights out by 10:30","No screens after 9pm","Log your sleep"],
+            ["Music therapy session","High-protein lunch","Water + electrolytes"],["Strength test","Protein snack after training","Log your lifts"],["30 g protein breakfast","Water + electrolytes","Day 7 check-in"]],
       food:{goal:1500, carbLabel:"Carbs", t:{p:120,c:120,f:55}, style:"High-protein · muscle-protecting",
         meals:{
           Breakfast:[["🫐","Greek yogurt, berries & eggs",420,38,26,16,"Greek yogurt · berries · 2 eggs"],["🥞","Protein pancakes",390,34,38,10,"Oats · egg whites · protein · banana"],["🍳","Egg muffins, 3",330,27,6,21,"Eggs · spinach · peppers · feta"]],
-          Lunch:[["🥗","Chicken salad, olive oil",450,42,14,24,"Chicken · greens · chickpeas · olive oil"],["🍚","Turkey & quinoa bowl",480,40,42,14,"Turkey · quinoa · peppers · salsa"],["🍲","Chicken bone broth soup",360,36,18,14,"Chicken · bone broth · carrot · celery"]],
+          Lunch:[["🥗","Chicken salad, olive oil",450,42,14,24,"Chicken · greens · chickpeas · olive oil"],["🍚","Turkey & quinoa bowl",480,40,42,14,"Turkey · quinoa · peppers · salsa"],["🍲","Chicken & vegetable soup",360,36,18,14,"Chicken · carrot · celery · herbs"]],
           Dinner:[["🐟","Salmon & roasted veg",520,40,24,28,"Salmon · broccoli · sweet potato"],["🌶️","Lean beef chili",490,42,32,18,"Lean beef · beans · tomato · spices"],["🍗","Chicken stir-fry",470,44,30,16,"Chicken · rice noodles · bok choy"]],
           Snack:[["🍨","Protein ice cream",180,25,10,4,"Protein · Greek yogurt · cocoa"],["🍍","Cottage cheese & pineapple",170,20,14,3,"Cottage cheese · pineapple"],["🥤","Protein shake",160,30,6,2,"Whey or plant protein · water"]]},
         shop:[["Produce",["Berries","Broccoli","Sweet potatoes","Greens","Peppers"]],["Protein",["Greek yogurt ×2","Chicken breast","Salmon","Eggs, dozen","Cottage cheese"]],["Pantry",["Protein powder","Quinoa","Olive oil","Electrolytes"]]]},

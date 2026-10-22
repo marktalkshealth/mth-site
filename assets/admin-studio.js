@@ -10,7 +10,7 @@
   var STATUS=[["idea","Idea"],["script","Scripted"],["filmed","Filmed"],["edited","Edited"],["ready","Ready"],["scheduled","Scheduled"],["posted","Posted"]];
   var PLAT=[["instagram","Instagram","IG"],["tiktok","TikTok","TT"],["youtube","YouTube","YT"],["facebook","Facebook","FB"],["threads","Threads","TH"]];
   var FORMATS=[["reel","Reel / TikTok / Short · 9:16"],["feed","Instagram feed · 4:5"],["carousel","Carousel · 4:5"],["story","Story · 9:16"],["youtube","YouTube video · 16:9"]];
-  var PILLARS=["Fasting & cleanse","Meditation & journaling","High protein & broths","Cardio & strength","Music & spirit","Sleep & clean air","Nature & sun","My story","Results","Myth-busting","Recipe","Q&A"];
+  var PILLARS=["Fasting & cleanse","Meditation & journaling","Nature & sun","Sleep & clean air","Music & spirituality","Cardio & weights","High-protein diet","My story","Results","Myth-busting","Recipe","Q&A"];
   var LIMIT={ instagram:2200, tiktok:2200, youtube:5000, facebook:5000, threads:500 };
   var LINKPAGES=[["gut.html","Gut Health sales page"],["diabetes.html","Diabetes sales page"],["glp1.html","GLP-1 sales page"],["protocols.html","All protocols"],["index.html","Homepage (email list)"]];
   function stName(k){ for(var i=0;i<STATUS.length;i++) if(STATUS[i][0]===k) return STATUS[i][1]; return k; }
@@ -52,7 +52,7 @@
     ["Question","Quick quiz: {question}","The answer: {answer}. {fact}"],
     ["Stop doing","Stop doing this if you want {benefit}.","{fact}"]
   ];
-  var BENEF={ fasting:"your gut to heal", meditation:"less stress", journaling:"a calmer mind", keto:"steady energy", protein:"steady energy and fewer cravings", exercise:"more energy", massage:"faster recovery", music:"to switch off stress", sleep:"deeper sleep", air:"cleaner air at home", sunlight:"better sleep and mood", redlight:"faster recovery", forest:"a calmer nervous system", broth:"a happier gut" };
+  var BENEF={ fasting:"your gut to heal", meditation:"less stress", journaling:"a calmer mind", keto:"steady energy", protein:"steady energy and fewer cravings", exercise:"more energy", massage:"faster recovery", music:"to switch off stress", sleep:"deeper sleep", air:"cleaner air at home", sunlight:"better sleep and mood", redlight:"faster recovery", forest:"a calmer nervous system", hydration:"more energy and easier digestion" };
   function ideas(n){
     var out=[], pool=[];
     C.order.forEach(function(prod){ (window.MTH_COURSES[prod].sections||[]).forEach(function(s,si){ s.lessons.forEach(function(l){ (l.quiz||[]).forEach(function(q){ pool.push({ prod:prod, step:s.step, pillar:s.step?PILLARS[s.step-1]:"My story", lesson:l, q:q }); }); }); }); });
