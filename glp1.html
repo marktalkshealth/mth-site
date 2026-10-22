@@ -16,11 +16,11 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610202140">
+<link rel="stylesheet" href="assets/mth.css?v=202610220930">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/quiz-core.js?v=202610202140"></script>
-<script src="assets/quiz.js?v=202610202140"></script>
-<script src="assets/mth.js?v=202610202140"></script>
+<script src="assets/quiz-core.js?v=202610220930"></script>
+<script src="assets/quiz.js?v=202610220930"></script>
+<script src="assets/mth.js?v=202610220930"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">The GLP-1 Weight Loss Protocol</div></main>
@@ -36,7 +36,7 @@
 #g2 a{color:inherit;text-decoration:none}
 #g2 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #g2 .w{max-width:1040px;margin:0 auto;padding:0 20px}
-#g2 section{padding:36px 0}
+#g2 section{padding:72px 0}
 #g2 .k{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terra)}
 #g2 h1,#g2 h2{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:1.03}
 #g2 h1 em,#g2 h2 em{font-style:italic;color:var(--terra)}
@@ -51,14 +51,14 @@
 /* top bar */
 #g2 .bar{background:var(--dark);color:var(--darkTx);font-size:12.5px;text-align:center;padding:9px 14px}
 /* hero */
-#g2 .hero{padding:6px 0 24px;background:radial-gradient(110% 70% at 90% 0%,rgba(192,98,63,.16),transparent 60%)}
+#g2 .hero{padding:6px 0 64px;background:radial-gradient(110% 70% at 90% 0%,rgba(192,98,63,.16),transparent 60%)}
 #g2 .hero .w{display:grid;gap:40px;align-items:center}
 #g2 .hero h1{font-size:clamp(46px,12vw,76px);margin:0 0 16px}
 #g2 .ticks{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:16px;font-size:13.5px;color:var(--muted)}
 #g2 .ticks span::before{content:"✓";color:var(--sage);font-weight:700;margin-right:6px}
 #g2 .hero .w{grid-template-areas:"top" "vid" "bot";gap:0}
 #g2 .hero .htop{grid-area:top}#g2 .hero .hbot{grid-area:bot}
-#g2 .hero .hvid{grid-area:vid;margin:4px 0 16px}
+#g2 .hero .hvid{grid-area:vid;margin:6px 0 26px}
 #g2 .hero .mthv{max-width:360px;aspect-ratio:1/1}
 #g2 .hero .mthv .mthv-player{top:-12.5%!important;bottom:auto!important;height:125%!important}
 #g2 .hero h1{margin-bottom:6px}
@@ -193,8 +193,8 @@
 #g2 .sticky small{font-size:11px;color:var(--muted)}
 #g2 .sticky .btn{padding:8px 16px;font-size:13.5px}
 @media(min-width:880px){
-  #g2 section{padding:56px 0}
-  #g2 .hero{padding:24px 0 48px}
+  #g2 section{padding:104px 0}
+  #g2 .hero{padding:24px 0 96px}
   #g2 .pick{grid-template-columns:1fr 1fr;align-items:start}
   #g2 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 0;padding:0;overflow:visible}
   #g2 .trio>.card{flex:none}
@@ -215,11 +215,14 @@
 <!-- HERO -->
 <section class="hero"><div class="w">
   <div class="htop">
+    <div class="k">The GLP-1 Protocol</div>
     <h1>Lose the weight on a GLP-1, <em>and keep it off</em></h1>
   </div>
   <div class="hvid"><div class="mthv" data-wistia="c6bmdm7xd7" data-title="Watch my story" data-len=""></div></div>
   <div class="hbot">
     <p class="lead">GLP-1 medication quiets the food noise, but it doesn't rebuild your metabolism. Tell the software your goals, medication and symptoms. It builds your day-by-day plan: protein targets, strength training, easy meals and the 7 healing steps that protect your muscle and help the weight stay off.</p>
+    <div style="margin-top:24px"><button class="btn g2-buy">Start my protocol <small>· $97</small></button></div>
+    <div class="ticks"><span>80+ published studies</span><span>Personalised plan</span><span>30-day guarantee</span></div>
   </div>
 </div></section>
 
@@ -231,7 +234,7 @@
 
 <!-- QUIZ (assets/quiz.js) -->
 <section class="alt" id="quiz"><div class="w">
-  <div class="rv"><h2>What is your body <em>telling you?</em></h2></div>
+  <div class="rv"><div class="k">Free 60-second quiz</div><h2>What is your body <em>telling you?</em></h2><p class="lead">Answer 7 quick questions. Your first impression updates as you go, and your full assessment is free.</p></div>
   <div data-mth-quiz="glp1" data-source="glp1-page"></div>
 </div></section>
 
