@@ -76,6 +76,8 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 .mx-f nav a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px}
 .mx-f nav a:hover{background:rgba(255,255,255,.08)}
 .mx-f .fine{font-size:10.5px;color:#9d9083;line-height:1.4}.mx-f .fine a{color:#9d9083}
+.mx-f.slim{background:transparent;border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.mx-f.slim .in{justify-content:center;text-align:center}.mx-f.slim .fine,.mx-f.slim .fine a{color:var(--faint)}
 
 
 /* ---------- cards, forms ---------- */
