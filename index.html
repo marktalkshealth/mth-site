@@ -316,11 +316,11 @@
 (function(){
   var ROOT=document.getElementById("mh");
   var own=function(c){ return !!(window.MTH&&MTH.owns(c.key)); };   /* own site: "Open" once they own that protocol */
-  var IMG="https://api.us-e1.learnworlds.com/imagefile//{id}?client_id=6ac2bb5648140f5f6d8ca00c&width=800&height=0";
+  var IMG="/media/site/courses/{id}";
   var COURSES=[
-    {key:"gut",t:"Gut Health Protocol",tag:"GUT",img:"6eec355b2cfe342f0ac9f7061029e4e7.png",d:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse.",funnel:"gut.html",course:"course.html?p=gut",price:"$97"},
-    {key:"sugar",t:"Diabetes Protocol",tag:"DIABETES",img:"fe26b6c96fac54ea10f9208392449ea2.png",d:"Gain control of your blood sugar once and for all, and enjoy better energy throughout the day with your personalised protocol.",funnel:"diabetes.html",course:"course.html?p=sugar",price:"$97"},
-    {key:"glp1",t:"GLP-1 Weight Loss Protocol",tag:"GLP-1",img:"85077c63e15333e491250e4536f2ee4c.png",d:"Lose fat while protecting muscle. A customised roadmap for using GLP-1s intelligently.",funnel:"glp1.html",course:"course.html?p=glp1",price:"$97"}
+    {key:"gut",t:"Gut Health Protocol",tag:"GUT",img:"gut.jpg",d:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse.",funnel:"gut.html",course:"course.html?p=gut",price:"$97"},
+    {key:"sugar",t:"Diabetes Protocol",tag:"DIABETES",img:"sugar.jpg",d:"Gain control of your blood sugar once and for all, and enjoy better energy throughout the day with your personalised protocol.",funnel:"diabetes.html",course:"course.html?p=sugar",price:"$97"},
+    {key:"glp1",t:"GLP-1 Weight Loss Protocol",tag:"GLP-1",img:"glp1.jpg",d:"Lose fat while protecting muscle. A customised roadmap for using GLP-1s intelligently.",funnel:"glp1.html",course:"course.html?p=glp1",price:"$97"}
   ];
   var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
   document.getElementById("mhCards").innerHTML=COURSES.map(function(c){
