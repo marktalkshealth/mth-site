@@ -147,6 +147,36 @@
 #mh .post{background:#f7f1e7;border-radius:14px;padding:12px;display:flex;gap:10px;font-size:13.5px;line-height:1.45}
 #mh .post .av{width:32px;height:32px;border-radius:50%;background:#efe5d6;display:grid;place-items:center;flex:none}
 #mh .post b{font-size:13px}#mh .post .tg{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;color:#7a8f6e;background:#e7ecdd;border-radius:4px;padding:2px 6px;margin-left:6px}
+/* step 5 companion lock screen */
+#mh .scr2.lk{position:relative;padding:0;border:0;background:#2b2724 url('/media/site/steps/7-nature.jpg') 100% 100%/auto 230% no-repeat}
+#mh .lk:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,39,36,.10),rgba(43,39,36,.55))}
+#mh .lk .tm{position:relative;text-align:center;color:#fff;padding:8px 0 3px;font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+#mh .lk .tm small{display:block;font-family:inherit;font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;font-family:system-ui,sans-serif;font-weight:600}
+#mh .nt{position:relative;margin:4px 8px 0;background:rgba(255,252,247,.93);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:12px;padding:5px 8px;display:flex;gap:7px;font-size:9.5px;line-height:1.3;color:#2b2724;box-shadow:0 6px 16px rgba(0,0,0,.18);animation:ntIn 9s infinite both}
+#mh .nt:nth-of-type(2){animation-delay:.9s}#mh .nt:nth-of-type(3){animation-delay:1.8s}
+#mh .nt .ic{width:20px;height:20px;border-radius:6px;background:#c0623f;color:#fff;display:grid;place-items:center;font-size:10px;flex:none}
+#mh .nt .hd{display:flex;justify-content:space-between;gap:6px;font-size:7.5px;color:#8a7b6e;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1px}
+@keyframes ntIn{0%{opacity:0;transform:translateY(-10px) scale(.96)}7%,84%{opacity:1;transform:none}94%,100%{opacity:0;transform:translateY(-4px)}}
+/* hub live visual */
+#mh .live{display:grid;gap:10px}
+#mh .lv{position:relative;aspect-ratio:4/4.2;border-radius:20px;overflow:hidden;background:#2b2724 center 30%/cover;box-shadow:0 24px 50px rgba(43,39,36,.22)}
+#mh .lv:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,39,36,.35) 0%,rgba(43,39,36,0) 25%,rgba(43,39,36,0) 45%,rgba(43,39,36,.78) 100%)}
+#mh .lvb{position:absolute;left:14px;top:14px;display:flex;align-items:center;gap:6px;background:#c0623f;color:#fff;font-size:11px;font-weight:800;letter-spacing:.14em;border-radius:6px;padding:4px 9px}
+#mh .lvb i{width:7px;height:7px;border-radius:50%;background:#fff;animation:lvP 1.4s infinite}
+#mh .lvt{position:absolute;left:14px;top:44px;color:#fff;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+#mh .lvc{position:absolute;left:12px;right:70px;bottom:12px;display:grid;gap:6px}
+#mh .cm{background:rgba(255,252,247,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:12px;padding:7px 10px;font-size:12.5px;line-height:1.35;color:#2b2724;box-shadow:0 6px 14px rgba(0,0,0,.2);animation:cmIn 10s infinite both}
+#mh .cm b{color:#c0623f;margin-right:4px}
+#mh .cm:nth-child(2){animation-delay:1.2s}#mh .cm:nth-child(3){animation-delay:2.4s}
+#mh .hearts{position:absolute;right:16px;bottom:14px;width:40px;height:60%}
+#mh .hearts i{position:absolute;bottom:0;left:10px;font-style:normal;font-size:20px;opacity:0;animation:hf 4s infinite ease-out}
+#mh .hearts i:nth-child(2){animation-delay:.8s;left:2px}#mh .hearts i:nth-child(3){animation-delay:1.6s;left:16px}#mh .hearts i:nth-child(4){animation-delay:2.4s;left:6px}#mh .hearts i:nth-child(5){animation-delay:3.2s;left:14px}
+#mh .lvr{display:flex;flex-wrap:wrap;gap:6px}
+#mh .lvr span{background:#f7f1e7;border:1px solid #ece2d3;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600;color:#6e6259}
+@keyframes cmIn{0%{opacity:0;transform:translateX(-14px)}6%,86%{opacity:1;transform:none}95%,100%{opacity:0}}
+@keyframes hf{0%{opacity:0;transform:translateY(0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translateY(-180px) scale(1.15)}}
+@keyframes lvP{50%{opacity:.3}}
+@media(prefers-reduced-motion:reduce){#mh .nt,#mh .cm,#mh .lvb i{animation:none}#mh .hearts{display:none}}
 /* founder */
 #mh .founder{display:grid;gap:24px;align-items:center}
 #mh .portrait{aspect-ratio:4/5;border-radius:22px;background:#efe5d6 center/cover no-repeat;max-width:420px}
@@ -228,10 +258,10 @@
         <div class="mb"><span>Protein 104 / 130 g</span><i><b style="width:75%;background:#c0623f"></b></i><span>Carbs 64 / 110 g</span><i><b style="width:58%;background:#b8924a"></b></i><span>Fat 31 / 55 g</span><i><b style="width:56%;background:#7a8f6e"></b></i></div></div>
       <svg viewBox="0 0 240 60" style="width:100%;height:58px;margin-top:8px;display:block" preserveAspectRatio="none"><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48 L234 60 L6 60Z" fill="#f6dccf"/><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48" fill="none" stroke="#c0623f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div style="display:flex;justify-content:space-between;font-size:9px;color:#8a7b6e"><span>Weight · week 1</span><span>week 6</span></div></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">05 · COURSE &amp; HUB</div><h3>The science, and support</h3><p>A video course that explains every step, drawing on 80+ published studies, plus the Healing Hub for check-ins, questions and live Q&amp;As.</p></div><div class="sv"><div class="scr2"><div class="sk">Course &amp; community</div><div class="sh">Learn &amp; heal together</div>
-      <div class="vid" style="background-image:url('/media/site/steps/1-fasting.jpg')"><span>Lesson 1 · Fasting &amp; cleanse</span></div>
-      <div class="ps"><span class="a">🌸</span><div><b>Sarah</b> · Day 3<br>A high-protein breakfast is keeping me full all morning.</div></div>
-      <div class="ps"><span class="a">🧔</span><div><b>Mark</b> · Live<br>Live Q&amp;A this Thursday. Bring your questions!</div></div></div></div></div></div>
+    <div class="sc"><div class="sw"><div class="st"><div class="n">05 · YOUR COMPANION</div><h3>Never heal alone</h3><p>Your Healing Companion checks in every day, nudges you when you slip and celebrates every milestone. Plus the video course behind every step and the Healing Hub, with live Q&amp;As.</p></div><div class="sv"><div class="scr2 lk"><div class="tm">7:02<small>Tuesday · Day 5</small></div>
+      <div class="nt"><span class="ic">🌿</span><div><div class="hd"><span>Healing Companion</span><span>now</span></div>You're 14 hours into your fast. Two to go, you've got this.</div></div>
+      <div class="nt"><span class="ic" style="background:#b8924a">🔥</span><div><div class="hd"><span>Check-in streak</span><span>2m</span></div>5 days in a row. Your energy is trending up.</div></div>
+      <div class="nt"><span class="ic" style="background:#7a8f6e">▶</span><div><div class="hd"><span>Healing Hub · Live</span><span>1h</span></div>Mark's live Q&amp;A starts Thursday. Bring your questions.</div></div></div></div></div></div>
   </div>
   <div class="sys-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
 </div></section>
@@ -241,10 +271,17 @@
 <section style="padding-top:0"><div class="w">
   <div class="hub rv">
     <div><div class="k">The Healing Hub</div><h2>Heal <em>together</em></h2><p class="lead" style="margin-bottom:20px">A private community for members: daily check-ins, fasting milestones, questions answered by Mark, and live sessions.</p><a class="btn" id="mhHub" href="protocols.html">Choose your protocol</a></div>
-    <div class="feed">
-      <div class="post"><span class="av">🌸</span><div><b>Sarah</b><span class="tg">DAY 3</span><br>A high-protein breakfast is keeping me full all morning.</div></div>
-      <div class="post"><span class="av">🌊</span><div><b>James</b><span class="tg">FAST</span><br>Finished a 16-hour fast. Steadiest morning reading all month.</div></div>
-      <div class="post"><span class="av">🧔</span><div><b>Mark</b><span class="tg">LIVE</span><br>Live Q&amp;A this Thursday. Bring your questions!</div></div>
+    <div class="live" role="img" aria-label="Mark hosting a live Q&amp;A in the Healing Hub, with member messages and reactions coming in">
+      <div class="lv" style="background-image:url('/media/site/mark-kitchen.jpg')">
+        <span class="lvb"><i></i>LIVE</span><span class="lvt">Thursday Q&amp;A with Mark</span>
+        <div class="hearts"><i>❤</i><i>🔥</i><i>❤</i><i>🌿</i><i>❤</i></div>
+        <div class="lvc">
+          <div class="cm"><b>Sarah</b> Day 3 and no bloating for the first time in years 🙌</div>
+          <div class="cm"><b>James</b> Just finished my first 16-hour fast!</div>
+          <div class="cm"><b>Lena</b> Can I have bone broth during a fast?</div>
+        </div>
+      </div>
+      <div class="lvr"><span>✓ Daily check-ins</span><span>⏱ Fasting milestones</span><span>💬 Ask Mark anything</span></div>
     </div>
   </div>
 </div></section>
