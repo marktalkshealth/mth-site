@@ -4,7 +4,7 @@
 <!-- =============================================================
   MARK TALKS HEALTH — THE HEALING HUB
   One community for every protocol: Today · Community · Live · Library
-  HOW TO USE: paste this whole file into a LearnWorlds "Embed code"
+  HOW TO USE: paste this whole file into an "Embed code"
   section on a page inside each course (Gut Health, Diabetes, Total
   Body Healing). Set PAGE_PROTOCOL below if you want that course's
   copy to open on its own protocol.
@@ -290,7 +290,7 @@ var PILLARS = [
   tip:{gut:"Tomorrow high-protein meals and your daily fasting window begin. Start gently.",sugar:"Before the high-protein meal plan starts, check with your doctor if your medication may need adjusting.",weight:"From tomorrow, strength sessions and cardio alternate days. Both matter.",total:"You've built the foundation. From here it's one week at a time."}}
 ];
 
-/* 7 sound tracks — one per day, then the daily ritual track (featured at the top of the Sound studio). Add your own MP3 link in "url" (Dropbox, LearnWorlds file, etc.).
+/* 7 sound tracks — one per day, then the daily ritual track (featured at the top of the Sound studio). Add your own MP3 link in "url" (Dropbox, your own site, etc.).
    With no link, the Hub plays a generated ambient soundscape so it always works. */
 var TRACKS = [
  {title:"Spiritual Cleansing", kind:"Fasting calm",       url:"/hub/tracks/spiritual-cleansing.mp3", hue:["#7d8f7a","#3f4a3d"], root:110},
@@ -314,9 +314,9 @@ var LIBRARY = {
    {title:"Total Body Healing Workbook", sub:"PDF · all 7 steps with journaling pages", url:"#", protocol:"total"}
   ],
   tools:[
-   {title:"Gut Health Protocol", sub:"Your interactive protocol and tracker", url:"https://marktalkshealth.learnworlds.com/guthealthprotocol", icon:"🌱"},
-   {title:"The Diabetes Protocol", sub:"The diabetes version of the 7-step protocol", url:"https://marktalkshealth.learnworlds.com/thediabetesprotocol", icon:"🩸"},
-   {title:"Total Body Healing", sub:"The full 7-step course", url:"https://marktalkshealth.learnworlds.com/totalbodyhealing", icon:"✨"},
+   {title:"Gut Health Protocol", sub:"Your interactive protocol and tracker", url:"https://marktalkshealth.com/course.html?p=gut", icon:"🌱"},
+   {title:"The Diabetes Protocol", sub:"The diabetes version of the 7-step protocol", url:"https://marktalkshealth.com/course.html?p=sugar", icon:"🩸"},
+   {title:"GLP-1 Weight Loss Protocol", sub:"Lose fat while protecting muscle", url:"https://marktalkshealth.com/course.html?p=glp1", icon:"✨"},
    {title:"Restore Kitchen", sub:"High-protein recipes and weekly meal prep", url:"#", icon:"🥩"}
   ]
 };
@@ -341,7 +341,7 @@ try { var cached = JSON.parse(ls.get(LS) || "null"); if (cached) S = Object.assi
 if (PAGE_PROTOCOL && PROTOCOLS[PAGE_PROTOCOL]) S.protocol = PAGE_PROTOCOL;
 if (!PROTOCOLS[S.protocol]) S.protocol = "gut";
 
-/* ------------------------- who is this? (LearnWorlds) ------------------------- */
+/* ------------------------- who is this? ------------------------- */
 function clean(u){ if(!u)return null; var id=String(u.id||"").trim(), email=String(u.email||"").trim().toLowerCase();
   if(!id||/\{\{|\}\}/.test(id+email)||!/^[A-Za-z0-9_.-]{4,64}$/.test(id)||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return null; return {id:id,email:email}; }
 function whoNow(){ var tries=[function(){return window.MTH_USER;},function(){return window.parent.MTH_USER;},function(){return window.top.MTH_USER;}];

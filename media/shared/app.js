@@ -67,7 +67,7 @@
       }
       function need() {
         R0.classList.remove('mth-pwaiting');
-        var home = 'https://marktalkshealth.learnworlds.com'; try { if (document.referrer) home = new URL(document.referrer).origin; } catch (e) {}
+        var home = 'https://marktalkshealth.com'; try { if (document.referrer) home = new URL(document.referrer).origin; } catch (e) {}
         var d = document.createElement('div'); d.className = 'mth-pneed';
         d.innerHTML = '<h2>Build your plan first</h2><p>Your ' + (PLAN === 'meals' ? 'meal planner' : 'exercise planner') + ' is made from your healing plan. Set it up in the Healing App (it takes about a minute), then come back here.</p><a href="' + home + '/app" target="_top">Open the Healing App</a>';
         var o = document.querySelector('.di-outer'); if (o) o.style.display = 'none';

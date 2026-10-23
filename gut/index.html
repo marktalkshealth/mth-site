@@ -1697,7 +1697,7 @@ input[type=range]::-webkit-slider-thumb:active {
       <div class="hc-cap">Gut symptom intake, healing protocol and digestive disease risk in one linked model</div>
       <div class="gp-sync" id="gpSync" role="status" aria-live="polite" hidden></div>
     </div>
-    <!-- LearnWorlds fills these in for the signed-in member when this code is pasted straight into a page -->
+    <!-- filled in for the signed-in member when this code is pasted straight into a page -->
     <div id="mthLW" hidden data-id="{{ USER.ID }}" data-email="{{ USER.EMAIL }}"></div>
     <div class="hc-grid3">
       <!-- Left: Diagnostic Intake -->
@@ -6033,11 +6033,11 @@ fxRender(); fxLoadLive();
 </style>
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   MEMBER SYNC — remembers each member from their LearnWorlds login
+   MEMBER SYNC — remembers each member from their Mark Talks Health sign-in
    Saves the intake, the 14-day calendar and the daily tracker to Supabase
    (table gut_protocol_state, via gp_load / gp_save), and restores them on
    any device the member signs in from. Falls back to this browser only
-   when no LearnWorlds member is detected (e.g. previewing the file).
+   when no signed-in member is detected (e.g. previewing the file).
 ═══════════════════════════════════════════════════════════════ */
 (function () {
   const SB_URL = 'https://oihefcsonqjeicelezln.supabase.co';
@@ -6066,7 +6066,7 @@ fxRender(); fxLoadLive();
     for (const t of tries) { try { const u = clean(t()); if (u) return u; } catch (e) {} }
     return null;
   }
-  function whoAsk(ms) {          // cross-site embed: ask the LearnWorlds page, which answers via the head snippet
+  function whoAsk(ms) {          // cross-site embed: ask the parent page, which answers via the head snippet
     return new Promise(res => {
       const now = whoNow(); if (now) return res(now);
       if (window.parent === window) return res(null);
@@ -6207,7 +6207,7 @@ fxRender(); fxLoadLive();
   async function boot() {
     let local = null; try { local = JSON.parse(ls.get(LOCAL) || 'null'); } catch (e) {}
     member = await whoAsk(1500);
-    if (!member) {                                       // no LearnWorlds member found: this browser only
+    if (!member) {                                       // no signed-in member found: this browser only
       if (local && !local.member && meaningful(local)) apply(local); else applying = false;
       return pillIdle();
     }

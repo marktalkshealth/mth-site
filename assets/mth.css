@@ -1,5 +1,5 @@
 /* =================================================================
-   MARK TALKS HEALTH — OWN SITE (no LearnWorlds)
+   MARK TALKS HEALTH — OWN SITE
    Shared look for every page: header, footer, buttons, forms, cards.
    Luxury palette: cream, charcoal, terracotta, sage, gold.
 ================================================================= */
@@ -111,7 +111,7 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 /* ---------- page loading ---------- */
 .mx-wait{min-height:60vh;display:grid;place-items:center;font-family:var(--serif);font-size:24px;color:var(--faint)}
 
-/* ---------- story video card (copied from the LearnWorlds design) ---------- */
+/* ---------- story video card  ---------- */
 .mthv{position:relative;width:100%;max-width:420px;margin:0 auto;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:#1d1a17;box-shadow:0 26px 60px rgba(43,39,36,.22);cursor:pointer;-webkit-tap-highlight-color:transparent;isolation:isolate;font-family:var(--sans)}
 .mthv-player,.mthv-player .wistia_embed,.mthv-player iframe{position:absolute!important;inset:0;width:100%!important;height:100%!important;border:0}
 .mthv-poster{position:absolute;inset:0;background:#2b2724 center 30%/cover no-repeat;transition:opacity .6s ease;z-index:1}

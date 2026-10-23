@@ -1,5 +1,5 @@
 /* =================================================================
-   MARK TALKS HEALTH — OWN SITE CORE (no LearnWorlds)
+   MARK TALKS HEALTH — OWN SITE CORE
    Every page loads this after assets/vendor/supabase-*.js.
    - sign-in (email code) with "remember me"
    - who owns what (mth_enrollments in Supabase)
@@ -241,7 +241,7 @@
   }
   M.chrome=function(){ header(); footer(); };
 
-  /* ---------- pieces copied from the LearnWorlds site script ---------- */
+  /* ---------- shared site pieces ---------- */
   var BASE=CONFIG.assets;
   function wistiaJs(){ if(document.getElementById("wistia-js")) return; var s=document.createElement("script"); s.id="wistia-js"; s.async=true; s.src="https://fast.wistia.com/assets/external/E-v1.js"; document.head.appendChild(s); }
   function videos(root){
