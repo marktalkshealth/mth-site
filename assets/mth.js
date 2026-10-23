@@ -13,9 +13,9 @@
     supabaseKey:"sb_publishable_vxaKCnn-2XlvV7MmoV3wqg_dxgdqtz2",
     /* the three protocols: sales page, course and app for each */
     products:{
-      gut:  { name:"Gut Health Protocol", short:"Gut Health", price:"$97", was:"$147", sales:"gut.html",      course:"course.html?p=gut",   app:"app.html?p=gut",   img:"1-fasting", line:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse." },
-      sugar:{ name:"Diabetes Protocol",   short:"Diabetes",   price:"$97", was:"$147", sales:"diabetes.html", course:"course.html?p=sugar", app:"app.html?p=sugar", img:"3-high-protein",    line:"Gain control of your blood sugar and enjoy steadier energy with your personalised protocol." },
-      glp1: { name:"GLP-1 Weight Loss Protocol", short:"GLP-1", price:"$97", was:"$147", sales:"glp1.html",   course:"course.html?p=glp1",  app:"app.html?p=glp1",  img:"4-cardio",  line:"Lose fat while protecting muscle. A customised roadmap for using GLP-1s intelligently." }
+      gut:  { name:"Gut Health Protocol", short:"Gut Health", price:"$97", was:"$147", sales:"gut.html",      course:"course.html?p=gut",   app:"app.html?p=gut",   img:"1-fasting", thumb:"https://api.us-e1.learnworlds.com/imagefile//6eec355b2cfe342f0ac9f7061029e4e7.png?client_id=6ac2bb5648140f5f6d8ca00c&width=800&height=0", line:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse." },
+      sugar:{ name:"Diabetes Protocol",   short:"Diabetes",   price:"$97", was:"$147", sales:"diabetes.html", course:"course.html?p=sugar", app:"app.html?p=sugar", img:"3-high-protein",    thumb:"https://api.us-e1.learnworlds.com/imagefile//fe26b6c96fac54ea10f9208392449ea2.png?client_id=6ac2bb5648140f5f6d8ca00c&width=800&height=0", line:"Gain control of your blood sugar and enjoy steadier energy with your personalised protocol." },
+      glp1: { name:"GLP-1 Weight Loss Protocol", short:"GLP-1", price:"$97", was:"$147", sales:"glp1.html",   course:"course.html?p=glp1",  app:"app.html?p=glp1",  img:"4-cardio",  thumb:"https://api.us-e1.learnworlds.com/imagefile//85077c63e15333e491250e4536f2ee4c.png?client_id=6ac2bb5648140f5f6d8ca00c&width=800&height=0", line:"Lose fat while protecting muscle. A customised roadmap for using GLP-1s intelligently." }
     },
     order:["gut","sugar","glp1"],
     stripeKey:"",                        /* Stripe publishable key (pk_live_…): turns on the pop-up checkout. Empty = full-page Stripe checkout */

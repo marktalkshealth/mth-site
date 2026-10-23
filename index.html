@@ -159,22 +159,25 @@
 @keyframes ntIn{0%{opacity:0;transform:translateY(-10px) scale(.96)}7%,84%{opacity:1;transform:none}94%,100%{opacity:0;transform:translateY(-4px)}}
 /* hub live visual */
 #mh .live{display:grid;gap:10px}
-#mh .lv{position:relative;aspect-ratio:4/4.2;border-radius:20px;overflow:hidden;background:#2b2724 center 30%/cover;box-shadow:0 24px 50px rgba(43,39,36,.22)}
-#mh .lv:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,39,36,.35) 0%,rgba(43,39,36,0) 25%,rgba(43,39,36,0) 45%,rgba(43,39,36,.78) 100%)}
-#mh .lvb{position:absolute;left:14px;top:14px;display:flex;align-items:center;gap:6px;background:#c0623f;color:#fff;font-size:11px;font-weight:800;letter-spacing:.14em;border-radius:6px;padding:4px 9px}
-#mh .lvb i{width:7px;height:7px;border-radius:50%;background:#fff;animation:lvP 1.4s infinite}
-#mh .lvt{position:absolute;left:14px;top:44px;color:#fff;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
-#mh .lvc{position:absolute;left:12px;right:70px;bottom:12px;display:grid;gap:6px}
-#mh .cm{background:rgba(255,252,247,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:12px;padding:7px 10px;font-size:12.5px;line-height:1.35;color:#2b2724;box-shadow:0 6px 14px rgba(0,0,0,.2);animation:cmIn 10s infinite both}
+#mh .lv{position:relative;border-radius:20px;overflow:hidden;padding:14px;background:radial-gradient(120% 90% at 85% 0%,rgba(192,98,63,.55),transparent 60%),radial-gradient(90% 80% at 0% 100%,rgba(122,143,110,.45),transparent 60%),#2b2724;box-shadow:0 18px 40px rgba(43,39,36,.18)}
+#mh .lvh{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+#mh .lva{width:40px;height:40px;border-radius:50%;flex:none;background:url('/media/site/mark-kitchen.jpg') 62% 18%/300% no-repeat;border:2px solid #c0623f;box-shadow:0 0 0 3px rgba(192,98,63,.3)}
+#mh .lvh>div{flex:1;min-width:0}
+#mh .lvt{color:#fff;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.1}
+#mh .lvs{color:#cbbfb2;font-size:11px;margin-top:2px}
+#mh .lvb{display:flex;align-items:center;gap:5px;background:#c0623f;color:#fff;font-size:10px;font-weight:800;letter-spacing:.14em;border-radius:6px;padding:4px 8px;flex:none}
+#mh .lvb i{width:6px;height:6px;border-radius:50%;background:#fff;animation:lvP 1.4s infinite}
+#mh .lvc{position:relative;display:grid;gap:6px;margin-right:46px}
+#mh .cm{background:rgba(255,252,247,.94);border-radius:12px;padding:7px 10px;font-size:12.5px;line-height:1.35;color:#2b2724;animation:cmIn 10s infinite both}
 #mh .cm b{color:#c0623f;margin-right:4px}
 #mh .cm:nth-child(2){animation-delay:1.2s}#mh .cm:nth-child(3){animation-delay:2.4s}
-#mh .hearts{position:absolute;right:16px;bottom:14px;width:40px;height:60%}
-#mh .hearts i{position:absolute;bottom:0;left:10px;font-style:normal;font-size:20px;opacity:0;animation:hf 4s infinite ease-out}
-#mh .hearts i:nth-child(2){animation-delay:.8s;left:2px}#mh .hearts i:nth-child(3){animation-delay:1.6s;left:16px}#mh .hearts i:nth-child(4){animation-delay:2.4s;left:6px}#mh .hearts i:nth-child(5){animation-delay:3.2s;left:14px}
+#mh .hearts{position:absolute;right:12px;bottom:12px;width:36px;height:120px;pointer-events:none}
+#mh .hearts i{position:absolute;bottom:0;left:8px;font-style:normal;font-size:18px;opacity:0;animation:hf 4s infinite ease-out}
+#mh .hearts i:nth-child(2){animation-delay:.8s;left:2px}#mh .hearts i:nth-child(3){animation-delay:1.6s;left:14px}#mh .hearts i:nth-child(4){animation-delay:2.4s;left:5px}#mh .hearts i:nth-child(5){animation-delay:3.2s;left:12px}
 #mh .lvr{display:flex;flex-wrap:wrap;gap:6px}
 #mh .lvr span{background:#f7f1e7;border:1px solid #ece2d3;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600;color:#6e6259}
 @keyframes cmIn{0%{opacity:0;transform:translateX(-14px)}6%,86%{opacity:1;transform:none}95%,100%{opacity:0}}
-@keyframes hf{0%{opacity:0;transform:translateY(0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translateY(-180px) scale(1.15)}}
+@keyframes hf{0%{opacity:0;transform:translateY(0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translateY(-110px) scale(1.15)}}
 @keyframes lvP{50%{opacity:.3}}
 @media(prefers-reduced-motion:reduce){#mh .nt,#mh .cm,#mh .lvb i{animation:none}#mh .hearts{display:none}}
 /* founder */
@@ -271,9 +274,9 @@
 <section style="padding-top:0"><div class="w">
   <div class="hub rv">
     <div><div class="k">The Healing Hub</div><h2>Heal <em>together</em></h2><p class="lead" style="margin-bottom:20px">A private community for members: daily check-ins, fasting milestones, questions answered by Mark, and live sessions.</p><a class="btn" id="mhHub" href="protocols.html">Choose your protocol</a></div>
-    <div class="live" role="img" aria-label="Mark hosting a live Q&amp;A in the Healing Hub, with member messages and reactions coming in">
-      <div class="lv" style="background-image:url('/media/site/mark-kitchen.jpg')">
-        <span class="lvb"><i></i>LIVE</span><span class="lvt">Thursday Q&amp;A with Mark</span>
+    <div class="live" role="img" aria-label="A live Q&amp;A with Mark in the Healing Hub, with member messages and reactions coming in">
+      <div class="lv">
+        <div class="lvh"><span class="lva"></span><div><div class="lvt">Thursday Q&amp;A with Mark</div><div class="lvs">Healing Hub · members only</div></div><span class="lvb"><i></i>LIVE</span></div>
         <div class="hearts"><i>❤</i><i>🔥</i><i>❤</i><i>🌿</i><i>❤</i></div>
         <div class="lvc">
           <div class="cm"><b>Sarah</b> Day 3 and no bloating for the first time in years 🙌</div>

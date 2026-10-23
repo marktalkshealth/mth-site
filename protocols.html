@@ -49,7 +49,7 @@
 MTH.ready.then(function(){
   var C=MTH.config, IMG=C.assets+"steps/";
   document.getElementById("grid").innerHTML=C.order.map(function(k){ var P=C.products[k], own=MTH.owns(k);
-    return '<a class="card pc" href="'+(own?P.course:P.sales)+'"><div class="im" style="background-image:url('+IMG+P.img+'.jpg)"></div><div class="tx"><div class="kick">'+(own?'You own this':'Protocol')+'</div><h3>'+MTH.esc(P.name)+'</h3><p>'+MTH.esc(P.line)+'</p>'+
+    return '<a class="card pc" href="'+(own?P.course:P.sales)+'"><div class="im" style="background-image:url(\''+(P.thumb||IMG+P.img+'.jpg')+'\')"></div><div class="tx"><div class="kick">'+(own?'You own this':'Protocol')+'</div><h3>'+MTH.esc(P.name)+'</h3><p>'+MTH.esc(P.line)+'</p>'+
       '<div class="ft"><span class="pr">'+(own?'':'<s>'+P.was+'</s><b>'+P.price+'</b>')+'</span><span class="b sm'+(own?' dark':'')+'">'+(own?'Open':'Learn more')+'</span></div></div></a>'; }).join("");
 });
 </script>
