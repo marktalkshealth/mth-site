@@ -307,3 +307,29 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 
 }
 
+
+/* Healing Assessment (quiz "heal") */
+:is(#mqx,html) .mq-sechd:empty{display:none}
+:is(#mqx,html) .mq-intro{margin:0 0 14px;padding:12px 14px;border-radius:14px;background:var(--sageS,#e4eadf);color:#3f4b38;font-size:14.5px;line-height:1.45}
+:is(#mqx,html) .mq-count{font-size:12px;color:var(--faint,#a8998b);margin:14px 0 0}
+:is(#mqx,html) .mq-heal .mq-opts.multi .mq-o{border-radius:14px}
+:is(#mqx,html) .mq-imp .mq-num{font-variant-numeric:tabular-nums}
+:is(#mqx,html) .mq-imp small{font-size:18px;color:var(--muted,#6e6259)}
+:is(#mqx,html) .mq-dots{display:flex;gap:6px;margin:0 0 14px}
+:is(#mqx,html) .mq-dots span{flex:1;height:4px;border-radius:2px;background:var(--bg2,#efe5d6)}
+:is(#mqx,html) .mq-dots span.done{background:var(--sage,#7a8f6e)}
+:is(#mqx,html) .mq-dots span.on{background:var(--mqT)}
+:is(#mqx,html) .mq-big{display:flex;align-items:flex-end;gap:10px;margin:10px 0 2px}
+:is(#mqx,html) .mq-big b{font-family:var(--serif,'Cormorant Garamond',Georgia,serif);font-weight:500;font-size:clamp(64px,14vw,88px);line-height:.85;color:var(--mqT);font-variant-numeric:tabular-nums}
+:is(#mqx,html) .mq-big span{font-size:13px;color:var(--muted,#6e6259);line-height:1.3;padding-bottom:6px}
+:is(#mqx,html) .mq-heard{margin:0 0 14px;color:var(--ink,#2b2724);font-size:15.5px;line-height:1.5}
+:is(#mqx,html) .mq-chg{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid var(--line,#e7dccb)}
+:is(#mqx,html) .mq-chg:first-of-type{border-top:0;padding-top:4px}
+:is(#mqx,html) .mq-n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--terraS,#f6dccf);color:var(--terraD,#a8522f);font-weight:700}
+:is(#mqx,html) .mq-chg b{font-size:17px;color:var(--ink,#2b2724)}
+:is(#mqx,html) .mq-chg p{margin:4px 0 0;font-size:14.5px;color:var(--muted,#6e6259);line-height:1.45}
+:is(#mqx,html) .mq-chg em{font-style:normal;font-weight:600;color:var(--ink,#2b2724)}
+:is(#mqx,html) .mq-clues{margin:0;padding-left:18px;display:grid;gap:8px;font-size:14.5px;color:var(--muted,#6e6259)}
+:is(#mqx,html) .mq-safe{margin-bottom:18px;padding:16px 18px;border-radius:16px;background:var(--terraS,#f6dccf);color:#7e3b25}
+:is(#mqx,html) .mq-safe p{margin:6px 0 0;font-size:14.5px;line-height:1.5}
+:is(#mqx,html) .mq-cta h4{font-family:var(--serif,'Cormorant Garamond',Georgia,serif);font-weight:500;font-size:28px;margin:4px 0 8px;color:var(--ink,#2b2724)}

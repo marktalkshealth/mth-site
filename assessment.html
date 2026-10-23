@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Free Healing Assessment · Mark Talks Health</title>
+<meta name="description" content="A free 5-minute assessment of how you feel, your habits, your home and your stress. Get your Healing Score and the 3 changes that matter most for you.">
+<meta property="og:title" content="Free Healing Assessment · Mark Talks Health">
+<meta property="og:description" content="5 minutes. Your Healing Score and the 3 changes that matter most for you.">
+<meta property="og:image" content="/media/site/mark-kitchen.jpg">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css?v=202610231200">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js?v=202610221130"></script>
+<script src="assets/quiz-core.js?v=202610231200"></script>
+<script src="assets/quiz.js?v=202610231200"></script>
+<style>
+.pg{max-width:1120px;margin:0 auto;padding:40px 20px 70px}
+.pg .lead{max-width:640px}
+.trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+.trust span:before{content:"\2713  ";color:var(--sage);font-weight:700}
+</style>
+</head>
+<body>
+<main class="pg">
+  <div class="kick">Free healing assessment</div>
+  <h1 class="t">How is your body <em>really</em> doing?</h1>
+  <p class="lead">Most health quizzes only ask about symptoms. This one looks at your whole life: how you feel, your daily habits, your home and work, and the stress you carry. In about 5 minutes you get your Healing Score and the 3 changes that matter most for you.</p>
+  <div class="trust"><span>Free</span><span>About 5 minutes</span><span>Results right away</span><span>Educational, not a diagnosis</span></div>
+  <div data-mth-quiz="heal" data-source="assessment"></div>
+</main>
+<script>
+(function(){ var g=MTH.qs("goal"), el=document.querySelector("[data-mth-quiz]"); if(g&&el) el.setAttribute("data-goal",g); if(window.MTHQuiz) MTHQuiz.mountAll(); })();
+</script>
+</body>
+</html>
