@@ -237,7 +237,7 @@
         '<div class="mq-head"><div class="mq-k">Your Healing Assessment' + (name ? " · " + esc(name) : "") + '</div>' +
           '<div class="mq-big"><b>' + r.score + '</b><span>/ 100<br>Healing Score</span></div><h3>' + esc(r.band) + '</h3>' +
           (emailed ? '<p class="mq-sent">✓ A copy is on its way to your inbox.</p>' : "") + '</div>' +
-        '<div class="mq-sec"><p class="mq-heard">' + (r.alone ? "You said you don’t have many people to lean on right now. That matters for your health as much as food does, and it’s why nobody in this program heals on their own." : "Your answers show a whole life, not just symptoms. That’s where real healing starts, and you won’t be doing it on your own.") + '</p>' +
+        '<div class="mq-sec"><p class="mq-heard">' + (r.alone ? "You said you don’t have many people to lean on right now. That matters for your health as much as food does, and it’s why nobody in this program heals on their own." : "Your answers show the whole person: your diet, lifestyle, habits, work, stress and relationships, not just symptoms. That’s Lifestyle as Medicine, and it’s where real healing starts, and you won’t be doing it on your own.") + '</p>' +
           r.areas.map(function (x) { return bar(x.name, x.score, x.score + ""); }).join("") + "</div>" +
         '<div class="mq-sec"><h4>The 3 changes that matter most for you</h4>' + r.changes.map(function (c, j) {
           return '<div class="mq-chg"><span class="mq-n">' + (j + 1) + '</span><div><b>' + esc(c.step) + '</b>' +
