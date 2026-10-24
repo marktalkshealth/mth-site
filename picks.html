@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Picks · Mark Talks Health</title>
+<meta name="description" content="Everything Mark recommends for healing: sleep, clean air, exercise gear and books.">
+<meta property="og:title" content="My Picks · Mark Talks Health">
+<meta property="og:description" content="Everything Mark recommends for healing: sleep, clean air, exercise gear and books.">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<script src="assets/picks.js"></script>
+<style>
+.pg{max-width:1180px;margin:0 auto;padding:40px 20px 70px}
+.hero{max-width:660px}
+.store{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.sec{margin-top:44px}
+.sec h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,4.5vw,36px);margin:4px 0 4px;line-height:1}
+.sec h2 em{font-style:italic;color:var(--terra)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:16px}
+.pk{padding:20px;display:flex;flex-direction:column;gap:8px}
+.pk h3{font-family:var(--serif);font-weight:500;font-size:25px;line-height:1.1;margin:0}
+.pk p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.pk .b{margin-top:8px;align-self:flex-start}
+.ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--sageS);color:var(--sage);font-size:20px}
+.disc{margin-top:46px;font-size:13px;color:var(--faint)}
+</style>
+</head>
+<body>
+<main class="pg">
+  <div class="hero"><div class="kick">My Picks</div><h1 class="t">Everything I <em>recommend</em></h1>
+    <p class="lead">The simple tools I recommend alongside the protocols: for deeper sleep, cleaner air, and easy movement at home.</p>
+    <div class="store" id="store"></div></div>
+  <div id="picks"></div>
+  <p class="disc">As an Amazon Associate I earn from qualifying purchases. It costs you nothing extra and helps support Mark Talks Health.</p>
+</main>
+<script>
+(function(){
+  var P=window.MTH_PICKS, esc=MTH.esc;
+  var ICONS={ sleep:"☾", move:"⟲", books:"❧" };
+  if(P.STORE_URL) document.getElementById("store").innerHTML='<a class="b" href="'+esc(P.STORE_URL)+'" target="_blank" rel="noopener sponsored">Visit my Amazon store</a>';
+  document.getElementById("picks").innerHTML=P.sections.map(function(s){
+    return '<section class="sec"><h2>'+s.title+'</h2>'+(s.note?'<p class="small" style="margin:6px 0 0">'+esc(s.note)+'</p>':'')+
+      '<div class="grid">'+s.picks.map(function(p){
+        var href=P.link(p), ext=!p.internal;
+        return '<div class="card pk"><div class="ic">'+(ICONS[s.key]||"✦")+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.why||"")+'</p>'+
+          '<a class="b '+(ext?'':'ghost')+'" href="'+esc(href)+'"'+(ext?' target="_blank" rel="noopener sponsored"':'')+'>'+(ext?'View on Amazon':'Open the Library')+'</a></div>';
+      }).join("")+'</div></section>';
+  }).join("");
+})();
+</script>
+</body>
+</html>
