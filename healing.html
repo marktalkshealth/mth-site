@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How Healing Works · Mark Talks Health</title>
+<meta name="description" content="The Mark Talks Health healing method in five parts: investigate, learn the foundation, learn your condition, heal, and follow up. Lifestyle as medicine, working alongside your doctor.">
+<meta property="og:title" content="How Healing Works · Mark Talks Health">
+<meta property="og:description" content="Five parts. The whole person. Working with your doctor, never against them.">
+<meta property="og:image" content="/media/site/mark-kitchen.jpg">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css?v=202610241700">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js?v=202610241700"></script>
+<style>
+.pg{max-width:1120px;margin:0 auto;padding:44px 20px 80px}
+.hero{display:grid;gap:30px;align-items:center}
+@media(min-width:900px){.hero{grid-template-columns:1.1fr .9fr}}
+.hero h1.t{font-size:clamp(42px,7vw,72px)}
+.hero .ph{aspect-ratio:4/5;border-radius:24px;background:#d9cbb6 center/cover;box-shadow:0 26px 60px rgba(43,39,36,.18)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.sec{margin-top:80px}
+.sec h2.t{font-size:clamp(32px,5vw,48px)}
+/* the five parts as a path */
+.path{display:grid;gap:12px;margin-top:24px;counter-reset:p}
+@media(min-width:960px){.path{grid-template-columns:repeat(5,1fr)}}
+.path .card{padding:22px 20px;position:relative}
+.path .n{font-family:var(--serif);font-size:54px;line-height:.9;color:var(--terra)}
+.path h3{font-size:17px;margin:10px 0 2px}
+.path .q{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink);margin-bottom:8px}
+.path p{margin:0;color:var(--muted);font-size:14.5px}
+.path .tag{display:inline-block;margin-top:12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sage)}
+@media(min-width:960px){.path .card:not(:last-child):after{content:"";position:absolute;right:-12px;top:44px;width:12px;height:2px;background:var(--gold)}}
+.prom{display:grid;gap:14px;margin-top:22px}
+@media(min-width:820px){.prom{grid-template-columns:repeat(3,1fr)}}
+.prom .card{padding:26px}
+.prom h3{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.05;margin:0 0 8px}
+.prom p{margin:0;color:var(--muted)}
+/* part detail rows */
+.part{display:grid;gap:22px;padding:34px 0;border-top:1px solid var(--line)}
+@media(min-width:880px){.part{grid-template-columns:280px 1fr}}
+.part .k{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.part h3{font-family:var(--serif);font-weight:500;font-size:36px;line-height:1.05;margin:6px 0 0}
+.part ul{margin:10px 0 0;padding-left:20px;color:var(--muted)}
+.part li{margin:6px 0}
+.part p{margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips span{padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:14px;font-weight:600}
+.chips span b{color:var(--terra);margin-right:6px}
+.phase{display:grid;gap:10px;margin-top:12px}
+@media(min-width:700px){.phase{grid-template-columns:repeat(3,1fr)}}
+.phase div{padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.phase b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage)}
+/* how the pieces connect */
+.hub{margin-top:24px;padding:28px;border-radius:24px;background:var(--dark);color:#f3e7d3}
+.hub .row5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center}
+.hub .row5 div{padding:12px 4px;border-radius:12px;background:rgba(255,255,255,.07);font-size:13px;font-weight:600}
+.hub .row5 small{display:block;color:#bfae98;font-weight:500;font-size:11.5px}
+.hub .bars{display:grid;gap:8px;margin-top:10px}
+.hub .bar{padding:10px 14px;border-radius:12px;font-size:14px;font-weight:600}
+.hub .bar small{font-weight:500;opacity:.8;margin-left:6px}
+.cta{margin-top:80px;padding:40px 28px;border-radius:26px;background:var(--bg2);text-align:center}
+.cta h2.t{margin-top:0}
+.cta .acts{justify-content:center}
+.safe{margin-top:16px;font-size:13.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="pg">
+  <section class="hero">
+    <div>
+      <div class="kick">How healing works</div>
+      <h1 class="t">One method for the <em>whole</em> person</h1>
+      <p class="lead">Most programs treat one symptom. We look at everything that's feeding it: your food, your habits, your sleep, your stress, your work, your relationships and your money. Then we heal it in five clear parts, working alongside your doctor, never against them.</p>
+      <div class="acts"><a class="b" href="snapshot.html">Start your Healing Snapshot</a><a class="b ghost" href="#parts">See the 5 parts</a></div>
+      <p class="safe">Free · about 10 minutes · you get a one-page summary you can take to your doctor.</p>
+    </div>
+    <div class="ph" style="background-image:url('/media/site/mark-kitchen.jpg')" role="img" aria-label="Mark in his kitchen"></div>
+  </section>
+
+  <section class="sec" id="parts">
+    <div class="kick">The method</div>
+    <h2 class="t">Five parts, <em>in order</em></h2>
+    <p class="lead">Every client moves through the same five parts. The course, the app and your coach are three doors into this one method.</p>
+    <div class="path">
+      <div class="card"><div class="n">1</div><h3>Investigate</h3><div class="q">Where are you now?</div><p>Your symptoms, tests, diagnoses, medications, daily damage and life, in one picture.</p><span class="tag">The Healing Snapshot</span></div>
+      <div class="card"><div class="n">2</div><h3>Learn the foundation</h3><div class="q">Total Body Healing</div><p>Remove the damage, then rebuild with the 7 steps. The same for everyone.</p><span class="tag">The 7-step course</span></div>
+      <div class="card"><div class="n">3</div><h3>Learn your condition</h3><div class="q">What's happening to you</div><p>A short module for your own condition, including what your doctor can offer.</p><span class="tag">Condition modules</span></div>
+      <div class="card"><div class="n">4</div><h3>Heal</h3><div class="q">Your personal plan</div><p>Foundation, condition protocol and your doctor's treatment in one daily plan.</p><span class="tag">The app</span></div>
+      <div class="card"><div class="n">5</div><h3>Follow up</h3><div class="q">Is it working?</div><p>Weekly check-ins, retests and a report for your doctor. Then maintenance.</p><span class="tag">Weekly check-in</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="kick">Three promises</div>
+    <h2 class="t">What never <em>changes</em></h2>
+    <div class="prom">
+      <div class="card"><h3>The whole person heals, or nobody does</h3><p>Diet, habits, stress, work, relationships and money all count, not just the symptom.</p></div>
+      <div class="card"><h3>Both, not either</h3><p>Lifestyle works alongside your doctor. Medication, physiotherapy or surgery are tools we explain and support, never things we argue against.</p></div>
+      <div class="card"><h3>Remove before you add</h3><p>Taking away what is causing damage comes before any supplement, protocol or plan.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="part">
+      <div><div class="k">Part 1</div><h3>Investigate</h3></div>
+      <div>
+        <p>About 10 minutes, before any advice is given. We ask about:</p>
+        <ul>
+          <li><b>Symptoms</b>, each scored 0 to 10, so we can measure progress.</li>
+          <li><b>Tests</b> like A1C, blood pressure, weight and waist, to retest later.</li>
+          <li><b>Diagnoses, medications and treatments</b>, so your plan works with them.</li>
+          <li><b>The damage audit</b>: smoking, alcohol, processed food, sleep, screens.</li>
+          <li><b>The life audit</b>: stress, work, relationships, money and support at home.</li>
+          <li><b>Your goals</b>, in your own words.</li>
+        </ul>
+        <p style="margin-top:12px">You get your <b>Healing Snapshot</b>: your top problems, your biggest sources of damage, and which condition modules fit you. It's yours to take to your doctor.</p>
+        <a class="b sm" href="snapshot.html">Start your Snapshot</a>
+      </div>
+    </div>
+    <div class="part">
+      <div><div class="k">Part 2</div><h3>Learn the foundation</h3></div>
+      <div>
+        <p>A body that's still being damaged every day can't heal its specific problem, so the foundation always comes first.</p>
+        <p><b>Step A: remove the damage</b>, one thing at a time: substances, processed food, chronic stress, unhealthy relationships, money pressure and the things stealing your sleep.</p>
+        <p><b>Step B: rebuild with the 7 steps.</b></p>
+        <div class="chips">
+          <span><b>1</b>Fasting &amp; cleanse</span><span><b>2</b>Meditation &amp; journaling</span><span><b>3</b>High protein &amp; broths</span><span><b>4</b>Cardio &amp; strength</span><span><b>5</b>Music &amp; spirit</span><span><b>6</b>Sleep &amp; clean air</span><span><b>7</b>Nature &amp; sun</span>
+        </div>
+      </div>
+    </div>
+    <div class="part">
+      <div><div class="k">Part 3</div><h3>Learn your condition</h3></div>
+      <div>
+        <p>A short module for your own condition, unlocked by your Snapshot. Every module covers the same six things:</p>
+        <ul>
+          <li>What is happening, in plain words</li><li>What makes it worse</li><li>What helps, backed by studies</li>
+          <li><b>What your doctor can offer</b>, and how lifestyle supports it</li><li>Red flags that mean see a doctor now</li><li>What gets added to your daily plan</li>
+        </ul>
+        <p style="margin-top:12px">First modules: <a href="gut.html">Gut Health</a>, <a href="diabetes.html">Diabetes</a> and <a href="glp1.html">GLP-1 weight loss</a>.</p>
+      </div>
+    </div>
+    <div class="part">
+      <div><div class="k">Part 4</div><h3>Heal</h3></div>
+      <div>
+        <p>The app blends the foundation, your condition protocol and your doctor's treatment into one daily plan, so you never have to work out how the pieces fit. Never more than <b>3 new actions a week</b>.</p>
+        <div class="phase">
+          <div><b>Weeks 1–2 · Calm</b>Remove the biggest damage, start sleep and hydration.</div>
+          <div><b>Weeks 3–6 · Repair</b>Add your condition protocol and the first 7-step habits.</div>
+          <div><b>Week 7 on · Strengthen</b>Build all 7 steps into a routine you can keep.</div>
+        </div>
+      </div>
+    </div>
+    <div class="part">
+      <div><div class="k">Part 5</div><h3>Follow up</h3></div>
+      <div>
+        <p>This is where most programs quietly stop, and where results are made.</p>
+        <ul>
+          <li><b>Weekly check-in</b> (2 minutes): re-score your symptoms and see your trend.</li>
+          <li><b>Adjust</b>: stuck for two weeks? One small change, not five.</li>
+          <li><b>Retest</b> at 8 to 12 weeks, and compare side by side.</li>
+          <li><b>Doctor report</b>: what you changed and how your numbers moved. Any medication change is always your doctor's decision.</li>
+        </ul>
+        <a class="b sm ghost" href="checkin.html">Open the weekly check-in</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="kick">How it fits together</div>
+    <h2 class="t">Five parts, <em>four tools</em></h2>
+    <div class="hub">
+      <div class="row5"><div>1<small>Investigate</small></div><div>2<small>Foundation</small></div><div>3<small>Condition</small></div><div>4<small>Heal</small></div><div>5<small>Follow up</small></div></div>
+      <div class="bars">
+        <div class="bar" style="background:rgba(184,146,74,.25);margin-left:20%;margin-right:40%">The course<small>parts 2 and 3</small></div>
+        <div class="bar" style="background:rgba(192,98,63,.35)">The app<small>parts 1, 4 and 5</small></div>
+        <div class="bar" style="background:rgba(122,143,110,.35)">Your coach and your doctor<small>through all five</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="kick">Part 1 starts here</div>
+    <h2 class="t">Where are <em>you</em> now?</h2>
+    <p class="lead" style="margin:0 auto">About 10 minutes. Your top problems, your biggest sources of damage, and where to start.</p>
+    <div class="acts"><a class="b" href="snapshot.html">Start your Healing Snapshot</a><a class="b ghost" href="protocols.html">See the courses</a></div>
+    <p class="safe">Educational, not medical advice. Your plan always works alongside your doctor's care.</p>
+  </section>
+</main>
+</body>
+</html>
