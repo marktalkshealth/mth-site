@@ -230,13 +230,13 @@
     if(document.querySelector(".mx-f")||H.classList.contains("mx-bare")) return;
     var f=document.createElement("footer"); f.className="mx-f";
     var pg=(location.pathname.split("/").filter(Boolean)[0]||"index").replace(/\.html$/,"");
-    if(["index","gut","diabetes","glp1","protocols","privacy","terms","refunds"].indexOf(pg)<0){   /* members' pages: one quiet line */
+    if(["index","gut","diabetes","glp1","protocols","privacy","terms","refunds","partners"].indexOf(pg)<0){   /* members' pages: one quiet line */
       f.className="mx-f slim";
-      f.innerHTML='<div class="in"><div class="fine">&copy; '+new Date().getFullYear()+' Mark Talks Health · Educational, not medical advice · <a href="picks.html">My Picks</a> · <a href="mailto:marktalkshealth@gmail.com">Help</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div></div>';
+      f.innerHTML='<div class="in"><div class="fine">&copy; '+new Date().getFullYear()+' Mark Talks Health · Educational, not medical advice · <a href="picks.html">My Picks</a> · <a href="partners.html">Work with me</a> · <a href="mailto:marktalkshealth@gmail.com">Help</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div></div>';
       document.body.appendChild(f); return;
     }
     f.innerHTML='<div class="in"><div class="brand">Mark Talks Health<small>Natural healing meets modern science. Personalised protocols, guided day by day.</small></div>'+
-      '<nav aria-label="Footer"><a href="index.html">Home</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="picks.html">My Picks</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a></nav>'+
+      '<nav aria-label="Footer"><a href="index.html">Home</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="picks.html">My Picks</a><a href="partners.html">Work with me</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a></nav>'+
       '<div class="fine">Educational program, not a substitute for professional medical advice, diagnosis or treatment. Individual results vary. Consult your healthcare provider before starting any fasting or cleansing protocol. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
     document.body.appendChild(f);
   }

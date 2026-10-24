@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Partner with us · Mark Talks Health</title>
+<meta name="description" content="Documentary-style brand ads that viewers don't skip. Woven into health documentaries, or licensed for your own pages and paid ads.">
+<meta property="og:title" content="Partner with Mark Talks Health">
+<meta property="og:description" content="Documentary-style brand ads that viewers don't skip. Woven into health documentaries, or licensed for your own pages and paid ads.">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js?v=202610241500"></script>
+<style>
+.pg{max-width:1120px;margin:0 auto;padding:44px 20px 80px}
+.hero{display:grid;gap:28px;align-items:center}
+@media(min-width:920px){.hero{grid-template-columns:1.05fr 1fr}}
+.hero h1.t{font-size:clamp(44px,7vw,74px)}
+.reel{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#2b2724;box-shadow:0 26px 60px rgba(43,39,36,.22)}
+.reel iframe,.reel video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.reel .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#f3e7d3;padding:24px;
+  background:radial-gradient(120% 90% at 30% 20%,rgba(184,146,74,.35),transparent 60%),repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 6px),#2b2724}
+.reel .ph b{font-family:var(--serif);font-size:30px;font-weight:500;display:block}
+.reel .strip{position:absolute;top:0;bottom:0;width:22px;background:repeating-linear-gradient(180deg,#111 0 10px,#f3e7d3 10px 16px,#111 16px 26px);opacity:.75}
+.reel .strip.l{left:0}.reel .strip.r{right:0}
+.sec{margin-top:70px}
+.sec h2.t{font-size:clamp(32px,5vw,46px)}
+.flow{display:grid;gap:12px;margin-top:20px}
+@media(min-width:820px){.flow{grid-template-columns:repeat(4,1fr)}}
+.flow .card{padding:20px}
+.flow .n{font-family:var(--serif);font-size:44px;line-height:1;color:var(--terra)}
+.flow h3{margin:6px 0 4px;font-size:17px}
+.flow p{margin:0;color:var(--muted);font-size:14.5px}
+.pk{display:grid;gap:14px;margin-top:20px}
+@media(min-width:820px){.pk{grid-template-columns:repeat(3,1fr)}}
+.pk .card{padding:24px;display:flex;flex-direction:column;gap:8px}
+.pk h3{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.05;margin:0}
+.pk p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.pk ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.lic{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.lic span{padding:10px 16px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:14.5px}
+.two{display:grid;gap:14px;margin-top:20px}
+@media(min-width:820px){.two{grid-template-columns:1fr 1fr}}
+.two .card{padding:22px}
+.two h3{margin:0 0 8px;font-family:var(--serif);font-weight:500;font-size:26px}
+.two ul{margin:0;padding-left:18px;color:var(--muted)}
+.two li{margin:6px 0}
+.form{padding:26px;margin-top:20px;display:grid;gap:12px}
+@media(min-width:760px){.form .g{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+.form .g{display:grid;gap:12px}
+.form label{font-size:13px;font-weight:600;color:var(--muted);display:grid;gap:6px}
+.form select.inp{appearance:auto}
+textarea.inp{min-height:130px;resize:vertical}
+.done{padding:30px;text-align:center}
+.done b{font-family:var(--serif);font-size:34px;font-weight:500;display:block}
+</style>
+</head>
+<body>
+<main class="pg">
+  <section class="hero">
+    <div>
+      <div class="kick">Partner with Mark Talks Health</div>
+      <h1 class="t">Ads people <em>don’t skip</em></h1>
+      <p class="lead">I make Vox-style health documentaries about fasting, gut health and metabolic repair. I lost 100 pounds doing what I teach. Your brand becomes part of the story instead of an interruption to it.</p>
+      <div class="acts" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="b" href="#talk">Start a conversation</a><a class="b ghost" href="#how">How it works</a></div>
+    </div>
+    <div class="reel" id="reel"><span class="strip l"></span><span class="strip r"></span><div class="ph"><div><b>Sample ads coming soon</b><span class="small" style="color:#cbbfae">Ask for a custom sample made for your product</span></div></div></div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="kick">How the ad plays</div><h2 class="t">Study, problem, <em>your solution</em></h2>
+    <p class="lead">Every ad follows the same story the documentary is already telling, so viewers stay with it.</p>
+    <div class="flow">
+      <div class="card"><div class="n">1</div><h3>The science</h3><p>A study or fact from the episode sets up a real problem.</p></div>
+      <div class="card"><div class="n">2</div><h3>The old way</h3><p>A playful 1960s-style scene shows how people used to struggle with it.</p></div>
+      <div class="card"><div class="n">3</div><h3>Snap to today</h3><p>The film snaps back to now, and your product solves it in clean, modern colour.</p></div>
+      <div class="card"><div class="n">4</div><h3>Back to the story</h3><p>The documentary picks up where it left off. No jarring cut.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="kick">What you can get</div><h2 class="t">Three ways to <em>work together</em></h2>
+    <div class="pk">
+      <div class="card"><div class="kick">On my channels</div><h3>Woven-in segment</h3><p>A 60–90 second segment inside a YouTube documentary, plus short-form versions for Reels, TikTok and Shorts.</p></div>
+      <div class="card"><div class="kick">For your channels</div><h3>Licensed ad</h3><p>A finished ad in my documentary style that you post on your own pages or run as paid ads, for the time you choose.</p></div>
+      <div class="card"><div class="kick">The big one</div><h3>Branded mini-documentary</h3><p>A 5–10 minute film built around the science behind your product. Made for launches and evergreen pages.</p></div>
+    </div>
+    <div class="kick" style="margin-top:28px">Licence lengths</div>
+    <div class="lic"><span>30 days</span><span>60 days</span><span>90 days</span><span>6 months</span><span>1 year</span><span>Perpetual</span><span>Optional exclusivity</span></div>
+    <p class="small" style="margin-top:10px">Every project gets a custom quote within 2 business days.</p>
+  </section>
+
+  <section class="sec">
+    <div class="kick">Fit</div><h2 class="t">Who I <em>work with</em></h2>
+    <div class="two">
+      <div class="card"><h3>Great fits</h3><ul><li>High-protein foods, broths and clean snacks</li><li>Electrolytes and hydration</li><li>Glucose monitors, sleep, air and fitness gear</li><li>Telehealth and lab testing</li><li>Meditation, journaling and wellness apps</li></ul></div>
+      <div class="card"><h3>My promise to viewers</h3><ul><li>Every ad is clearly labelled as sponsored</li><li>I only say what the evidence supports, and I approve all health claims</li><li>No “cures”, no fake testimonials</li><li>I only promote what I’d genuinely recommend</li></ul></div>
+    </div>
+  </section>
+
+  <section class="sec" id="talk">
+    <div class="kick">Let’s talk</div><h2 class="t">Tell me about <em>your brand</em></h2>
+    <div class="card form" id="fw">
+      <div class="g"><label>Company<input class="inp" id="fc" autocomplete="organization" required></label><label>Your name<input class="inp" id="fn" autocomplete="name"></label></div>
+      <div class="g"><label>Email<input class="inp" id="fe" type="email" autocomplete="email" required></label><label>Website<input class="inp" id="fw2" placeholder="yourbrand.com"></label></div>
+      <div class="g"><label>Interested in<select class="inp" id="fi"><option>Not sure yet</option><option>Woven-in segment on your channels</option><option>Licensed ad for our channels</option><option>Branded mini-documentary</option><option>Several videos</option></select></label>
+        <label>Rough budget<select class="inp" id="fb"><option value="">Prefer not to say</option><option>Under $1,000</option><option>$1,000 – $3,000</option><option>$3,000 – $10,000</option><option>$10,000+</option></select></label></div>
+      <label>What would you like to promote?<textarea class="inp" id="fm" maxlength="3500"></textarea></label>
+      <input type="text" id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <div><button class="b" id="fs" type="button">Send</button> <span class="small" id="fx"></span></div>
+    </div>
+  </section>
+</main>
+<script>
+(function(){
+  /* Put a showreel link here once you have sample ads (YouTube, or an .mp4 on the site). */
+  var SHOWREEL="";
+  var esc=MTH.esc;
+  if(SHOWREEL){ var r=document.getElementById("reel");
+    var yt=SHOWREEL.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/);
+    r.innerHTML=yt?'<iframe src="https://www.youtube-nocookie.com/embed/'+yt[1]+'?rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Sample ads"></iframe>':'<video src="'+esc(SHOWREEL)+'" controls playsinline preload="metadata"></video>'; }
+  var $=function(id){ return document.getElementById(id); };
+  $("fs").onclick=async function(){
+    if($("hp").value) return;
+    var c=$("fc").value.trim(), e=$("fe").value.trim();
+    if(!c){ $("fx").textContent="Please add your company."; return $("fc").focus(); }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){ $("fx").textContent="Please add a valid email."; return $("fe").focus(); }
+    var b=this; b.disabled=true; $("fx").textContent="Sending…";
+    try{
+      var r=await MTH.sb.rpc("mth_brand_inquiry",{ p_company:c, p_name:$("fn").value.trim(), p_email:e, p_website:$("fw2").value.trim(), p_budget:$("fb").value, p_interest:$("fi").value, p_message:$("fm").value.trim() });
+      if(r.error) throw r.error;
+      $("fw").innerHTML='<div class="done"><b>Thank you, '+esc($("fn").value.trim().split(" ")[0]||c)+'</b><p class="muted">I’ll reply within 2 business days with ideas and a quote.</p></div>';
+    }catch(err){ b.disabled=false; $("fx").textContent="Couldn’t send ("+(err.message||"error")+"). You can also email marktalkshealth@gmail.com."; }
+  };
+})();
+</script>
+</body>
+</html>

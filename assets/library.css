@@ -1,0 +1,47 @@
+/* =================================================================
+   LIBRARY — covers, shelves and the book drawer (admin + public page)
+================================================================= */
+.lb-cover{aspect-ratio:2/3;border-radius:6px 12px 12px 6px;background:#d8c4ad center/cover;box-shadow:inset 6px 0 0 rgba(0,0,0,.10),0 10px 24px rgba(43,39,36,.14);position:relative;overflow:hidden}
+.lb-type{display:flex;flex-direction:column;justify-content:space-between;padding:14% 11% 10%;color:#fff;text-align:left}
+.lb-type small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.75;font-weight:700}
+.lb-type b{font-family:var(--serif);font-weight:500;font-size:clamp(17px,2.2vw,24px);line-height:1.05;margin-top:auto}
+.lb-type i{font-family:var(--serif);font-size:13px;opacity:.85;margin-top:6px}
+.lb-type span{margin-top:14px;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.4);padding-top:8px;opacity:.85}
+.lb-type.t-terra{background:linear-gradient(160deg,#c9714c,#a8522f)}
+.lb-type.t-dark{background:linear-gradient(160deg,#3a3430,#1f1c1a);color:#f3e6cf}
+.lb-type.t-dark span{border-color:rgba(184,146,74,.6);color:#d9b979}
+.lb-type.t-sage{background:linear-gradient(160deg,#8aa07d,#5f7553)}
+.lb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 14px}
+@media(min-width:620px){.lb-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.lb-grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1300px){.lb-grid{grid-template-columns:repeat(6,1fr)}}
+.lb-item{text-align:left;background:none;border:0;padding:0;cursor:pointer;color:inherit;min-width:0}
+.lb-item:hover .lb-cover{transform:translateY(-3px)}
+.lb-item .lb-cover{transition:transform .15s}
+.lb-item h4{font-family:var(--serif);font-weight:500;font-size:19px;line-height:1.1;margin:10px 0 4px;overflow-wrap:anywhere}
+.lb-item .pills{display:flex;flex-wrap:wrap;gap:2px}
+.lb-drop{border:2px dashed var(--line);border-radius:var(--r);padding:26px 18px;text-align:center;background:var(--card);transition:border-color .15s,background .15s}
+.lb-drop.on{border-color:var(--terra);background:var(--terraS)}
+.lb-drop h3{font-family:var(--serif);font-weight:500;font-size:26px;margin:0 0 6px}
+.lb-drop .acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;align-items:center}
+.lb-q{margin-top:12px;text-align:left;display:grid;gap:4px;font-size:13.5px}
+.lb-q div{display:flex;justify-content:space-between;gap:10px;padding:6px 10px;background:#fff;border-radius:10px;border:1px solid var(--line)}
+.lb-q .ok{color:var(--sage);font-weight:700}.lb-q .bad{color:var(--terra);font-weight:700}
+.lb-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px;align-items:center}
+.lb-tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-weight:600;font-size:13.5px;color:var(--muted);cursor:pointer}
+.lb-tabs button.on{background:var(--dark);border-color:var(--dark);color:#fff}
+.lb-tabs .sp{flex:1}
+.lb-tabs .inp{min-height:40px;font-size:14.5px;width:auto;flex:0 1 220px}
+.pill.st-raw{background:#efe9df;color:#6e6259}.pill.st-polishing{background:#f3ead8;color:#6e5427}.pill.st-signature{background:var(--terraS);color:#7e3b25}.pill.st-ready{background:var(--sageS);color:#3f4b38}
+.pill.ls-free{background:#d5e6d0;color:#2e5c45}.pill.ls-sale{background:#2b2724;color:#e3b77a}.pill.ls-amazon{background:#f6e7c9;color:#6e5427}
+/* drawer (book editor) */
+.lb-dr{position:fixed;inset:0;z-index:90;background:rgba(43,39,36,.38);display:flex;justify-content:flex-end}
+.lb-dr .pane{background:var(--bg);width:min(560px,100%);height:100%;overflow:auto;padding:20px 20px 40px;box-shadow:-20px 0 50px rgba(0,0,0,.15)}
+.lb-dr .top{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+.lb-dr .top .lb-cover{width:110px;flex:none}
+.lb-dr h3{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.05;margin:2px 0 6px}
+.lb-dr .x{margin-left:auto;border:0;background:var(--card);border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:18px;flex:none}
+.lb-dr .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lb-dr .inp{min-height:46px;font-size:15.5px}
+.lb-dr .fl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lb-dr .danger{color:var(--terra);background:none;border:0;cursor:pointer;font-weight:600;padding:8px 0}

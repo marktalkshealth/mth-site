@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Library · Mark Talks Health</title>
+<meta name="description" content="Free guides, ebooks and books on gut health, fasting and natural healing by Mark Talks Health.">
+<meta property="og:title" content="The Library · Mark Talks Health">
+<meta property="og:description" content="Free guides, ebooks and books on gut health, fasting and natural healing.">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css">
+<link rel="stylesheet" href="assets/library.css">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js"></script>
+<script src="assets/library.js"></script>
+<style>
+.pg{max-width:1180px;margin:0 auto;padding:40px 20px 70px}
+.hero{max-width:640px}
+.sec{margin-top:40px}
+.sec .hd{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px}
+.sec h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,4.5vw,36px);margin:4px 0 0;line-height:1}
+.sec h2 em{font-style:italic;color:var(--terra)}
+.tag{font-size:12.5px;font-weight:700;margin-top:2px}
+.tag.free{color:var(--sage)}.tag.sale{color:var(--ink)}.tag.amazon{color:#8a6a2c}
+.bk{position:fixed;inset:0;z-index:90;background:rgba(43,39,36,.45);display:grid;place-items:center;padding:16px}
+.bk .box{background:var(--bg);border-radius:22px;max-width:640px;width:100%;max-height:92vh;overflow:auto;padding:22px;display:grid;gap:20px;position:relative}
+@media(min-width:620px){.bk .box{grid-template-columns:190px 1fr;padding:28px}}
+.bk .lb-cover{max-width:190px}
+.bk h3{font-family:var(--serif);font-weight:500;font-size:32px;line-height:1.05;margin:4px 0 6px}
+.bk .x{position:absolute;top:12px;right:12px;border:0;background:var(--card);border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:17px}
+.bk .desc{color:var(--muted);white-space:pre-line;font-size:15.5px}
+.bk .acts{display:grid;gap:10px;margin-top:14px}
+.bk .price{font-family:var(--serif);font-size:30px}
+.empty{padding:26px;text-align:center}
+</style>
+</head>
+<body>
+<main class="pg">
+  <div class="hero"><div class="kick">The Library</div><h1 class="t">Read, learn, <em>heal</em></h1>
+    <p class="lead">Guides, ebooks and books from my own healing journey and research. Start with the free downloads.</p>
+    <p class="small" style="margin-top:10px">Looking for the gear I recommend? <a href="picks.html" style="color:var(--terra)">See My Picks</a></p></div>
+  <div id="lib"><div class="mx-wait" style="min-height:30vh">Loading the Library…</div></div>
+</main>
+<script>
+(function(){
+  var L=MTH_LIB, esc=MTH.esc, sb=MTH.sb, ITEMS=[];
+  var SECTIONS=[["free","Free <em>downloads</em>","Free, just tell me where to send updates."],
+                ["sale","Books &amp; <em>guides</em>",""],
+                ["amazon","On <em>Amazon</em>","Paperbacks and Kindle editions."]];
+  function tag(it){
+    if(it.listing==="free") return '<div class="tag free">Free download</div>';
+    if(it.listing==="sale") return '<div class="tag sale">'+(L.money(it.price_cents)||"Coming soon")+'</div>';
+    return '<div class="tag amazon">On Amazon</div>';
+  }
+  function draw(){
+    var box=document.getElementById("lib");
+    if(!ITEMS.length){ box.innerHTML='<div class="card empty sec"><h2 class="t" style="font-size:30px">New books are on the way</h2><p class="muted">Join the list and you’ll hear first.</p><form class="mx-list" data-source="library" style="justify-content:center"><input class="inp" name="email" type="email" placeholder="Your email" autocomplete="email" required><button class="b">Notify me</button></form></div>'; MTH.listForms(box); return; }
+    box.innerHTML=SECTIONS.map(function(s){
+      var list=ITEMS.filter(function(x){ return x.listing===s[0]; }); if(!list.length) return "";
+      return '<section class="sec"><div class="hd"><div><div class="kick">'+list.length+(list.length===1?' title':' titles')+'</div><h2>'+s[1]+'</h2>'+(s[2]?'<p class="small" style="margin:6px 0 0">'+s[2]+'</p>':'')+'</div></div>'+
+        '<div class="lb-grid">'+list.map(function(it){ return '<button class="lb-item" data-id="'+it.id+'">'+L.cover(it)+'<h4>'+esc(it.title)+'</h4>'+tag(it)+'</button>'; }).join("")+'</div></section>';
+    }).join("");
+    box.querySelectorAll("[data-id]").forEach(function(b){ b.onclick=function(){ open(b.dataset.id); }; });
+  }
+  function open(id){
+    var it=ITEMS.filter(function(x){ return x.id===id; })[0]; if(!it) return;
+    var act="";
+    if(it.listing==="free") act='<form data-free class="acts"><input class="inp" type="email" name="email" placeholder="Your email" autocomplete="email" required><button class="b full">Get the free '+(it.file_type==="pdf"?"PDF":"download")+'</button><p class="small" style="margin:0">You’ll join my email list for healing tips. Unsubscribe any time.</p></form>';
+    else if(it.listing==="sale") act='<div class="acts">'+(it.price_cents!=null?'<div class="price">'+L.money(it.price_cents)+'</div>':'')+
+      (it.buy_url?'<a class="b full" href="'+esc(it.buy_url)+'" target="_blank" rel="noopener">Buy now</a>':'<button class="b full" disabled>Coming soon</button>')+
+      (it.amazon_url?'<a class="b full ghost" href="'+esc(it.amazon_url)+'" target="_blank" rel="noopener">Or get it on Amazon</a>':'')+'</div>';
+    else act='<div class="acts"><a class="b full" href="'+esc(it.amazon_url)+'" target="_blank" rel="noopener sponsored">View on Amazon</a></div>';
+    var m=document.createElement("div"); m.className="bk"; m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true"); m.setAttribute("aria-label",it.title);
+    m.innerHTML='<div class="box"><button class="x" aria-label="Close">✕</button><div>'+L.cover(it)+'</div><div><div class="kick">'+esc(it.topic||L.shelfOne(it.shelf))+'</div><h3>'+esc(it.title)+'</h3>'+
+      (it.subtitle?'<p class="muted" style="margin:0 0 10px;font-style:italic">'+esc(it.subtitle)+'</p>':'')+(it.description?'<div class="desc">'+esc(it.description)+'</div>':'')+act+'</div></div>';
+    document.body.appendChild(m); document.body.style.overflow="hidden";
+    function close(){ m.remove(); document.body.style.overflow=""; }
+    m.addEventListener("click",function(e){ if(e.target===m||e.target.closest(".x")) close(); });
+    var f=m.querySelector("[data-free]");
+    if(f){ if(MTH.user&&MTH.user.email) f.email.value=MTH.user.email;
+      f.addEventListener("submit",async function(e){
+        e.preventDefault(); var em=f.email.value.trim(), b=f.querySelector("button");
+        if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) return MTH.toast("Please enter a valid email.");
+        b.disabled=true; b.textContent="Preparing your download…";
+        var w=window.open("about:blank","_blank");
+        try{
+          var r=await sb.rpc("mth_library_free",{ p_id:it.id, p_email:em, p_anon:MTH.anon, p_utm:MTH.utm() });
+          if(r.error||!r.data) throw r.error||new Error("not available");
+          MTH.fn("mth-sync",{ action:"list_join", email:em }).then(function(){},function(){});
+          var u=await sb.storage.from(L.BUCKET).createSignedUrl(r.data,3600,{ download:true });
+          if(u.error) throw u.error;
+          if(w) w.location=u.data.signedUrl; else location.href=u.data.signedUrl;
+          f.innerHTML='<p class="mx-list-ok">Your download has started. Enjoy it!</p><a class="b full ghost" href="'+esc(u.data.signedUrl)+'">Download again</a>';
+        }catch(err){ if(w) w.close(); MTH.toast("Couldn’t start the download. Please try again."); b.disabled=false; b.textContent="Try again"; }
+      });
+    }
+  }
+  MTH.ready.then(async function(){
+    try{ var r=await sb.rpc("mth_library_public"); if(r.error) throw r.error; ITEMS=r.data||[]; }
+    catch(e){ console.warn("library",e); ITEMS=[]; }
+    draw();
+  });
+})();
+</script>
+</body>
+</html>
