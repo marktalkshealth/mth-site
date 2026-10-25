@@ -51,7 +51,7 @@
 .vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .vid.ph{background:#2b2724 center/cover}
 .vid.ph:before{content:"";position:absolute;inset:0;background:rgba(20,17,15,.28)}
-.vid.ph .soon{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(255,252,247,.92);font-size:12.5px;font-weight:600;color:var(--ink)}
+.vid[data-stream]{background:#1b1917}.vid.ph .soon,.vid[data-stream] .soon{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(255,252,247,.92);font-size:12.5px;font-weight:600;color:var(--ink)}
 .about{font-size:16.5px;color:var(--ink);margin:18px 0 0;max-width:720px}
 .blk{margin-top:18px;padding:16px 18px}
 .erow{display:flex;align-items:center;gap:12px;margin-top:18px;padding:12px 14px}
@@ -170,8 +170,16 @@ details.qz[open] .qs{margin-top:10px}
     if((m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{6,})/))) return '<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0&modestbranding=1" title="'+esc(l.title)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
     if((m=u.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-z0-9]+))?/i))) return '<div class="vid"><iframe src="https://player.vimeo.com/video/'+m[1]+(m[2]?'?h='+m[2]:'')+'" title="'+esc(l.title)+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
     if((m=u.match(/^wistia:([a-z0-9]+)$/i))||(m=u.match(/wistia\.(?:com|net)\/(?:medias|embed\/iframe)\/([a-z0-9]+)/i))) return '<div class="vid"><iframe src="https://fast.wistia.net/embed/iframe/'+m[1]+'?playerColor=c0623f&videoFoam=false" title="'+esc(l.title)+'" allow="autoplay; fullscreen" allowfullscreen></iframe></div>';
+    if(/^stream:[a-f0-9]{32}$/i.test(u)) return '<div class="vid" data-stream="'+esc(l.id)+'"><span class="soon">Loading the video…</span></div>';   /* Cloudflare Stream, members only */
     if(/^https?:\/\//i.test(u)) return '<div class="vid"><video controls playsinline preload="metadata" src="'+esc(u)+'"></video></div>';
     return '<div class="vid" data-storage-video="'+esc(u)+'"><video controls playsinline preload="metadata"></video></div>';   /* a file in the course-files bucket */
+  }
+  async function streamVideos(){
+    var el=MAIN.querySelector("[data-stream]"); if(!el) return;
+    var j=await MTH.fn("mth-video",{ action:"play", product:C.product, lesson_id:el.getAttribute("data-stream") });
+    if(!el.isConnected) return;
+    if(!j.src){ el.innerHTML='<span class="soon">The video couldn’t load. Refresh the page to try again.</span>'; return; }
+    el.innerHTML='<iframe src="'+j.src+'" title="Lesson video" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
   }
   async function storageVideos(){
     var el=MAIN.querySelector("[data-storage-video]"); if(!el) return;
@@ -270,7 +278,7 @@ details.qz[open] .qs{margin-top:10px}
     MAIN.querySelector("[data-outline]").addEventListener("click",openOutline);
     var nx=MAIN.querySelector("[data-next]"); if(nx) nx.addEventListener("click",function(){ if(!isDone(l.id)) save(l.id,{ done:true }); });
     var fin=MAIN.querySelector("[data-finish]"); if(fin) fin.addEventListener("click",function(){ if(!isDone(l.id)) save(l.id,{ done:true }); MTH.toast("Course complete. Well done ✓"); setTimeout(openOutline,400); });
-    wireEbook(l); runQuiz(l); storageVideos();
+    wireEbook(l); runQuiz(l); storageVideos(); streamVideos();
     window.scrollTo(0,0);
   }
 
