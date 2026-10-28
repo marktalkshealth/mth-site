@@ -12,8 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/mth.css?v=202610231530">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610241700"></script>
+<script src="assets/mth.js?v=202610281600"></script>
 <script src="assets/courses.js?v=202610221130"></script>
+<script src="assets/course-build.js?v=202610281600"></script>
 <style>
 .cx{max-width:1240px;margin:0 auto;padding:22px 20px 70px;display:grid;gap:28px}
 @media(min-width:980px){.cx{grid-template-columns:330px 1fr;align-items:start;padding-top:30px}}
@@ -95,6 +96,19 @@ details.qz[open] .qs{margin-top:10px}
 .reader .bar{display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;border-bottom:1px solid var(--line)}
 .reader .bar b{flex:1;font-family:var(--serif);font-size:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .reader iframe{flex:1;border:0;width:100%;background:#fff}
+/* course home */
+.chero{display:grid;overflow:hidden;padding:0}
+.chero .cim{aspect-ratio:16/9;background:#2b2724 center/cover}
+.chero .ctx{padding:20px 22px 22px}
+@media(min-width:760px){.chero{grid-template-columns:minmax(260px,46%) 1fr;align-items:center}.chero .cim{height:100%;min-height:260px;aspect-ratio:auto}}
+.mods{display:grid;gap:14px;margin-top:22px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+a.mod{display:flex;flex-direction:column;overflow:hidden;padding:0;text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .15s}
+a.mod:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(43,39,36,.12)}
+.mod .mim{position:relative;aspect-ratio:16/9;background:linear-gradient(140deg,var(--terra),#7e3b25) center/cover}
+.mod .mdone{position:absolute;right:10px;top:10px;padding:4px 10px;border-radius:999px;background:var(--sage);color:#fff;font-size:12px;font-weight:700}
+.mod .mtx{padding:12px 14px 14px}
+.mod .mtx b{display:block;font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.1;margin:3px 0 4px}
+.mod .mct{margin-top:6px}
 @media(max-width:979px){.cx{padding-top:14px}}
 </style>
 </head>
@@ -107,37 +121,42 @@ details.qz[open] .qs{margin-top:10px}
   if(MTH.user&&!MTH.owns(PK)&&MTH.ownsAny()&&!MTH.qs("p")) PK=MTH.owned[0];
   await MTH.require(PK);
   MTH.remember(PK);
-  var C=window.MTH_COURSES[PK], sb=MTH.sb, esc=MTH.esc, uid=MTH.user.id, PP=MTH.config.products[PK];
+  var sb=MTH.sb, esc=MTH.esc, uid=MTH.user.id, PP=MTH.config.products[PK];
   var IMG=MTH.config.assets+"steps/";
-  var media={}, prog={}, svids=[];
-  var LAST="mth_course_last_"+C.product;
+  var media={}, prog={}, C;
+  var LAST="mth_course_last_"+PK;
 
-  /* ---------- load members-only media + progress ---------- */
+  /* ---------- the course as Mark arranged it (course builder), plus members-only media + progress ---------- */
+  try{ C=await MTH.loadCourse(PK,false); }
+  catch(e){ console.warn("course",e); var B=window.MTH_COURSES[PK]; C={ product:PK, title:B.title, subtitle:"", thumb:"", sections:B.sections.map(function(s){ return { id:s.id, img:s.img, title:s.title, sub:s.sub, isStart:s.id==="start", label:(s.step?'Step '+s.step+' · ':'')+s.title, items:s.lessons.map(function(l){ return { kind:"lesson", title:l.title, lesson:l }; }) }; }) }; }
   try{
-    var r1=await sb.from("mth_lesson_media").select("lesson_id,video_url,ebook_url").eq("product",C.product);
+    var r1=await sb.from("mth_lesson_media").select("lesson_id,video_url,ebook_url").eq("product",PK);
     (r1.data||[]).forEach(function(m){ media[m.lesson_id]=m; });
   }catch(e){ console.warn("media",e); }
-  try{   /* section videos, in Mark's order (only rows with a video reach members) */
-    var r3=await sb.from("mth_videos").select("id,section_id,position,title,video_url").eq("product",C.product).order("position");
-    svids=(r3.data||[]).filter(function(v){ return v.video_url; });
-  }catch(e){ console.warn("videos",e); }
-  /* each section: its videos first (in order), then its lessons (text, ebook, quiz) */
-  var flat=[]; C.sections.forEach(function(s){
-    var vs=svids.filter(function(v){ return v.section_id===s.id; });
-    vs.forEach(function(v,k){ flat.push({ id:"v_"+v.id, title:v.title||("Video "+(k+1)), video:v, vk:k+1, vn:vs.length, sec:s }); });
-    s.items=[]; s.lessons.forEach(function(l){ l.sec=s; flat.push(l); });
+
+  /* one flat list in Mark's order: videos, ebooks and lessons */
+  var flat=[];
+  C.sections.forEach(function(s){
+    var nv=s.items.filter(function(it){ return it.kind==="video"; }).length, kv=0;
+    s.list=[];
+    s.items.forEach(function(it){
+      var x;
+      if(it.kind==="lesson"){ x=it.lesson; x.title=it.title||x.title; }
+      else { x={ id:"v_"+it.id, title:it.title||(it.kind==="ebook"?"Ebook":"Video"), kind:it.kind, url:it.url, rowId:it.id };
+        if(it.kind==="video"){ x.video={ id:it.id, video_url:it.url }; x.vk=++kv; x.vn=nv; } }
+      x.sec=s; s.list.push(x); flat.push(x);
+    });
   });
-  flat.forEach(function(l){ l.sec.items.push(l); });
   var byId={}; flat.forEach(function(l,i){ l.i=i; byId[l.id]=l; });
   try{
-    var r2=await sb.from("mth_progress").select("lesson_id,done,quiz").eq("product",C.product);
+    var r2=await sb.from("mth_progress").select("lesson_id,done,quiz").eq("product",PK);
     (r2.data||[]).forEach(function(p){ prog[p.lesson_id]=p; });
   }catch(e){ console.warn("progress",e); }
 
   function isDone(id){ return !!(prog[id]&&prog[id].done); }
-  function pct(){ var d=flat.filter(function(l){ return isDone(l.id); }).length; return { d:d, n:flat.length, p:Math.round(100*d/flat.length) }; }
+  function pct(list){ list=list||flat; var d=list.filter(function(l){ return isDone(l.id); }).length; return { d:d, n:list.length, p:list.length?Math.round(100*d/list.length):0 }; }
   async function save(id,patch){
-    var row=Object.assign({ user_id:uid, product:C.product, lesson_id:id, updated_at:new Date().toISOString() },prog[id]?{ done:prog[id].done, quiz:prog[id].quiz }:{},patch);
+    var row=Object.assign({ user_id:uid, product:PK, lesson_id:id, updated_at:new Date().toISOString() },prog[id]?{ done:prog[id].done, quiz:prog[id].quiz }:{},patch);
     prog[id]=row; side();
     var r=await sb.from("mth_progress").upsert(row,{ onConflict:"user_id,product,lesson_id" });
     if(r.error){ console.warn(r.error); MTH.toast("Couldn’t save your progress. Check your connection."); }
@@ -146,23 +165,17 @@ details.qz[open] .qs{margin-top:10px}
   var root=document.getElementById("cx");
   root.innerHTML='<aside class="side card" aria-label="Course lessons"></aside><section id="main" aria-live="polite"></section>';
   var SIDE=root.querySelector(".side"), MAIN=document.getElementById("main"), cur=null;
-
-  function side(){
-    var P=pct();
-    SIDE.innerHTML='<div class="kick">Your course</div><div class="ttl"><a href="course.html?p='+PK+'" data-go="">'+esc(C.title)+'</a></div>'+
-      '<div class="pbar" aria-label="'+P.p+'% complete"><i style="width:'+P.p+'%"></i></div><div class="small" style="margin-top:6px">'+P.d+' of '+P.n+' lessons complete</div>'+
-      C.sections.map(function(s){ return '<div class="sec"><h4>'+(s.step?'Step '+s.step+' · ':'')+esc(s.title)+'</h4>'+
-        s.items.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+(l.video?'<i class="vk">▶</i>':'')+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
-  }
+  function secArt(s){ return s.thumb?MTH.artUrl(s.thumb):(s.img?IMG+s.img+".jpg":""); }
+  function icon(l){ return l.kind==="video"?'<i class="vk">▶</i>':l.kind==="ebook"?'<i class="vk">📖</i>':''; }
 
   /* ---------- lesson list (desktop sidebar, phone sheet) ---------- */
   var SH=document.createElement("div"); SH.className="osh"; SH.innerHTML='<div class="pan" role="dialog" aria-label="Lessons"></div>'; document.body.appendChild(SH);
   function outlineHtml(){
     var P=pct();
-    return '<div class="ttl" style="font-family:var(--serif);font-size:24px;line-height:1.1;margin:4px 0 10px">'+esc(C.title)+'</div>'+
-      '<div class="pbar" aria-label="'+P.p+'% complete"><i style="width:'+P.p+'%"></i></div><div class="small" style="margin-top:6px">'+P.d+' of '+P.n+' lessons complete</div>'+
-      C.sections.map(function(s){ return '<div class="sec"><h4>'+(s.step?'Step '+s.step+' · ':'')+esc(s.title)+'</h4>'+
-        s.items.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+(l.video?'<i class="vk">▶</i>':'')+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
+    return '<div class="kick">Your course</div><div class="ttl"><a href="course.html?p='+PK+'&home=1" data-go="home">'+esc(C.title)+'</a></div>'+
+      '<div class="pbar" aria-label="'+P.p+'% complete"><i style="width:'+P.p+'%"></i></div><div class="small" style="margin-top:6px">'+P.d+' of '+P.n+' lessons complete · <a href="course.html?p='+PK+'&home=1" data-go="home">Course home</a></div>'+
+      C.sections.filter(function(s){ return s.list.length; }).map(function(s){ return '<div class="sec"><h4>'+esc(s.label)+'</h4>'+
+        s.list.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+icon(l)+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
   }
   function side(){ SIDE.innerHTML=outlineHtml(); }
   function openOutline(){ SH.querySelector(".pan").innerHTML='<div class="top"><b class="lstep">Lessons</b><button class="x" type="button" aria-label="Close">×</button></div>'+outlineHtml(); SH.classList.add("on"); document.body.style.overflow="hidden"; }
@@ -171,14 +184,14 @@ details.qz[open] .qs{margin-top:10px}
   function resumeId(){
     var last=null; try{ last=localStorage.getItem(LAST); }catch(e){}
     if(byId[last]) return last;
-    return (flat.filter(function(l){ return !isDone(l.id); })[0]||flat[0]).id;
+    var f=flat.filter(function(l){ return !isDone(l.id); })[0]||flat[0]; return f?f.id:"";
   }
   side();
 
   /* ---------- video ---------- */
   function videoHtml(l){
     var u=(l.video?l.video.video_url:(media[l.id]&&media[l.id].video_url)||"").trim(), m;
-    if(!u) return '<div class="vid ph ban" style="background-image:url('+IMG+l.sec.img+'.jpg)"></div>';
+    if(!u){ var art=secArt(l.sec); return '<div class="vid ph ban"'+(art?' style="background-image:url('+esc(art)+')"':'')+'></div>'; }
     if((m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{6,})/))) return '<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0&modestbranding=1" title="'+esc(l.title)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
     if((m=u.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-z0-9]+))?/i))) return '<div class="vid"><iframe src="https://player.vimeo.com/video/'+m[1]+(m[2]?'?h='+m[2]:'')+'" title="'+esc(l.title)+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
     if((m=u.match(/^wistia:([a-z0-9]+)$/i))||(m=u.match(/wistia\.(?:com|net)\/(?:medias|embed\/iframe)\/([a-z0-9]+)/i))) return '<div class="vid"><iframe src="https://fast.wistia.net/embed/iframe/'+m[1]+'?playerColor=c0623f&videoFoam=false" title="'+esc(l.title)+'" allow="autoplay; fullscreen" allowfullscreen></iframe></div>';
@@ -188,7 +201,7 @@ details.qz[open] .qs{margin-top:10px}
   }
   async function streamVideos(){
     var el=MAIN.querySelector("[data-stream]"); if(!el) return;
-    var key=el.getAttribute("data-stream"), body={ action:"play", product:C.product };
+    var key=el.getAttribute("data-stream"), body={ action:"play", product:PK };
     if(el.hasAttribute("data-sv")) body.video_id=key; else body.lesson_id=key;
     var j=await MTH.fn("mth-video",body);
     if(!el.isConnected) return;
@@ -201,11 +214,12 @@ details.qz[open] .qs{margin-top:10px}
     if(r.data) el.querySelector("video").src=r.data.signedUrl;
   }
 
-  /* ---------- ebook ---------- */
+  /* ---------- ebook (its own item, or an older ebook attached to a lesson) ---------- */
+  function ebookUrl(l){ return (l.kind==="ebook"?l.url:(media[l.id]&&media[l.id].ebook_url)||"").trim(); }
   function ebookHtml(l){
-    var u=(media[l.id]&&media[l.id].ebook_url||"").trim();
     if(l.app) return '';
-    if(!u) return '';
+    if(!ebookUrl(l)) return '';
+    if(l.kind==="ebook") return '<div class="card blk ebook"><div class="ic">e</div><div class="tx"><b style="font-size:17px">'+esc(l.title)+'</b><div class="small">Read it here, or download it to keep.</div></div><div class="acts"><button class="b" data-read>Read the ebook</button><button class="b ghost" data-dl>Download</button></div></div>';
     return '<div class="card erow"><div class="ic">e</div><b>The ebook</b><div class="acts"><button class="b sm" data-read>Read</button><button class="b sm ghost" data-dl aria-label="Download the ebook">↓</button></div></div>';
   }
   async function ebookBlob(u){
@@ -214,12 +228,13 @@ details.qz[open] .qs{margin-top:10px}
     if(r.error) throw r.error; return r.data;
   }
   function wireEbook(l){
-    var u=(media[l.id]&&media[l.id].ebook_url||"").trim(); if(!u) return;
+    var u=ebookUrl(l); if(!u) return;
     var name=u.split("/").pop()||"ebook";
+    if(l.kind==="ebook"){ var ext=(name.split(".").pop()||"").toLowerCase(); name=(l.title||"ebook").replace(/[^\w\- ]+/g,"").trim()+(ext&&ext.length<6?"."+ext:""); }
     var rd=MAIN.querySelector("[data-read]"), dl=MAIN.querySelector("[data-dl]");
     rd&&rd.addEventListener("click",async function(){
-      if(/^https?:\/\//i.test(u)){ window.open(u,"_blank","noopener"); return; }
-      rd.disabled=true; rd.textContent="Opening…";
+      if(/^https?:\/\//i.test(u)){ window.open(u,"_blank","noopener"); if(!isDone(l.id)&&!l.quiz) save(l.id,{ done:true }); return; }
+      var lbl=rd.textContent; rd.disabled=true; rd.textContent="Opening…";
       try{
         var b=await ebookBlob(u), html=/\.html?$/i.test(u);
         var rdr=document.createElement("div"); rdr.className="reader";
@@ -232,7 +247,7 @@ details.qz[open] .qs{margin-top:10px}
         document.body.appendChild(rdr); document.body.style.overflow="hidden";
         if(!isDone(l.id)&&!l.quiz) save(l.id,{ done:true });
       }catch(e){ MTH.toast("Couldn’t open the ebook. Please try again."); console.warn(e); }
-      rd.disabled=false; rd.textContent="Read";
+      rd.disabled=false; rd.textContent=lbl;
     });
     dl&&dl.addEventListener("click",async function(){
       if(/^https?:\/\//i.test(u)){ var a0=document.createElement("a"); a0.href=u; a0.download=name; a0.target="_blank"; a0.rel="noopener"; a0.click(); return; }
@@ -277,31 +292,57 @@ details.qz[open] .qs{margin-top:10px}
   }
 
 
-  /* ---------- one lesson ---------- */
+  /* ---------- course home: thumbnail, title, and a card per module ---------- */
+  function home(){
+    cur=null; side(); document.title=C.title+" · Mark Talks Health";
+    var P=pct(), rid=resumeId(), started=P.d>0, art=C.thumb?MTH.artUrl(C.thumb):(PP.thumb||"");
+    MAIN.innerHTML='<div class="lhead"><button class="ob" type="button" data-outline>☰ Lessons <span>'+P.n+'</span></button><span class="lstep">Course home</span></div>'+
+      '<div class="chero card">'+(art?'<div class="cim" style="background-image:url('+esc(art)+')"></div>':'')+'<div class="ctx"><h1 class="lt" style="margin-bottom:8px">'+esc(C.title)+'</h1>'+(C.subtitle?'<p class="about" style="margin:0 0 14px">'+esc(C.subtitle)+'</p>':'')+
+        '<div class="pbar"><i style="width:'+P.p+'%"></i></div><div class="small" style="margin:6px 0 14px">'+P.d+' of '+P.n+' lessons complete</div>'+
+        (rid?'<a class="b" href="?p='+PK+'&l='+rid+'" data-go="'+rid+'">'+(started?'Continue where you left off →':'Start the course →')+'</a>':'')+'</div></div>'+
+      '<div class="mods">'+C.sections.filter(function(s){ return s.list.length; }).map(function(s){
+        var q=pct(s.list), a=secArt(s), f=s.list.filter(function(l){ return !isDone(l.id); })[0]||s.list[0];
+        var nv=s.list.filter(function(l){ return l.kind==="video"; }).length, ne=s.list.filter(function(l){ return l.kind==="ebook"; }).length;
+        return '<a class="card mod" href="?p='+PK+'&l='+f.id+'" data-go="'+f.id+'"><div class="mim"'+(a?' style="background-image:url('+esc(a)+')"':'')+'>'+(q.p===100?'<span class="mdone">✓ Done</span>':'')+'</div><div class="mtx">'+
+          '<div class="lstep">'+(s.num?'Step '+s.num:esc(s.isStart?'Start here':''))+'</div><b>'+esc(s.title)+'</b>'+(s.sub?'<div class="small">'+esc(s.sub)+'</div>':'')+
+          '<div class="small mct">'+s.list.length+' item'+(s.list.length===1?'':'s')+(nv?' · '+nv+' video'+(nv===1?'':'s'):'')+(ne?' · '+ne+' ebook'+(ne===1?'':'s'):'')+'</div>'+
+          '<div class="pbar" style="height:5px;margin-top:8px"><i style="width:'+q.p+'%"></i></div></div></a>'; }).join("")+'</div>';
+    MAIN.querySelector("[data-outline]").addEventListener("click",openOutline);
+    window.scrollTo(0,0);
+  }
+
+  /* ---------- one lesson / video / ebook ---------- */
   function lesson(id){
     var l=byId[id]||byId[resumeId()];
+    if(!l){ home(); return; }
     cur=l.id; side(); try{ localStorage.setItem(LAST,l.id); }catch(e){}
     document.title=l.title+" · "+PP.name;
     var prev=flat[l.i-1], next=flat[l.i+1];
-    var nextLabel=next?(next.video?"Next video →":"Next lesson →"):"";
-    MAIN.innerHTML='<div class="lhead"><button class="ob" type="button" data-outline>☰ Lessons <span>'+(l.i+1)+'/'+flat.length+'</span></button><span class="lstep">'+(l.sec.step?'Step '+l.sec.step:'Start here')+'</span></div>'+
-      '<h1 class="lt">'+esc(l.title)+'</h1>'+videoHtml(l)+(l.video?(l.vn>1?'<p class="small" style="margin:14px 0 0">Video '+l.vk+' of '+l.vn+' in this section</p>':''):'<p class="about">'+esc(l.text)+'</p>')+
-      (l.app?'<a class="b appbtn" href="'+PP.app+'">Open my app</a>':'')+
-      (l.video?'':ebookHtml(l)+quizHtml(l))+
+    var nextLabel=next?(next.kind==="video"?"Next video →":next.kind==="ebook"?"Next: ebook →":"Next lesson →"):"";
+    var body;
+    if(l.kind==="video") body=videoHtml(l)+(l.vn>1?'<p class="small" style="margin:14px 0 0">Video '+l.vk+' of '+l.vn+' in this section</p>':'');
+    else if(l.kind==="ebook") body=ebookHtml(l);
+    else body=videoHtml(l)+'<p class="about">'+esc(l.text||"")+'</p>'+(l.app?'<a class="b appbtn" href="'+PP.app+'">Open my app</a>':'')+ebookHtml(l)+quizHtml(l);
+    MAIN.innerHTML='<div class="lhead"><button class="ob" type="button" data-outline>☰ Lessons <span>'+(l.i+1)+'/'+flat.length+'</span></button><span class="lstep">'+esc(l.sec.num?'Step '+l.sec.num+' · '+l.sec.title:l.sec.title)+'</span></div>'+
+      '<h1 class="lt">'+esc(l.title)+'</h1>'+body+
       '<div class="nav2">'+(prev?'<a class="b ghost" href="?p='+PK+'&l='+prev.id+'" data-go="'+prev.id+'" aria-label="Previous lesson">←</a>':'')+
         (next?'<a class="b nx" href="?p='+PK+'&l='+next.id+'" data-go="'+next.id+'" data-next>'+nextLabel+'</a>':'<button class="b nx" type="button" data-finish>Finish course ✓</button>')+'</div>';
     MAIN.querySelector("[data-outline]").addEventListener("click",openOutline);
     var nx=MAIN.querySelector("[data-next]"); if(nx) nx.addEventListener("click",function(){ if(!isDone(l.id)) save(l.id,{ done:true }); });
-    var fin=MAIN.querySelector("[data-finish]"); if(fin) fin.addEventListener("click",function(){ if(!isDone(l.id)) save(l.id,{ done:true }); MTH.toast("Course complete. Well done ✓"); setTimeout(openOutline,400); });
-    if(!l.video){ wireEbook(l); runQuiz(l); } storageVideos(); streamVideos();
+    var fin=MAIN.querySelector("[data-finish]"); if(fin) fin.addEventListener("click",function(){ if(!isDone(l.id)) save(l.id,{ done:true }); MTH.toast("Course complete. Well done ✓"); setTimeout(function(){ history.pushState(null,"","?p="+PK+"&home=1"); route(); },400); });
+    if(l.kind!=="video"){ wireEbook(l); if(!l.kind) runQuiz(l); } storageVideos(); streamVideos();
     window.scrollTo(0,0);
   }
 
   /* ---------- in-page navigation ---------- */
-  function route(){ var id=MTH.qs("l"); if(!(id&&byId[id])){ id=resumeId(); history.replaceState(null,"","?p="+PK+"&l="+id); } lesson(id); }
+  function route(){
+    if(MTH.qs("home")||!flat.length){ home(); return; }
+    var id=MTH.qs("l"); if(!(id&&byId[id])){ id=resumeId(); history.replaceState(null,"","?p="+PK+"&l="+id); } lesson(id);
+  }
   document.addEventListener("click",function(e){
     var a=e.target.closest&&e.target.closest("a[data-go]"); if(!a||e.metaKey||e.ctrlKey||e.shiftKey) return;
     e.preventDefault(); var id=a.getAttribute("data-go");
+    if(id==="home"){ history.pushState(null,"","?p="+PK+"&home=1"); route(); return; }
     if(!id) id=resumeId();
     history.pushState(null,"","?p="+PK+"&l="+id); route();
   });

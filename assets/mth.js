@@ -95,7 +95,16 @@
     H.classList.toggle("mx-in",!!M.user); H.classList.toggle("mx-out",!M.user);
     return M;
   };
-  M.ready=M.refresh();
+  /* course names and thumbnails Mark changed in the admin Course builder */
+  async function loadCourseMeta(){
+    try{
+      var r=await sb.from("mth_course_meta").select("product,title,thumb_url");
+      (r.data||[]).forEach(function(m){ var P=CONFIG.products[m.product]; if(!P) return;
+        if(m.title) P.name=m.title;
+        if(m.thumb_url) P.thumb=/^https?:\/\//i.test(m.thumb_url)?m.thumb_url:CONFIG.supabaseUrl+"/storage/v1/object/public/site-media/"+m.thumb_url; });
+    }catch(e){ console.warn("[mth] course names",e); }
+  }
+  M.ready=Promise.all([M.refresh(),loadCourseMeta()]).then(function(){ return M; });
   sb.auth.onAuthStateChange(function(ev){
     if(ev==="SIGNED_OUT"){ M.user=null; M.owned=[]; window.MTH_USER=null; }
   });
