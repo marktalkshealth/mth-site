@@ -52,6 +52,8 @@
 .vid.ph{background:#2b2724 center/cover}
 .vid.ph:before{content:"";position:absolute;inset:0;background:rgba(20,17,15,.28)}
 .vid[data-stream]{background:#1b1917}.vid.ph .soon,.vid[data-stream] .soon{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(255,252,247,.92);font-size:12.5px;font-weight:600;color:var(--ink)}
+.vid.ban{aspect-ratio:21/7;box-shadow:none}
+.ls .vk{font-style:normal;font-size:10px;color:var(--terra);margin-right:6px;vertical-align:1px}
 .about{font-size:16.5px;color:var(--ink);margin:18px 0 0;max-width:720px}
 .blk{margin-top:18px;padding:16px 18px}
 .erow{display:flex;align-items:center;gap:12px;margin-top:18px;padding:12px 14px}
@@ -107,9 +109,7 @@ details.qz[open] .qs{margin-top:10px}
   MTH.remember(PK);
   var C=window.MTH_COURSES[PK], sb=MTH.sb, esc=MTH.esc, uid=MTH.user.id, PP=MTH.config.products[PK];
   var IMG=MTH.config.assets+"steps/";
-  var flat=[]; C.sections.forEach(function(s){ s.lessons.forEach(function(l){ l.sec=s; flat.push(l); }); });
-  var byId={}; flat.forEach(function(l,i){ l.i=i; byId[l.id]=l; });
-  var media={}, prog={};
+  var media={}, prog={}, svids=[];
   var LAST="mth_course_last_"+C.product;
 
   /* ---------- load members-only media + progress ---------- */
@@ -117,6 +117,18 @@ details.qz[open] .qs{margin-top:10px}
     var r1=await sb.from("mth_lesson_media").select("lesson_id,video_url,ebook_url").eq("product",C.product);
     (r1.data||[]).forEach(function(m){ media[m.lesson_id]=m; });
   }catch(e){ console.warn("media",e); }
+  try{   /* section videos, in Mark's order (only rows with a video reach members) */
+    var r3=await sb.from("mth_videos").select("id,section_id,position,title,video_url").eq("product",C.product).order("position");
+    svids=(r3.data||[]).filter(function(v){ return v.video_url; });
+  }catch(e){ console.warn("videos",e); }
+  /* each section: its videos first (in order), then its lessons (text, ebook, quiz) */
+  var flat=[]; C.sections.forEach(function(s){
+    var vs=svids.filter(function(v){ return v.section_id===s.id; });
+    vs.forEach(function(v,k){ flat.push({ id:"v_"+v.id, title:v.title||("Video "+(k+1)), video:v, vk:k+1, vn:vs.length, sec:s }); });
+    s.items=[]; s.lessons.forEach(function(l){ l.sec=s; flat.push(l); });
+  });
+  flat.forEach(function(l){ l.sec.items.push(l); });
+  var byId={}; flat.forEach(function(l,i){ l.i=i; byId[l.id]=l; });
   try{
     var r2=await sb.from("mth_progress").select("lesson_id,done,quiz").eq("product",C.product);
     (r2.data||[]).forEach(function(p){ prog[p.lesson_id]=p; });
@@ -140,7 +152,7 @@ details.qz[open] .qs{margin-top:10px}
     SIDE.innerHTML='<div class="kick">Your course</div><div class="ttl"><a href="course.html?p='+PK+'" data-go="">'+esc(C.title)+'</a></div>'+
       '<div class="pbar" aria-label="'+P.p+'% complete"><i style="width:'+P.p+'%"></i></div><div class="small" style="margin-top:6px">'+P.d+' of '+P.n+' lessons complete</div>'+
       C.sections.map(function(s){ return '<div class="sec"><h4>'+(s.step?'Step '+s.step+' · ':'')+esc(s.title)+'</h4>'+
-        s.lessons.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
+        s.items.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+(l.video?'<i class="vk">▶</i>':'')+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
   }
 
   /* ---------- lesson list (desktop sidebar, phone sheet) ---------- */
@@ -150,7 +162,7 @@ details.qz[open] .qs{margin-top:10px}
     return '<div class="ttl" style="font-family:var(--serif);font-size:24px;line-height:1.1;margin:4px 0 10px">'+esc(C.title)+'</div>'+
       '<div class="pbar" aria-label="'+P.p+'% complete"><i style="width:'+P.p+'%"></i></div><div class="small" style="margin-top:6px">'+P.d+' of '+P.n+' lessons complete</div>'+
       C.sections.map(function(s){ return '<div class="sec"><h4>'+(s.step?'Step '+s.step+' · ':'')+esc(s.title)+'</h4>'+
-        s.lessons.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
+        s.items.map(function(l){ return '<a class="ls'+(cur===l.id?' on':'')+'" href="?p='+PK+'&l='+l.id+'" data-go="'+l.id+'"><span class="dot'+(isDone(l.id)?' done':'')+'"></span><span>'+(l.video?'<i class="vk">▶</i>':'')+esc(l.title)+'</span></a>'; }).join("")+'</div>'; }).join("");
   }
   function side(){ SIDE.innerHTML=outlineHtml(); }
   function openOutline(){ SH.querySelector(".pan").innerHTML='<div class="top"><b class="lstep">Lessons</b><button class="x" type="button" aria-label="Close">×</button></div>'+outlineHtml(); SH.classList.add("on"); document.body.style.overflow="hidden"; }
@@ -165,18 +177,20 @@ details.qz[open] .qs{margin-top:10px}
 
   /* ---------- video ---------- */
   function videoHtml(l){
-    var u=(media[l.id]&&media[l.id].video_url||"").trim(), m;
-    if(!u) return '<div class="vid ph" style="background-image:url('+IMG+l.sec.img+'.jpg)"><span class="soon">Video coming soon</span></div>';
+    var u=(l.video?l.video.video_url:(media[l.id]&&media[l.id].video_url)||"").trim(), m;
+    if(!u) return '<div class="vid ph ban" style="background-image:url('+IMG+l.sec.img+'.jpg)"></div>';
     if((m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{6,})/))) return '<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0&modestbranding=1" title="'+esc(l.title)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
     if((m=u.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-z0-9]+))?/i))) return '<div class="vid"><iframe src="https://player.vimeo.com/video/'+m[1]+(m[2]?'?h='+m[2]:'')+'" title="'+esc(l.title)+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
     if((m=u.match(/^wistia:([a-z0-9]+)$/i))||(m=u.match(/wistia\.(?:com|net)\/(?:medias|embed\/iframe)\/([a-z0-9]+)/i))) return '<div class="vid"><iframe src="https://fast.wistia.net/embed/iframe/'+m[1]+'?playerColor=c0623f&videoFoam=false" title="'+esc(l.title)+'" allow="autoplay; fullscreen" allowfullscreen></iframe></div>';
-    if(/^stream:[a-f0-9]{32}$/i.test(u)) return '<div class="vid" data-stream="'+esc(l.id)+'"><span class="soon">Loading the video…</span></div>';   /* Cloudflare Stream, members only */
+    if(/^stream:[a-f0-9]{32}$/i.test(u)) return '<div class="vid" data-stream="'+esc(l.video?l.video.id:l.id)+'"'+(l.video?' data-sv':'')+'><span class="soon">Loading the video…</span></div>';   /* Cloudflare Stream, members only */
     if(/^https?:\/\//i.test(u)) return '<div class="vid"><video controls playsinline preload="metadata" src="'+esc(u)+'"></video></div>';
     return '<div class="vid" data-storage-video="'+esc(u)+'"><video controls playsinline preload="metadata"></video></div>';   /* a file in the course-files bucket */
   }
   async function streamVideos(){
     var el=MAIN.querySelector("[data-stream]"); if(!el) return;
-    var j=await MTH.fn("mth-video",{ action:"play", product:C.product, lesson_id:el.getAttribute("data-stream") });
+    var key=el.getAttribute("data-stream"), body={ action:"play", product:C.product };
+    if(el.hasAttribute("data-sv")) body.video_id=key; else body.lesson_id=key;
+    var j=await MTH.fn("mth-video",body);
     if(!el.isConnected) return;
     if(!j.src){ el.innerHTML='<span class="soon">The video couldn’t load. Refresh the page to try again.</span>'; return; }
     el.innerHTML='<iframe src="'+j.src+'" title="Lesson video" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
@@ -269,16 +283,17 @@ details.qz[open] .qs{margin-top:10px}
     cur=l.id; side(); try{ localStorage.setItem(LAST,l.id); }catch(e){}
     document.title=l.title+" · "+PP.name;
     var prev=flat[l.i-1], next=flat[l.i+1];
+    var nextLabel=next?(next.video?"Next video →":"Next lesson →"):"";
     MAIN.innerHTML='<div class="lhead"><button class="ob" type="button" data-outline>☰ Lessons <span>'+(l.i+1)+'/'+flat.length+'</span></button><span class="lstep">'+(l.sec.step?'Step '+l.sec.step:'Start here')+'</span></div>'+
-      '<h1 class="lt">'+esc(l.title)+'</h1>'+videoHtml(l)+'<p class="about">'+esc(l.text)+'</p>'+
+      '<h1 class="lt">'+esc(l.title)+'</h1>'+videoHtml(l)+(l.video?(l.vn>1?'<p class="small" style="margin:14px 0 0">Video '+l.vk+' of '+l.vn+' in this section</p>':''):'<p class="about">'+esc(l.text)+'</p>')+
       (l.app?'<a class="b appbtn" href="'+PP.app+'">Open my app</a>':'')+
-      ebookHtml(l)+quizHtml(l)+
+      (l.video?'':ebookHtml(l)+quizHtml(l))+
       '<div class="nav2">'+(prev?'<a class="b ghost" href="?p='+PK+'&l='+prev.id+'" data-go="'+prev.id+'" aria-label="Previous lesson">←</a>':'')+
-        (next?'<a class="b nx" href="?p='+PK+'&l='+next.id+'" data-go="'+next.id+'" data-next>Next lesson →</a>':'<button class="b nx" type="button" data-finish>Finish course ✓</button>')+'</div>';
+        (next?'<a class="b nx" href="?p='+PK+'&l='+next.id+'" data-go="'+next.id+'" data-next>'+nextLabel+'</a>':'<button class="b nx" type="button" data-finish>Finish course ✓</button>')+'</div>';
     MAIN.querySelector("[data-outline]").addEventListener("click",openOutline);
     var nx=MAIN.querySelector("[data-next]"); if(nx) nx.addEventListener("click",function(){ if(!isDone(l.id)) save(l.id,{ done:true }); });
     var fin=MAIN.querySelector("[data-finish]"); if(fin) fin.addEventListener("click",function(){ if(!isDone(l.id)) save(l.id,{ done:true }); MTH.toast("Course complete. Well done ✓"); setTimeout(openOutline,400); });
-    wireEbook(l); runQuiz(l); storageVideos(); streamVideos();
+    if(!l.video){ wireEbook(l); runQuiz(l); } storageVideos(); streamVideos();
     window.scrollTo(0,0);
   }
 
