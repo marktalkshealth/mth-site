@@ -68,15 +68,14 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 }
 
 /* ---------- footer ---------- */
-.mx-f{background:var(--dark);color:#e9dfd2;padding:14px 16px calc(12px + env(safe-area-inset-bottom));margin-top:0}
-.mx-f .in{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
-.mx-f .brand{font-family:var(--serif);font-size:24px;color:#fff}
-.mx-f .brand small{display:block;font-family:var(--sans);font-size:13px;color:#b9ab9b;margin-top:4px;max-width:360px}
-.mx-f nav{display:flex;flex-wrap:wrap;gap:8px}
-.mx-f nav a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px}
-.mx-f nav a:hover{background:rgba(255,255,255,.08)}
-.mx-f .fine{font-size:10.5px;color:#9d9083;line-height:1.4}.mx-f .fine a{color:#9d9083}
-.mx-f.slim{background:transparent;border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.mx-f{background:var(--dark);color:#cbbfb2;padding:10px 16px calc(10px + env(safe-area-inset-bottom));margin-top:0}
+.mx-f .in{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 14px}
+.mx-f .brand{font-family:var(--serif);font-size:17px;color:#fff;white-space:nowrap}
+.mx-f nav{display:flex;flex-wrap:wrap;gap:2px 12px}
+.mx-f nav a{color:#e9dfd2;text-decoration:none;font-size:12px;font-weight:500}
+.mx-f nav a:hover{color:#fff;text-decoration:underline}
+.mx-f .fine{flex-basis:100%;font-size:10px;color:#8f8275;line-height:1.35}.mx-f .fine a{color:#8f8275}
+.mx-f.slim{background:transparent;border-top:1px solid var(--line);padding:8px 16px calc(8px + env(safe-area-inset-bottom))}
 .mx-f.slim .in{justify-content:center;text-align:center}.mx-f.slim .fine,.mx-f.slim .fine a{color:var(--faint)}
 
 
@@ -333,3 +332,45 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 :is(#mqx,html) .mq-safe{margin-bottom:18px;padding:16px 18px;border-radius:16px;background:var(--terraS,#f6dccf);color:#7e3b25}
 :is(#mqx,html) .mq-safe p{margin:6px 0 0;font-size:14.5px;line-height:1.5}
 :is(#mqx,html) .mq-cta h4{font-family:var(--serif,'Cormorant Garamond',Georgia,serif);font-weight:500;font-size:28px;margin:4px 0 8px;color:var(--ink,#2b2724)}
+
+/* ---------- How healing works: five parts that open in place ---------- */
+:is(#mh,#g2,body) .hp{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 14px 34px rgba(43,39,36,.06)}
+:is(#mh,#g2,body) .hp-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+:is(#mh,#g2,body) .hp-t{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px 9px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;font:600 11px/1.15 var(--sans);text-align:center;transition:background .15s,border-color .15s,transform .15s}
+:is(#mh,#g2,body) .hp-t b{font-family:var(--serif);font-weight:500;font-size:30px;line-height:.9;color:var(--terra)}
+:is(#mh,#g2,body) .hp-t:hover{border-color:var(--gold)}
+:is(#mh,#g2,body) .hp-t.on{background:var(--dark);border-color:var(--dark);color:#f3e7d3}
+:is(#mh,#g2,body) .hp-t.on b{color:#e8a585}
+:is(#mh,#g2,body) .hp-p{display:none;padding:22px 8px 6px;animation:hpIn .35s ease both}
+:is(#mh,#g2,body) .hp-p.on{display:grid;gap:14px}
+@keyframes hpIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+:is(#mh,#g2,body) .hp-n{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terra)}
+:is(#mh,#g2,body) .hp-head h3{font-family:var(--serif);font-weight:500;font-size:clamp(30px,6vw,40px);line-height:1.02;margin:6px 0 2px;color:var(--ink)}
+:is(#mh,#g2,body) .hp-q{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--muted)}
+:is(#mh,#g2,body) .hp-body p{margin:0 0 10px;color:var(--muted);font-size:15.5px;line-height:1.6}
+:is(#mh,#g2,body) .hp-body b{color:var(--ink)}
+:is(#mh,#g2,body) .hp-body ul{margin:0 0 12px;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.55}
+:is(#mh,#g2,body) .hp-body li{margin:5px 0}
+:is(#mh,#g2,body) .hp-chips{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 6px}
+:is(#mh,#g2,body) .hp-chips span{padding:7px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink)}
+:is(#mh,#g2,body) .hp-chips span b{color:var(--terra);margin-right:6px}
+:is(#mh,#g2,body) .hp-p>*{min-width:0}
+:is(#mh,#g2,body) .hp-rail{margin:14px 0 0!important;padding:0 0 10px!important}
+:is(#mh,#g2,body) .hp .step.ph{flex:0 0 58%;max-width:230px}
+@media(min-width:760px){:is(#mh,#g2,body) .hp .step.ph{flex:0 0 200px;min-width:200px}}
+:is(#mh,#g2,body) .hp-phase{display:grid;gap:8px}
+:is(#mh,#g2,body) .hp-phase p{margin:0;padding:12px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--line);font-size:14.5px}
+:is(#mh,#g2,body) .hp-phase p b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);margin-bottom:2px}
+:is(#mh,#g2,body) .hp-go{display:inline-flex;align-items:center;gap:6px;margin-top:2px;padding:11px 18px;border-radius:999px;background:var(--terra);color:#fff!important;font-weight:600;font-size:14.5px;text-decoration:none!important}
+:is(#mh,#g2,body) .hp-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+:is(#mh,#g2,body) .hp-nav button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:9px 16px;font:600 13.5px var(--sans);cursor:pointer}
+:is(#mh,#g2,body) .hp-nav button.hp-next{background:var(--terra);border-color:var(--terra);color:#fff}
+:is(#mh,#g2,body) .hp-nav button:disabled{opacity:.35;cursor:default}
+:is(#mh,#g2,body) .hp-count{font-size:12.5px;color:var(--faint);font-weight:600}
+@media(min-width:760px){
+  :is(#mh,#g2,body) .hp{padding:18px}
+  :is(#mh,#g2,body) .hp-t{flex-direction:row;justify-content:center;gap:10px;font-size:14px;padding:12px 8px}
+  :is(#mh,#g2,body) .hp-p.on{grid-template-columns:260px 1fr;gap:30px;padding:30px 14px 10px}
+  :is(#mh,#g2,body) .hp-phase{grid-template-columns:repeat(3,1fr)}
+}
+@media(prefers-reduced-motion:reduce){:is(#mh,#g2,body) .hp-p{animation:none}}

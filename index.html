@@ -16,9 +16,9 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610231530">
+<link rel="stylesheet" href="assets/mth.css?v=202610281800">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610281600"></script>
+<script src="assets/mth.js?v=202610281800"></script>
 <script src="assets/quiz-core.js?v=202610231530"></script>
 <script src="assets/quiz.js?v=202610231530"></script>
 </head>
@@ -229,59 +229,85 @@
   <div data-mth-quiz="heal" data-source="home"></div>
 </div></section>
 
-<section class="dark"><div class="w">
-  <div class="rv"><div class="k">The method</div><h2>Seven days, <em>seven healing steps</em></h2><p class="lead">When you combine 7 healing methods at once, your body undergoes a rapid healing process.</p></div>
-  <div class="rail rv" id="mhSteps" style="margin-top:22px"></div>
-</div></section>
-
-<section id="mh-method"><div class="w">
-  <div class="rv"><div class="k">How healing works</div><h2>Five parts, <em>the whole person</em></h2><p class="lead">Investigate, learn the foundation, learn your condition, heal, and follow up. Always alongside your doctor, never against them.</p></div>
-  <div class="rv" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:20px">
-    <a href="snapshot.html" style="text-decoration:none;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line)"><b style="font-family:var(--serif);font-size:38px;color:var(--terra);font-weight:500;line-height:1">1</b><div style="font-weight:600;margin-top:6px">Investigate</div><small style="color:var(--muted)">Your Healing Snapshot</small></a>
-    <a href="healing.html#parts" style="text-decoration:none;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line)"><b style="font-family:var(--serif);font-size:38px;color:var(--terra);font-weight:500;line-height:1">2</b><div style="font-weight:600;margin-top:6px">Foundation</div><small style="color:var(--muted)">Remove the damage, then 7 steps</small></a>
-    <a href="healing.html#parts" style="text-decoration:none;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line)"><b style="font-family:var(--serif);font-size:38px;color:var(--terra);font-weight:500;line-height:1">3</b><div style="font-weight:600;margin-top:6px">Your condition</div><small style="color:var(--muted)">Gut, diabetes, GLP-1 and more</small></a>
-    <a href="healing.html#parts" style="text-decoration:none;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line)"><b style="font-family:var(--serif);font-size:38px;color:var(--terra);font-weight:500;line-height:1">4</b><div style="font-weight:600;margin-top:6px">Heal</div><small style="color:var(--muted)">One daily plan</small></a>
-    <a href="checkin.html" style="text-decoration:none;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line)"><b style="font-family:var(--serif);font-size:38px;color:var(--terra);font-weight:500;line-height:1">5</b><div style="font-weight:600;margin-top:6px">Follow up</div><small style="color:var(--muted)">Weekly check-ins</small></a>
+<!-- HOW HEALING WORKS: five parts that open in place (mth.js parts()) -->
+<section id="how"><div class="w">
+  <div class="rv"><div class="k">How healing works</div><h2>Five parts, <em>the whole person</em></h2><p class="lead">Most programs treat one symptom. We look at everything that's feeding it, then heal it in five clear parts, always alongside your doctor, never against them. Tap a part to read it.</p></div>
+  <div class="hp rv" data-hp>
+    <div class="hp-tabs" role="tablist">
+      <button type="button" class="hp-t on" role="tab" aria-selected="true"><b>1</b><span>Investigate</span></button>
+      <button type="button" class="hp-t" role="tab" aria-selected="false"><b>2</b><span>Foundation</span></button>
+      <button type="button" class="hp-t" role="tab" aria-selected="false"><b>3</b><span>Your condition</span></button>
+      <button type="button" class="hp-t" role="tab" aria-selected="false"><b>4</b><span>Heal</span></button>
+      <button type="button" class="hp-t" role="tab" aria-selected="false"><b>5</b><span>Follow up</span></button>
+    </div>
+    <div class="hp-p on" role="tabpanel">
+      <div class="hp-head"><div class="hp-n">Part 1</div><h3>Investigate</h3><div class="hp-q">Where are you now?</div></div>
+      <div class="hp-body">
+        <p>Before any advice is given, we look at the whole person:</p>
+        <ul>
+          <li><b>Symptoms</b>, each scored 0 to 10, so we can measure progress.</li>
+          <li><b>Tests</b> like A1C, blood pressure, weight and waist, to retest later.</li>
+          <li><b>Diagnoses, medications and treatments</b>, so your plan works with them.</li>
+          <li><b>The damage audit</b>: smoking, alcohol, processed food, sleep and screens.</li>
+          <li><b>The life audit</b>: stress, work, relationships, money and support at home.</li>
+          <li><b>Your goals</b>, in your own words.</li>
+        </ul>
+        <p>The quiz above is where this starts. Inside your course, the app goes deeper with your symptoms and test results.</p>
+        <a class="hp-go" href="#quiz">Take the quiz ↑</a>
+      </div>
+    </div>
+    <div class="hp-p" role="tabpanel">
+      <div class="hp-head"><div class="hp-n">Part 2</div><h3>Learn the foundation</h3><div class="hp-q">Total Body Healing</div></div>
+      <div class="hp-body">
+        <p>A body that's still being damaged every day can't heal its specific problem, so the foundation always comes first.</p>
+        <p><b>Step A: remove the damage</b>, one thing at a time: substances, processed food, chronic stress, unhealthy relationships, money pressure and the things stealing your sleep.</p>
+        <p><b>Step B: rebuild with the 7 healing steps.</b></p>
+        <div class="hp-chips"><span><b>1</b>Fasting &amp; cleanse</span><span><b>2</b>Meditation &amp; journaling</span><span><b>3</b>Nature &amp; sun</span><span><b>4</b>Sleep &amp; clean air</span><span><b>5</b>Music &amp; spirituality</span><span><b>6</b>Cardio &amp; weights</span><span><b>7</b>High-protein diet</span></div>
+        <div class="rail hp-rail" id="mhSteps"></div>
+      </div>
+    </div>
+    <div class="hp-p" role="tabpanel">
+      <div class="hp-head"><div class="hp-n">Part 3</div><h3>Learn your condition</h3><div class="hp-q">What's happening to you</div></div>
+      <div class="hp-body">
+        <p>A short module for your own condition. Every module covers the same six things:</p>
+        <ul>
+          <li>What is happening, in plain words</li><li>What makes it worse</li><li>What helps, backed by studies</li>
+          <li><b>What your doctor can offer</b>, and how lifestyle supports it</li><li>Red flags that mean see a doctor now</li><li>What gets added to your daily plan</li>
+        </ul>
+        <p>The first modules are Gut Health, Diabetes and GLP-1 weight loss.</p>
+      </div>
+    </div>
+    <div class="hp-p" role="tabpanel">
+      <div class="hp-head"><div class="hp-n">Part 4</div><h3>Heal</h3><div class="hp-q">Your personal plan</div></div>
+      <div class="hp-body">
+        <p>The app blends the foundation, your condition protocol and your doctor's treatment into one daily plan, so you never have to work out how the pieces fit. Never more than <b>3 new actions a week</b>.</p>
+        <div class="hp-phase">
+          <p><b>Weeks 1–2 · Calm</b>Remove the biggest damage, start sleep and hydration.</p>
+          <p><b>Weeks 3–6 · Repair</b>Add your condition protocol and the first 7-step habits.</p>
+          <p><b>Week 7 on · Strengthen</b>Build all 7 steps into a routine you can keep.</p>
+        </div>
+      </div>
+    </div>
+    <div class="hp-p" role="tabpanel">
+      <div class="hp-head"><div class="hp-n">Part 5</div><h3>Follow up</h3><div class="hp-q">Is it working?</div></div>
+      <div class="hp-body">
+        <p>This is where most programs quietly stop, and where results are made.</p>
+        <ul>
+          <li><b>Weekly check-in</b> (2 minutes): re-score your symptoms and see your trend.</li>
+          <li><b>Adjust</b>: stuck for two weeks? One small change, not five.</li>
+          <li><b>Retest</b> at 8 to 12 weeks, and compare side by side.</li>
+          <li><b>Doctor report</b>: what you changed and how your numbers moved. Any medication change is always your doctor's decision.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="hp-nav"><button type="button" class="hp-prev">← Back</button><span class="hp-count">Part 1 of 5</span><button type="button" class="hp-next">Next part →</button></div>
   </div>
-  <div class="rv" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn" href="snapshot.html">Start your Healing Snapshot</a><a class="btn ghost" href="healing.html" style="background:transparent;border:1px solid var(--line);color:var(--ink)">How healing works</a></div>
 </div></section>
 
 <section id="mh-protocols"><div class="w">
   <div class="rowh rv"><div><h2>Choose <em>your</em> course</h2></div><a class="more" href="protocols.html">All protocols →</a></div>
   <div class="rail rv" id="mhCards"></div>
 </div></section>
-
-<section><div class="w">
-  <div class="rv"><div class="k">Inside every protocol</div><h2>A complete healing <em>system</em></h2><p class="lead">Swipe through what you get: an app that plans your day, your diet, exercise, progress and support.</p></div>
-  <div class="sys" id="mhSys">
-    <div class="sc"><div class="sw"><div class="st"><div class="n">01 · THE SOFTWARE</div><h3>A plan built around you</h3><p>Describe your symptoms in detail, and the app ranks what to fix first and lays out a protocol personalised for you, including supplements and tests worth discussing with your doctor.</p></div><div class="sv"><span class="ex">Example</span><div class="scr2"><div class="sk">Your intake</div><div class="sh">Your personal plan</div>
-      <div class="chips"><span class="on">Bloating</span><span class="on">Fatigue</span><span>Brain fog</span><span class="on">Sugar cravings</span><span>Poor sleep</span></div>
-      <div class="sk" style="margin-top:4px">Your priorities</div>
-      <div class="br"><span>Gut lining</span><i><b style="width:82%"></b></i><span>High</span></div>
-      <div class="br"><span>Blood sugar</span><i><b style="width:58%;background:#b8924a"></b></i><span>Med</span></div>
-      <div class="br"><span>Sleep</span><i><b style="width:34%;background:#7a8f6e"></b></i><span>Low</span></div>
-      <div class="dots14"><i class="d"></i><i class="d"></i><i class="t"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">02 · FOOD</div><h3>A full meal planner</h3><p>A full catalogue of recipes with photos, videos and step-by-step instructions. Swap any meal with a tap, save favourites, scale for your household and get an automated shopping list.</p></div><div class="sv"><div class="scr2"><div class="sk">Today</div><div class="sh">Your meal plan</div>
-      <img class="mp" loading="lazy" alt="The meal planner: breakfast, lunch and dinner with calories, macros, swap and log buttons" src="/media/site/meal-planner.jpg"></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">03 · MOVEMENT</div><h3>Workouts that progress with you</h3><p>Strength and cardio matched to your level and equipment, with how-to videos for every move. Log each set and the weights go up automatically when you're ready.</p></div><div class="sv"><div class="scr2"><div class="sk">Strength A · Build</div><div class="sh">Today's workout</div>
-      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/5547221/kettlebell-kettlebell-lifting-kettlebell-training-overhead-squat-5547221.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Goblet squat</div><div class="s">3 × 10 @ 15 lb</div></div><div class="set"><u class="on">✓</u><u class="on">✓</u><u>3</u></div></div>
-      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/4867634/pexels-photo-4867634.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Dumbbell row</div><div class="s">3 × 10 @ 12.5 lb</div></div><div class="set"><u class="on">✓</u><u>2</u><u>3</u></div></div>
-      <div class="xr"><img loading="lazy" alt="" src="https://images.pexels.com/videos/7801720/pexels-photo-7801720.jpeg?auto=compress&cs=tinysrgb&w=160"><div><div class="t">Forearm plank</div><div class="s">3 × 30 sec</div></div><div class="set"><u>1</u><u>2</u><u>3</u></div></div>
-      <div class="up">Up from 12.5 lb: you hit 12 reps on every set last time.</div></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">04 · TRACKING</div><h3>See your progress add up</h3><p>A daily calorie and macro ring, water, fasting clock and daily score, plus charts for weight, energy, sleep and the symptoms you came to fix.</p></div><div class="sv"><div class="scr2"><div class="sk">Today</div><div class="sh">Calories &amp; progress</div>
-      <div class="pr"><div class="rg"><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="23" fill="none" stroke="#ece0cf" stroke-width="6"/><circle cx="28" cy="28" r="23" fill="none" stroke="#c0623f" stroke-width="6" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="60"/></svg><b>720<small>kcal left</small></b></div>
-        <div class="mb"><span>Protein 104 / 130 g</span><i><b style="width:75%;background:#c0623f"></b></i><span>Carbs 64 / 110 g</span><i><b style="width:58%;background:#b8924a"></b></i><span>Fat 31 / 55 g</span><i><b style="width:56%;background:#7a8f6e"></b></i></div></div>
-      <svg viewBox="0 0 240 60" style="width:100%;height:58px;margin-top:8px;display:block" preserveAspectRatio="none"><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48 L234 60 L6 60Z" fill="#f6dccf"/><path d="M6 12 L42 18 L78 22 L114 30 L150 34 L186 41 L234 48" fill="none" stroke="#c0623f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div style="display:flex;justify-content:space-between;font-size:9px;color:#8a7b6e"><span>Weight · week 1</span><span>week 6</span></div></div></div></div></div>
-    <div class="sc"><div class="sw"><div class="st"><div class="n">05 · YOUR COMPANION</div><h3>Never heal alone</h3><p>Your Healing Companion checks in every day, nudges you when you slip and celebrates every milestone. Plus the video course behind every step and the Healing Hub, with live Q&amp;As.</p></div><div class="sv"><div class="scr2 lk"><div class="tm">7:02<small>Tuesday · Day 5</small></div>
-      <div class="nt"><span class="ic">🌿</span><div><div class="hd"><span>Healing Companion</span><span>now</span></div>You're 14 hours into your fast. Two to go, you've got this.</div></div>
-      <div class="nt"><span class="ic" style="background:#b8924a">🔥</span><div><div class="hd"><span>Check-in streak</span><span>2m</span></div>5 days in a row. Your energy is trending up.</div></div>
-      <div class="nt"><span class="ic" style="background:#7a8f6e">▶</span><div><div class="hd"><span>Healing Hub · Live</span><span>1h</span></div>Mark's live Q&amp;A starts Thursday. Bring your questions.</div></div></div></div></div></div>
-  </div>
-  <div class="sys-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
-</div></section>
-
-
 
 <section style="padding-top:0"><div class="w">
   <div class="hub rv">
@@ -301,9 +327,6 @@
   </div>
 </div></section>
 
-
-
-
 <section style="padding-top:0"><div class="w founder">
   <div class="portrait rv" role="img" aria-label="Mark in his kitchen with a board of whole foods" style="background-image:url('/media/site/mark-kitchen.jpg');background-position:center 35%"></div>
   <div class="rv"><h2>My <em>story</em></h2>
@@ -311,18 +334,11 @@
     <p>After my recovery I've been dedicated to teaching other people how to fix their own health problems and take their power back.</p><div class="sig">&ndash; Mark</div></div>
 </div></section>
 
-
 <section id="mh-buy"><div class="w">
   <div class="rv"><div class="k">Get started</div><h2>Start your protocol <em>today</em></h2><p class="lead">One payment. Lifetime access to the course, your personalised software and the Healing Hub.</p></div>
   <div class="buy rv" id="mhBuy"></div>
   <div class="trust rv"><span>30-day money-back guarantee</span><span>Secure checkout</span><span>Card, Apple Pay &amp; Google Pay</span></div>
 </div></section>
-
-<section id="mh-list" style="padding-top:0"><div class="w"><div class="hub rv" style="display:block">
-  <div class="k">New protocols first</div><h2>Join the <em>list</em></h2><p class="lead" style="margin-bottom:16px">Get a note when a new protocol, ebook or live Q&amp;A opens. No spam, unsubscribe any time.</p>
-  <form class="mx-list" data-source="home"><input class="inp" type="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="Email"><button class="btn" type="submit">Join</button></form>
-</div></div></section>
-
 
 <script>
 (function(){

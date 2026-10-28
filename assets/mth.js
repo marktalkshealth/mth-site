@@ -104,7 +104,52 @@
         if(m.thumb_url) P.thumb=/^https?:\/\//i.test(m.thumb_url)?m.thumb_url:CONFIG.supabaseUrl+"/storage/v1/object/public/site-media/"+m.thumb_url; });
     }catch(e){ console.warn("[mth] course names",e); }
   }
-  M.ready=Promise.all([M.refresh(),loadCourseMeta()]).then(function(){ return M; });
+  /* ---------- words Mark changed in Admin -> Website words (mth_site_text) ---------- */
+  M.pageKey=(M.page.replace(/\.html?$/,"")||"index");
+  M.words=[];
+  async function loadWords(){
+    try{ var r=await sb.from("mth_site_text").select("key,orig,html").eq("page",M.pageKey); M.words=r.data||[]; }
+    catch(e){ M.words=[]; }
+  }
+  var TXT="h1,h2,h3,h4,p,li,blockquote,figcaption,.k,.kick,.lead,.sig,.hp-n,.hp-q,.hp-t span,.hp-chips span,small,a.btn,a.b,button.btn,.tryit span,.ticks span,.trust span,.lvr span";
+  var SKIP="script,style,template,form,[data-mth-quiz],.mthp,.mthv,.mx-list,.tdetail,.lvl,.dayplan,.seg,.tl,[data-noedit],.mx-h,.mx-f,.mx-sheet,.mx-test,.mx-modal,.mx-toast,.mte-bar";
+  function norm(s){ return String(s||"").replace(/\s+/g," ").trim(); }
+  M.normText=norm;
+  /* the pieces of text on a page that can be edited, outermost first, in page order */
+  M.textEls=function(root){
+    return [].slice.call(root.querySelectorAll(TXT)).filter(function(el){
+      if(el.closest(SKIP)) return false;
+      for(var p=el.parentElement;p&&p!==root;p=p.parentElement) if(p.matches(TXT)) return false;
+      return norm(el.textContent).length>0;
+    });
+  };
+  /* only simple formatting survives: no scripts, no event handlers */
+  M.cleanHtml=function(h){
+    var t=document.createElement("template"); t.innerHTML=String(h==null?"":h);
+    (function walk(n){ [].slice.call(n.childNodes).forEach(function(c){
+      if(c.nodeType===1){
+        if(/^(script|style|iframe|object|embed|link|meta|math|form|input|textarea|select|template|base)$/i.test(c.tagName)){ c.remove(); return; }
+        [].slice.call(c.attributes).forEach(function(a){ var k=a.name.toLowerCase();
+          if(!/^(class|style|href|target|rel|viewbox|d|fill|stroke|stroke-width|stroke-linecap|stroke-linejoin|aria-hidden)$/.test(k)) c.removeAttribute(a.name);
+          else if(k==="href"&&/^\s*(javascript|data|vbscript):/i.test(a.value)) c.removeAttribute(a.name);
+          else if(k==="style"&&/url\s*\(|expression|javascript:/i.test(a.value)) c.removeAttribute(a.name); });
+        walk(c);
+      } else if(c.nodeType!==3) c.remove();
+    }); })(t.content);
+    return t.innerHTML;
+  };
+  M.applyWords=function(root){
+    if(!root) return;
+    var els=M.textEls(root);
+    els.forEach(function(el,i){ if(!el.__mw) el.__mw={ key:"t"+i, html:el.innerHTML, text:norm(el.textContent), saveKey:null }; });
+    (M.words||[]).forEach(function(w){
+      var hit=els.filter(function(e){ return !e.__mw.saveKey&&e.__mw.key===w.key&&e.__mw.text===w.orig; })[0]
+            ||els.filter(function(e){ return !e.__mw.saveKey&&e.__mw.text===w.orig; })[0];
+      if(hit){ hit.innerHTML=M.cleanHtml(w.html); hit.__mw.saveKey=w.key; }
+    });
+    M.wordsRoot=root;
+  };
+  M.ready=Promise.all([M.refresh(),loadCourseMeta(),loadWords()]).then(function(){ return M; });
   sb.auth.onAuthStateChange(function(ev){
     if(ev==="SIGNED_OUT"){ M.user=null; M.owned=[]; window.MTH_USER=null; }
   });
@@ -223,8 +268,8 @@
     sl.push(inn?["account.html","My account",M.esc(M.user.email)]:[M.loginUrl(),"Sign in","Access your courses"]);
     CONFIG.order.forEach(function(k){ var q=CONFIG.products[k]; if(M.owns(k)) sl.push([q.course,q.name,"Your course"]); });
     if(!any) sl.push(["protocols.html","Courses","See the healing programs"]);
-    sl.push(["healing.html","How healing works","The 5-part method"]);
-    sl.push([M.user?"checkin.html":"snapshot.html",M.user?"Weekly check-in":"Healing Snapshot",M.user?"Track your progress":"Free · about 10 minutes"]);
+    sl.push(["index.html#how","How healing works","The 5-part method"]);
+    if(M.user) sl.push(["checkin.html","Weekly check-in","Track your progress"]); else sl.push(["index.html#quiz","Free healing quiz","About 60 seconds"]);
     sl.push(["picks.html","My Picks","Everything I recommend, on Amazon"]);
     sh.innerHTML='<div class="top"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a><button class="mx-burger" type="button" aria-label="Close menu" style="display:grid">'+ICON.close+'</button></div>'+
       '<nav>'+sl.map(function(l){ return '<a href="'+l[0]+'">'+l[1]+(l[2]?'<small>'+l[2]+'</small>':'')+'</a>'; }).join("")+'</nav>'+
@@ -246,9 +291,9 @@
       f.innerHTML='<div class="in"><div class="fine">&copy; '+new Date().getFullYear()+' Mark Talks Health · Educational, not medical advice · <a href="picks.html">My Picks</a> · <a href="partners.html">Work with me</a> · <a href="mailto:marktalkshealth@gmail.com">Help</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div></div>';
       document.body.appendChild(f); return;
     }
-    f.innerHTML='<div class="in"><div class="brand">Mark Talks Health<small>Natural healing meets modern science. Personalised protocols, guided day by day.</small></div>'+
-      '<nav aria-label="Footer"><a href="index.html">Home</a><a href="healing.html">How healing works</a><a href="snapshot.html">Healing Snapshot</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="picks.html">My Picks</a><a href="partners.html">Work with me</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refunds.html">Refunds</a></nav>'+
-      '<div class="fine">Educational program, not a substitute for professional medical advice, diagnosis or treatment. Individual results vary. Consult your healthcare provider before starting any fasting or cleansing protocol. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
+    f.innerHTML='<div class="in"><div class="brand">Mark Talks Health</div>'+
+      '<nav aria-label="Footer"><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="picks.html">My Picks</a><a href="partners.html">Work with me</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Help</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds</a></nav>'+
+      '<div class="fine">Educational, not medical advice. Results vary; talk to your healthcare provider before fasting or cleansing. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
     document.body.appendChild(f);
   }
   M.chrome=function(){ header(); footer(); };
@@ -334,7 +379,28 @@
       r.addEventListener("dragstart",function(e){ e.preventDefault(); });
     });
   }
-  M.videos=videos; M.rails=rails;
+  /* "How healing works": five parts that open in place (no new page) */
+  function parts(root){
+    [].forEach.call(root.querySelectorAll("[data-hp]:not([data-on])"),function(w){
+      w.setAttribute("data-on","1");
+      var tabs=[].slice.call(w.querySelectorAll(".hp-t")), ps=[].slice.call(w.querySelectorAll(".hp-p")),
+          cnt=w.querySelector(".hp-count"), pv=w.querySelector(".hp-prev"), nx=w.querySelector(".hp-next"), cur=0;
+      function show(i,scroll){
+        cur=Math.max(0,Math.min(ps.length-1,i));
+        tabs.forEach(function(t,j){ t.classList.toggle("on",j===cur); t.setAttribute("aria-selected",j===cur?"true":"false"); });
+        ps.forEach(function(p,j){ p.classList.toggle("on",j===cur); });
+        if(cnt) cnt.textContent="Part "+(cur+1)+" of "+ps.length;
+        if(pv) pv.disabled=cur===0; if(nx) nx.disabled=cur===ps.length-1;
+        try{ window.dispatchEvent(new Event("resize")); }catch(e){}
+        if(scroll){ var r=w.getBoundingClientRect(); if(r.top<70) window.scrollBy({ top:r.top-80, behavior:"smooth" }); }
+      }
+      tabs.forEach(function(t,j){ t.addEventListener("click",function(){ show(j); }); });
+      if(pv) pv.addEventListener("click",function(){ show(cur-1,true); });
+      if(nx) nx.addEventListener("click",function(){ show(cur+1,true); });
+      show(0);
+    });
+  }
+  M.videos=videos; M.rails=rails; M.parts=parts;
   /* email list forms: <form class="mx-list" data-source="home"> with an email input */
   M.listForms=function(root){
     [].forEach.call((root||document).querySelectorAll("form.mx-list:not([data-on])"),function(f){
@@ -360,11 +426,20 @@
     if(box.querySelector(".mthp[data-proto]")&&!document.getElementById("mthp-js")){ var s=document.createElement("script"); s.id="mthp-js"; s.src=BASE+"phone.js?v=5"; document.head.appendChild(s); }
     if(box.querySelector(".mthv")) videos(box);
     try{ rails(box); }catch(e){}
+    try{ parts(box); }catch(e){}
+    try{ M.applyWords(box); }catch(e){ console.warn("[mth] words",e); }
     return box;
   };
 
   /* every page: draw the header/footer once we know who is signed in */
   M.ready.then(function(){
-    if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",M.chrome); else M.chrome();
+    function go(){
+      M.chrome();
+      /* plain pages (no design template): their words are in <main> */
+      if(!document.getElementById("design")){ var mn=document.querySelector("main"); if(mn){ try{ parts(mn); M.applyWords(mn); }catch(e){} } }
+      /* Admin -> Website words opens pages with ?edit=1 */
+      if(M.qs("edit")==="1"&&M.user&&!document.getElementById("mte-js")){ var s=document.createElement("script"); s.id="mte-js"; s.src="assets/site-edit.js?v=202610281800"; document.head.appendChild(s); }
+    }
+    if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",go); else go();
   });
 })();
