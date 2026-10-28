@@ -31,7 +31,7 @@
 #hub .me{width:38px;height:38px;border-radius:50%;background:var(--soft2);display:grid;place-items:center;font-size:19px;flex:none}
 #hub .banner{margin:10px 16px 0;padding:10px 12px;border-radius:6px;background:var(--soft);font-size:13px;color:var(--muted);line-height:1.45}
 /* tabs */
-#hub .tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:760px;z-index:25;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+#hub .tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:760px;z-index:25;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
 #hub .tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-size:11px;font-weight:600;color:var(--faint);border-radius:6px;position:relative}
 #hub .tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 #hub .tab.on{color:var(--ink)}
@@ -210,6 +210,16 @@
 #hub .moods{display:flex;gap:8px;margin:6px 0 12px}
 #hub .moods button{flex:1;aspect-ratio:1;max-width:58px;border-radius:10px;border:1px solid var(--line);font-size:24px}
 #hub .moods button.on{border-color:var(--ink);background:var(--soft)}
+#hub .jr{padding:16px}
+#hub .jq{display:block;margin-top:6px}
+#hub .jq b{display:block;font-size:14px;margin:8px 0 6px}
+#hub .jq .field{resize:vertical;min-height:72px;font-family:inherit;line-height:1.45}
+#hub .jr .pact{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}
+#hub .jent{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:12px;margin-bottom:8px}
+#hub .jent.on{border-color:var(--ink)}
+#hub .jent .jm{font-size:24px;flex:none}
+#hub .jent b{display:block;font-size:14px}
+#hub .jent small{display:block;font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.35}
 #hub .toast{position:fixed;left:50%;bottom:150px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13.5px;padding:10px 16px;border-radius:999px;z-index:60;opacity:0;transition:.2s;pointer-events:none;white-space:nowrap}
 #hub .toast.on{opacity:1}
 #hub .sync{font-size:11px;color:var(--faint);text-align:center;padding:14px 16px 0}
@@ -227,6 +237,7 @@
   <section class="view" id="vToday"></section>
   <section class="view" id="vCommunity" hidden></section>
   <section class="view" id="vLive" hidden></section>
+  <section class="view" id="vJournal" hidden></section>
   <section class="view" id="vLibrary" hidden></section>
   <div class="sync" id="hSync"></div>
 </main>
@@ -234,7 +245,7 @@
 <div class="player" id="hPlayer" hidden>
   <button class="pp" id="hPP" aria-label="Play or pause"></button>
   <div class="pi"><b id="hNow">—</b><small id="hNowSub">—</small><div class="bar"><i id="hProg"></i></div></div>
-  <select id="hTimer" aria-label="Timer"><option value="5">5 min</option><option value="10" selected>10 min</option><option value="20">20 min</option><option value="0">∞</option></select>
+  <select id="hTimer" aria-label="Timer"><option value="full" selected>Full track</option><option value="5">5 min</option><option value="10">10 min</option><option value="20">20 min</option><option value="0">Loop</option></select>
   <button id="hStop" aria-label="Close player">✕</button>
 </div>
 
@@ -242,6 +253,7 @@
   <button class="tab on" data-v="Today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Today</button>
   <button class="tab" data-v="Community"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Community</button>
   <button class="tab" data-v="Live"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>Live<span class="dot" id="hLiveDot" hidden></span></button>
+  <button class="tab" data-v="Journal"><svg viewBox="0 0 24 24"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18M10 8h5M10 12h5"/></svg>Journal</button>
   <button class="tab" data-v="Library"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h12"/></svg>Library</button>
 </nav>
 
@@ -335,11 +347,14 @@ function dayKey(d){ d=new Date(d||Date.now()); d.setHours(0,0,0,0); return d.get
 
 /* ----------------------------- state ----------------------------- */
 var me = {name:"You", avatar:"🌿", admin:false, owner:false, banned:false};
-var S = {protocol:"gut", start:null, ticks:{}, fast:null, fasts:[], goal:16, checkins:{}};
+var S = {protocol:"gut", start:null, ticks:{}, fast:null, fasts:[], goal:16, checkins:{}, journal:{}};
 var member = null, demo = false, pass = ls.get(LS+"_pass") || "", live = {is_live:false,title:"Live Healing Q&A with Mark",next:"",embed:"",link:""};
 try { var cached = JSON.parse(ls.get(LS) || "null"); if (cached) S = Object.assign(S, cached); } catch(e){}
 if (PAGE_PROTOCOL && PROTOCOLS[PAGE_PROTOCOL]) S.protocol = PAGE_PROTOCOL;
 if (!PROTOCOLS[S.protocol]) S.protocol = "gut";
+/* the member's own protocol (set by the site's Hub page), so the Hub always matches what they bought */
+function ownProto(){ var k=null; try{ k=window.parent.MTH_PROTO||null; }catch(e){} return {gut:"gut",sugar:"sugar",glp1:"weight"}[k]||null; }
+(function(){ var k=ownProto(); if(k&&!PAGE_PROTOCOL) S.protocol=k; })();
 
 /* ------------------------- who is this? ------------------------- */
 function clean(u){ if(!u)return null; var id=String(u.id||"").trim(), email=String(u.email||"").trim().toLowerCase();
@@ -426,13 +441,14 @@ function err(e){ toast(e&&e.message&&/slow down/.test(e.message)?"You're posting
 var view="Today";
 root.querySelectorAll(".tab").forEach(function(t){ t.onclick=function(){ go(t.dataset.v); }; });
 function go(v){ view=v; root.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t.dataset.v===v);});
-  ["Today","Community","Live","Library"].forEach(function(n){ $("v"+n).hidden=n!==v; });
-  if(v==="Community") refreshCommunity(); if(v==="Live") refreshChat(true); window.scrollTo(0,0); }
+  ["Today","Community","Live","Journal","Library"].forEach(function(n){ $("v"+n).hidden=n!==v; });
+  if(v==="Community") refreshCommunity(); if(v==="Live") refreshChat(true); if(v==="Journal") renderJournal(); window.scrollTo(0,0); }
 
 /* ============================ TODAY ============================ */
 var selDay=null;
 function curDay(){ if(!S.start)return 0; var a=new Date(typeof S.start==="number"?S.start:String(S.start).replace(/-/g,"/")); a.setHours(0,0,0,0); var b=new Date(); b.setHours(0,0,0,0); return Math.floor((b-a)/864e5)+1; }
 function renderToday(){
+  var FPs=fastPlan(); if(FPs&&FPs.start&&S.start!==FPs.start&&!S.ownStart){ S.start=FPs.start; }
   var d=curDay(), P=PROTOCOLS[S.protocol], live7=d>=1&&d<=7, done=d>7;
   if(selDay==null||selDay<1||selDay>7) selDay=live7?d:1;
   var hr=new Date().getHours(), greet=hr<12?"Good morning":hr<18?"Good afternoon":"Good evening";
@@ -461,7 +477,7 @@ function renderToday(){
   v.querySelectorAll("[data-d]").forEach(function(b){ b.onclick=function(){ selDay=+b.dataset.d; renderToday(); }; });
   v.querySelectorAll("[data-t]").forEach(function(b){ b.onclick=function(){ var a=(S.ticks[selDay]||[]).slice(); a[+b.dataset.t]=!a[+b.dataset.t]; S.ticks[selDay]=a; persist(); renderToday(); }; });
   v.querySelectorAll("[data-k]").forEach(function(b){ b.onclick=function(){ toggleTrack(+b.dataset.k); }; });
-  if($("hStart")) $("hStart").onclick=function(){ if(S.start&&!confirm("Start a new first week from today? Your ticks will reset."))return; S.start=dayKey(); S.ticks={}; S.checkins={}; selDay=1; persist(); renderToday(); toast("Day 1 starts today 🌿"); };
+  if($("hStart")) $("hStart").onclick=function(){ if(S.start&&!confirm("Start a new first week from today? Your ticks will reset."))return; S.start=dayKey(); S.ownStart=true; S.ticks={}; S.checkins={}; selDay=1; persist(); renderToday(); toast("Day 1 starts today 🌿"); };
   if($("hCheck")) $("hCheck").onclick=checkinSheet;
   $("hPlayDay").onclick=function(){ toggleTrack(selDay-1,true); };
   renderFast();
@@ -490,20 +506,32 @@ var STAGES=[
 ];
 var GOALS=[13,16,18,24,36];
 function fastHrs(){ return S.fast?(Date.now()-S.fast)/36e5:0; }
+/* today's fasting goal from the member's protocol app (saved by the app as mth_fastplan_<protocol>) */
+function fastPlan(){
+  var k={gut:"gut",sugar:"sugar",weight:"glp1"}[S.protocol]; if(!k) return null;
+  var p=null; try{ p=JSON.parse(ls.get("mth_fastplan_"+k)||"null"); }catch(e){} if(!p||!p.days||!p.days.length) return null;
+  var a=new Date(String(p.start).replace(/-/g,"/")); a.setHours(0,0,0,0); var b=new Date(); b.setHours(0,0,0,0);
+  var d=Math.floor((b-a)/864e5)+1, x=p.days[Math.max(0,Math.min(p.days.length,d)-1)];
+  return {day:d, goal:x[0], label:x[1], level:p.level, start:a.getTime()};
+}
+function planGoal(){ var p=fastPlan(); return p?p.goal:null; }
 function stageAt(h){ var s=STAGES[0]; STAGES.forEach(function(x){ if(h>=x.h)s=x; }); return s; }
 function renderFast(){
   var box=$("hFast"); if(!box)return;
+  var FP=fastPlan(), own=S.goalDay===dayKey(); if(FP&&!S.fast&&!own) S.goal=FP.goal;
   var h=fastHrs(), g=S.goal||16, pct=Math.min(h/g,1), st=stageAt(h), C=2*Math.PI*64;
   var hh=Math.floor(h), mm=Math.floor((h-hh)*60), ss=Math.floor(((h-hh)*60-mm)*60);
   var x='<div class="fast"><div class="ring"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="#efebe6" stroke-width="10"/><circle cx="75" cy="75" r="64" fill="none" stroke="'+(pct>=1?'#6f8a6a':'#1c1a19')+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+(C*(1-pct))+'"/></svg><div class="mid">'+
    (S.fast?'<b>'+hh+':'+(mm<10?'0':'')+mm+'<span style="font-size:15px;color:#a39a92">:'+(ss<10?'0':'')+ss+'</span></b><small>of '+g+' hours</small>':'<b>'+g+'h</b><small>goal</small>')+'</div></div><div>';
   if(S.fast){ x+='<div class="kick">'+(pct>=1?'Goal reached 🎉':'You are in')+'</div><div class="stage"><b>'+esc(st.name)+'</b><p>'+esc(st.text)+'</p></div><button class="btn" id="hFastEnd">End fast</button>'; }
-  else { x+='<div class="kick">Choose your goal</div><div class="goals" style="margin-top:8px">'; GOALS.forEach(function(G){ x+='<button data-g="'+G+'" class="'+(G===g?'on':'')+'">'+G+'h</button>'; }); x+='</div><button class="btn" id="hFastGo">Start fast</button>'; }
+  else { var GL=GOALS.slice(); if(FP&&GL.indexOf(FP.goal)<0){ GL.push(FP.goal); GL.sort(function(a,b){return a-b;}); }
+    x+=(FP?'<div class="kick">Today in your protocol</div><div class="stage" style="margin-top:4px"><b>'+FP.goal+'-hour goal</b><p>'+esc(FP.label)+(FP.day>=1&&!/day \d/i.test(FP.label)?' · Day '+FP.day:'')+'</p></div><div class="kick" style="margin-top:6px">Or choose another goal</div>':'<div class="kick">Choose your goal</div>')+'<div class="goals" style="margin-top:8px">';
+    GL.forEach(function(G){ x+='<button data-g="'+G+'" class="'+(G===g?'on':'')+'">'+G+'h'+(FP&&G===FP.goal?' ✓':'')+'</button>'; }); x+='</div><button class="btn" id="hFastGo">Start fast</button>'; }
   x+='</div></div><div class="stages">'; STAGES.forEach(function(s,i){ var nx=STAGES[i+1], cls=!S.fast?'':(h>=(nx?nx.h:1e9)?'past':h>=s.h?'now':''); x+='<div class="st '+cls+'"><i></i>'+esc(s.name)+'<em>'+s.h+'h'+(nx?'–'+nx.h+'h':'+')+'</em></div>'; }); x+='</div>';
   if(S.fasts&&S.fasts.length){ x+='<div class="hist">'; S.fasts.slice(-8).reverse().forEach(function(f){ x+='<span>'+f.h.toFixed(1)+'h · '+new Date(f.end).toLocaleDateString(undefined,{month:"short",day:"numeric"})+'</span>'; }); x+='</div>'; }
   x+='<p class="note">'+(S.protocol==="sugar"?'<b>On glucose-lowering medication or insulin?</b> Fasting can drop blood sugar too low. Agree your fasting plan with your doctor first. ':'')+'Stage timings are general and vary from person to person. Check with your doctor before fasting if you are pregnant, take medication or have a medical condition.</p>';
-  box.innerHTML=x; $("hFastSub").textContent=S.fast?"Started "+new Date(S.fast).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):(S.fasts&&S.fasts.length?S.fasts.length+" fasts logged":"");
-  box.querySelectorAll("[data-g]").forEach(function(b){ b.onclick=function(){ S.goal=+b.dataset.g; persist(); renderFast(); }; });
+  box.innerHTML=x; $("hFastSub").textContent=FP&&!S.fast?"Synced with your "+PROTOCOLS[S.protocol].name+" protocol":S.fast?"Started "+new Date(S.fast).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):(S.fasts&&S.fasts.length?S.fasts.length+" fasts logged":"");
+  box.querySelectorAll("[data-g]").forEach(function(b){ b.onclick=function(){ S.goal=+b.dataset.g; S.goalDay=(FP&&S.goal===FP.goal)?null:dayKey(); persist(); renderFast(); }; });
   if($("hFastGo")) $("hFastGo").onclick=function(){ S.fast=Date.now(); persist(); renderFast(); toast("Fast started — you've got this"); };
   if($("hFastEnd")) $("hFastEnd").onclick=function(){ var hrs=fastHrs(); S.fasts=(S.fasts||[]).concat([{h:hrs,end:Date.now()}]).slice(-30); S.fast=null; persist(); renderFast();
     if(hrs>=4) sheet('<h3>Fast complete — '+hrs.toFixed(1)+' hours</h3><p class="s">Share it with the community?</p><textarea class="field" id="hFNote" rows="2" maxlength="400" placeholder="Add a note (optional)"></textarea><button class="btn" id="hFShare" style="width:100%">Share to community</button><button class="btn ghost" style="width:100%;margin-top:8px" id="hFNo">Keep it private</button>',function(){
@@ -537,13 +565,17 @@ function toggleTrack(i,forcePlay){
   if(playing===i&&!forcePlay){ if(paused) resume(); else pause(); return; }
   if(playing===i&&forcePlay&&!paused) return;
   stopSound(); playing=i; paused=false; tAcc=0; tStart=Date.now(); var t=TRACKS[i];
-  if(t.url){ audio=new Audio(t.url); audio.loop=true; audio.play().catch(function(){ toast("Tap play again to start audio"); }); } else { gen=ambient(t); if(ctx.state==="suspended")ctx.resume(); }
+  if(t.url){ audio=new Audio(t.url); audio.loop=$("hTimer").value!=="full"; audio.addEventListener("ended",function(){ if($("hTimer").value==="full"){ closePlayer(); toast("Session complete 🌿"); } }); audio.play().catch(function(){ toast("Tap play again to start audio"); }); } else { gen=ambient(t); if(ctx.state==="suspended")ctx.resume(); }
   $("hPlayer").hidden=false; $("hNow").textContent=(t.daily?"Daily ritual":"Day "+(i+1))+" · "+t.title; $("hNowSub").textContent=t.kind; updPlayer(); renderTodaySoft();
   clearInterval(tick); tick=setInterval(updPlayer,1000);
 }
 function pause(){ paused=true; tAcc+=Date.now()-tStart; if(audio)audio.pause(); if(ctx)ctx.suspend(); updPlayer(); renderTodaySoft(); }
 function resume(){ paused=false; tStart=Date.now(); if(audio)audio.play(); if(ctx)ctx.resume(); updPlayer(); renderTodaySoft(); }
-function updPlayer(){ var mins=+$("hTimer").value, el=tAcc+(paused?0:Date.now()-tStart), tot=mins*6e4;
+function updPlayer(){ var full=$("hTimer").value==="full";
+  if(audio) audio.loop=!full;
+  if(full&&audio){ var dur=audio.duration||0, cur=audio.currentTime||0; $("hPP").innerHTML=paused?PLAY:PAUSE; $("hProg").style.width=dur?Math.min(cur/dur*100,100)+"%":"0%";
+    var left=Math.max(0,dur-cur); $("hNowSub").textContent=TRACKS[playing].kind+(dur?" · "+Math.floor(left/60)+":"+("0"+Math.floor(left%60)).slice(-2)+" left":" · loading…"); return; }
+  var mins=full?0:+$("hTimer").value, el=tAcc+(paused?0:Date.now()-tStart), tot=mins*6e4;
   $("hPP").innerHTML=paused?PLAY:PAUSE; $("hProg").style.width=tot?Math.min(el/tot*100,100)+"%":"100%";
   if(tot){ var left=Math.max(0,tot-el); $("hNowSub").textContent=TRACKS[playing].kind+" · "+Math.floor(left/6e4)+":"+("0"+Math.floor(left%6e4/1e3)).slice(-2)+" left"; if(left<=0&&!paused){ closePlayer(); toast("Session complete 🌿"); } }
   else $("hNowSub").textContent=TRACKS[playing].kind+" · "+Math.floor(el/6e4)+" min"; }
@@ -638,6 +670,35 @@ function refreshChat(force){ if(view!=="Live"&&!force)return;
   rpc("hub_join",{p_pass:pass||null}).then(function(j){ if(j&&j.live){ var was=JSON.stringify(live); live=j.live; liveDot(); if(view==="Live"&&was!==JSON.stringify(live)) renderLive(); } }).catch(function(){}); }
 function liveDot(){ $("hLiveDot").hidden=!live.is_live; }
 
+/* ============================ JOURNAL ============================ */
+var JPROMPTS=[["body","How does your body feel today?","Energy, digestion, sleep, cravings…"],["grateful","Three things you're grateful for","Small things count"],["letgo","What are you letting go of?","A habit, a worry, a story you tell yourself"],["win","Today's win","Anything you're proud of, however small"]];
+var jSel=null;
+function jKey(t){ var d=new Date(t); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function jNice(k){ var p=k.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"}); }
+function renderJournal(){
+  if(!S.journal) S.journal={};
+  var today=jKey(Date.now()); if(!jSel) jSel=today;
+  var e=S.journal[jSel]||{}, moods=["😣","😕","😐","🙂","😄"], d=curDay();
+  var h='<div class="hello"><div class="kick">Your journal · private to you</div><h1>'+(jSel===today?"Today's page":esc(jNice(jSel)))+'</h1><p>'+(jSel===today?esc(jNice(today))+(d>=1&&d<=7?" · Day "+d+" of your first week":""):"A past entry. You can still edit it.")+'</p></div>';
+  h+='<div class="sec" style="padding-top:4px"><div class="card jr"><div class="kick">How are you feeling?</div><div class="moods">';
+  moods.forEach(function(m,i){ h+='<button data-jm="'+i+'" class="'+(e.mood===i?'on':'')+'" aria-label="Mood '+(i+1)+' of 5">'+m+'</button>'; });
+  h+='</div>';
+  JPROMPTS.forEach(function(q){ h+='<label class="jq"><b>'+esc(q[1])+'</b><textarea class="field" rows="3" maxlength="2000" data-jp="'+q[0]+'" placeholder="'+esc(q[2])+'">'+esc(e[q[0]]||"")+'</textarea></label>'; });
+  h+='<label class="jq"><b>Anything else</b><textarea class="field" rows="4" maxlength="4000" data-jp="free" placeholder="Write freely. Only you can see this.">'+esc(e.free||"")+'</textarea></label>';
+  h+='<div class="pact"><span class="prog" id="hJSaved">'+(e.t?"Saved "+new Date(e.t).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"Saves as you type")+'</span>'+(jSel!==today?'<button class="btn ghost" id="hJToday">Back to today</button>':'')+'</div></div></div>';
+  var keys=Object.keys(S.journal).filter(function(k){ var x=S.journal[k]; return x&&(x.mood!=null||JPROMPTS.some(function(q){return x[q[0]];})||x.free); }).sort().reverse();
+  h+='<div class="sec"><div class="h"><h2>Past entries</h2><span>'+keys.length+' page'+(keys.length===1?'':'s')+'</span></div>';
+  if(!keys.length) h+='<p class="note" style="padding:0">Your entries appear here, one page per day.</p>';
+  keys.forEach(function(k){ var x=S.journal[k], first=(x.body||x.grateful||x.letgo||x.win||x.free||""); h+='<button class="card jent'+(k===jSel?' on':'')+'" data-jk="'+k+'"><span class="jm">'+(x.mood!=null?moods[x.mood]:"📓")+'</span><div><b>'+esc(jNice(k))+'</b><small>'+esc(first.slice(0,90))+(first.length>90?"…":"")+'</small></div></button>'; });
+  h+='</div>';
+  var v=$("vJournal"); v.innerHTML=h;
+  var save=function(){ var x=S.journal[jSel]||{}; v.querySelectorAll("[data-jp]").forEach(function(t){ x[t.dataset.jp]=t.value; }); x.t=Date.now(); S.journal[jSel]=x; persist(); var sv=$("hJSaved"); if(sv) sv.textContent="Saved "+new Date(x.t).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}); };
+  var jt=null; v.querySelectorAll("[data-jp]").forEach(function(t){ t.oninput=function(){ clearTimeout(jt); jt=setTimeout(save,600); }; t.onblur=save; });
+  v.querySelectorAll("[data-jm]").forEach(function(b){ b.onclick=function(){ var x=S.journal[jSel]||{}; x.mood=+b.dataset.jm; S.journal[jSel]=x; save(); renderJournal(); }; });
+  v.querySelectorAll("[data-jk]").forEach(function(b){ b.onclick=function(){ jSel=b.dataset.jk; renderJournal(); window.scrollTo(0,0); }; });
+  if($("hJToday")) $("hJToday").onclick=function(){ jSel=null; renderJournal(); };
+}
+
 /* ============================ LIBRARY ============================ */
 function renderLibrary(){
   var B=LIBRARY.book, mine=function(x){ return x.protocol==="all"||x.protocol===S.protocol; };
@@ -651,7 +712,7 @@ function renderLibrary(){
 }
 
 /* ============================ boot ============================ */
-function renderAll(){ var P=PROTOCOLS[S.protocol]; $("hProtoName").textContent=P.name; $("hMeBtn").textContent=me.avatar; renderToday(); renderCommunity(); renderLive(); renderLibrary(); if(view==="Community") refreshCommunity(); }
+function renderAll(){ var P=PROTOCOLS[S.protocol]; $("hProtoName").textContent=P.name; $("hMeBtn").textContent=me.avatar; renderToday(); renderCommunity(); renderLive(); renderJournal(); renderLibrary(); if(view==="Community") refreshCommunity(); }
 function startPolling(){ setInterval(function(){ if(document.hidden)return; if(view==="Community") loadPosts(false); },20000);
   setInterval(function(){ if(document.hidden)return; if(view==="Live") refreshChat(); else refreshChat.n=(refreshChat.n||0)+1, refreshChat.n%8===0&&refreshChat(true); },4000); }
 
@@ -663,7 +724,7 @@ whoAsk(2500).then(function(u){
   return rpc("hub_join",{p_pass:pass||null}).then(function(j){
     me.name=j.name; me.avatar=j.avatar; me.admin=!!j.admin; me.owner=!!j.is_owner_email; me.banned=!!j.banned; if(j.live) live=j.live;
     if(pass&&!me.admin){ pass=""; ls.set(LS+"_pass",""); }
-    if(j.state&&Object.keys(j.state).length){ var keepFast=S.fast; S=Object.assign(S,j.state); if(PAGE_PROTOCOL&&PROTOCOLS[PAGE_PROTOCOL])S.protocol=PAGE_PROTOCOL; if(!S.fast&&keepFast)S.fast=keepFast; ls.set(LS,JSON.stringify(S)); }
+    if(j.state&&Object.keys(j.state).length){ var keepFast=S.fast; S=Object.assign(S,j.state); if(PAGE_PROTOCOL&&PROTOCOLS[PAGE_PROTOCOL])S.protocol=PAGE_PROTOCOL; else if(ownProto())S.protocol=ownProto(); if(!S.journal)S.journal={}; if(!S.fast&&keepFast)S.fast=keepFast; ls.set(LS,JSON.stringify(S)); }
     else persist();
     sync("Saved to your account"); liveDot(); renderAll(); refreshChat(true); startPolling();
     if(me.name&&/^[a-z]/.test(me.name)===false&&!ls.get(LS+"_named")){ ls.set(LS+"_named","1"); setTimeout(function(){ toast("Tap your avatar to set your name and picture"); },1200); }

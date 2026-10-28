@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610281800">
+<link rel="stylesheet" href="assets/mth.css?v=202610282200">
 <script>
 /* Phones: full-screen community with a slim top bar. Computers: site header, then the Hub in a frame. */
 (function(){
@@ -22,7 +22,7 @@
 })();
 </script>
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610281800"></script>
+<script src="assets/mth.js?v=202610282200"></script>
 <style>
 html.hub-phone,html.hub-phone body{height:100%;overflow:hidden;background:#fff}
 html.hub-phone #hs{position:fixed;inset:0;display:flex;flex-direction:column}
@@ -63,6 +63,8 @@ html.hub-desk #hs iframe{height:calc(100vh - 200px);min-height:720px}
   }
   /* the Hub reads window.parent.MTH_USER to know who is posting */
   window.MTH_USER={ id:MTH.user.id, email:(MTH.user.email||"").toLowerCase() };
+  /* the Hub matches the protocol they bought (fasting clock, tips, first week) */
+  var PK=MTH.product(); window.MTH_PROTO=MTH.owns(PK)?PK:MTH.owned[0];
   hs.querySelector("iframe").src="hub/index.html";
 })();
 </script>

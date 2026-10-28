@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610281800">
+<link rel="stylesheet" href="assets/mth.css?v=202610282200">
 <script>
 /* Phones and the installed home-screen app: full-screen app, no site header.
    Computers: site header, then the full desktop software in a frame.
@@ -25,7 +25,7 @@
   var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
   var desk=v==="desktop"||(v!=="app"&&!standalone&&window.matchMedia&&matchMedia("(min-width: 900px)").matches);
   document.documentElement.classList.add(desk?"app-desk":"app-phone");
-  if(!desk) document.documentElement.classList.add("mx-bare");
+  document.documentElement.classList.add("mx-bare");   /* no site header: the app gets the whole screen */
   window.__APPVIEW=v; window.__DESK=desk;
 })();
 /* keep the phone's own "install app" offer so our Install button can show it */
@@ -34,7 +34,7 @@ window.addEventListener("beforeinstallprompt",function(e){ e.preventDefault(); w
 window.addEventListener("appinstalled",function(){ window.__INSTALL=null; if(window.__mthInstalled) window.__mthInstalled(); });
 </script>
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610281800"></script>
+<script src="assets/mth.js?v=202610282200"></script>
 <style>
 /* ---------- phone: full-screen app ---------- */
 html.app-phone,html.app-phone body{height:100%;overflow:hidden;background:#f6f1ea}
@@ -67,16 +67,23 @@ html.app-phone #shell .frame{flex:1;min-height:0;display:flex;flex-direction:col
 #shell .sh li{counter-increment:s;display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #e7dfd4;font:500 15px/1.35 'DM Sans',system-ui,sans-serif;color:#2b2622}
 #shell .sh li:before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#2e5c45;color:#fff;font-size:13px;font-weight:700}
 #shell .sh button.ok{width:100%;min-height:50px;border:0;border-radius:14px;background:#2b2622;color:#fff;font:600 15px 'DM Sans',system-ui,sans-serif}
-/* ---------- desktop: header, title, framed software ---------- */
-html.app-desk body{background:#f6f1ea}
-html.app-desk #shell{position:relative;padding:30px 32px 40px;max-width:1680px;margin:0 auto}
-html.app-desk #shell .ab{border:0;background:transparent;padding:0 0 18px;gap:16px;align-items:flex-end}
-html.app-desk #shell .ab a.home,html.app-desk #shell .ab .me,html.app-desk #shell .ins{display:none!important}
-html.app-desk #shell .ab .k{font-size:11px;letter-spacing:.2em;color:#c0623f;margin-bottom:8px}
-html.app-desk #shell .ab .n{font-size:42px;line-height:1.02;letter-spacing:-.01em}
-html.app-desk #shell .ab .lnk{display:flex;gap:8px}
-html.app-desk #shell .frame{position:relative;background:#fffcf7;border:1px solid #e7dccb;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(43,39,36,.10)}
-html.app-desk #shell iframe{height:calc(100vh - 210px);min-height:720px;background:#fffcf7}
+/* ---------- desktop: one slim bar, then the software fills the screen ---------- */
+html.app-desk,html.app-desk body{height:100%;overflow:hidden;background:#f6f1ea}
+html.app-desk #shell{position:fixed;inset:0;display:flex;flex-direction:column;padding:0;max-width:none}
+html.app-desk #shell .ab{flex:none;border:0;border-bottom:1px solid #e7dccb;background:#fffcf7;padding:6px 16px;gap:12px;align-items:center;min-height:48px}
+html.app-desk #shell .ab a.home{display:flex;width:auto;height:auto;gap:6px;font:600 13px 'DM Sans',system-ui,sans-serif;color:#6e6259;border-radius:999px;padding:6px 10px}
+html.app-desk #shell .ab a.home:hover{background:#efe5d6}
+html.app-desk #shell .ab a.home svg{width:16px;height:16px}
+html.app-desk #shell .ab a.home::after{content:"Mark Talks Health"}
+html.app-desk #shell .ab .t{display:flex;align-items:baseline;gap:10px}
+html.app-desk #shell .ab .k{font-size:10px;letter-spacing:.16em;color:#c0623f;margin:0}
+html.app-desk #shell .ab .n{font-size:20px;line-height:1}
+html.app-desk #shell .ab .me{display:grid!important;width:32px;height:32px;font-size:13px}
+html.app-desk #shell .ins{display:none!important}
+html.app-desk #shell .ab .lnk{display:flex;gap:6px}
+html.app-desk #shell .ab .lnk .b{min-height:34px;padding:6px 14px;font-size:13px}
+html.app-desk #shell .frame{flex:1;min-height:0;position:relative;background:#fffcf7;display:flex;flex-direction:column}
+html.app-desk #shell iframe{flex:1;height:auto;min-height:0;background:#fffcf7}
 html.app-desk #shell .ld{top:220px}
 html.app-phone #shell .lnk{display:none}
 </style>

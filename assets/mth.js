@@ -111,7 +111,7 @@
     try{ var r=await sb.from("mth_site_text").select("key,orig,html").eq("page",M.pageKey); M.words=r.data||[]; }
     catch(e){ M.words=[]; }
   }
-  var TXT="h1,h2,h3,h4,p,li,blockquote,figcaption,.k,.kick,.lead,.sig,.hp-n,.hp-q,.hp-t span,.hp-chips span,small,a.btn,a.b,button.btn,.tryit span,.ticks span,.trust span,.lvr span";
+  var TXT="h1,h2,h3,h4,p,li,blockquote,figcaption,.k,.kick,.lead,.sig,.hp-n,.hp-q,.hp-t span,.hp-chips span,.hp-k,.hp-row5 p,.hp-bars p,small,a.btn,a.b,button.btn,.tryit span,.ticks span,.trust span,.lvr span";
   var SKIP="script,style,template,form,[data-mth-quiz],.mthp,.mthv,.mx-list,.tdetail,.lvl,.dayplan,.seg,.tl,[data-noedit],.mx-h,.mx-f,.mx-sheet,.mx-test,.mx-modal,.mx-toast,.mte-bar";
   function norm(s){ return String(s||"").replace(/\s+/g," ").trim(); }
   M.normText=norm;
@@ -182,6 +182,8 @@
   M.buy=async function(product,btn){
     product=product||"gut";
     await M.ready;
+    var inl=document.querySelector(".mx-co");
+    if(inl&&!(M.user&&M.owns(product))){ M.showCheckout(product); return; }
     /* no sign-in needed to buy: Stripe asks for the email and the account is made after payment */
     if(M.user&&M.owns(product)){ location.href=CONFIG.products[product].course; return; }
     var old=btn&&btn.innerHTML; if(btn){ btn.disabled=true; btn.innerHTML="Opening secure checkout…"; }
@@ -263,14 +265,11 @@
             :'<a class="b sm ghost" href="'+M.loginUrl()+'">Sign in</a>'+cta)+
         '<button class="mx-burger" type="button" aria-label="Open menu">'+ICON.menu+'</button></div></div>';
     var sh=document.createElement("div"); sh.className="mx-sheet"; sh.setAttribute("role","dialog"); sh.setAttribute("aria-label","Menu");
-    /* menu: Home, My account, then only the courses this member bought */
-    var sl=[["index.html","Home",""]];
-    sl.push(inn?["account.html","My account",M.esc(M.user.email)]:[M.loginUrl(),"Sign in","Access your courses"]);
-    CONFIG.order.forEach(function(k){ var q=CONFIG.products[k]; if(M.owns(k)) sl.push([q.course,q.name,"Your course"]); });
+    /* menu: only what this member bought (their course and its app), plus their account */
+    var sl=[];
+    CONFIG.order.forEach(function(k){ var q=CONFIG.products[k]; if(M.owns(k)){ sl.push([q.course,q.name,"Your course"]); sl.push([q.app,"Open the app",q.short+" · your daily plan"]); } });
     if(!any) sl.push(["protocols.html","Courses","See the healing programs"]);
-    sl.push(["index.html#how","How healing works","The 5-part method"]);
-    if(M.user) sl.push(["checkin.html","Weekly check-in","Track your progress"]); else sl.push(["index.html#quiz","Free healing quiz","About 60 seconds"]);
-    sl.push(["picks.html","My Picks","Everything I recommend, on Amazon"]);
+    sl.push(inn?["account.html","My account",M.esc(M.user.email)]:[M.loginUrl(),"Sign in","Access your courses"]);
     sh.innerHTML='<div class="top"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a><button class="mx-burger" type="button" aria-label="Close menu" style="display:grid">'+ICON.close+'</button></div>'+
       '<nav>'+sl.map(function(l){ return '<a href="'+l[0]+'">'+l[1]+(l[2]?'<small>'+l[2]+'</small>':'')+'</a>'; }).join("")+'</nav>'+
       '<div class="bot">'+(ownCur?'<a class="b full" href="'+P.app+'">Open my app</a>':'<a class="b full" href="'+P.sales+'#checkout">Start the '+P.name+' · '+P.price+'</a>')+
@@ -400,7 +399,71 @@
       show(0);
     });
   }
-  M.videos=videos; M.rails=rails; M.parts=parts;
+  /* ---------- on-page checkout: Stripe's secure form right on the page (no pop-up, no new page) ----------
+     <div class="mx-co" data-co="gut"></div>  (one per page; a [data-pick] row of buttons switches the course) */
+  var CO={ box:null, cur:null, live:null, n:0 };
+  var INCL=["Personalised healing software","7-part video course + interactive ebook","High-protein recipes and meal planner","Fasting clock, tracker and dashboard","Healing Hub community and live Q&amp;A"];
+  function coSummary(k){
+    var P=CONFIG.products[k];
+    return '<div class="mx-co-sum"><div class="mx-co-im" style="background-image:url(\''+P.thumb+'\')"></div><div><div class="mx-co-k">One-time payment</div><h3>'+M.esc(P.name)+'</h3>'+
+      '<div class="mx-co-pr">'+(P.was?'<s>'+P.was+'</s>':'')+'<b>'+P.price+'</b><small>Lifetime access</small></div></div>'+
+      '<ul>'+INCL.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>'+
+      '<p class="mx-co-g"><b>30-day money-back guarantee.</b> Card, Apple Pay and Google Pay.</p></div>';
+  }
+  async function coMount(k){
+    var box=CO.box; if(!box) return;
+    CO.cur=k; box.setAttribute("data-co",k);
+    var sec=box.closest("section")||document; [].forEach.call(sec.querySelectorAll("[data-pick] button"),function(b){ b.classList.toggle("on",b.getAttribute("data-p")===k); b.setAttribute("aria-pressed",b.getAttribute("data-p")===k?"true":"false"); });
+    var slot=box.querySelector(".mx-co-form"); box.querySelector(".mx-co-left").innerHTML=coSummary(k);
+    if(CO.live){ try{ CO.live.destroy(); }catch(e){} CO.live=null; }
+    if(M.user&&M.owns(k)){ slot.innerHTML='<div class="mx-co-own"><h3>You own this protocol</h3><p>Everything is unlocked on your account.</p><a class="b full" href="'+CONFIG.products[k].course+'">Open my course</a></div>'; return; }
+    if(!CONFIG.stripeKey){ slot.innerHTML='<div class="mx-co-own"><button class="b full" type="button" data-co-go>Continue to secure payment · '+CONFIG.products[k].price+'</button></div>';
+      slot.querySelector("[data-co-go]").onclick=function(){ coRedirect(k,this); }; return; }
+    slot.innerHTML='<div class="mx-wait">Loading secure checkout…</div><div class="mx-co-mount"></div>';
+    var ask=++CO.n;
+    try{
+      var e=await M.fn("mth-checkout",{ product:k, return_base:M.base, embedded:true });
+      if(CO.cur!==k||ask!==CO.n) return;
+      if(e.already){ await M.refresh(); return coMount(k); }
+      if(!e.client_secret) throw new Error(e.message||e.error||"no session");
+      var S=(await loadStripe())(CONFIG.stripeKey);
+      var co=await S.initEmbeddedCheckout({ fetchClientSecret:function(){ return Promise.resolve(e.client_secret); } });
+      if(CO.cur!==k||ask!==CO.n){ try{ co.destroy(); }catch(x){} return; }
+      CO.live=co; var w=slot.querySelector(".mx-wait"); if(w) w.remove();
+      co.mount(slot.querySelector(".mx-co-mount"));
+      M.track("checkout",k);
+    }catch(err){
+      console.warn("[mth] checkout",err);
+      slot.innerHTML='<div class="mx-co-own"><p>The secure form didn\u2019t load. Check your connection, then try again.</p><button class="b full" type="button" data-co-retry>Try again</button></div>';
+      slot.querySelector("[data-co-retry]").onclick=function(){ coMount(k); };
+    }
+  }
+  async function coRedirect(k,btn){   /* only used until the Stripe publishable key is added */
+    if(btn){ btn.disabled=true; btn.textContent="Opening secure checkout…"; }
+    M.track("checkout",k);
+    var j=await M.fn("mth-checkout",{ product:k, return_base:M.base });
+    if(j.url){ location.href=j.url; return; }
+    if(btn){ btn.disabled=false; btn.textContent="Continue to secure payment"; }
+    M.toast("Checkout couldn\u2019t start. Please try again.",3600);
+  }
+  M.showCheckout=function(k){
+    if(!CO.box) return;
+    if(k&&k!==CO.cur||!CO.started){ CO.started=true; coMount(k||CO.cur); }
+    var sec=CO.box.closest("section")||CO.box; sec.scrollIntoView({ behavior:"smooth", block:"start" });
+  };
+  function checkouts(root){
+    var box=root.querySelector(".mx-co:not([data-on])"); if(!box) return;
+    box.setAttribute("data-on","1"); CO.box=box; CO.cur=box.getAttribute("data-co")||M.product();
+    box.innerHTML='<div class="mx-co-left"></div><div class="mx-co-form"></div>';
+    box.querySelector(".mx-co-left").innerHTML=coSummary(CO.cur);
+    var sec=box.closest("section")||root;
+    [].forEach.call(sec.querySelectorAll("[data-pick] button"),function(b){ b.addEventListener("click",function(){ CO.started=true; coMount(b.getAttribute("data-p")); }); });
+    /* the secure form loads when the section comes near the screen (or straight away for #checkout links) */
+    var go=function(){ if(!CO.started){ CO.started=true; coMount(CO.cur); } };
+    if(location.hash==="#checkout"||!("IntersectionObserver" in window)) go();
+    else { var io=new IntersectionObserver(function(es){ if(es.some(function(x){ return x.isIntersecting; })){ io.disconnect(); go(); } },{ rootMargin:"900px 0px" }); io.observe(box); }
+  }
+  M.videos=videos; M.rails=rails; M.parts=parts; M.checkouts=checkouts;
   /* email list forms: <form class="mx-list" data-source="home"> with an email input */
   M.listForms=function(root){
     [].forEach.call((root||document).querySelectorAll("form.mx-list:not([data-on])"),function(f){
@@ -423,10 +486,11 @@
     var scripts=[].slice.call(box.querySelectorAll("script"));
     target.appendChild(box);
     scripts.forEach(function(old){ var s=document.createElement("script"); if(old.src) s.src=old.src; else s.textContent=old.textContent; old.parentNode.replaceChild(s,old); });
-    if(box.querySelector(".mthp[data-proto]")&&!document.getElementById("mthp-js")){ var s=document.createElement("script"); s.id="mthp-js"; s.src=BASE+"phone.js?v=5"; document.head.appendChild(s); }
+    if(box.querySelector(".mthp[data-proto]")&&!document.getElementById("mthp-js")){ var s=document.createElement("script"); s.id="mthp-js"; s.src=BASE+"phone.js?v=6"; document.head.appendChild(s); }
     if(box.querySelector(".mthv")) videos(box);
     try{ rails(box); }catch(e){}
     try{ parts(box); }catch(e){}
+    try{ checkouts(box); }catch(e){ console.warn("[mth] checkout",e); }
     try{ M.applyWords(box); }catch(e){ console.warn("[mth] words",e); }
     return box;
   };

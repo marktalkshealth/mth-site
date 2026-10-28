@@ -194,7 +194,7 @@
             if (exclusive(k)) list = at >= 0 ? [] : [k];
             else { if (at >= 0) list.splice(at, 1); else list.push(k); list = list.filter(function (x) { return !exclusive(x); }); }
             A[q.id] = list; save(); draw();
-          } else { A[q.id] = k; save(); draw(); setTimeout(function () { if (i < N && Q[i] === q) { i++; draw(); } }, 260); }
+          } else { A[q.id] = k; save(); draw(); }   /* no auto-skip: the person presses Next */
         });
       });
     }

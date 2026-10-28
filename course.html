@@ -6,14 +6,15 @@
 <title>Your course · Mark Talks Health</title>
 <meta name="theme-color" content="#f7f1e7">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/app-icon-192.png">
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610281800">
+<link rel="stylesheet" href="assets/mth.css?v=202610282200">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610281800"></script>
-<script src="assets/courses.js?v=202610221130"></script>
+<script src="assets/mth.js?v=202610282200"></script>
+<script src="assets/courses.js?v=202610282200"></script>
 <script src="assets/course-build.js?v=202610281600"></script>
 <style>
 .cx{max-width:1240px;margin:0 auto;padding:22px 20px 70px;display:grid;gap:28px}
@@ -95,7 +96,10 @@ details.qz[open] .qs{margin-top:10px}
 .reader{position:fixed;inset:0;z-index:85;background:var(--bg);display:flex;flex-direction:column}
 .reader .bar{display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;border-bottom:1px solid var(--line)}
 .reader .bar b{flex:1;font-family:var(--serif);font-size:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.reader iframe{flex:1;border:0;width:100%;background:#fff}
+.reader iframe{flex:1;min-height:0;border:0;width:100%;background:#fff}
+.reader .pdfv{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;background:#e9e2d8;padding:10px 0}
+.reader .pdfv canvas{display:block;margin:0 auto 10px;max-width:100%;height:auto;background:#fff;box-shadow:0 4px 14px rgba(43,39,36,.15)}
+.reader .pdfv .mx-wait{min-height:50vh}
 /* course home */
 .chero{display:grid;overflow:hidden;padding:0}
 .chero .cim{aspect-ratio:16/9;background:#2b2724 center/cover}
@@ -222,6 +226,29 @@ a.mod:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(43,39,36,.12)
     if(l.kind==="ebook") return '<div class="card blk ebook"><div class="ic">e</div><div class="tx"><b style="font-size:17px">'+esc(l.title)+'</b><div class="small">Read it here, or download it to keep.</div></div><div class="acts"><button class="b" data-read>Read the ebook</button><button class="b ghost" data-dl>Download</button></div></div>';
     return '<div class="card erow"><div class="ic">e</div><b>The ebook</b><div class="acts"><button class="b sm" data-read>Read</button><button class="b sm ghost" data-dl aria-label="Download the ebook">↓</button></div></div>';
   }
+  /* HTML ebooks: make them fit any screen (phones read them at their real width instead of a squashed desktop page) */
+  var FIT='<meta name="viewport" content="width=device-width, initial-scale=1"><style id="mth-fit">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden;overflow-wrap:break-word}img,video,canvas,svg,iframe,embed,object{max-width:100%!important;height:auto}table{display:block;max-width:100%;overflow-x:auto}pre{white-space:pre-wrap}@media(max-width:760px){body{min-width:0!important;width:auto!important}body>*,main,article,section,header,footer,.container,.wrap,.wrapper,.page,.content{max-width:100%!important;min-width:0!important}}</style>';
+  function fitHtml(src){
+    src=String(src||"");
+    if(/<meta[^>]+name=["']?viewport/i.test(src)) src=src.replace(/<meta[^>]+name=["']?viewport[^>]*>/i,"");
+    if(/<head[^>]*>/i.test(src)) return src.replace(/<head[^>]*>/i,function(m){ return m+FIT; });
+    if(/<html[^>]*>/i.test(src)) return src.replace(/<html[^>]*>/i,function(m){ return m+"<head>"+FIT+"</head>"; });
+    return "<!doctype html><html><head><meta charset=\"utf-8\">"+FIT+"</head><body>"+src+"</body></html>";
+  }
+  /* PDFs: drawn page by page with PDF.js, because phone browsers won't show a PDF inside a page */
+  var pdfjs=null;
+  function loadPdfJs(){ if(pdfjs) return pdfjs; pdfjs=new Promise(function(ok,bad){ var sc=document.createElement("script"); sc.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    sc.onload=function(){ window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; ok(window.pdfjsLib); }; sc.onerror=function(){ pdfjs=null; bad(new Error("pdf.js")); }; document.head.appendChild(sc); }); return pdfjs; }
+  async function drawPdf(box,blob){
+    box.innerHTML='<div class="mx-wait">Opening your ebook…</div>';
+    var lib=await loadPdfJs(), doc=await lib.getDocument({ data:new Uint8Array(await blob.arrayBuffer()) }).promise;
+    box.innerHTML=""; var W=Math.min(box.clientWidth-16,1000), dpr=Math.min(window.devicePixelRatio||1,2.5);
+    for(var i=1;i<=doc.numPages;i++){
+      var pg=await doc.getPage(i), v0=pg.getViewport({ scale:1 }), sc=W/v0.width, v=pg.getViewport({ scale:sc*dpr });
+      var c=document.createElement("canvas"); c.width=Math.round(v.width); c.height=Math.round(v.height); c.style.width=Math.round(v.width/dpr)+"px";
+      box.appendChild(c); await pg.render({ canvasContext:c.getContext("2d"), viewport:v }).promise;
+    }
+  }
   async function ebookBlob(u){
     if(/^https?:\/\//i.test(u)){ return null; }
     var r=await sb.storage.from("course-files").download(u);
@@ -242,7 +269,9 @@ a.mod:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(43,39,36,.12)
         var fr=rdr.querySelector("iframe");
         if(html){ /* the ebook runs sandboxed (no access to the member's sign-in); give it a private notepad instead of localStorage */
           var shim='<script>(function(){function S(){var d={};return{getItem:function(k){return k in d?d[k]:null},setItem:function(k,v){d[k]=String(v)},removeItem:function(k){delete d[k]},clear:function(){d={}},key:function(i){return Object.keys(d)[i]||null},get length(){return Object.keys(d).length}}}["localStorage","sessionStorage"].forEach(function(n){try{window[n].length}catch(e){try{Object.defineProperty(window,n,{value:S(),configurable:true})}catch(x){}}})})()<\/script>';
-          var src=await b.text(); fr.srcdoc=/<head[^>]*>/i.test(src)?src.replace(/<head[^>]*>/i,function(m){ return m+shim; }):shim+src; } else { fr.removeAttribute("sandbox"); fr.src=URL.createObjectURL(b); }
+          var src=fitHtml(await b.text()); fr.srcdoc=src.replace(/<head[^>]*>/i,function(m){ return m+shim; }); }
+        else if(/\.pdf$/i.test(u)||b.type==="application/pdf"){ var pv=document.createElement("div"); pv.className="pdfv"; fr.replaceWith(pv); fr=null; setTimeout(function(){ drawPdf(pv,b).catch(function(e){ console.warn(e); pv.innerHTML='<p style="padding:20px;text-align:center">This ebook couldn’t be shown here. Use the download button to open it.</p>'; }); },30); }
+        else { fr.removeAttribute("sandbox"); fr.src=URL.createObjectURL(b); }
         rdr.querySelector("button").onclick=function(){ rdr.remove(); document.body.style.overflow=""; };
         document.body.appendChild(rdr); document.body.style.overflow="hidden";
         if(!isDone(l.id)&&!l.quiz) save(l.id,{ done:true });
@@ -252,7 +281,8 @@ a.mod:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(43,39,36,.12)
     dl&&dl.addEventListener("click",async function(){
       if(/^https?:\/\//i.test(u)){ var a0=document.createElement("a"); a0.href=u; a0.download=name; a0.target="_blank"; a0.rel="noopener"; a0.click(); return; }
       dl.disabled=true;
-      try{ var b=await ebookBlob(u), a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); a.remove(); }
+      try{ var b=await ebookBlob(u); if(/\.html?$/i.test(u)) b=new Blob([fitHtml(await b.text())],{ type:"text/html" });
+        var a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); a.remove(); }
       catch(e){ MTH.toast("Couldn’t download the ebook. Please try again."); }
       dl.disabled=false;
     });

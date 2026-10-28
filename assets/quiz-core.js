@@ -372,7 +372,7 @@
     // on medication (insulin, diabetes pills, a GLP-1): gentlest level, with their doctor
     var gentle = (C.gentle || []).some(function (k) { return has(a, k); });
     var level = gentle || pct < 40 ? 1 : 2;
-    var levelName = level === 1 ? "Level 1 · Ice cream cleanse" + (gentle ? ", with your doctor" : "") : pct < 70 ? "Level 2 · Green juice cleanse" : "Level 2 · Green juice cleanse, with guidance";
+    var levelName = level === 1 ? "Level 1 · Avocado & nut cleanse" + (gentle ? ", with your doctor" : "") : pct < 70 ? "Level 2 · Green juice cleanse" : "Level 2 · Green juice cleanse, with guidance";
     var stress = pct < 35 ? "mild" : pct < 70 ? "moderate" : "high";
 
     // protocol bars: every step is in the plan; emphasis 40–100%
@@ -384,11 +384,11 @@
     // bar height = calories as a share of a normal day (≈2,000 kcal)
     var NORM = 2000, cl = level === 1 ? "icecream" : "juice";
     var A1 = level === 1 ? [
-      ["Prep", "Prep day", "Light meals and an early night; get your ice cream ready", 70, "prep"],
-      ["Cleanse 1", "Ice cream cleanse · day 1", "Mostly rest: sleep, clean air, meditation and music", 35, "fast", 700],
-      ["Cleanse 2", "Ice cream cleanse · day 2", "Gentle walk, journal, early night", 35, "fast", 700],
-      ["Cleanse 3", "Ice cream cleanse · day 3", "Light movement starts; digestion is fully resting", 35, "fast", 700],
-      ["Cleanse 4", "Ice cream cleanse · day 4", "Nature and sunlight; last cleanse day", 35, "fast", 700],
+      ["Prep", "Prep day", "Light meals and an early night; buy your avocados and nuts", 70, "prep"],
+      ["Cleanse 1", "Avocado & nut cleanse · day 1", "Mostly rest: sleep, clean air, meditation and music", 35, "fast", 700],
+      ["Cleanse 2", "Avocado & nut cleanse · day 2", "Gentle walk, journal, early night", 35, "fast", 700],
+      ["Cleanse 3", "Avocado & nut cleanse · day 3", "Light movement starts; digestion is fully resting", 35, "fast", 700],
+      ["Cleanse 4", "Avocado & nut cleanse · day 4", "Nature and sunlight; last cleanse day", 35, "fast", 700],
       ["Transition", "Transition day", "Soft-boiled eggs, Greek yogurt and soft cooked vegetables", 70, "r2"],
       ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
     ] : [
@@ -402,8 +402,8 @@
     ];
     var arc = A1.map(function (x, k) { return { d: k + 1, l: x[0], t: x[1], n: x[2], p: x[3], ph: x[4], kcal: x[5] || Math.round(NORM * x[3] / 100) }; });
     var arcInfo = level === 1
-      ? { lvl: 1, emoji: "🍨", name: "Ice Cream Cleanse", diff: "Easy", sub: "Calories as a share of normal intake. One light prep day, then 4 easy days of avocado or coconut-cream ice cream at breakfast and dinner (≈700 kcal), then one transition day back to whole food.",
-          legend: [["prep", "Prep day (light meals)"], ["fast", "Ice cream days (≈700 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] }
+      ? { lvl: 1, emoji: "🥑", name: "Avocado & Nut Cleanse", diff: "Easy", sub: "Calories as a share of normal intake. One light prep day, then 4 easy days of one avocado at breakfast and ⅓ cup of nuts at dinner (≈700 kcal), then one transition day back to whole food.",
+          legend: [["prep", "Prep day (light meals)"], ["fast", "Avocado & nut days (≈700 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] }
       : { lvl: 2, emoji: "🥬", name: "Green Juice Cleanse", diff: "Medium", sub: "Calories as a share of normal intake. One light plant-based prep day, then 3 simple days of a vegetable-forward juice plus an avocado or nut dinner (≈400 kcal), then two days easing back into whole food.",
           legend: [["prep", "Prep day (light meals)"], ["fast", "Green juice days (≈400 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] };
     return { product: C.product, name: C.name, kind: C.kind, area: C.area, gentle: gentle, pct: pct, stress: stress, impression: impression, patterns: pats.slice(0, 3), level: level, levelName: levelName, plan: plan, focus: focus, arc: arc, arcInfo: arcInfo, cleanse: cl, answered: sym.length > 0 };

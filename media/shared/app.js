@@ -154,8 +154,17 @@ html.mth-app #fastingArcContainer .chart-card { margin: 0 !important; padding: 1
 html.mth-app #fastingArcContainer .chart-title { font-size: 1.35rem !important; line-height: 1.15 !important; position: sticky; left: 0; }
 html.mth-app #fastingArcContainer .chart-sub { font-size: .82rem !important; line-height: 1.45 !important; position: sticky; left: 0; max-width: calc(100vw - 60px); }
 html.mth-app #fastingArcContainer .chart-legend { position: sticky; left: 0; max-width: calc(100vw - 60px); }
-html.mth-app #fastingArcContainer .slope-chart { min-width: 760px !important; height: 190px !important; }
+html.mth-app #fastingArcContainer .slope-chart { min-width: 760px !important; height: 232px !important; }
 html.mth-app.mth-setup .mp-archint { display: none !important; }
+
+/* Food and Exercise use the full planner from the desktop (photos, recipes, swap, log, shopping list, workouts) */
+html.mth-app.mth-fx[data-mth-tab="food"] .fx-outer, html.mth-app.mth-fx[data-mth-tab="move"] .fx-outer,
+html.mth-app.mth-fx[data-mth-tab="food"] #fx, html.mth-app.mth-fx[data-mth-tab="move"] #fx { display: block !important; }
+html.mth-app.mth-fx[data-mth-tab="food"] .mp-food, html.mth-app.mth-fx[data-mth-tab="move"] .mp-move { display: none !important; }
+html.mth-app.mth-fx #fx > .fx-tabs, html.mth-app.mth-fx .fx-lede, html.mth-app.mth-fx #fxOverview, html.mth-app.mth-fx .fx-fab { display: none !important; }
+html.mth-app.mth-fx .fx-outer { max-width: 640px !important; margin: 0 auto !important; padding: 0 10px !important; }
+html.mth-app.mth-fx .fx-card { padding: 14px 12px !important; border-radius: 16px !important; }
+html.mth-app.mth-fx .fx-title { font-size: 1.5rem !important; line-height: 1.15 !important; }
 
 /* ---- the demo look, at phone size ---- */
 .mp { font-family: Inter, 'DM Sans', system-ui, -apple-system, sans-serif; color: #2b2724; -webkit-font-smoothing: antialiased; }
@@ -317,7 +326,7 @@ html.mth-app.mth-wait body::after { content: 'Opening your plan…'; position: f
   }
   function foodEmoji(t) {
     t = t.toLowerCase();
-    return /ice cream|bowl/.test(t) ? '🍨' : /juice/.test(t) ? '🥤' : /shake/.test(t) ? '🥛' : /avocado|macadamia/.test(t) ? '🥑' : /lemon|tea|coffee|warm water/.test(t) ? '🍋'
+    return /bowl|yogurt/.test(t) ? '🥣' : /\bnuts\b|macadamia|walnut|almond|pecan/.test(t) && !/avocado/.test(t) ? '🌰' : /juice/.test(t) ? '🥤' : /shake/.test(t) ? '🥛' : /avocado|macadamia/.test(t) ? '🥑' : /lemon|tea|coffee|warm water/.test(t) ? '🍋'
       : /broth|soup/.test(t) ? '🍲' : /egg/.test(t) ? '🥚' : /salmon|fish/.test(t) ? '🐟' : /chicken/.test(t) ? '🍗' : /salad|greens|vegetable/.test(t) ? '🥗'
       : /water|zero calories|electrolyte/.test(t) ? '💧' : '🍽️';
   }
@@ -357,12 +366,14 @@ html.mth-app.mth-wait body::after { content: 'Opening your plan…'; position: f
   function tkKey(A, d) { return 'mth_ms_' + PROTO + '_' + iso(A.start) + '_d' + d; }
   function ticks(A, d) { try { return JSON.parse(localStorage.getItem(tkKey(A, d)) || '[]'); } catch (e) { return []; } }
   function setTick(A, d, id, on) { var t = ticks(A, d).filter(function (x) { return x !== id; }); if (on) t.push(id); try { localStorage.setItem(tkKey(A, d), JSON.stringify(t)); } catch (e) {} }
-  function water(A, d) { var w = ticks(A, d).filter(function (x) { return x.indexOf('w') === 0; })[0]; return w ? +w.slice(1) : 0; }
-  function setWater(A, d, n) { var t = ticks(A, d).filter(function (x) { return x.indexOf('w') !== 0; }); if (n) t.push('w' + n); try { localStorage.setItem(tkKey(A, d), JSON.stringify(t)); } catch (e) {} }
+  function water(A, d) { var st = fxs(A, d); if (st) return st.water; var w = ticks(A, d).filter(function (x) { return x.indexOf('w') === 0; })[0]; return w ? +w.slice(1) : 0; }
+  function setWater(A, d, n) { if (window.fxPhone) { try { window.fxPhone.setWater(iso(dayDate(A, d)), n); return; } catch (e) {} } var t = ticks(A, d).filter(function (x) { return x.indexOf('w') !== 0; }); if (n) t.push('w' + n); try { localStorage.setItem(tkKey(A, d), JSON.stringify(t)); } catch (e) {} }
+  function fxs(A, d) { try { return window.fxPhone ? window.fxPhone.status(iso(dayDate(A, d))) : null; } catch (e) { return null; } }
   function counts(A, d) {
     var t = ticks(A, d), F = food(A, d).items.length, M = moves(A, d).length, X = acts(A, d).length;
     var c = function (p, n) { var k = 0; for (var i = 0; i < n; i++) if (t.indexOf(p + i) >= 0) k++; return k; };
-    var f = c('f', F), m = c('m', M), a = c('a', X);
+    var f = c('f', F), m = c('m', M), a = c('a', X), st = fxs(A, d);
+    if (st && st.F) { f = st.f; F = st.F; m = st.m; M = 1; }
     return { f: f, F: F, m: m, M: M, a: a, X: X, done: f + m + a, total: F + M + X };
   }
   function ringSvg(p, col) {
@@ -417,7 +428,10 @@ html.mth-app.mth-wait body::after { content: 'Opening your plan…'; position: f
 
     function rToday() {
       var A = arc(), d = vday(A), C = counts(A, d), F = food(A, d), M = moves(A, d), X = acts(A, d), t = ticks(A, d);
-      var nf = F.items.filter(function (x, i) { return t.indexOf('f' + i) < 0; })[0], nm = M.filter(function (x, i) { return t.indexOf('m' + i) < 0; })[0], na = X.filter(function (x, i) { return t.indexOf('a' + i) < 0; })[0];
+      var SL = { M: 'Morning', A: 'Morning', B: 'Breakfast', N: 'Midday', L: 'Lunch', D: 'Dinner', S: 'Snack', P: 'Evening', T: 'Snack' };
+      var stx = fxs(A, d), nfx = stx && stx.F ? stx.meals.filter(function (m) { return !m.done; })[0] : null;
+      var nf = stx && stx.F ? (nfx ? { label: SL[nfx.slot] || 'Meal', text: nfx.title, e: foodEmoji(nfx.title) } : null) : F.items.filter(function (x, i) { return t.indexOf('f' + i) < 0; })[0],
+        nm = stx && stx.F ? (stx.m ? null : { e: '🏋️', t: 'Today\u2019s workout', s: 'Open Exercise for your full session with videos' }) : M.filter(function (x, i) { return t.indexOf('m' + i) < 0; })[0], na = X.filter(function (x, i) { return t.indexOf('a' + i) < 0; })[0];
       var h = banner(A) + head(A, d, esc(PNAME), 'Day ' + d + ' of ' + A.n);
       h += '<div class="c row"><div class="ring big">' + ringSvg(C.done / C.total, '#c0623f') + '<b>' + C.done + '<small>of ' + C.total + '</small></b></div>' +
         '<div style="flex:1;min-width:0"><div class="t">' + esc(dayName(A, d)) + '</div><div class="s">' + esc(A.C.emoji || '') + ' ' + esc(A.C.name) + ' · ' + esc(shortDate(dayDate(A, d))) + '</div>' +
@@ -560,6 +574,10 @@ html.mth-app.mth-wait body::after { content: 'Opening your plan…'; position: f
       root.setAttribute('data-mth-tab', tab);
       var bs = bar.querySelectorAll('button');
       for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-selected', bs[i].dataset.tab === tab ? 'true' : 'false');
+      if (window.fxPhone && (tab === 'food' || tab === 'move')) {
+        root.classList.add('mth-fx');
+        try { var A0 = arc(); window.fxPhone.show(tab === 'food' ? 'eat' : 'move', iso(dayDate(A0, vday(A0)))); } catch (e) { console.warn(e); }
+      }
       (R[tab] || rToday)();
       if (tab === 'arc') requestAnimationFrame(function () { goPage(page, false); });
       try { sessionStorage.setItem(TAB_KEY, tab); } catch (e) {}

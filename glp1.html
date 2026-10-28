@@ -12,15 +12,16 @@
 <meta property="og:image" content="/media/site/mark-kitchen.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f7f1e7">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/app-icon-192.png">
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610281800">
+<link rel="stylesheet" href="assets/mth.css?v=202610282200">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/quiz-core.js?v=202610231530"></script>
-<script src="assets/quiz.js?v=202610231530"></script>
-<script src="assets/mth.js?v=202610281800"></script>
+<script src="assets/quiz-core.js?v=202610282200"></script>
+<script src="assets/quiz.js?v=202610282200"></script>
+<script src="assets/mth.js?v=202610282200"></script>
 </head>
 <body>
 <main id="page"><div class="mx-wait">The GLP-1 Weight Loss Protocol</div></main>
@@ -259,8 +260,7 @@
           <li><b>The life audit</b>: stress, work, relationships, money and support at home.</li>
           <li><b>Your goals</b>, in your own words.</li>
         </ul>
-        <p>The quiz above is where this starts. Inside your course, the app goes deeper with your symptoms and test results.</p>
-        <a class="hp-go" href="#quiz">Take the quiz ↑</a>
+        <p>Inside your course, the app walks you through this investigation and gives you a one-page summary of your top problems and your biggest sources of damage. It's yours to take to your doctor.</p>
       </div>
     </div>
     <div class="hp-p" role="tabpanel">
@@ -309,10 +309,27 @@
     </div>
     <div class="hp-nav"><button type="button" class="hp-prev">← Back</button><span class="hp-count">Part 1 of 5</span><button type="button" class="hp-next">Next part →</button></div>
   </div>
+  <div class="hp-more rv">
+    <div class="hp-k">Three promises</div><h3 class="hp-h">What never <em>changes</em></h3>
+    <div class="hp-prom">
+      <div><h4>The whole person heals, or nobody does</h4><p>Diet, habits, stress, work, relationships and money all count, not just the symptom.</p></div>
+      <div><h4>Both, not either</h4><p>Lifestyle works alongside your doctor. Medication, physiotherapy or surgery are tools we explain and support, never things we argue against.</p></div>
+      <div><h4>Remove before you add</h4><p>Taking away what is causing damage comes before any supplement, protocol or plan.</p></div>
+    </div>
+    <div class="hp-k" style="margin-top:26px">How it fits together</div><h3 class="hp-h">Five parts, <em>four tools</em></h3>
+    <div class="hp-fit">
+      <div class="hp-row5"><p>1<small>Investigate</small></p><p>2<small>Foundation</small></p><p>3<small>Condition</small></p><p>4<small>Heal</small></p><p>5<small>Follow up</small></p></div>
+      <div class="hp-bars">
+        <p style="background:rgba(184,146,74,.28);margin-left:20%;margin-right:40%">The course<small>parts 2 and 3</small></p>
+        <p style="background:rgba(192,98,63,.38)">The app<small>parts 1, 4 and 5</small></p>
+        <p style="background:rgba(122,143,110,.38)">Your coach and your doctor<small>through all five</small></p>
+      </div>
+    </div>
+  </div>
 </div></section>
 
 <!-- OFFER -->
-<section class="alt offer" id="checkout"><div class="w">
+<section class="alt offer" id="offer"><div class="w">
   <div class="rv">
     <div class="k">Everything included</div><h2>Start your protocol <em>today</em></h2>
     <p class="lead" style="margin-bottom:22px">One payment. Lifetime access to the software, the course and every future update.</p>
@@ -336,7 +353,7 @@
   <div class="rv"><div class="k">The solution</div><h2>Three things working together, <em>so you never guess</em></h2><p class="lead">In trials, people regained about two-thirds of the weight they had lost within a year of stopping semaglutide. This protocol is built so the habits that keep it off are in place before you stop.</p></div>
   <div class="trio">
     <div class="card tc rv"><div class="im" style="background-image:url('/media/site/sales/software.jpg')"></div><div class="tx"><div class="n">01 · THE SOFTWARE</div><h3>Your personal GLP-1 plan</h3><p>Enter your medication, goals and symptoms. Get a day-by-day plan with protein targets, meals, training and the tests worth discussing with your doctor.</p></div></div>
-    <div class="card tc rv"><div class="im" style="background-image:url('/media/site/sales/food.jpg')"></div><div class="tx"><div class="n">02 · THE FOOD</div><h3>High-protein food you'll finish</h3><p>Protein-first recipes, signature juices and low-sugar ice creams that are easy to eat on a smaller appetite.</p></div></div>
+    <div class="card tc rv"><div class="im" style="background-image:url('/media/site/sales/food.jpg')"></div><div class="tx"><div class="n">02 · THE FOOD</div><h3>High-protein food you'll finish</h3><p>Protein-first recipes, signature juices and simple avocado and nut meals that are easy to eat on a smaller appetite.</p></div></div>
     <div class="card tc rv"><div class="im" style="background-image:url('/media/site/sales/course.jpg')"></div><div class="tx"><div class="n">03 · THE COURSE</div><h3>The science, made simple</h3><p>A 7-part course on insulin resistance, protecting muscle and keeping weight off, drawing on 80+ published studies.</p></div></div>
   </div>
   <div class="trio-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
@@ -368,12 +385,12 @@
   </div>
 </div></section>
 
-<!-- FINAL -->
-<section class="alt final"><div class="w rv">
+<!-- FINAL: on-page checkout (mth.js checkouts) -->
+<section class="alt final" id="checkout"><div class="w">
   <div class="k">Your body. Your plan.</div>
   <h2>Keep the weight off, <em>long after the last dose</em></h2>
-  <p class="lead" style="margin-bottom:26px">Start today and have your personalised plan in the next five minutes.</p>
-  <button class="btn g2-buy">Start my protocol <small>· $97</small></button>
+  <p class="lead" style="margin:0 auto 6px">Start today and have your personalised plan in the next five minutes.</p>
+  <div class="mx-co" data-co="glp1"></div>
   <div class="ticks" style="justify-content:center"><span>Instant access</span><span>Lifetime software</span><span>30-day guarantee</span></div>
 </div></section>
 <p class="fine">Educational program, not a substitute for professional medical advice, diagnosis or treatment. Individual results vary. Consult your healthcare provider before starting any fasting or dietary change. Never change or stop a GLP-1 or other prescription medication without your prescriber. If you also take insulin or other glucose-lowering medication, fasting can cause low blood sugar.</p>

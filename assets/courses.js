@@ -44,7 +44,7 @@ window.MTH_COURSES={
       "id": "fasting",
       "title": "Fasting & the green juice cleanse",
       "mins": 12,
-      "text": "Why giving your gut a rest kick-starts repair: autophagy, the three cleanse levels (ice cream, green juice and mineral water) and how to fast safely, with the electrolytes that keep you steady.",
+      "text": "Why giving your gut a rest kick-starts repair: autophagy, the three cleanse levels (avocado & nut, green juice and mineral water) and how to fast safely, with the electrolytes that keep you steady.",
       "quiz": [
        {
         "q": "What is autophagy?",
