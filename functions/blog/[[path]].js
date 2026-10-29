@@ -27,6 +27,6 @@ export async function onRequestGet({ params, request, next }) {
     const more = await fetchPosts(fetch, "select=" + LIST_COLS + "&status=eq.published&slug=neq." + encodeURIComponent(slug) + "&order=published_at.desc.nullslast&limit=3");
     return html(articlePage(one[0], more));
   } catch (e) {
-    return html("<!doctype html><title>Blog</title><p>The blog is taking a breather. Please try again in a minute.</p>", 503, 0);
+    return html("<!doctype html><title>Blog</title><p>The blog is taking a breather. Please try again in a minute.</p><!-- " + String(e && e.message || e).replace(/--/g, "") + " -->", 503, 0);
   }
 }

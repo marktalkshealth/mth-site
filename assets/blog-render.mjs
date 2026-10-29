@@ -155,7 +155,7 @@ export function notFoundPage() {
 /* Supabase reads (public: only live articles are visible) */
 export async function fetchPosts(fetchFn, query) {
   const r = await fetchFn(SUPABASE.url + "/rest/v1/mth_blog_posts?" + query, { headers: { apikey: SUPABASE.key } });
-  if (!r.ok) throw new Error("Supabase " + r.status);
+  if (!r.ok) throw new Error("Supabase " + r.status + " " + (await r.text()).slice(0, 300));
   return r.json();
 }
 export const LIST_COLS = "slug,title,description,body,published_at,updated_at";
