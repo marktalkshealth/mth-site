@@ -1,0 +1,118 @@
+{
+ "built": "2026-10-29",
+ "drafts_included": true,
+ "posts": [
+  {
+   "slug": "how-to-heal-your-gut-naturally",
+   "url": "https://marktalkshealth.com/blog/how-to-heal-your-gut-naturally/",
+   "title": "How to Heal Your Gut Naturally: 7 Science-Backed Steps",
+   "description": "Bloating, cramps and a gut that never feels right? Here's what the research says about stress, food, fasting, sleep and movement, and a 7-step plan to start.",
+   "status": "draft",
+   "category": "gut-health",
+   "type": "pillar",
+   "date": "2026-10-29",
+   "updated": "2026-10-29",
+   "studies": [
+    "sperber2021",
+    "vanuytsel2014",
+    "david2014",
+    "mihaylova2018",
+    "rangan2019",
+    "gaylord2011",
+    "wastyk2021",
+    "allen2018",
+    "thoma2013",
+    "smith2019",
+    "hunter2019"
+   ],
+   "sections": [
+    "problem",
+    "problem",
+    "study",
+    "solution",
+    "steps",
+    "bottom"
+   ],
+   "words": 2415,
+   "tags": [
+    "gut health",
+    "heal your gut naturally",
+    "leaky gut",
+    "microbiome",
+    "IBS",
+    "gut-brain axis",
+    "fasting",
+    "fermented foods"
+   ]
+  },
+  {
+   "slug": "fasting-and-gut-health",
+   "url": "https://marktalkshealth.com/blog/fasting-and-gut-health/",
+   "title": "Fasting and Your Gut: What Science Says About Rest, Repair and Stem Cells",
+   "description": "Can fasting help heal your gut? What MIT, USC and a 71-person trial found about stem cells, gut bacteria and inflammation, plus how to fast safely.",
+   "status": "draft",
+   "category": "fasting",
+   "type": "supporting",
+   "date": "2026-10-29",
+   "updated": "2026-10-29",
+   "studies": [
+    "sperber2021",
+    "vanuytsel2014",
+    "mihaylova2018",
+    "rangan2019",
+    "maifeld2021",
+    "wastyk2021"
+   ],
+   "sections": [
+    "problem",
+    "study",
+    "solution",
+    "bottom"
+   ],
+   "words": 1453,
+   "tags": [
+    "fasting",
+    "gut health",
+    "fasting mimicking diet",
+    "intestinal stem cells",
+    "microbiome",
+    "Valter Longo",
+    "intermittent fasting"
+   ]
+  },
+  {
+   "slug": "fermented-foods-vs-fibre-stanford-study",
+   "url": "https://marktalkshealth.com/blog/fermented-foods-vs-fibre-stanford-study/",
+   "title": "Fermented Foods vs Fibre: What a Stanford Study Found About Your Gut",
+   "description": "Stanford tested fermented foods against high fibre for 10 weeks. One group's gut diversity rose and 19 inflammation markers fell. Here's what it means for you.",
+   "status": "draft",
+   "category": "nutrition",
+   "type": "supporting",
+   "date": "2026-10-29",
+   "updated": "2026-10-29",
+   "studies": [
+    "sperber2021",
+    "david2014",
+    "wastyk2021",
+    "vanuytsel2014"
+   ],
+   "sections": [
+    "problem",
+    "study",
+    "solution",
+    "bottom"
+   ],
+   "words": 1365,
+   "tags": [
+    "fermented foods",
+    "fibre",
+    "gut microbiome",
+    "inflammation",
+    "kefir",
+    "kimchi",
+    "Stanford study",
+    "gut health"
+   ]
+  }
+ ]
+}
