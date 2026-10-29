@@ -8,20 +8,20 @@
   function manual(k){ try{ return localStorage.getItem("mth_setup_"+k)==="1"; }catch(e){ return false; } }
   function setManual(k,v){ try{ localStorage.setItem("mth_setup_"+k,v?"1":"0"); }catch(e){} }
 
-  A.screen("today",{ nav:"Today", group:"Start here", live:true, help:"Start here each day. Do the to-dos, then make a post. The checklist below tells you what’s left to set up, one small step at a time.",
+  A.screen("today",{ nav:"Today", group:"Start here", live:true, help:"Start here each day. Make a post, write or edit something, or open your vault. The checklist below tells you what’s left to set up, one small step at a time.",
   render: async function(V){
     var st={}, media=[], posts=[], tasks=[], fun=[];
     var r=await Promise.all([
       MTH.fn("mth-sync",{ action:"status" }).catch(function(){ return {}; }),
       sb.from("mth_lesson_media").select("product,lesson_id,video_url,ebook_url").then(function(x){ return x.data||[]; },function(){ return []; }),
       sb.from("mth_posts").select("id,status,publish_at").then(function(x){ return x.data||[]; },function(){ return []; }),
-      A.rpc("mth_admin_tasks",{ p_include_done:false },true).catch(function(){ return []; }),
+      sb.from("mth_library").select("shelf").then(function(x){ return x.data||[]; },function(){ return []; }),
       A.rpc("mth_admin_funnel",{ p_days:2 },true).catch(function(){ return []; })
     ]);
-    st=r[0]||{}; media=r[1]; posts=r[2]; tasks=r[3]||[]; fun=r[4]||[];
+    st=r[0]||{}; media=r[1]; posts=r[2]; var vault=r[3]||[]; fun=r[4]||[];
     var P=st.providers||{};
     var vids=media.filter(function(m){ return m.video_url; }).length, ebs=media.filter(function(m){ return m.ebook_url; }).length;
-    var today=A.today(), due=tasks.filter(function(t){ return !t.due||t.due<=today; });
+    var today=A.today();
     var y=new Date(); y.setDate(y.getDate()-1); var yk=y.toISOString().slice(0,10);
     var yd=fun.filter(function(f){ return String(f.day).slice(0,10)===yk; })[0]||{ visits:0,list_joins:0,signups:0,purchases:0 };
     var td=fun.filter(function(f){ return String(f.day).slice(0,10)===today; })[0]||{ visits:0,list_joins:0,signups:0,purchases:0 };
@@ -54,20 +54,20 @@
     V.innerHTML='<div class="adm-h"><div><div class="kick">'+new Date().toLocaleDateString(undefined,{ weekday:"long", month:"long", day:"numeric" })+'</div><h1>Good '+(hr<12?'morning':hr<18?'afternoon':'evening')+', <em>Mark</em></h1></div></div>'+
       '<div class="today-big">'+
         '<a class="card tb" href="#studio"><span class="ic">🎬</span><b>Make a post</b><span>Plan, write and film</span></a>'+
-        '<a class="card tb" href="#contacts"><span class="ic">👥</span><b>See my people</b><span>Customers and sign-ups</span></a>'+
-        '<a class="card tb" href="#content"><span class="ic">📚</span><b>Add course videos</b><span>Paste a link, press Save</span></a>'+
-        '<a class="card tb" href="javascript:void(0)" data-three><span class="ic">🖥</span><b>Set up my 3 screens</b><span>One window per monitor</span></a></div>'+
+        '<a class="card tb" href="#edit"><span class="ic">✎</span><b>Edit my website</b><span>Pages, blog, courses, thumbnails</span></a>'+
+        '<a class="card tb" href="#blog/new"><span class="ic">📰</span><b>Write a blog article</b><span>Title, study, words, Save</span></a>'+
+        '<a class="card tb" href="#library"><span class="ic">📚</span><b>Open my vault</b><span>Ebooks, books and videos</span></a>'+
+        '</div>'+
       '<div class="cols">'+
         '<div class="card panel"><h3>Your setup · '+doneN+' of '+steps.length+' done</h3><div class="mini" style="width:100%;height:10px;margin:4px 0 14px"><i style="width:'+Math.round(100*doneN/steps.length)+'%"></i></div>'+
           steps.map(function(s,i){ return '<details class="setup'+(s.done?' done':'')+'"'+(s===next?' open':'')+'><summary><span class="ck">'+(s.done?'✓':(i+1))+'</span><span class="tx"><b>'+s.t+'</b><span class="small">'+esc(s.why)+'</span></span></summary><div class="how">'+s.how+
             (s.manual?'<label class="check" style="margin-top:8px"><input type="checkbox" data-m="'+s.k+'"'+(s.done?' checked':'')+'> I’ve done this</label>':'')+'</div></details>'; }).join("")+'</div>'+
         '<div style="display:grid;gap:14px;align-content:start">'+
-          '<div class="card panel"><h3>To-dos for today</h3>'+(due.slice(0,8).map(function(t){ return '<div class="task"><input type="checkbox" data-t="'+t.id+'" data-d="'+(t.due||"")+'" aria-label="Done"><div class="tx"><b>'+esc(t.title)+'</b><div class="due">'+(t.email?'<a href="#person/'+encodeURIComponent(t.email)+'">'+esc(t.email)+'</a>':'Your own to-do')+'</div></div></div>'; }).join("")||'<p class="muted" style="margin:0">Nothing to do. Make a post!</p>')+'<a class="b sm ghost" href="#tasks" style="margin-top:10px">All to-dos</a></div>'+
+          '<div class="card panel"><h3>Your vault</h3><div class="kpis" style="grid-template-columns:repeat(2,1fr)">'+[["ebook","Ebooks"],["book","Books"],["video","Videos"],["software","Software text"]].map(function(x){ return '<a class="card kpi" href="#library" style="text-decoration:none;color:inherit"><b>'+vault.filter(function(v){ return v.shelf===x[0]; }).length+'</b><span>'+x[1]+'</span></a>'; }).join("")+'</div><p class="small" style="margin:10px 0 0"><a href="#library">Open the vault →</a></p></div>'+
           '<div class="card panel"><h3>Yesterday</h3><div class="kpis" style="grid-template-columns:repeat(2,1fr)"><div class="card kpi"><b>'+(yd.visits||0)+'</b><span>Visitors</span></div><div class="card kpi"><b>'+(yd.list_joins||0)+'</b><span>Joined your list</span></div><div class="card kpi"><b>'+(yd.signups||0)+'</b><span>Made an account</span></div><div class="card kpi"><b>'+(yd.purchases||0)+'</b><span>Bought</span></div></div>'+
             '<p class="small" style="margin:10px 0 0">So far today: '+(td.visits||0)+' visitors, '+(td.list_joins||0)+' sign-ups, '+(td.purchases||0)+' sales. <a href="#conversions">What’s working →</a></p></div>'+
         '</div></div>';
     V.querySelectorAll("[data-m]").forEach(function(c){ c.onchange=function(){ setManual(c.dataset.m,c.checked); A.refresh(); }; });
-    V.querySelectorAll("[data-t]").forEach(function(c){ c.onchange=async function(){ await A.rpc("mth_admin_task",{ p_id:Number(c.dataset.t), p_email:null, p_title:null, p_due:c.dataset.d||null, p_done:true }); MTH.toast("Done ✓"); A.refresh(); }; });
     var t3=V.querySelector("[data-three]"); if(t3) t3.onclick=function(e){ e.preventDefault(); A.threeScreens(); };
   }});
 })();

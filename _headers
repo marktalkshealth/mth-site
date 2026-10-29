@@ -7,3 +7,6 @@
   Cache-Control: no-cache
 /assets/*.js
   Cache-Control: no-cache
+/assets/*.mjs
+  Cache-Control: no-cache
+  Content-Type: text/javascript; charset=utf-8

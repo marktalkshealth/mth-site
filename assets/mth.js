@@ -291,7 +291,7 @@
       document.body.appendChild(f); return;
     }
     f.innerHTML='<div class="in"><div class="brand">Mark Talks Health</div>'+
-      '<nav aria-label="Footer"><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="picks.html">My Picks</a><a href="partners.html">Work with me</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Help</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds</a></nav>'+
+      '<nav aria-label="Footer"><a href="/blog/">Blog</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="picks.html">My Picks</a><a href="partners.html">Work with me</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Help</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds</a></nav>'+
       '<div class="fine">Educational, not medical advice. Results vary; talk to your healthcare provider before fasting or cleansing. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
     document.body.appendChild(f);
   }

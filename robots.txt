@@ -1,0 +1,20 @@
+# Mark Talks Health
+User-agent: *
+Disallow: /admin
+Disallow: /account
+Disallow: /welcome
+Disallow: /login
+Disallow: /course
+Disallow: /app
+Disallow: /community
+Disallow: /checkin
+Disallow: /snapshot
+Disallow: /library
+Disallow: /go
+Disallow: /hub/
+Disallow: /gut/
+Disallow: /sugar/
+Disallow: /glp1/
+Allow: /
+
+Sitemap: https://marktalkshealth.com/sitemap.xml

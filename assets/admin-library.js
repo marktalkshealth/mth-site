@@ -19,7 +19,7 @@
     ITEMS=r.data||[];
   }
 
-  A.screen("library",{ nav:"Library", group:"Library", help:"Your vault for every ebook, finished book and software text. Drop files in, then decide what goes in the public Library.", render: async function(V){
+  A.screen("library",{ nav:"Library", group:"Library", help:"Your vault for every ebook, book, video and software text. Drop files in, then decide what goes in the public Library. Course videos show here too; you add and change those in Edit → Courses.", render: async function(V){
     await load();
     var cnt=function(f){ return ITEMS.filter(f).length; };
     V.innerHTML='<div class="adm-h"><div><div class="kick">Library</div><h1>Your <em>vault</em></h1></div><div class="acts"><a class="b sm ghost" href="library.html" target="_blank" rel="noopener">View public Library</a></div></div>'+
@@ -28,12 +28,12 @@
         L.SHELVES.map(function(s){ return '<div class="card kpi"><b>'+cnt(function(x){ return x.shelf===s[0]; })+'</b><span>'+s[1]+'</span></div>'; }).join("")+
         '<div class="card kpi"><b>'+cnt(function(x){ return x.stage==="ready"; })+'</b><span>Ready</span></div>'+
         '<div class="card kpi"><b>'+cnt(function(x){ return x.listing!=="private"; })+'</b><span>In public Library</span></div></div>'+
-      '<div class="lb-drop" id="drop"><h3>Drop your books here</h3><p class="small" style="margin:0">Drag a whole folder of files in at once (PDF, Word, EPUB, HTML, text, anything). Each one becomes a book card. Files stay private until you list them.</p>'+
+      '<div class="lb-drop" id="drop"><h3>Drop your files here</h3><p class="small" style="margin:0">Drag a whole folder in at once: ebooks, PDFs, Word, HTML, text, short videos. Each file becomes a card. Files stay private until you list them. Files up to 50 MB; long course videos go in Edit → Courses.</p>'+
         '<div class="acts"><label class="small" for="dShelf">Put them on</label><select class="sel" id="dShelf" style="width:auto">'+L.SHELVES.map(function(s){ return '<option value="'+s[0]+'"'+(F.shelf===s[0]?' selected':'')+'>'+s[1]+'</option>'; }).join("")+'</select>'+
         '<label class="b">Choose files<input type="file" multiple hidden id="dFiles"></label></div><div class="lb-q" id="dq"></div></div>'+
       '<div class="lb-tabs"><button data-sh="all">All</button>'+L.SHELVES.map(function(s){ return '<button data-sh="'+s[0]+'">'+s[1]+'</button>'; }).join("")+
         '<span class="sp"></span><select class="sel" id="fSt" style="width:auto"><option value="">Any stage</option>'+L.STAGES.map(function(s){ return '<option value="'+s[0]+'">'+s[1]+'</option>'; }).join("")+'</select>'+
-        '<input class="inp" id="fQ" type="search" placeholder="Search titles"></div><div id="lbList"></div>';
+        '<input class="inp" id="fQ" type="search" placeholder="Search titles"></div><div id="lbList"></div><div id="lbCv"></div>';
     var tabs=V.querySelectorAll("[data-sh]");
     function draw(){
       tabs.forEach(function(b){ b.classList.toggle("on",b.dataset.sh===F.shelf); });
@@ -47,6 +47,18 @@
     var st=document.getElementById("fSt"); st.value=F.stage; st.onchange=function(){ F.stage=st.value; draw(); };
     var fq=document.getElementById("fQ"); fq.value=F.q; fq.oninput=function(){ F.q=fq.value; draw(); };
     draw();
+    courseVideos();
+
+    /* course videos (Cloudflare Stream or links): shown here so everything is in one place */
+    async function courseVideos(){
+      var box=document.getElementById("lbCv"); if(!box) return;
+      var r=await sb.from("mth_videos").select("product,title,video_url,hidden").eq("kind","video").order("product").order("position");
+      var vids=(r.data||[]).filter(function(v){ return v.video_url; });
+      var names={}; (MTH.config.order||[]).forEach(function(k){ names[k]=MTH.config.products[k].short; });
+      box.innerHTML='<div class="card panel" style="margin-top:16px"><h3>Videos in your courses · '+vids.length+'</h3>'+
+        '<p class="small" style="margin:0 0 10px">These play inside your courses (members only). To add, rename or reorder them, go to <a href="#content">Edit → Courses</a>.</p>'+
+        (vids.length?'<ol class="wd-rows">'+vids.map(function(v){ return '<li><div class="wd-new">'+esc(v.title||"Untitled video")+(v.hidden?' <span class="pill">Hidden</span>':'')+'</div><div class="wd-old">'+esc(names[v.product]||v.product)+' course · '+(/^stream:/.test(v.video_url)?'Uploaded video':'Video link')+'</div></li>'; }).join("")+'</ol>':'<p class="muted" style="margin:0">No course videos yet.</p>')+'</div>';
+    }
 
     /* ---------- bulk upload ---------- */
     var drop=document.getElementById("drop"), inp=document.getElementById("dFiles");
@@ -61,12 +73,14 @@
       q.innerHTML=files.map(function(f,i){ return '<div id="q'+i+'"><span>'+esc(f.name)+'</span><span class="small">waiting</span></div>'; }).join("");
       for(var i=0;i<files.length;i++){
         var f=files[i], row=document.getElementById("q"+i).lastChild;
+        if(f.size>L.MAX){ row.textContent="✕ too big ("+L.size(f.size)+"). Up to 50 MB here; put long videos in Edit → Courses"; row.className="bad"; continue; }
         row.textContent="uploading…";
         try{
-          var path=shelf+"/"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)+"-"+L.safe(f.name);
+          var sh=/^video\//.test(f.type)?"video":shelf;
+          var path=sh+"/"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)+"-"+L.safe(f.name);
           var up=await sb.storage.from(L.BUCKET).upload(path,f,{ contentType:f.type||"application/octet-stream" });
           if(up.error) throw up.error;
-          var ins=await sb.from("mth_library").insert({ title:L.titleFrom(f.name), shelf:shelf, file_path:path, file_name:f.name, file_type:L.ext(f.name), file_size:f.size, sort:ITEMS.length+i });
+          var ins=await sb.from("mth_library").insert({ title:L.titleFrom(f.name), shelf:sh, file_path:path, file_name:f.name, file_type:L.ext(f.name), file_size:f.size, sort:ITEMS.length+i });
           if(ins.error) throw ins.error;
           row.textContent="✓ added"; row.className="ok"; done++;
         }catch(e){ row.textContent="✕ "+(e.message||"failed"); row.className="bad"; }

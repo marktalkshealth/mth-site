@@ -59,6 +59,17 @@
   A.toggleBig=function(){ var on=!document.documentElement.classList.contains("adm-big"); document.documentElement.classList.toggle("adm-big",on); try{ localStorage.setItem("mth_admin_big",on?"1":"0"); }catch(e){} };
 
   A.screen=function(id,def){ A.screens[id]=def; if(def.nav) A.order.push(id); };
+  /* put several screens under one sidebar item, shown as tabs: A.family("edit", ["edit","words","blog",...], {words:"Website pages",...}) */
+  A.families={};
+  A.home=function(id){ var s=A.screens[id]||{}, k=s.tabParent||id; s=A.screens[k]||{}; return s.parent||k; };
+  A.family=function(home,ids,labels){
+    A.families[home]=ids;
+    ids.forEach(function(k){ var s=A.screens[k]; if(!s) return; s.tab=(labels&&labels[k])||s.nav||k;
+      if(k!==home){ s.parent=home; var i=A.order.indexOf(k); if(i>-1) A.order.splice(i,1); A.families[k]=ids; }
+      /* sub-screens (an article, a person…) keep pointing at their own tab */
+    });
+    Object.keys(A.screens).forEach(function(k){ var s=A.screens[k]; if(s.parent&&ids.indexOf(s.parent)>-1&&ids.indexOf(k)<0) s.tabParent=s.parent; });
+  };
 
   function shell(){
     var root=document.getElementById("adm");
@@ -71,20 +82,31 @@
   }
   A.badge=function(id,n){ var el=document.querySelector('[data-c="'+id+'"]'); if(!el) return; el.textContent=n; el.classList.toggle("hidden",!n); };
 
+  var lastHash=location.hash;
   async function route(){
+    /* unsaved changes (e.g. a blog article): ask before leaving the screen */
+    if(A._back){ A._back=false; return; }
+    if(location.hash!==lastHash&&A.isDirty&&A.isDirty()){
+      if(!confirm("You have changes you haven’t saved. Leave without saving?")){ A._back=true; history.replaceState(null,"",lastHash||"#today"); A._back=false; return; }
+      if(A.clearDirty) A.clearDirty();
+    }
+    lastHash=location.hash;
     var h=decodeURIComponent((location.hash||"#today").slice(1)), parts=h.split("/"), id=parts[0], arg=parts.slice(1).join("/");
     if(!A.screens[id]) id="today";
-    document.querySelectorAll("[data-n]").forEach(function(a){ var s=A.screens[id]; a.classList.toggle("on",a.dataset.n===(s.parent||id)); });
+    document.querySelectorAll("[data-n]").forEach(function(a){ a.classList.toggle("on",a.dataset.n===A.home(id)); });
     var tab=document.querySelector('.adm-tabs a.on'); if(tab&&tab.scrollIntoView) try{ tab.scrollIntoView({inline:"center",block:"nearest"}); }catch(e){}
     var main=document.getElementById("admMain"), def=A.screens[id];
     if(!A._silent){ main.innerHTML='<div class="mx-wait" style="min-height:40vh">Loading…</div>'; window.scrollTo(0,0); }
     var y=window.scrollY;
     try{
       await def.render(main,arg);
-      var helpId=def.parent||id;
+      var helpId=def.help?id:(def.parent||id);
       var bar='<div class="adm-help">'+(A.screens[helpId].help?'<span class="adm-help-t">'+A.screens[helpId].help+'</span>':'<span></span>')+
         '<span class="adm-help-b"><button class="b sm ghost" data-big title="Bigger or smaller text">A<span style="font-size:1.25em">A</span></button>'+
         (POP?'<select class="sel" data-sw aria-label="Show on this screen" style="width:auto;min-height:34px;font-size:13px">'+A.order.map(function(k){ return '<option value="'+k+'"'+(k===(def.parent||id)?' selected':'')+'>'+A.screens[k].nav+'</option>'; }).join("")+'</select><span class="small adm-live">'+(def.live?'Updates every minute':'')+'</span>':'<button class="b sm ghost" data-pop title="Open this screen in its own window, to put it on another monitor">⧉ Own window</button>')+'</span></div>';
+      /* screens that live together (e.g. Edit: Website, Blog, Courses, Thumbnails) get a row of tabs */
+      var tabK=def.tabParent||id, fam=A.families[tabK];
+      if(fam) bar+='<div class="adm-sub" role="tablist">'+fam.map(function(k){ var on=(k===tabK); return '<a href="#'+k+'" role="tab"'+(on?' class="on" aria-selected="true"':'')+'>'+A.screens[k].tab+'</a>'; }).join("")+'</div>';
       main.insertAdjacentHTML("afterbegin",bar);
       main.querySelector("[data-big]").onclick=A.toggleBig;
       var sw=main.querySelector("[data-sw]"); if(sw) sw.onchange=function(){ A.go(sw.value); document.title=A.screens[sw.value].nav+" · Mark Talks Health"; };
@@ -112,7 +134,5 @@
     shell(); window.addEventListener("hashchange",route); route();
     var t3=document.querySelector("[data-three]"); if(t3) t3.onclick=function(e){ e.preventDefault(); A.threeScreens(); };
     if(POP) document.title=(A.screens[(location.hash||"#today").slice(1).split("/")[0]]||{nav:"Admin"}).nav+" · Mark Talks Health";
-    /* sidebar counters */
-    try{ var t=await A.rpc("mth_admin_tasks",{ p_include_done:false },true); var due=(t||[]).filter(function(x){ return x.due&&x.due<=A.today(); }).length; A.badge("tasks",due); }catch(e){}
   };
 })();
