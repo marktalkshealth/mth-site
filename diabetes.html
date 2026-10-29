@@ -60,16 +60,15 @@
 #g2 .hero .w{grid-template-areas:"top" "vid" "bot";gap:0}
 #g2 .hero .htop{grid-area:top}#g2 .hero .hbot{grid-area:bot}
 #g2 .hero .hvid{grid-area:vid;margin:6px 0 26px}
-#g2 .hero .mthv{max-width:360px;aspect-ratio:1/1}
-#g2 .hero .mthv .mthv-player{top:-12.5%!important;bottom:auto!important;height:125%!important}
+#g2 .hero .hvid{display:flex;flex-direction:column;align-items:center}
 #g2 .hero h1{margin-bottom:6px}
 #g2 .tryapp{display:flex;flex-direction:column;align-items:center}
-#g2 .tryapp .tryit{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0 0 12px;padding-right:72px}
+#g2 .tryapp .tryit{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:0 0 10px;padding-right:72px}
 #g2 .tryapp .tryit svg{width:24px;height:28px;flex:none;margin-top:12px}
 #g2 .tryapp .tryit span{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;font-weight:500;line-height:1;color:var(--ink,#2b2724)}
 #g2 .tryapp .tryit em{font-style:italic;color:#c0623f}
 @media(min-width:860px){
-  #g2 .hero .w{grid-template-columns:1.1fr .9fr;grid-template-areas:"top vid" "bot vid";column-gap:56px;align-items:start}
+  #g2 .hero .w{grid-template-columns:minmax(0,600px) auto;justify-content:center;grid-template-areas:"top vid" "bot vid";column-gap:56px;align-items:start}
   #g2 .hero .htop{align-self:end}
   #g2 .hero .hvid{margin:0;align-self:center}
   #g2 .hero h1{margin-bottom:18px}
@@ -217,7 +216,7 @@
     <div class="k">The Diabetes Protocol</div>
     <h1>Take back control of your blood sugar, with a plan <em>built for your body</em></h1>
   </div>
-  <div class="hvid"><div class="mthv" data-wistia="c6bmdm7xd7" data-title="Watch my story" data-len=""></div></div>
+  <div class="hvid tryapp"><div class="tryit" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none" stroke="#c0623f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 5C17 5 10 11 9 27"/><path d="M4.5 22.5L9 28l4.5-5.5"/></svg><span>Test <em>your</em> app</span></div><div class="mthp" data-proto="sugar" data-hint="off"></div></div>
   <div class="hbot">
     <p class="lead">Enter your readings and symptoms into the app. It builds your day-by-day protocol: what to eat and when, how to move after meals, high-protein recipes, and the 7 healing steps that will balance your blood sugar.</p>
     <div style="margin-top:24px"><button class="btn g2-buy">Start my protocol <small>· $97</small></button></div>
@@ -225,11 +224,6 @@
   </div>
 </div></section>
 
-<!-- TEST THE APP -->
-<section style="padding-top:0"><div class="w rv tryapp">
-  <div class="tryit" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none" stroke="#c0623f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 5C17 5 10 11 9 27"/><path d="M4.5 22.5L9 28l4.5-5.5"/></svg><span>Test <em>your</em> app</span></div>
-  <div class="mthp" data-proto="sugar" data-hint="off"></div>
-</div></section>
 
 <!-- QUIZ (assets/quiz.js) -->
 <section class="alt" id="quiz"><div class="w">
