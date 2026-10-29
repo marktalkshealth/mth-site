@@ -417,3 +417,7 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 :is(#mh,#g2,body) .mx-co-own h3{font-family:var(--serif);font-weight:500;font-size:26px;margin:0 0 6px;color:var(--ink)}
 :is(#mh,#g2,body) .mx-co-own p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
 :is(#mh,#g2,body) .mx-co-own .b{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;border:0;border-radius:999px;background:var(--terra);color:#fff!important;font:700 15.5px var(--sans);text-decoration:none!important;cursor:pointer}
+/* quiz: steady box — card never stretches with the side panel, Next keeps one width */
+:is(#mqx,html) .mq-grid{align-items:start}
+:is(#mqx,html) .mq-next{min-width:150px}
+:is(#mqx,html) .mq-heal .mq-foc{min-height:64px}

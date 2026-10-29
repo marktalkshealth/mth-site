@@ -150,7 +150,7 @@
     el.classList.add("mq", "mq-heal");
     el.innerHTML =
       '<div class="mq-grid">' +
-        '<div class="mq-card"><div class="mq-top"><span class="mq-step"></span><div class="mq-prog"><i></i></div></div><div class="mq-sechd"></div><div class="mq-body"></div>' +
+        '<div class="mq-card"><div class="mq-top"><span class="mq-step"></span><div class="mq-prog"><i></i></div></div><div class="mq-body"></div>' +
           '<div class="mq-nav"><button type="button" class="mq-back">Back</button><button type="button" class="mq-next">Next</button></div></div>' +
         '<aside class="mq-live" aria-live="polite"><div class="mq-k">Your Healing Score so far</div><div class="mq-imp"><span class="mq-num">–</span><small> / 100</small></div>' +
           '<div class="mq-meter"><i></i></div><div class="mq-lvl">Answer a few questions to see it</div><div class="mq-dots"></div><div class="mq-foc"></div>' +
@@ -170,20 +170,34 @@
       return r;
     }
     function ok(q) { return q.type === "multi" ? true : !!A[q.id]; }
+    function hq(q, v) {
+      return '<h3 class="mq-q">' + esc(q.q) + "</h3>" + (q.hint ? '<p class="mq-hint">' + esc(q.hint) + "</p>" : "") +
+        '<div class="mq-opts ' + (q.type === "multi" ? "multi" : "one") + '">' + q.o.map(function (o) {
+          var on = q.type === "multi" ? (v || []).indexOf(o[0]) >= 0 : v === o[0];
+          return '<button type="button" class="mq-o' + (on ? " on" : "") + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + "</button>"; }).join("") + "</div>";
+    }
+    /* one fixed box height (the tallest question at this width), so the box and the Next button never move */
+    var fitW = 0;
+    function fitH(force) {
+      var body = $(".mq-body"); if (!body || !el.querySelector(".mq-grid") || $(".mq-grid").hidden) return;
+      var w = body.clientWidth; if (!w || (w === fitW && !force)) return; fitW = w;
+      var keep = document.createDocumentFragment(), max = 0;
+      while (body.firstChild) keep.appendChild(body.firstChild);
+      body.style.minHeight = "0";
+      Q.forEach(function (q) { body.innerHTML = hq(q, A[q.id]); max = Math.max(max, body.scrollHeight); });
+      body.innerHTML = ""; body.appendChild(keep); body.style.minHeight = max + "px";
+    }
+    window.addEventListener("resize", function () { if (i < N) fitH(); });
 
     function draw() {
       $(".mq-prog i").style.width = Math.round((i / (N + 1)) * 100) + "%";
       $(".mq-back").style.visibility = i ? "visible" : "hidden";
       live();
       if (i >= N) return drawEmail();
-      var q = Q[i], v = A[q.id], first = !i || Q[i - 1].s !== q.s;
-      $(".mq-step").textContent = "Part " + (q.s + 1) + " of " + S.length + " · " + S[q.s][0];
-      $(".mq-sechd").innerHTML = first ? '<p class="mq-intro">' + esc(S[q.s][1]) + "</p>" : "";
-      $(".mq-body").innerHTML = '<h3 class="mq-q">' + esc(q.q) + "</h3>" + (q.hint ? '<p class="mq-hint">' + esc(q.hint) + "</p>" : "") +
-        '<div class="mq-opts ' + (q.type === "multi" ? "multi" : "one") + '">' + q.o.map(function (o) {
-          var on = q.type === "multi" ? (v || []).indexOf(o[0]) >= 0 : v === o[0];
-          return '<button type="button" class="mq-o' + (on ? " on" : "") + '" data-v="' + o[0] + '" aria-pressed="' + on + '">' + esc(o[1]) + "</button>"; }).join("") + "</div>" +
-        '<p class="mq-count">Question ' + (i + 1) + " of " + N + "</p>";
+      var q = Q[i], v = A[q.id];
+      $(".mq-step").textContent = "Question " + (i + 1) + " of " + N;
+      $(".mq-body").innerHTML = hq(q, v);
+      fitH();
       var nx = $(".mq-next"); nx.hidden = false; nx.disabled = !ok(q);
       nx.textContent = q.type === "multi" && !(v && v.length) ? "Skip" : i === N - 1 ? "See my results" : "Next";
       [].forEach.call(el.querySelectorAll(".mq-o"), function (b) {
@@ -202,7 +216,6 @@
     function drawEmail() {
       var r = live();
       $(".mq-step").textContent = "Last step";
-      $(".mq-sechd").innerHTML = '<p class="mq-intro">Thank you for being honest. Nothing here is a failure. It’s your starting point.</p>';
       $(".mq-next").hidden = true;
       $(".mq-body").innerHTML = '<h3 class="mq-q">Where should I send your results?</h3>' +
         '<p class="mq-hint">Your Healing Score, the 3 changes that matter most for you, what to check at home and work, and the plan that fits. Shown right here and sent to your inbox to keep.</p>' +
