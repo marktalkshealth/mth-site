@@ -20,7 +20,7 @@
   }
 
   /* ================= OVERVIEW ================= */
-  A.screen("overview",{ nav:"Dashboard", group:"Customers", live:true, help:"Your numbers at a glance. The coloured bar shows where everyone is, from first sign-up to happy customer.", render: async function(V){
+  A.screen("overview",{ nav:"Dashboard", group:"Customers", live:true, help:"Your numbers at a glance. The colored bar shows where everyone is, from first sign-up to happy customer.", render: async function(V){
     var res=await Promise.all([A.loadPeople(true), A.rpc("mth_admin_tasks",{p_include_done:false}), A.rpc("mth_admin_sales",{p_days:30})]);
     var P=res[0], T=res[1]||[], S=res[2]||[];
     var cust=P.filter(function(p){ return p.owns&&p.owns.length; }), list=P.filter(function(p){ return p.list_opt_in; }).length;

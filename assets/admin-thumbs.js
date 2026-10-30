@@ -11,7 +11,7 @@
     ["loud","Loud Viral","Huge expression, glow, saturated drama. Biggest-creator look.","linear-gradient(135deg,#ffd400,#ff3b1f 55%,#13131a 55%)"],
     ["vox","Documentary","Vox-style paper collage, halftone, annotation marks.","repeating-linear-gradient(45deg,#e8e0cf 0 6px,#ddd3bf 6px 12px)"],
     ["brand","My Brand · Luxury","Cream, charcoal, terracotta, sage, gold. Calm and premium.","linear-gradient(135deg,#f7f1e7,#f7f1e7 50%,#c0623f 50%,#c0623f 70%,#7a8f6e 70%)"],
-    ["scroll","My Brand · Scroll-Stopper","Loud and bold, but in your brand colours.","linear-gradient(135deg,#2b2724,#2b2724 55%,#c0623f 55%,#b8924a)"]
+    ["scroll","My Brand · Scroll-Stopper","Loud and bold, but in your brand colors.","linear-gradient(135deg,#2b2724,#2b2724 55%,#c0623f 55%,#b8924a)"]
   ];
   var RATIOS=[["16:9","YouTube video · 16:9"],["9:16","Shorts / Reels · 9:16"],["4:5","Instagram feed · 4:5"],["1:1","Square · 1:1"]];
   var S={ style:"clean", ratio:"16:9", count:4, ref:null, busy:false };

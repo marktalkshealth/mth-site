@@ -25,7 +25,7 @@
   L.safe=function(fn){ return String(fn||"file").normalize("NFKD").replace(/[^\w.\-]+/g,"-").replace(/-+/g,"-").slice(-80); };
   L.MAX=50*1024*1024;   /* Supabase free plan: 50 MB per file */
   L.size=function(b){ b=Number(b||0); if(!b) return ""; return b>1048576?(b/1048576).toFixed(1)+" MB":Math.max(1,Math.round(b/1024))+" KB"; };
-  /* the cover: uploaded image, or a typographic cover (colour follows the shelf) */
+  /* the cover: uploaded image, or a typographic cover (color follows the shelf) */
   L.cover=function(it){
     var esc=window.MTH?MTH.esc:function(s){ return s; };
     if(it.cover_url) return '<div class="lb-cover" style="background-image:url(\''+esc(it.cover_url)+'\')"></div>';

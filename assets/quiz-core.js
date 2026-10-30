@@ -44,7 +44,7 @@
         flora: { label: "Flora imbalance", w: { bloat: 2, cravings: 2, abx: 3, sugar: 2, alcohol: 1, meals: 1 },
           text: "Antibiotics, sugar and alcohol shift the bacteria in your gut. A cleanse followed by whole, high-protein meals helps reset the balance.", steps: [0, 6, 5] },
         slow: { label: "Slow digestion", w: { constip: 4, bloat: 1 },
-          text: "Slow, sluggish digestion responds well to water, movement every day and fibre from vegetables.", steps: [5, 6, 2] },
+          text: "Slow, sluggish digestion responds well to water, movement every day and fiber from vegetables.", steps: [5, 6, 2] },
         brain: { label: "Gut–brain strain", w: { stress: 3, sleep: 2, fog: 2, fatigue: 1, stressflare: 2 },
           text: "Your gut and nervous system talk constantly. Calming the stress response and sleeping deeper often settles digestion too.", steps: [1, 3, 4] }
       },
@@ -121,7 +121,7 @@
         muscle: { label: "Muscle loss risk", w: { muscle: 3, lowprot: 3, nostr: 2, skip: 2, hair: 1, lowenergy: 1 },
           text: "Eating very little can strip muscle along with fat. Hitting your protein target and lifting twice a week protects it.", steps: [6, 5, 3] },
         gi: { label: "Gut side effects", w: { nausea: 3, constip: 3 },
-          text: "Nausea and constipation are common on GLP-1s. Smaller meals, water, fibre from vegetables and gentle walks usually help.", steps: [6, 2, 3] },
+          text: "Nausea and constipation are common on GLP-1s. Smaller meals, water, fiber from vegetables and gentle walks usually help.", steps: [6, 2, 3] },
         regain: { label: "Regain risk", w: { regain: 3, stopping: 3, yoyo: 2, cravings: 1 },
           text: "Weight often returns when the medication stops unless habits and muscle are in place. Building them now is the safest exit plan.", steps: [5, 6, 1] },
         plateau: { label: "Plateau pattern", w: { plateau: 3, lowact: 2, sleep: 1, alcohol: 1 },
@@ -160,7 +160,7 @@
       ["How you feel", "Your body has been trying to tell you something. Let's listen."],
       ["What's been hard", "You've probably tried a lot already. That isn't failure. It tells us where to start."],
       ["Daily habits", "No judgement here. Honest answers build a plan that actually fits your life."],
-      ["Home and work", "Where you live and work affects your health more than most people realise."],
+      ["Home and work", "Where you live and work affects your health more than most people realize."],
       ["Stress and support", "These are personal. Answer only what you're comfortable with. Stress and relationships affect your body as much as food does, and the research is clear on that."],
       ["Your next 90 days", "Almost done. Let's picture where you want to be."]
     ],

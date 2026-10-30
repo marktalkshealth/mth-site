@@ -26,7 +26,7 @@
 
   /* ================= INTEGRATIONS ================= */
   function dot(on){ return '<span class="status-dot'+(on?' on':'')+'"></span>'; }
-  A.screen("integrations",{ nav:"Connections", group:"Growing", help:"Where your website connects to other services (payments, email, Metricool). Green dot = connected. Follow the steps under any grey dot.", render: async function(V){
+  A.screen("integrations",{ nav:"Connections", group:"Growing", help:"Where your website connects to other services (payments, email, Metricool). Green dot = connected. Follow the steps under any gray dot.", render: async function(V){
     var st={}; try{ st=await MTH.fn("mth-sync",{ action:"status" }); }catch(e){}
     var P=st.providers||{}, log=[]; try{ log=await A.rpc("mth_admin_sync_log",{ p_limit:30 },true)||[]; }catch(e){}
     var site=MTH.base;

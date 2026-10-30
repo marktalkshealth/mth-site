@@ -195,7 +195,7 @@ window.MTH_COURSES={
        {
         "q": "In his original study, what happened to students who wrote about difficult experiences?",
         "o": [
-         "They visited the health centre about half as often",
+         "They visited the health center about half as often",
          "They got sick more often",
          "Nothing changed",
          "They stopped sleeping"
@@ -358,7 +358,7 @@ window.MTH_COURSES={
          "Neither passes the skin"
         ],
         "a": 1,
-        "fb": "Red light reaches a few millimetres, good for skin. Near-infrared travels several centimetres, reaching muscles and joints."
+        "fb": "Red light reaches a few millimetres, good for skin. Near-infrared travels several centimeters, reaching muscles and joints."
        },
        {
         "q": "What does the release of nitric oxide during red light therapy do?",
@@ -472,7 +472,7 @@ window.MTH_COURSES={
         "q": "Radon is dangerous partly because it is…",
         "o": [
          "Bright red and smelly",
-         "Colourless and odourless, so you need a monitor to detect it",
+         "Colorless and odourless, so you need a monitor to detect it",
          "Only found in big cities",
          "Harmless in small amounts"
         ],
@@ -582,7 +582,7 @@ window.MTH_COURSES={
          "Only with loud music"
         ],
         "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
+        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favorite song feels so good."
        }
       ]
      }
@@ -756,7 +756,7 @@ window.MTH_COURSES={
          "No target needed"
         ],
         "a": 1,
-        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
+        "fb": "Around 0.55–0.75 g per pound a day protects muscle while you lose fat and gives your body the building blocks to repair."
        },
        {
         "q": "About how much protein per meal helps your muscles rebuild best?",
@@ -990,7 +990,7 @@ window.MTH_COURSES={
        {
         "q": "In his original study, what happened to students who wrote about difficult experiences?",
         "o": [
-         "They visited the health centre about half as often",
+         "They visited the health center about half as often",
          "They got sick more often",
          "Nothing changed",
          "They stopped sleeping"
@@ -1153,7 +1153,7 @@ window.MTH_COURSES={
          "Neither passes the skin"
         ],
         "a": 1,
-        "fb": "Red light reaches a few millimetres, good for skin. Near-infrared travels several centimetres, reaching muscles and joints."
+        "fb": "Red light reaches a few millimetres, good for skin. Near-infrared travels several centimeters, reaching muscles and joints."
        },
        {
         "q": "What does the release of nitric oxide during red light therapy do?",
@@ -1267,7 +1267,7 @@ window.MTH_COURSES={
         "q": "Radon is dangerous partly because it is…",
         "o": [
          "Bright red and smelly",
-         "Colourless and odourless, so you need a monitor to detect it",
+         "Colorless and odourless, so you need a monitor to detect it",
          "Only found in big cities",
          "Harmless in small amounts"
         ],
@@ -1377,7 +1377,7 @@ window.MTH_COURSES={
          "Only with loud music"
         ],
         "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
+        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favorite song feels so good."
        }
       ]
      }
@@ -1551,7 +1551,7 @@ window.MTH_COURSES={
          "No target needed"
         ],
         "a": 1,
-        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
+        "fb": "Around 0.55–0.75 g per pound a day protects muscle while you lose fat and gives your body the building blocks to repair."
        },
        {
         "q": "About how much protein per meal helps your muscles rebuild best?",
@@ -1785,7 +1785,7 @@ window.MTH_COURSES={
        {
         "q": "In his original study, what happened to students who wrote about difficult experiences?",
         "o": [
-         "They visited the health centre about half as often",
+         "They visited the health center about half as often",
          "They got sick more often",
          "Nothing changed",
          "They stopped sleeping"
@@ -1948,7 +1948,7 @@ window.MTH_COURSES={
          "Neither passes the skin"
         ],
         "a": 1,
-        "fb": "Red light reaches a few millimetres, good for skin. Near-infrared travels several centimetres, reaching muscles and joints."
+        "fb": "Red light reaches a few millimetres, good for skin. Near-infrared travels several centimeters, reaching muscles and joints."
        },
        {
         "q": "What does the release of nitric oxide during red light therapy do?",
@@ -2062,7 +2062,7 @@ window.MTH_COURSES={
         "q": "Radon is dangerous partly because it is…",
         "o": [
          "Bright red and smelly",
-         "Colourless and odourless, so you need a monitor to detect it",
+         "Colorless and odourless, so you need a monitor to detect it",
          "Only found in big cities",
          "Harmless in small amounts"
         ],
@@ -2172,7 +2172,7 @@ window.MTH_COURSES={
          "Only with loud music"
         ],
         "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favourite song feels so good."
+        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favorite song feels so good."
        }
       ]
      }
@@ -2346,7 +2346,7 @@ window.MTH_COURSES={
          "No target needed"
         ],
         "a": 1,
-        "fb": "Around 1.2–1.6 g per kg a day protects muscle while you lose fat and gives your body the building blocks to repair."
+        "fb": "Around 0.55–0.75 g per pound a day protects muscle while you lose fat and gives your body the building blocks to repair."
        },
        {
         "q": "About how much protein per meal helps your muscles rebuild best?",

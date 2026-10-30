@@ -1,8 +1,8 @@
 /* =================================================================
    ADMIN — BRAND DEALS
    Sponsors and ad licensing: a pipeline of companies, a quote calculator
-   built on Mark's rate card, licence terms (30/60/90 days … perpetual),
-   a contract template, pitch emails and licence-renewal reminders.
+   built on Mark's rate card, license terms (30/60/90 days … perpetual),
+   a contract template, pitch emails and license-renewal reminders.
    Tables: mth_brands, mth_deals, mth_brand_settings (admin-only).
    Public inquiries arrive from partners.html via mth_brand_inquiry().
 ================================================================= */
@@ -79,10 +79,10 @@
         var v=Number(rc["views_"+f.views])||0; aud+=Math.max(0,Number(it.qty)||0)*v/1000*rc.cpm; });
       if(aud>0) lines.push(["Posted on my channels (reach: "+money(rc.cpm)+" per 1,000 average views)",Math.round(aud),"reach"]);
     }
-    if(perp&&(R.organic||R.paid)) lines.push(["Licence: brand may use it forever on "+(R.paid?"its own pages and in paid ads":"its own pages")+" ("+rc.perpetual_x+"× the production fee)",base*rc.perpetual_x,"rights"]);
+    if(perp&&(R.organic||R.paid)) lines.push(["License: brand may use it forever on "+(R.paid?"its own pages and in paid ads":"its own pages")+" ("+rc.perpetual_x+"× the production fee)",base*rc.perpetual_x,"rights"]);
     else {
-      if(R.organic) lines.push(["Licence: brand posts it on its own pages, "+durName(R.days)+" ("+rc.organic_pct+"% per 30 days)",base*rc.organic_pct/100*months,"rights"]);
-      if(R.paid) lines.push(["Licence: brand runs it as paid ads, "+durName(R.days)+" ("+rc.paid_pct+"% per 30 days)",base*rc.paid_pct/100*months,"rights"]);
+      if(R.organic) lines.push(["License: brand posts it on its own pages, "+durName(R.days)+" ("+rc.organic_pct+"% per 30 days)",base*rc.organic_pct/100*months,"rights"]);
+      if(R.paid) lines.push(["License: brand runs it as paid ads, "+durName(R.days)+" ("+rc.paid_pct+"% per 30 days)",base*rc.paid_pct/100*months,"rights"]);
     }
     if(R.whitelist){ var wm=perp?12:months; lines.push(["Whitelisting: ads run from my own account, "+(perp?"1 year":durName(R.days))+" ("+rc.whitelist_pct+"% per 30 days)",base*rc.whitelist_pct/100*wm,"rights"]); }
     if(Number(R.excl_days)>0) lines.push(["Category exclusivity, "+durName(R.excl_days)+" ("+rc.exclusive_pct+"% per 30 days)",base*rc.exclusive_pct/100*(Number(R.excl_days)/30),"rights"]);
@@ -123,13 +123,13 @@ items,
 "Total fee: "+money(p.total)+" (USD).",
 dep>0?dep+"% ("+money(p.total*dep/100)+") is due on signing and work starts once it is received. The remaining "+(100-dep)+"% ("+money(p.total*(100-dep)/100)+") is due on delivery of the final files, within 14 days of invoice.":"The full fee is due within 14 days of delivery of the final files.",
 "",
-"4. OWNERSHIP AND LICENCE",
-"Creator owns the Content, including the footage, likeness, voice and artwork. On full payment, Creator grants Brand a non-exclusive licence to use the final Content as follows:",
+"4. OWNERSHIP AND LICENSE",
+"Creator owns the Content, including the footage, likeness, voice and artwork. On full payment, Creator grants Brand a non-exclusive license to use the final Content as follows:",
 "   • Where: "+(where.join("; ")||"[choose where it may be used]")+".",
 "   • How long: "+(perp?"no end date (perpetual), for the final Content as delivered":durName(R.days)+", starting "+live+(deal.usage_ends?" and ending "+nice(deal.usage_ends):"")+"")+".",
 "   • Territory: worldwide.",
-"Brand may not edit the Content in a way that changes its meaning, combine it with health claims Creator did not approve, or use Creator’s name or likeness in any other material, without Creator’s written consent."+(R.raw?" Brand receives the raw footage and project files, under the same licence.":" Raw footage and project files are not included."),
-perp?"":"After the licence ends, Brand will stop running the Content in new placements. Brand may renew the licence at Creator’s then-current rates; Creator will send a renewal offer before the end date.",
+"Brand may not edit the Content in a way that changes its meaning, combine it with health claims Creator did not approve, or use Creator’s name or likeness in any other material, without Creator’s written consent."+(R.raw?" Brand receives the raw footage and project files, under the same license.":" Raw footage and project files are not included."),
+perp?"":"After the license ends, Brand will stop running the Content in new placements. Brand may renew the license at Creator’s then-current rates; Creator will send a renewal offer before the end date.",
 "",
 "5. EXCLUSIVITY",
 Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will not publish paid promotions for a direct competitor of Brand in the same product category.":"None. Creator may work with other brands, including in the same category.",
@@ -138,7 +138,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
 "Creator makes educational content, not medical advice. Brand warrants that every claim it asks Creator to make about its product is truthful and backed by competent evidence, and that the product is legal to sell where it is advertised. Creator may decline to say anything Creator believes is misleading, and has final approval over all health statements in the Content.",
 "",
 "7. DISCLOSURE",
-"The Content will be clearly labelled as sponsored or paid (for example \"#ad\", \"paid partnership\", or a spoken disclosure), as required by advertising rules where it runs. Where the Content includes AI-generated imagery of Creator, Brand will not present it as an unpaid customer testimonial.",
+"The Content will be clearly labeled as sponsored or paid (for example \"#ad\", \"paid partnership\", or a spoken disclosure), as required by advertising rules where it runs. Where the Content includes AI-generated imagery of Creator, Brand will not present it as an unpaid customer testimonial.",
 "",
 "8. DELIVERY",
 "Creator will deliver the final Content by [delivery date]"+(R.rush?" (rush delivery)":"")+". Posting dates on Creator’s channels are agreed in writing.",
@@ -182,7 +182,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
       '<p class="sm"><b>Licence:</b> '+(Number(R.days)===0?"no end date":durName(R.days))+', worldwide, starting on delivery. '+
       (R.raw?'Raw files included. ':'')+(Number(R.excl_days)>0?'Category exclusivity for '+durName(R.excl_days)+'. ':'')+'</p>'+
       '<p class="sm"><b>Includes:</b> script and story in my documentary style, '+rc.revisions+' rounds of changes, clear sponsorship disclosure, and my approval over all health claims.</p>'+
-      '<p class="sm"><b>Payment:</b> '+(dep>0?dep+'% on signing, '+(100-dep)+'% on delivery.':'on delivery.')+' Licences can be renewed at any time before they end.</p>'+
+      '<p class="sm"><b>Payment:</b> '+(dep>0?dep+'% on signing, '+(100-dep)+'% on delivery.':'on delivery.')+' Licenses can be renewed at any time before they end.</p>'+
       '<p class="sm" style="margin-top:28px">'+esc(rc.legal_name||rc.business)+' · '+esc(rc.email)+' · '+esc(rc.website)+'</p>';
   }
   function quoteEmail(deal,brand,rc){
@@ -190,7 +190,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
     return "Hi "+((brand.contact_name||"").split(" ")[0]||"there")+",\n\nThanks for the chat. Here’s what I’d propose for "+(brand.name||"you")+":\n\n"+
       p.lines.map(function(l){ return "• "+l[0]+": "+money(l[1]); }).join("\n")+"\n\nTotal: "+money(p.total)+"\n\n"+
       "That includes the script and story in my documentary style, "+rc.revisions+" rounds of changes, and clear sponsorship disclosure. I keep approval over any health claims, which is what keeps my audience trusting the recommendation.\n\n"+
-      "Happy to adjust the licence length or the number of videos to fit your budget. Want me to send the agreement?\n\n"+(rc.legal_name||"Mark")+"\n"+rc.business+" · "+rc.website;
+      "Happy to adjust the license length or the number of videos to fit your budget. Want me to send the agreement?\n\n"+(rc.legal_name||"Mark")+"\n"+rc.business+" · "+rc.website;
   }
 
   /* ---------------- pitch emails ---------------- */
@@ -206,8 +206,8 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
 "Hi "+first+",\n\nThanks for reaching out about "+rc.business+". I’d love to hear more about what you have in mind.\n\n"+
 "Most brands start with one of these:\n• A woven-in segment inside one of my documentaries\n• A short-form ad (Reel / TikTok / Short) you can also run on your own pages\n• A stand-alone hero ad you license for paid ads\n\n"+
 "Could you tell me your timeline, which platforms matter most, and a rough budget? I’ll send a proposal within 2 days.\n\n"+me],
-      ["Licence renewal","Keep your ad running?",
-"Hi "+first+",\n\nQuick heads-up: your licence for the "+rc.business+" ad ends soon. If it’s still performing, I can renew it for another 30, 60 or 90 days at the same rate, or make a fresh variation to beat ad fatigue.\n\nWant me to send the renewal?\n\n"+me],
+      ["License renewal","Keep your ad running?",
+"Hi "+first+",\n\nQuick heads-up: your license for the "+rc.business+" ad ends soon. If it’s still performing, I can renew it for another 30, 60 or 90 days at the same rate, or make a fresh variation to beat ad fatigue.\n\nWant me to send the renewal?\n\n"+me],
       ["Follow-up (no reply)","Following up",
 "Hi "+first+",\n\nJust floating this back to the top of your inbox. Happy to tweak the sample ad or send a version for a different product if that’s a better fit.\n\n"+me]
     ];
@@ -216,7 +216,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
 
   /* ================= SCREEN: BRANDS (pipeline) ================= */
   var bview=(function(){ try{ return localStorage.getItem("mth_brands_view")||"board"; }catch(e){ return "board"; } })();
-  A.screen("brands",{ nav:"Brand deals", group:"Money", help:"Companies you want to work with. Add a brand, send a pitch, make a quote, then a contract. Licences that end soon show at the top so you can sell a renewal.",
+  A.screen("brands",{ nav:"Brand deals", group:"Money", help:"Companies you want to work with. Add a brand, send a pitch, make a quote, then a contract. Licenses that end soon show at the top so you can sell a renewal.",
   render: async function(V){
     var res=await Promise.all([brands(),deals(),loadRC()]), B=res[0], D=res[1];
     var byId={}; B.forEach(function(b){ byId[b.id]=b; });
@@ -234,7 +234,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
         '<div class="card kpi'+(newInq?' warn':'')+'"><b>'+newInq+'</b><span>New inquiries</span></div>'+
         '<div class="card kpi"><b>'+money(quoted)+'</b><span>Quotes waiting</span></div>'+
         '<div class="card kpi"><b>'+money(won)+'</b><span>Signed in '+yr+'</span></div>'+
-        '<div class="card kpi'+(ending.length?' warn':'')+'"><b>'+ending.length+'</b><span>Licences ending soon</span></div>'+
+        '<div class="card kpi'+(ending.length?' warn':'')+'"><b>'+ending.length+'</b><span>Licenses ending soon</span></div>'+
         '<div class="card kpi'+(due.length?' warn':'')+'"><b>'+due.length+'</b><span>Follow-ups due</span></div></div>'+
       (ending.length?'<div class="card panel" style="margin-bottom:14px;border-color:var(--gold)"><h3>Renewals to sell</h3>'+ending.map(function(d){ var b=byId[d.brand_id]||{}, n=daysLeft(d.usage_ends);
         return '<div class="row-i"><span><b>'+esc(b.name||"?")+'</b> · '+esc(d.title)+'<br><span class="small">'+(n<0?'Ended '+(-n)+' days ago':'Ends in '+n+' days')+' ('+nice(d.usage_ends)+')</span></span><a class="b sm" href="#brand/'+d.brand_id+'">Send renewal</a></div>'; }).join("")+'</div>':'')+
@@ -288,7 +288,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
           '<label class="small" style="display:block;margin-top:10px">Notes<textarea class="inp" id="bno">'+esc(b.notes||"")+'</textarea></label>'+
           '<div class="acts"><button class="b sm" id="bsave">Save</button><button class="b sm ghost" id="bdel">Delete brand</button></div></div>'+
         '<div class="card panel" style="margin-top:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 style="margin:0">Quotes &amp; contracts</h3><button class="b sm" id="nd">New quote</button></div>'+
-          (D.length?D.map(function(d){ return '<div class="row-i" style="cursor:pointer" data-d="'+d.id+'"><span><b>'+esc(d.title)+'</b><br><span class="small">'+esc(dsName(d.status))+(d.usage_ends?' · licence ends '+nice(d.usage_ends):'')+'</span></span><b>'+money(d.total_cents)+'</b></div>'; }).join(""):'<p class="small">No quotes yet. Click <b>New quote</b> to price a deal for them.</p>')+'</div>'+
+          (D.length?D.map(function(d){ return '<div class="row-i" style="cursor:pointer" data-d="'+d.id+'"><span><b>'+esc(d.title)+'</b><br><span class="small">'+esc(dsName(d.status))+(d.usage_ends?' · license ends '+nice(d.usage_ends):'')+'</span></span><b>'+money(d.total_cents)+'</b></div>'; }).join(""):'<p class="small">No quotes yet. Click <b>New quote</b> to price a deal for them.</p>')+'</div>'+
       '</div><div>'+
         '<div class="card panel"><h3>Pitch email</h3><select class="sel" id="pt">'+P.map(function(p,i){ return '<option value="'+i+'">'+esc(p[0])+'</option>'; }).join("")+'</select>'+
           '<input class="inp" id="ps" style="margin-top:10px;min-height:44px;font-size:15px"><textarea class="inp" id="pb" style="margin-top:8px;min-height:260px;font-size:14.5px"></textarea>'+
@@ -341,7 +341,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
     root.querySelectorAll("[data-days]").forEach(function(b){ b.onclick=function(){ root.querySelectorAll("[data-days]").forEach(function(x){ x.classList.toggle("on",x===b); }); onChange(); }; });
   }
   function totalHtml(p){
-    var groups=[["make","Making it"],["reach","Reach"],["rights","Licence"],["extra","Extras"]];
+    var groups=[["make","Making it"],["reach","Reach"],["rights","License"],["extra","Extras"]];
     return groups.map(function(g){ var L=p.lines.filter(function(l){ return l[2]===g[0]; }); if(!L.length) return "";
       return '<div class="sec-h">'+g[1]+'</div>'+L.map(function(l){ return '<div class="row-i"><span style="font-size:14px">'+esc(l[0])+'</span><b style="white-space:nowrap">'+money(l[1])+'</b></div>'; }).join(""); }).join("")+
       '<div class="row-i" style="border-top:2px solid var(--ink);margin-top:8px;padding-top:12px"><b style="font-size:16px">Total</b><b style="font-family:var(--serif);font-size:38px;font-weight:500">'+money(p.total)+'</b></div>';
@@ -354,7 +354,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
     var rc=await loadRC(); calc=calc||{ items:[{ k:"integration", qty:1 },{ k:"short", qty:2 }], rights:defaultRights() };
     V.innerHTML='<div class="adm-h"><div><div class="kick">Money</div><h1>Price <em>calculator</em></h1></div><div class="acts"><a class="b sm ghost" href="#ratecard">Change my rates</a></div></div>'+
       '<div class="cols"><div class="card panel" id="qb">'+builderHtml(calc.items,calc.rights,rc)+'</div><div><div class="card panel" style="position:sticky;top:90px"><h3>Price</h3><div id="qt"></div>'+
-      '<p class="small" style="margin-top:12px">Licence prices are a share of the making fee for every 30 days. Forever is '+rc.perpetual_x+'× the making fee. Totals round to the nearest $5.</p></div></div></div>';
+      '<p class="small" style="margin-top:12px">License prices are a share of the making fee for every 30 days. Forever is '+rc.perpetual_x+'× the making fee. Totals round to the nearest $5.</p></div></div></div>';
     var qb=$("qb"); function upd(){ calc=readBuilder(qb); $("qt").innerHTML=totalHtml(price(calc.items,calc.rights,rc)); } wireBuilder(qb,upd); upd();
   }});
 
@@ -369,7 +369,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
       '<div class="chips"><button class="chip on" data-tab="q">1 · Quote</button><button class="chip" data-tab="c">2 · Contract</button></div>'+
       '<div id="tq"><div class="cols"><div class="card panel"><label class="small">Title<input class="inp" id="dt" value="'+esc(d.title)+'" style="min-height:44px;font-size:15px;margin-bottom:14px"></label><div id="qb">'+builderHtml(d.items,d.rights,rc)+'</div>'+
         '<div class="sec-h">5 · Dates and payment</div><div style="display:grid;gap:10px;grid-template-columns:1fr 1fr">'+
-        '<label class="small">Licence starts<input class="inp" type="date" id="dl" value="'+esc(d.live_date||"")+'" style="min-height:44px;font-size:15px"></label>'+
+        '<label class="small">License starts<input class="inp" type="date" id="dl" value="'+esc(d.live_date||"")+'" style="min-height:44px;font-size:15px"></label>'+
         '<label class="small">Paid up front<select class="sel" id="dp">'+[0,25,50,100].map(function(x){ return '<option value="'+x+'"'+(Number(d.deposit_pct)===x?' selected':'')+'>'+x+'%</option>'; }).join("")+'</select></label></div>'+
         '<p class="small" id="dend"></p><label class="small" style="display:block;margin-top:8px">Private notes<textarea class="inp" id="dn" style="min-height:70px">'+esc(d.notes||"")+'</textarea></label></div>'+
         '<div><div class="card panel" style="position:sticky;top:90px"><h3>Quote</h3><div id="qt"></div><div class="acts"><button class="b sm" id="dsave">Save</button><button class="b sm ghost" id="dpdf">Quote as PDF</button><button class="b sm ghost" id="dmail">Email it</button></div></div></div></div></div>'+
@@ -380,7 +380,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
     var qb=$("qb"), cur=null;
     function endDate(){ var dl=$("dl").value; return (dl&&Number(cur.rights.days)>0)?addDays(dl,Number(cur.rights.days)-1):null; }
     function upd(){ cur=readBuilder(qb); var p=price(cur.items,cur.rights,rc); $("qt").innerHTML=totalHtml(p); cur.total=p.total;
-      var e=endDate(); $("dend").textContent=Number(cur.rights.days)===0?"Licence: forever.":e?"Licence ends "+nice(e)+". You’ll see a renewal reminder 30 days before.":"Pick a start date to work out when the licence ends."; }
+      var e=endDate(); $("dend").textContent=Number(cur.rights.days)===0?"License: forever.":e?"License ends "+nice(e)+". You’ll see a renewal reminder 30 days before.":"Pick a start date to work out when the license ends."; }
     wireBuilder(qb,upd); $("dl").onchange=upd; upd();
     function collect(){ return { id:id, title:$("dt").value.trim()||d.title, items:cur.items, rights:cur.rights, total_cents:cur.total, live_date:$("dl").value||null, usage_ends:endDate(), deposit_pct:Number($("dp").value), notes:$("dn").value, status:$("ds").value }; }
     async function save(quiet){ d=await saveDeal(collect()); if(!quiet) MTH.toast("Saved"); return d; }
@@ -409,9 +409,9 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
     var g='style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"';
     V.innerHTML='<div class="adm-h"><div><div class="kick">Money</div><h1>Rate <em>card</em></h1></div><div class="acts"><button class="b sm ghost" id="rr">Reset to starting prices</button><button class="b sm" id="rs">Save</button></div></div>'+
       '<div class="card panel"><h3>What you make (price each)</h3>'+rc.formats.map(function(fm,i){ return '<div class="row-i"><input class="inp" data-fn="'+i+'" value="'+esc(fm.name)+'" style="min-height:42px;font-size:14.5px"><div style="display:flex;align-items:center;gap:6px">$<input class="inp" type="number" min="0" data-ff="'+i+'" value="'+(fm.fee/100)+'" style="width:110px;min-height:42px;font-size:16px"></div></div>'; }).join("")+'</div>'+
-      '<div class="card panel" style="margin-top:14px"><h3>Licence (share of the making fee, per 30 days)</h3><div '+g+'>'+
+      '<div class="card panel" style="margin-top:14px"><h3>License (share of the making fee, per 30 days)</h3><div '+g+'>'+
         n("organic_pct","Brand posts it on its own pages","%")+n("paid_pct","Brand runs it as paid ads","%")+n("whitelist_pct","Paid ads from my account (whitelisting)","%")+n("exclusive_pct","No competitor ads (exclusivity)","%")+
-        n("perpetual_x","Forever licence","× making fee","A forever licence gives away all future renewals, so price it high.")+'</div></div>'+
+        n("perpetual_x","Forever license","× making fee","A forever license gives away all future renewals, so price it high.")+'</div></div>'+
       '<div class="card panel" style="margin-top:14px"><h3>Reach on my channels</h3><div '+g+'>'+
         '<label class="small">Price per 1,000 views<div style="display:flex;align-items:center;gap:6px">$<input class="inp" type="number" min="0" step="any" id="cpm" value="'+(rc.cpm/100)+'" style="min-height:44px;font-size:16px"></div></label>'+
         n("views_youtube","My average YouTube views","views","Leave at 0 until your views are steady.")+n("views_shorts","My average Shorts / Reels views","views")+'</div></div>'+

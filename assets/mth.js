@@ -17,8 +17,8 @@
     /* the three protocols: sales page, course and app for each */
     products:{
       gut:  { name:"Gut Health Protocol", short:"Gut Health", price:"$97", was:"$147", sales:"gut.html",      course:"course.html?p=gut",   app:"app.html?p=gut",   img:"1-fasting", thumb:"/media/site/courses/gut.jpg", line:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse." },
-      sugar:{ name:"Diabetes Protocol",   short:"Diabetes",   price:"$97", was:"$147", sales:"diabetes.html", course:"course.html?p=sugar", app:"app.html?p=sugar", img:"3-high-protein",    thumb:"/media/site/courses/sugar.jpg", line:"Gain control of your blood sugar and enjoy steadier energy with your personalised protocol." },
-      glp1: { name:"GLP-1 Weight Loss Protocol", short:"GLP-1", price:"$97", was:"$147", sales:"glp1.html",   course:"course.html?p=glp1",  app:"app.html?p=glp1",  img:"4-cardio",  thumb:"/media/site/courses/glp1.jpg", line:"Lose fat while protecting muscle. A customised roadmap for using GLP-1s intelligently." }
+      sugar:{ name:"Diabetes Protocol",   short:"Diabetes",   price:"$97", was:"$147", sales:"diabetes.html", course:"course.html?p=sugar", app:"app.html?p=sugar", img:"3-high-protein",    thumb:"/media/site/courses/sugar.jpg", line:"Gain control of your blood sugar and enjoy steadier energy with your personalized protocol." },
+      glp1: { name:"GLP-1 Weight Loss Protocol", short:"GLP-1", price:"$97", was:"$147", sales:"glp1.html",   course:"course.html?p=glp1",  app:"app.html?p=glp1",  img:"4-cardio",  thumb:"/media/site/courses/glp1.jpg", line:"Lose fat while protecting muscle. A customized roadmap for using GLP-1s intelligently." }
     },
     order:["gut","sugar","glp1"],
     stripeKey:"",                        /* Stripe publishable key (pk_live_…): turns on the pop-up checkout. Empty = full-page Stripe checkout */
@@ -76,7 +76,7 @@
     try{
       var r=await sb.from("mth_enrollments").select("product,livemode,created_at");
       M.owned=(r.data||[]).map(function(x){ return x.product; });
-    }catch(e){ console.warn("[mth] enrolments",e); M.owned=[]; }
+    }catch(e){ console.warn("[mth] enrollments",e); M.owned=[]; }
   }
   M.owns=function(p){ return M.owned.indexOf(p)>-1; };
   M.ownsAny=function(){ return M.owned.length>0; };
@@ -406,7 +406,7 @@
   /* ---------- on-page checkout: Stripe's secure form right on the page (no pop-up, no new page) ----------
      <div class="mx-co" data-co="gut"></div>  (one per page; a [data-pick] row of buttons switches the course) */
   var CO={ box:null, cur:null, live:null, n:0 };
-  var INCL=["Personalised healing software","7-part video course + interactive ebook","High-protein recipes and meal planner","Fasting clock, tracker and dashboard","Healing Hub community and live Q&amp;A"];
+  var INCL=["Personalized healing software","7-part video course + interactive ebook","High-protein recipes and meal planner","Fasting clock, tracker and dashboard","Healing Hub community and live Q&amp;A"];
   function coSummary(k){
     var P=CONFIG.products[k];
     return '<div class="mx-co-sum"><div class="mx-co-im" style="background-image:url(\''+P.thumb+'\')"></div><div><div class="mx-co-k">One-time payment</div><h3>'+M.esc(P.name)+'</h3>'+

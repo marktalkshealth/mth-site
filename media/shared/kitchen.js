@@ -2,7 +2,7 @@
    MARK TALKS HEALTH — SHARED KITCHEN ENGINE (meal planner)
    Used by the Gut Health, Diabetes and GLP-1 protocol apps.
    Adds: 7-day planner with photos, recipe library with search,
-   filters and favourites, smarter swaps, batch-cook prep plan,
+   filters and favorites, smarter swaps, batch-cook prep plan,
    servings scaling and short cooking clips on every recipe.
    The host app keeps its own rules for what each day can contain
    (cleanse, refeed, gentle, keto); this engine never overrides them.
@@ -30,7 +30,7 @@
     if (/smoothie|shake|latte/.test(t)) return 'blend';
     if (/broth|soup|stew|chili|curry/.test(t)) return 'soup';
     if (/egg|omelet|omelette|frittata|shakshuka|muffin/.test(t)) return 'eggs';
-    if (/yogurt|yoghurt|berr|parfait|chia|oat|pancake/.test(t)) return 'yogurt';
+    if (/yogurt|yogurt|berr|parfait|chia|oat|pancake/.test(t)) return 'yogurt';
     if (/salad|bowl|wrap|slaw/.test(t)) return 'salad';
     if (/roast|tray|bake|baked|sheet|broccoli|cauliflower/.test(t)) return 'roast';
     if (/salmon|cod|fish|trout|shrimp|prawn|steak|chicken|turkey|pork|lamb|beef|burger|sear/.test(t)) return 'sear';
@@ -81,11 +81,11 @@
   function newWeek() {
     const M = H.model(), sel = H.sel();
     [...Array(7)].map((_, i) => H.addD(sel, i)).forEach(x => { const P = H.phaseOf(H.dayIdx(x, M), M); if (P.k === 'keto' || P.k === 'gentle') { const rec = S().days[x]; const fav = rec && rec.plan ? Object.keys(rec.plan).filter(k => isFav(rec.plan[k])) : []; const keep = {}; fav.forEach(k => keep[k] = rec.plan[k]); H.planFor(x, M, true); const r2 = S().days[x]; Object.assign(r2.plan, keep); } });
-    H.save(); H.rerender(); H.toast('New week of meals. Favourites kept.');
+    H.save(); H.rerender(); H.toast('New week of meals. Favorites kept.');
   }
 
-  /* ---------- picker: filters, search, favourites ---------- */
-  const FILTERS = [['all', 'All'], ['fav', '♥ Favourites'], ['quick', 'Under 20 min'], ['p25', '25 g+ protein'], ['u400', 'Under 400 kcal'], ['lc', 'Lowest carbs']];
+  /* ---------- picker: filters, search, favorites ---------- */
+  const FILTERS = [['all', 'All'], ['fav', '♥ Favorites'], ['quick', 'Under 20 min'], ['p25', '25 g+ protein'], ['u400', 'Under 400 kcal'], ['lc', 'Lowest carbs']];
   function filt(list, f, q) {
     q = (q || '').trim().toLowerCase();
     return list.filter(r => f === 'fav' ? isFav(r.id) : f === 'quick' ? mins(r) <= 20 : f === 'p25' ? r.protein >= 25 : f === 'u400' ? r.kcal < 400 : true)
@@ -95,7 +95,7 @@
     return `<div class="kx-card"><button type="button" class="kx-ci" ${attr}><img loading="lazy" alt="" src="${e(img(r, 400))}" onerror="this.remove()">${isFav(r.id) ? '<i class="kx-fv">♥</i>' : ''}${mins(r) ? `<em>${mins(r)} min</em>` : ''}</button>
       <div class="kx-cb"><button type="button" class="kx-ct" ${attr}>${e(r.title)}</button><div class="kx-cm">${r.kcal} kcal · ${r.protein} g protein · ${r.carbs} g ${e(H.carbLabel || 'net carbs')}</div>
       ${cur ? `<div class="kx-cd">${r.kcal > cur.kcal ? '+' : ''}${r.kcal - cur.kcal} kcal vs current</div>` : ''}</div>
-      <button type="button" class="kx-heart ${isFav(r.id) ? 'on' : ''}" data-kx-fav="${r.id}" aria-label="Favourite">${ICO.heart}</button></div>`;
+      <button type="button" class="kx-heart ${isFav(r.id) ? 'on' : ''}" data-kx-fav="${r.id}" aria-label="Favorite">${ICO.heart}</button></div>`;
   }
   let PK = null;   // open picker state
   function picker(list, k, iso, curId, title) {
@@ -111,7 +111,7 @@
       <div class="kx-tools"><input class="fx-in" type="search" placeholder="Search recipes or ingredients" value="${e(PK.q)}" data-kx-q="1">
         <select class="fx-in" data-kx-sort="1">${[['fit', 'Closest calories'], ['protein', 'Most protein'], ['carbs', 'Fewest carbs'], ['quick', 'Quickest']].map(([v, l]) => `<option value="${v}" ${PK.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
       <div class="kx-chips">${FILTERS.map(([v, l]) => `<button type="button" class="kx-chip ${PK.f === v ? 'on' : ''}" data-kx-f="${v}">${l}</button>`).join('')}</div>
-      <div class="kx-cards">${list.map(r => card(r, `data-kx-pick="${r.id}"`, cur)).join('') || `<p class="kx-empty">${PK.f === 'fav' ? 'No favourites here yet. Tap the heart on any recipe to save it.' : 'Nothing matches. Try another search.'}</p>`}</div></div>`;
+      <div class="kx-cards">${list.map(r => card(r, `data-kx-pick="${r.id}"`, cur)).join('') || `<p class="kx-empty">${PK.f === 'fav' ? 'No favorites here yet. Tap the heart on any recipe to save it.' : 'Nothing matches. Try another search.'}</p>`}</div></div>`;
   }
   function repaintPicker(keepFocus) {
     const box = document.querySelector('#fxModal .kx-pick'); if (!box) return;
@@ -168,7 +168,7 @@
       <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"><button type="button" class="fx-btn dark" data-fx="shop">🛒 Shopping list for these</button></div></div>`, true);
   }
 
-  /* ---------- recipe sheet: favourite, servings, cooking clip ---------- */
+  /* ---------- recipe sheet: favorite, servings, cooking clip ---------- */
   function enhanceRecipe(r) {
     const box = document.querySelector('#fxModal .fx-box'); if (!box || !r) return;
     const hero = box.querySelector('.fx-rhero'), c = CLIPS[clipFor(r)];
@@ -210,7 +210,7 @@
     if (d.kxPick) { const rec = H.dayRec(PK.iso); rec.plan[PK.k] = d.kxPick; rec.eaten[PK.k] = false; H.save(); H.closeModal(); H.rerender(); H.toast('Meal swapped'); return; }
     if (d.kxFav) { const f = favs(); if (f[d.kxFav]) delete f[d.kxFav]; else f[d.kxFav] = 1; H.save();
       const on = !!f[d.kxFav]; document.querySelectorAll(`[data-kx-fav="${d.kxFav}"]`).forEach(x => { x.classList.toggle('on', on); const s = x.querySelector('span'); if (s) s.textContent = on ? 'Saved' : 'Save'; });
-      H.toast(on ? 'Saved to favourites. New weeks keep it.' : 'Removed from favourites'); return; }
+      H.toast(on ? 'Saved to favorites. New weeks keep it.' : 'Removed from favorites'); return; }
     if (d.kxF) { PK.f = d.kxF; repaintPicker(); return; }
     if (d.kxLf) { LB.f = d.kxLf; repaintLib(); return; }
     if (d.kxCat) { LB.cat = d.kxCat; repaintLib(); return; }

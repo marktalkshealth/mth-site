@@ -221,7 +221,7 @@
   <div class="hvid tryapp"><div class="tryit" aria-hidden="true"><svg viewBox="0 0 32 36" fill="none" stroke="#c0623f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 5C17 5 10 11 9 27"/><path d="M4.5 22.5L9 28l4.5-5.5"/></svg><span>Test <em>your</em> app</span></div><div class="mthp" data-proto="sugar" data-hint="off"></div></div>
   <div class="hbot">
     <div style="margin-top:24px"><button class="btn g2-buy">Start my protocol <small>· $97</small></button></div>
-    <div class="ticks"><span>80+ published studies</span><span>Personalised plan</span><span>30-day guarantee</span></div>
+    <div class="ticks"><span>80+ published studies</span><span>Personalized plan</span><span>30-day guarantee</span></div>
   </div>
 </div></section>
 
@@ -328,12 +328,12 @@
   <div class="rv">
     <div class="k">Everything included</div><h2>Start your protocol <em>today</em></h2>
     <p class="lead" style="margin-bottom:22px">One payment. Lifetime access to the software, the course and every future update.</p>
-    <div class="card guar"><div class="seal"><div><b>30</b>DAY<br>GUARANTEE</div></div><div><h3>Try it risk-free</h3><p>Try the course and your personalised plan. If you don't feel it was worth it, email us within 30 days for a full refund.</p></div></div>
+    <div class="card guar"><div class="seal"><div><b>30</b>DAY<br>GUARANTEE</div></div><div><h3>Try it risk-free</h3><p>Try the course and your personalized plan. If you don't feel it was worth it, email us within 30 days for a full refund.</p></div></div>
   </div>
   <div class="card price rv">
     <div class="top"><div><div class="k" style="color:var(--muted)">One-time payment</div><h3 style="margin-top:6px">The Diabetes Protocol</h3></div><div class="amt"><s class="was">$147</s><b>$97</b><small>Launch price · lifetime access</small></div></div>
     <ul>
-      <li><i>✓</i><div>Personalised healing software<small>Your day-by-day plan, built from your intake</small></div></li>
+      <li><i>✓</i><div>Personalized healing software<small>Your day-by-day plan, built from your intake</small></div></li>
       <li><i>✓</i><div>7-part course + interactive ebook<small>The science behind every step</small></div></li>
       <li><i>✓</i><div>High-protein recipes &amp; meal plans<small>Plus when to eat carbs, and what to do after</small></div></li>
       <li><i>✓</i><div>Glucose log, fasting clock &amp; dashboard<small>See your progress day by day</small></div></li>
@@ -374,7 +374,7 @@
   <div class="rv">
     <div class="k">Why I made this</div><h2>For me, this is <em>personal</em></h2>
     <p>I struggled with blood sugar and weight problems for most of my life. Like many people, I tried diet after diet without a clear plan for my body.</p>
-    <p>So I went to the research. I spent years studying the published science on fasting, cleansing and natural healing, and built the protocol I wish I'd had: personalised, guided day by day, and actually enjoyable to follow.</p>
+    <p>So I went to the research. I spent years studying the published science on fasting, cleansing and natural healing, and built the protocol I wish I'd had: personalized, guided day by day, and actually enjoyable to follow.</p>
     <p>Everything inside came out of my own healing journey. I'd love to help with yours.</p>
     <div class="sig">Mark</div>
   </div>
@@ -384,7 +384,7 @@
 <section class="alt final" id="checkout"><div class="w">
   <div class="k">Your numbers. Your plan.</div>
   <h2>Seven days from now, your mornings could <em>look completely different</em></h2>
-  <p class="lead" style="margin:0 auto 6px">Start today and have your personalised plan in the next five minutes.</p>
+  <p class="lead" style="margin:0 auto 6px">Start today and have your personalized plan in the next five minutes.</p>
   <div class="mx-co" data-co="sugar"></div>
   <div class="ticks" style="justify-content:center"><span>Instant access</span><span>Lifetime software</span><span>30-day guarantee</span></div>
 </div></section>
@@ -421,7 +421,7 @@ R.querySelectorAll("#g2Seg button").forEach(function(b){ b.addEventListener("cli
 
 /* ---- 7-day timeline ---- */
 var DAYS=[
- ["Reset your eating window","Start your level and track your overnight window on the built-in clock.",["Set your eating window","Log your morning reading","2–3 litres of water"]],
+ ["Reset your eating window","Start your level and track your overnight window on the built-in clock.",["Set your eating window","Log your morning reading","2–3 liters of water"]],
  ["Calm the stress response","Stress hormones push glucose up. Today is about switching into rest-and-repair.",["10-minute guided meditation","One page of journaling","Slow breaths before meals"]],
  ["Reset outdoors","Morning light and an outdoor walk support healthier glucose rhythms.",["Sunlight within an hour of waking","A 30-minute walk outside","20 minutes of midday sun"]],
  ["Sleep steadies glucose","Short sleep raises next-day blood sugar. Set up your night for deep rest.",["Screens off an hour before bed","Cool, dark bedroom","Same bedtime tonight and tomorrow"]],
@@ -469,7 +469,7 @@ MTH.ready.then(function(){
     var amt=document.querySelector("#g2 .amt"); if(amt) amt.innerHTML='<b style="font-size:26px">You own this</b><small>Lifetime access</small>';
     var sk=document.querySelector("#g2Sticky small"); if(sk) sk.textContent="You own this protocol";
   }
-  if(MTH.qs("checkout")==="cancelled") MTH.toast("Checkout cancelled. Nothing was charged.");
+  if(MTH.qs("checkout")==="cancelled") MTH.toast("Checkout canceled. Nothing was charged.");
   if(MTH.qs("locked")&&!own) MTH.toast("Get the protocol to open the course and your app.",3600);
   if(MTH.qs("buy")&&!own){ try{ var u=new URL(location.href); u.searchParams.delete("buy"); history.replaceState(null,"",u.pathname+u.search+u.hash); }catch(e){} var b=document.querySelector("#checkout .g2-buy"); MTH.buy(K,b); }
 });

@@ -64,7 +64,7 @@
   }
 
   /* ---------------- reading the answers ---------------- */
-  function analyse(d){
+  function analyze(d){
     var sy = Object.keys(d.symptoms || {}).map(function(k){ return { name: k, score: Number(d.symptoms[k]) }; }).filter(function(x){ return x.score > 0; }).sort(function(a, b){ return b.score - a.score; });
     var dmg = DAMAGE.map(function(q){ var i = q.o.indexOf((d.damage || {})[q.k]); return { q: q, w: i > -1 ? q.w[i] : 0, a: (d.damage || {})[q.k] }; }).filter(function(x){ return x.w >= 3; }).sort(function(a, b){ return b.w - a.w; });
     var life = LIFE.map(function(q){ return { q: q, v: Number((d.life || {})[q.k] || 0) }; }).filter(function(x){ return x.v >= 4; }).sort(function(a, b){ return b.v - a.v; });
@@ -72,7 +72,7 @@
     // where to start: Phase 1 (Calm), never more than 3 actions
     var start = dmg.slice(0, 2).map(function(x){ return x.q.fix; });
     if (!dmg.some(function(x){ return x.q.k === "sleep"; }) && start.length < 3) start.push("Keep your sleep steady: same bedtime, 7 to 8 hours");
-    if (start.length < 3) start.push("Drink about 2 litres of water a day, plus a cup of broth");
+    if (start.length < 3) start.push("Drink about 2 liters of water a day, plus a cup of broth");
     if (start.length < 3) start.push("A 15-minute walk outside every day");
     return { top: sy.slice(0, 3), all: sy, damage: dmg, life: life, modules: mods, start: start.slice(0, 3), flags: (d.flags || []).filter(function(f){ return f !== "none"; }) };
   }
@@ -83,7 +83,7 @@
     { name: "How you feel", draw: drawFeel }, { name: "Your tests", draw: drawTests }, { name: "Diagnoses", draw: drawDiag },
     { name: "Medications & treatments", draw: drawMeds }, { name: "Daily damage", draw: drawDamage }, { name: "Your life", draw: drawLife }, { name: "Your goals", draw: drawGoals }
   ];
-  function blank(){ var s = {}; SYMPTOMS.forEach(function(n){ s[n] = 0; }); return { v: 1, symptoms: s, flags: [], tests: { gUnit: "mmol/L", wUnit: "lb", waistUnit: "in" }, diag: [], diagOther: "", meds: [], medsOther: "", damage: {}, life: {}, safe: "", goals: ["", "", ""], name: "" }; }
+  function blank(){ var s = {}; SYMPTOMS.forEach(function(n){ s[n] = 0; }); return { v: 1, symptoms: s, flags: [], tests: { gUnit: "mg/dL", wUnit: "lb", waistUnit: "in" }, diag: [], diagOther: "", meds: [], medsOther: "", damage: {}, life: {}, safe: "", goals: ["", "", ""], name: "" }; }
   function save(){ store.set(DRAFT, { d: D, s: S, at: Date.now() }); }
   function opt(label, on, attrs, cls){ return '<span class="opt ' + (on ? "on " : "") + (cls || "") + '" role="button" tabindex="0" ' + (attrs || "") + '>' + esc(label) + "</span>"; }
   function multi(list, key, flagCls){ return '<div class="opts">' + list.map(function(x){ return opt(x, D[key].indexOf(x) > -1, 'data-multi="' + key + '" data-v="' + esc(x) + '"', flagCls); }).join("") + "</div>"; }
@@ -102,7 +102,7 @@
     var f = function(k, label, ph){ return '<label class="fl">' + label + '<input class="inp" inputmode="decimal" data-test="' + k + '" value="' + esc(t[k] || "") + '" placeholder="' + (ph || "") + '"></label>'; };
     var u = function(k, list){ return '<label class="fl">Unit<select class="inp" data-test="' + k + '">' + list.map(function(x){ return "<option" + (t[k] === x ? " selected" : "") + ">" + x + "</option>"; }).join("") + "</select></label>"; };
     return '<h2>Your tests</h2><p class="why">Only if you know them. These are the numbers we\'ll ask your doctor to retest in 8 to 12 weeks. Skip anything you don\'t have.</p>' +
-      '<div class="grid3">' + f("a1c", "A1C (%)", "e.g. 6.1") + f("glucose", "Fasting blood sugar", "e.g. 6.2") + u("gUnit", ["mmol/L", "mg/dL"]) + "</div>" +
+      '<div class="grid3">' + f("a1c", "A1C (%)", "e.g. 6.1") + f("glucose", "Fasting blood sugar", "e.g. 110") + u("gUnit", ["mg/dL", "mmol/L"]) + "</div>" +
       '<div class="grid3" style="margin-top:12px">' + f("sys", "Blood pressure (top number)", "e.g. 135") + f("dia", "Blood pressure (bottom number)", "e.g. 85") + f("chol", "Cholesterol or other (optional)", "") + "</div>" +
       '<div class="grid3" style="margin-top:12px">' + f("weight", "Weight", "") + u("wUnit", ["lb", "kg"]) + "<span></span>" + f("waist", "Waist", "") + u("waistUnit", ["in", "cm"]) + f("when", "When were these taken?", "e.g. last month") + "</div>" +
       '<div class="q"><label>Any other test results worth noting? <span class="hint">e.g. iron, vitamin D, H. pylori, liver enzymes</span></label><textarea class="inp" data-test="other">' + esc(t.other || "") + "</textarea></div>";
@@ -184,7 +184,7 @@
     return out;
   }
   H.snapshotHtml = function(d, when){
-    var a = analyse(d), t = d.tests || {}, tests = fmtTests(t);
+    var a = analyze(d), t = d.tests || {}, tests = fmtTests(t);
     var date = new Date(when || Date.now()).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
     var live = a.modules.filter(function(m){ return MODULES[m].live; });
     var first = live[0] ? MODULES[live[0]] : null;
@@ -208,7 +208,7 @@
     if (!window.MTH) return { ok: false };
     await MTH.ready.catch(function(){});
     if (!MTH.user) return { ok: false, signin: true };
-    var a = analyse(d);
+    var a = analyze(d);
     var r = await MTH.sb.from("mth_snapshots").insert({ user_id: MTH.user.id, data: d, red_flags: a.flags }).select("id,created_at").single();
     if (r.error) { console.warn("[heal] snapshot not saved", r.error); return { ok: false, error: r.error.message }; }
     return { ok: true, row: r.data };
@@ -251,7 +251,7 @@
   var TIPS = {
     "Bloating or gas": "Eat slowly and stop at 80% full, and try a cup of bone broth instead of a snack.",
     "Heartburn or reflux": "Close the kitchen 3 hours before bed and raise the head of your bed a little.",
-    "Constipation or diarrhea": "Add one high-fibre vegetable to lunch and drink a glass of water first thing.",
+    "Constipation or diarrhea": "Add one high-fiber vegetable to lunch and drink a glass of water first thing.",
     "Joint pain": "Take collagen with vitamin C 30 to 60 minutes before a short strength session.",
     "Tiredness or low energy": "Get 10 minutes of morning sunlight and move bedtime 30 minutes earlier.",
     "Brain fog": "Swap one processed meal for a high protein meal and take a 10-minute walk after lunch.",
@@ -259,7 +259,7 @@
     "Low mood": "A daily walk in nature and one call to a friend this week.",
     "Stress or anxiety": "Five minutes of slow breathing or meditation, twice a day.",
     "Sugar or food cravings": "Add 25 to 30 grams of protein to breakfast.",
-    "Headaches": "Drink about 2 litres of water a day and keep regular meal times.",
+    "Headaches": "Drink about 2 liters of water a day and keep regular meal times.",
     "Skin problems": "Cut sugary drinks completely for two weeks.",
     "Weight gain": "Close the kitchen 3 hours before bed and walk 15 minutes after dinner."
   };
@@ -288,7 +288,7 @@
     if (!snap){ box.innerHTML = '<div class="card" style="padding:24px"><p style="margin-top:0"><b>First, your Healing Snapshot.</b> Your check-ins measure progress against it.</p><a class="b" href="snapshot.html">Start your Snapshot</a></div>'; return; }
     var cr = await MTH.sb.from("mth_checkins").select("id,scores,note,created_at").eq("snapshot_id", snap.id).order("created_at", { ascending: true });
     var cks = cr.data || [];
-    var base = analyse(snap.data);
+    var base = analyze(snap.data);
     var track = (base.all.length ? base.all : [{ name: "Tiredness or low energy", score: 0 }]).slice(0, 6).map(function(s){ return s.name; });
     var last = cks[cks.length - 1];
     var days = last ? (Date.now() - new Date(last.created_at)) / 864e5 : 99;

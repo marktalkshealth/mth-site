@@ -21,9 +21,9 @@
     gut:{
       name:"Gut Health Protocol", short:"Gut Health", fastGoal:16, fastNote:"Fat-burning shift · goal 16h",
       steps:["Fasting & cleanse","Meditation & journaling","Nature & sun","Sleep & clean air","Music & spirituality","Cardio & weights","High-protein diet"],
-      days:[["Morning green juice","Protein ice cream dinner","14-hour fasting window"],["10-minute meditation","Journal three lines","2 litres of water"],
+      days:[["Morning green juice","Protein ice cream dinner","14-hour fasting window"],["10-minute meditation","Journal three lines","2 liters of water"],
             ["20 minutes of morning sun","Forest or park walk","Notice how calm you feel"],["No screens after 9pm","Lights out by 10:30","Log your sleep"],
-            ["Music therapy session","Gratitude note","Morning green juice"],["Strength circuit","20-minute brisk walk","Rate your energy"],["Protein at every meal","3 litres of water","Day 7 check-in"]],
+            ["Music therapy session","Gratitude note","Morning green juice"],["Strength circuit","20-minute brisk walk","Rate your energy"],["Protein at every meal","3 liters of water","Day 7 check-in"]],
       food:{goal:1600, carbLabel:"Carbs", t:{p:130,c:110,f:55}, style:"High protein",
         meals:{
           Breakfast:[["🥑","Lemon & sea salt avocado",320,4,3,29,"1 avocado · lemon · sea salt · olive oil"],["🍳","Eggs, spinach & avocado",410,20,5,34,"3 eggs · spinach · ½ avocado · olive oil"],["🥬","Green juice + collagen",150,12,8,0,"Celery · cucumber · spinach · lemon · collagen"]],
@@ -32,7 +32,7 @@
           Snack:[["🥚","2 boiled eggs",140,12,1,10,"Eggs · sea salt"],["🌰","Macadamias, small handful",200,2,2,21,"Macadamia nuts"],["🫒","Olives & cucumber",120,1,3,11,"Olives · cucumber"]]},
         shop:[["Produce",["Avocados ×6","Spinach","Cucumber","Zucchini","Lemons"]],["Protein",["Chicken thighs","Wild salmon","Greek yogurt","Eggs, dozen"]],["Pantry",["Coconut cream","Raw cacao","Olive oil","Collagen"]]]},
       move:{week:["Strength","Walk","Strength","Cardio","Strength","Walk","Rest"], today:2, name:"Strength A", mins:25, level:"Foundation", stepsGoal:8000,
-        ex:[["Goblet squat",3,"10","8 kg"],["Incline push-up",3,"8","body"],["Glute bridge",3,"12","body"],["Bird dog",2,"10/side","body"],["Brisk walk",1,"20 min","easy"]], strength:false},
+        ex:[["Goblet squat",3,"10","15 lb"],["Incline push-up",3,"8","body"],["Glute bridge",3,"12","body"],["Bird dog",2,"10/side","body"],["Brisk walk",1,"20 min","easy"]], strength:false},
       chart:{title:"Bloating", sub:"Daily self-rating, 0–10", v:[82,74,60,48,40,32,26]},
       posts:[["🌸","Sarah","DAY 3","A high-protein breakfast is keeping me full all morning.",24],["🌊","James","DAY 5","First week in years without bloating after dinner. Small win!",41],["🍃","Priya","CLEANSE","Avocado for breakfast and macadamias for dinner. Simplest cleanse I've ever done.",18]]
     },
@@ -68,7 +68,7 @@
           Snack:[["🥣","Greek yogurt & walnuts",190,20,8,9,"Greek yogurt · walnuts · cinnamon"],["🍍","Cottage cheese & pineapple",170,20,14,3,"Cottage cheese · pineapple"],["🥤","Protein shake",160,30,6,2,"Whey or plant protein · water"]]},
         shop:[["Produce",["Berries","Broccoli","Sweet potatoes","Greens","Peppers"]],["Protein",["Greek yogurt ×2","Chicken breast","Salmon","Eggs, dozen","Cottage cheese"]],["Pantry",["Protein powder","Quinoa","Olive oil","Electrolytes"]]]},
       move:{week:["Strength A","Cardio","Strength B","Walk","Strength A","Cardio","Rest"], today:2, name:"Strength B", mins:30, level:"Build", stepsGoal:7000,
-        ex:[["Goblet squat",3,"10","12 kg"],["Dumbbell row",3,"10","10 kg"],["Floor press",3,"8","10 kg"],["Romanian deadlift",3,"10","14 kg"],["Plank",3,"30 s","body"]], strength:true},
+        ex:[["Goblet squat",3,"10","25 lb"],["Dumbbell row",3,"10","20 lb"],["Floor press",3,"8","20 lb"],["Romanian deadlift",3,"10","30 lb"],["Plank",3,"30 s","body"]], strength:true},
       chart:{title:"Weight & muscle", sub:"Weekly weigh-ins, charted", v:[88,80,74,66,60,55,50]},
       posts:[["💪","Dana","WEEK 3","Strength index held at 100 while the scale dropped. Muscle kept!",38],["🌸","Rachel","DAY 3","The protein yogurt bowl got me through a low-appetite day.",22],["🌊","Mike","DAY 6","Electrolytes fixed my afternoon slump completely.",27]]
     }
