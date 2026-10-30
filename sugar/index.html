@@ -5474,7 +5474,7 @@ document.addEventListener('click', function(e) {
 // Animate slope bars on load
 window.addEventListener('load', () => { setTimeout(animateSlopeBars, 300); });
 </script>
-<script src="/media/shared/train.js?v=1"></script>
+<script src="/media/shared/train.js?v=2"></script>
 <script src="/media/shared/kitchen.js?v=1"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════
@@ -5658,7 +5658,7 @@ function moveFor(d, M) {
     : { e: '🏋️', n: 'Strength · 15 min', min: 15, kcal: kc(4, 15), t: '2 rounds, stopping 2–3 reps short of failure. No cardio today.', tags: ['Squats', 'Push-ups', 'Rows', 'Hip bridges', 'Plank'] };
   if (isCardio) return d <= 4
     ? { e: '🚶', n: 'Gentle cardio · 30 min', min: 30, kcal: kc(3, 30), t: 'An easy walk at a talking pace. Cardio and strength alternate days.', tags: ['Easy walk', 'Talking pace'] }
-    : { e: '🏃', n: 'Zone 2 cardio · 30 min', min: 30, kcal: kc(4.5, 30), t: 'Brisk walking, cycling or swimming at a pace where you can still talk. Tomorrow is a rest or strength day.', tags: ['Brisk walk', 'Cycle', 'Swim'] };
+    : { e: '🏃', n: 'Zone 2 cardio · 30 min', min: 30, kcal: kc(4.5, 30), t: 'Cycling, jogging, swimming or brisk walking at a pace where you can still talk. Tomorrow is a rest or strength day.', tags: ['Brisk walk', 'Cycle', 'Swim'] };
   return { e: '🌿', n: 'Rest day', min: 15, kcal: kc(2.8, 15), t: 'Recovery day. An optional 15-minute walk after your biggest meal lowers the sugar spike.', tags: ['Optional', 'After a meal'] };
 }
 

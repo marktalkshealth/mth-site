@@ -5588,7 +5588,7 @@ document.addEventListener('click', function(e) {
 // Animate slope bars on load
 window.addEventListener('load', () => { setTimeout(animateSlopeBars, 300); });
 </script>
-<script src="/media/shared/train.js?v=1"></script>
+<script src="/media/shared/train.js?v=2"></script>
 <script src="/media/shared/kitchen.js?v=1"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════
@@ -5781,7 +5781,7 @@ function moveFor(d, M) {
     : { e: '🏋️', n: `Strength · ${wmin} min`, min: wmin, kcal: kc(5, wmin), t: '2–3 sets of 8–12: squats, push-ups, rows, hip hinges, carries and a plank. Stop 1–3 reps short of failure and add a little load each week. No cardio today.', tags: ['Squats', 'Push-ups', 'Rows', 'Hip hinges', 'Carries', 'Plank'] };
   if (isCardio) return reset
     ? { e: '🚶', n: 'Easy walk · 25 min', min: 25, kcal: kc(3, 25), t: 'Reset day: an easy walk at a talking pace. Strength is tomorrow.', tags: ['Easy walk', 'Talking pace'] }
-    : { e: '🏃', n: 'Zone 2 cardio · 30 min', min: 30, kcal: kc(4.5, 30), t: 'Brisk walking, cycling or swimming at a pace where you can still talk. Tomorrow is a strength day.', tags: ['Brisk walk', 'Cycle', 'Swim'] };
+    : { e: '🏃', n: 'Zone 2 cardio · 30 min', min: 30, kcal: kc(4.5, 30), t: 'Cycling, jogging, swimming or brisk walking at a pace where you can still talk. Tomorrow is a strength day.', tags: ['Brisk walk', 'Cycle', 'Swim'] };
   return { e: '🌿', n: 'Rest day', min: 15, kcal: kc(2.8, 15), t: 'Recovery day. An optional 15-minute walk after your biggest meal helps digestion and blood sugar.', tags: ['Optional', 'After a meal'] };
 }
 

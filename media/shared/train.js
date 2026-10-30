@@ -39,7 +39,8 @@
     calf: ['32115656/13692094_540_960_24fps.mp4', '32115656/4k-bodybuilding-build-color-grade-32115656.jpeg'],
     carry: ['8456980/8456980-sd_960_540_25fps.mp4', '8456980/pexels-photo-8456980.jpeg'],
     pullapart: ['6892964/6892964-sd_960_540_25fps.mp4', '6892964/pexels-photo-6892964.jpeg'],
-    walk: ['8981719/8981719-sd_960_540_30fps.mp4', '8981719/beautiful-body-child-cute-8981719.jpeg'],
+    walk: ['6892540/6892540-sd_540_960_25fps.mp4', '6892540/pexels-photo-6892540.jpeg'],
+    jog: ['8533913/8533913-sd_960_540_25fps.mp4', '8533913/action-energy-athlete-athletics-challenge-8533913.jpeg'],
     bike: ['7934713/7934713-sd_960_540_25fps.mp4', '7934713/gt-gt-7934713.jpeg'],
     swim: ['6539507/6539507-sd_960_540_25fps.mp4', '6539507/pexels-photo-6539507.jpeg'],
     catcow: ['8480627/8480627-sd_960_540_25fps.mp4', '8480627/pexels-photo-8480627.jpeg'],
@@ -77,6 +78,7 @@
     calf: { n: 'Calf raise', mus: 'Calves & ankles', eq: 'none', cues: ['Stand tall, holding a wall or counter.', 'Rise onto the balls of your feet as high as you can.', 'Lower over 2 seconds.'], easier: 'Both feet, hold on firmly.', harder: 'One foot at a time, or on a step.' },
     carry: { n: 'Farmer carry', mus: 'Grip, core & posture', eq: 'db', m: 1.2, time: true, cues: ['A dumbbell in each hand, stand tall.', 'Walk slowly with short steps for the time shown.', 'Shoulders down and back.'], easier: 'Lighter weights, shorter walk.', harder: 'Heavier, or one hand at a time.' },
     walk: { n: 'Brisk walk', mus: 'Cardio', eq: 'none', time: true, cues: ['Walk at a pace where you can talk but not sing.', 'Stand tall, swing your arms, land softly.', 'A 10-minute walk after each meal counts and flattens the blood-sugar rise.'], easier: 'Slower pace, flat route, shorter walks after meals.', harder: 'Add hills, or a few 1-minute faster stretches.' },
+    jog: { n: 'Jogging', mus: 'Cardio', eq: 'none', time: true, cues: ['An easy jog: you can still speak in short sentences.', 'Short, quick steps landing under your hips, not out in front.', 'Walk breaks are fine: try 2 minutes jogging, 1 minute walking.'], easier: 'Alternate 1 minute jogging with 2 minutes walking.', harder: 'Longer jogging stretches, or a gentle hill.' },
     bike: { n: 'Cycling', mus: 'Cardio', eq: 'none', time: true, cues: ['Set the seat so your knee is slightly bent at the bottom of the pedal stroke.', 'Steady, comfortable pace: you can still talk.', 'Indoors or outdoors both count.'], easier: 'Lower resistance, shorter session.', harder: 'More resistance, or 1-minute harder efforts.' },
     swim: { n: 'Swimming', mus: 'Cardio', eq: 'none', time: true, cues: ['Easy, continuous laps at a pace you could keep for 30 minutes.', 'Rest at the wall whenever you need to.', 'Water walking or aqua aerobics count too.'], easier: 'Water walking, or rest every length.', harder: 'Longer sets without stopping.' },
     march: { n: 'March in place', mus: 'Warm-up', eq: 'none', time: true, cues: ['Stand tall and march, lifting your knees to hip height if you can.', 'Swing your arms. Breathe through your nose.'], easier: 'Smaller steps, hold a counter.', harder: 'Faster, or add arm circles.' },
@@ -101,7 +103,7 @@
   const DAYS = { A: ['squat', 'pushup', 'row', 'hinge', 'plank'], B: ['lunge', 'press', 'curl', 'hinge', 'carry'] };
   const WARM = [['march', '2 min'], ['catcow', '8 slow reps']], COOL = [['hamstring', '30 sec a side'], ['child', '45 sec']];
   const MOB = [['catcow', '8 slow reps'], ['birddog', '6 each side'], ['hamstring', '30 sec a side'], ['child', '45 sec'], ['walk', '10 min after a meal']];
-  const CARDIO = [['Brisk walk', 'walk'], ['Cycling', 'bike'], ['Swimming', 'swim'], ['Marching indoors', 'march']];
+  const CARDIO = [['Cycling', 'bike'], ['Jogging', 'jog'], ['Swimming', 'swim'], ['Brisk walk', 'walk'], ['Marching indoors', 'march']];
   const LVL = { found: 'Foundation', build: 'Build', strong: 'Strong' };
   const EQ = { db: 'Dumbbells', band: 'Resistance band', none: 'No equipment' };
   const BASE = { found: 8, build: 12, strong: 17.5 };   // curl-equivalent dumbbell (lb) when there's no strength test
@@ -177,11 +179,11 @@
         <div class="tr-finish"><button type="button" class="fx-btn ${rec.move ? '' : 'dark'}" data-tr-finish="1">✓ ${rec.move ? 'Workout logged' : 'Finish workout'}</button><span>${rec.move ? 'Nice work. Protein within 2 hours helps your muscles repair.' : 'Log your sets, then finish to count it in your daily score.'}</span></div>`;
     }
     if (T.k === 'cardio' || T.k === 'walk') {
-      const c = log.cardio = log.cardio || { min: '', type: 'Brisk walk' }, cur = (CARDIO.find(x => x[0] === c.type) || CARDIO[0])[1], rec = H.dayRec(iso);
+      const c = log.cardio = log.cardio || { min: '', type: 'Cycling' }, cur = (CARDIO.find(x => x[0] === c.type) || CARDIO[0])[1], rec = H.dayRec(iso);
       return `<div class="fx-sec-h"><h3>${e(T.title || 'Zone 2 cardio')} · ${T.min} min</h3><span>${e(T.next || '')}</span></div>
         <div class="tr-hero" data-tr-ex="${cur}"><img alt="" src="${poster(cur, 900)}" onerror="this.remove()"><i>▶</i><span>${e(c.type)}</span></div>
-        <p class="tr-lede">${e(T.text || 'A pace where you can talk but not sing: brisk walking, cycling or swimming. A 10-minute walk after a meal also counts and steadies blood sugar.')}</p>
-        <div class="tr-cardio">${CARDIO.map(t => `<button type="button" class="tr-chip ${c.type === t[0] ? 'on' : ''}" data-tr-ctype="${t[0]}">${t[0]}</button>`).join('')}</div>
+        <p class="tr-lede">${e(T.text || 'A pace where you can talk but not sing: cycling, jogging, swimming or brisk walking. A 10-minute walk after a meal also counts and steadies blood sugar.')}</p>
+        <label class="tr-csel"><span>Cardio type</span><select class="fx-in" data-tr-csel="1" aria-label="Choose your cardio">${CARDIO.map(t => `<option value="${t[0]}"${t[0] === (CARDIO.find(x => x[0] === c.type) || CARDIO[0])[0] ? ' selected' : ''}>${t[0]}</option>`).join('')}</select></label>
         <div class="tr-cmin"><label>Minutes<input class="fx-in" type="number" inputmode="numeric" min="0" value="${e(c.min)}" placeholder="${T.min}" data-tr-cmin="1"></label>
           <div class="tr-quick">${[10, 20, 30, 45].map(m => `<button type="button" class="tr-chip" data-tr-cadd="${m}">${m} min</button>`).join('')}</div></div>
         <div class="tr-finish"><button type="button" class="fx-btn ${rec.move ? '' : 'dark'}" data-tr-finish="1">✓ ${rec.move ? 'Cardio logged' : 'Log cardio'}</button></div>`;
@@ -252,6 +254,10 @@
   }
 
   /* ---------- events ---------- */
+  document.addEventListener('change', ev => {
+    const t = ev.target; if (!H || !t.matches || !t.matches('[data-tr-csel]')) return;
+    const S = store(), iso = H.sel(), l = S.log[iso] = S.log[iso] || {}; (l.cardio = l.cardio || {}).type = t.value; H.save(); H.rerender();
+  });
   document.addEventListener('click', ev => {
     if (!H) return;
     const b = ev.target.closest('[data-tr-ex],[data-tr-done],[data-tr-finish],[data-tr-ctype],[data-tr-cadd],[data-tr-lvl],[data-tr-eq],[data-tr-rest]'); if (!b) return;
@@ -321,6 +327,8 @@
 .tr-hero span{position:absolute;left:12px;bottom:10px;color:#fff;font:600 .9rem 'DM Sans',sans-serif;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .tr-hero i{width:36px;height:36px;right:12px;bottom:10px;font-size:.8rem}
 .tr-cardio,.tr-quick{display:flex;gap:6px;flex-wrap:wrap}
+.tr-csel{display:flex;align-items:center;gap:10px;margin:2px 0 10px;font:500 .8rem 'DM Sans',sans-serif;color:#6b6258}
+.tr-csel select{max-width:240px;cursor:pointer}
 .tr-chip{border:1px solid var(--border,#e4dccd);background:#fff;border-radius:999px;padding:7px 13px;font:600 .74rem 'DM Sans',sans-serif;cursor:pointer;color:var(--text,#1e2820)}
 .tr-chip.on{background:#1e2820;border-color:#1e2820;color:#fff}
 .tr-cmin{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:12px}.tr-cmin label{display:grid;gap:4px;font-size:.72rem;color:var(--muted,#6b7f72);max-width:120px}
