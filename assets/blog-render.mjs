@@ -15,7 +15,7 @@ export const COURSES = {
   sugar: { name: "The Diabetes Protocol", url: "/diabetes" },
   glp1:  { name: "The GLP-1 Weight Loss Protocol", url: "/glp1" }
 };
-const V = "202610301500";
+const V = "202610301600";
 
 export function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -68,19 +68,35 @@ export function slugify(t) {
 
 /* the study box: the PubMed screenshot (or a tidy citation card), the citation and a link */
 export function studyBox(p) {
-  if (!p.study_url && !p.study_title && !p.study_cite && !p.study_img) return "";
-  const url = p.study_url ? esc(p.study_url) : "";
+  /* top of the article: shows the study, but no links out (the link to it sits at the very bottom) */
+  if (!p.study_title && !p.study_cite && !p.study_img) return "";
   const pub = /pubmed|ncbi\.nlm\.nih\.gov/i.test(p.study_url || "");
   const shot = p.study_img
     ? '<img src="' + esc(p.study_img) + '" alt="' + esc(pub ? "The study on PubMed" : "The study") + '" loading="lazy">'
     : '<span class="bs-card" aria-hidden="true"><small>' + (pub ? "PubMed" : "The study") + '</small><b>' + esc(p.study_title || p.title) + '</b><i>' + esc(p.study_cite || "") + '</i></span>';
-  const open = url ? '<a class="bs-shot" href="' + url + '" target="_blank" rel="noopener">' : '<span class="bs-shot">';
-  return '<aside class="bs" aria-label="The study">' + open + shot + (url ? "</a>" : "</span>") +
+  return '<aside class="bs" aria-label="The study"><span class="bs-shot">' + shot + '</span>' +
     '<div class="bs-tx">' +
-    (p.study_title ? '<p class="bs-t"><span class="bs-l">Study:</span> ' + (url ? '<a href="' + url + '" target="_blank" rel="noopener">' + esc(p.study_title) + '</a>' : '<u>' + esc(p.study_title) + '</u>') + '</p>' : '<span class="bs-k">The study</span>') +
+    (p.study_title ? '<p class="bs-t"><span class="bs-l">Study:</span> <u>' + esc(p.study_title) + '</u></p>' : '<span class="bs-k">The study</span>') +
     (p.study_cite ? '<p class="bs-c">' + esc(p.study_cite) + '</p>' : "") +
-    (url ? '<a class="bs-a" href="' + url + '" target="_blank" rel="noopener">' + (pub ? "Read it on PubMed" : "Read the study") + ' →</a>' : "") +
     "</div></aside>";
+}
+
+/* end of the article: the course as the next step */
+const CTA = {
+  gut:   { k: "Your next step", h: "Want this working in <em>your</em> gut?", p: "The Gut Health Protocol turns studies like this into a plan you can actually follow. A short cleanse. Then meals, movement and daily habits built around your symptoms. Day by day.", b: "See the Gut Health Protocol" },
+  sugar: { k: "Your next step", h: "Ready to get your blood sugar <em>steady</em>?", p: "The Diabetes Protocol takes research like this and turns it into a day-by-day plan for your meals, movement and habits.", b: "See the Diabetes Protocol" },
+  glp1:  { k: "Your next step", h: "Want the results <em>without</em> losing muscle?", p: "The GLP-1 Weight Loss Protocol turns research like this into a daily plan that protects your muscle while the weight comes off.", b: "See the GLP-1 Protocol" }
+};
+export function ctaBox(p) {
+  const c = COURSES[p.cta], t = CTA[p.cta]; if (!c || !t) return "";
+  const href = c.url + "?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=" + esc(p.slug);
+  return '<aside class="bl-next" aria-label="Your next step"><div class="kick">' + t.k + '</div><h2>' + t.h + '</h2><p>' + t.p + '</p>' +
+    '<a class="b" href="' + href + '">' + t.b + ' →</a></aside>';
+}
+export function sourceLine(p) {
+  if (!p.study_url) return "";
+  const pub = /pubmed|ncbi\.nlm\.nih\.gov/i.test(p.study_url);
+  return '<p class="bl-src">Source: ' + esc(p.study_cite || p.study_title || "the study") + ' <a href="' + esc(p.study_url) + '" target="_blank" rel="noopener">' + (pub ? "View on PubMed" : "View the study") + '</a></p>';
 }
 
 function head(o) {
@@ -109,8 +125,7 @@ export function articleBody(p) {
     (p.cover_img ? '<img class="bl-cover" src="' + esc(p.cover_img) + '" alt="">' : "") +
     studyBox(p) +
     '<div class="bl-body">' + cleanBody(p.body) + "</div>" +
-    (c ? '<p class="bl-cta">If you want help putting this into practice, <a href="' + c.url + '?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=' + esc(p.slug) + '">' + esc(c.name) + "</a> is where I walk you through it.</p>" : "") +
-    '<p class="bl-fine">Written by Mark, health educator at Mark Talks Health. Educational, not medical advice: talk to your healthcare provider before changing your diet, fasting or medication.</p>' +
+    ctaBox(p) +
     "</article>";
 }
 
@@ -128,7 +143,9 @@ export function articlePage(p, more) {
   const others = (more || []).filter(x => x.slug !== p.slug).slice(0, 3);
   return head({ title: p.title + " · Mark Talks Health", ogTitle: p.title, desc, url, article: true, image: p.cover_img || p.study_img, ld }) +
     '<body class="blog">\n<main id="main" class="bl-wrap">' + articleBody(p) +
-    (others.length ? '<nav class="bl-more" aria-label="More articles" data-noedit><h2>More from the blog</h2>' + others.map(listItem).join("") + "</nav>" : "") +
+    (others.length ? '<nav class="bl-more" aria-label="More articles" data-noedit><h2>Keep reading</h2>' + others.map(listItem).join("") + '<a class="bl-all" href="/blog/">All articles →</a></nav>' : "") +
+    '<div class="bl-foot" data-noedit>' + sourceLine(p) +
+    '<p class="bl-fine">Written by Mark, health educator at Mark Talks Health. Educational, not medical advice: talk to your healthcare provider before changing your diet, fasting or medication.</p></div>' +
     "</main>\n</body>\n</html>";
 }
 

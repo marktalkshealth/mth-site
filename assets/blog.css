@@ -52,3 +52,18 @@ a.bs-shot:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(43,39,36,.
 .bl-item:hover b{color:var(--terra)}
 .bl-item span{color:var(--muted);font-size:15px}
 .bl-item .bl-d{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+
+/* end of the article: next step (the course), more to read, then the source */
+.bl-next{margin:38px 0 0;background:var(--dark);color:#f7f1e7;border-radius:20px;padding:26px 24px 24px;position:relative;overflow:hidden}
+.bl-next::before{content:"";position:absolute;width:240px;height:240px;right:-80px;top:-100px;border-radius:50%;background:radial-gradient(circle,rgba(184,146,74,.28),transparent 70%)}
+.bl-next .kick{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.bl-next h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,4.4vw,34px);line-height:1.1;margin:6px 0 10px;color:#fff}
+.bl-next h2 em{color:#e9a988}
+.bl-next p{font-size:16px;line-height:1.6;color:rgba(247,241,231,.8);margin:0 0 18px;max-width:520px}
+.bl-next .b{background:var(--terra);border-color:var(--terra);color:#fff}
+.bl-next .b:hover{background:var(--terraD)}
+.bl-all{display:inline-block;margin-top:12px;font-weight:600;color:var(--terra);text-decoration:none}
+.bl-foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
+.bl-src{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+.bl-src a{color:var(--muted);text-decoration:underline}
+.bs-t u{text-decoration-line:underline}

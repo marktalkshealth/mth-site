@@ -264,7 +264,7 @@
     var h=document.createElement("header"); h.className="mx-h";
     h.innerHTML='<div class="in"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a>'+
       '<nav class="mx-nav" aria-label="Main">'+links.map(function(l){ return '<a href="'+l[0]+'"'+((M.page===l[0]||(l[0]==="/blog/"&&/^\/blog\//.test(location.pathname)))?' class="on" aria-current="page"':'')+'>'+l[1]+'</a>'; }).join("")+'</nav>'+
-      '<div class="mx-act">'+
+      '<div class="mx-act"><a class="mx-blog" href="/blog/">Blog</a>'+
         (inn?cta+'<a class="mx-me wide" href="account.html" title="Your account" aria-label="Your account">'+initial+'</a>'
             :'<a class="b sm ghost" href="'+M.loginUrl()+'">Sign in</a>'+cta)+
         '<button class="mx-burger" type="button" aria-label="Open menu">'+ICON.menu+'</button></div></div>';

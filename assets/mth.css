@@ -50,9 +50,12 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 .mx-nav a{padding:8px 12px;border-radius:999px;text-decoration:none;font-size:14.5px;font-weight:500;color:var(--muted)}
 .mx-nav a:hover,.mx-nav a.on{color:var(--ink);background:var(--card)}
 .mx-act{display:flex;gap:8px;align-items:center;margin-left:auto}
+.mx-act .b{white-space:nowrap}
 .mx-me{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--dark);color:#fff;text-decoration:none;font-weight:700;font-size:15px}
 .mx-burger{display:none;width:42px;height:42px;border:0;background:transparent;border-radius:50%;cursor:pointer;color:var(--ink);place-items:center}
 .mx-burger svg{width:24px;height:24px}
+.mx-blog{display:none;padding:8px 10px;border-radius:999px;text-decoration:none;font-size:15px;font-weight:600;color:var(--ink)}
+.mx-blog:hover{background:var(--card)}
 .mx-sheet{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;flex-direction:column;padding:12px 20px calc(24px + env(safe-area-inset-bottom))}
 .mx-sheet.on{display:flex}
 .mx-sheet .top{display:flex;align-items:center;justify-content:space-between;height:52px}
@@ -63,6 +66,7 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 @media (max-width:860px){
   .mx-nav,.mx-act .wide{display:none}
   .mx-burger{display:grid}
+  .mx-blog{display:inline-block}
   .mx-h .in{gap:10px;padding:0 12px 0 16px}
   .mx-word{font-size:21px}
 }
