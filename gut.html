@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="assets/mth.css?v=202610291500">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
 <script src="assets/mth.js?v=202610282200"></script>
-<script src="assets/quiz-core.js?v=202610291500"></script>
+<script src="assets/quiz-core.js?v=202610301200"></script>
 <script src="assets/quiz.js?v=202610291500"></script>
 </head>
 <body>
@@ -334,7 +334,7 @@
     <ul>
       <li><i>✓</i><div>Personalised healing software<small>Your day-by-day plan, built from your intake</small></div></li>
       <li><i>✓</i><div>7-part course + interactive ebook<small>The science behind every step</small></div></li>
-      <li><i>✓</i><div>Signature juices, avocado &amp; nut meals<small>Three cleanse levels</small></div></li>
+      <li><i>✓</i><div>Signature juices &amp; protein ice cream<small>Two cleanse levels</small></div></li>
       <li><i>✓</i><div>Fasting clock, tracker &amp; dashboard<small>Know exactly where you are</small></div></li>
       <li><i>✓</i><div>Healing Hub community &amp; live Q&amp;A<small>Ask Mark, share your progress</small></div></li>
     </ul>
@@ -355,8 +355,8 @@
 
 <!-- LEVELS -->
 <section class="alt"><div class="w">
-  <div class="rv"><div class="k">Your pace</div><h2>Choose the cleanse <em>that fits you</em></h2><p class="lead">Three levels, one protocol. Start gentle or go deep; the software adjusts everything around your choice.</p></div>
-  <div class="seg rv" id="g2Seg"><button class="on" data-l="0">Level 1 · Gentle</button><button data-l="1">Level 2 · Classic</button><button data-l="2">Level 3 · Deep</button></div>
+  <div class="rv"><div class="k">Your pace</div><h2>Choose the cleanse <em>that fits you</em></h2><p class="lead">Two levels, one protocol. Start with the juice cleanse or go deep with a water fast; the software adjusts everything around your choice.</p></div>
+  <div class="seg rv" id="g2Seg"><button class="on" data-l="0">Level 1 · Juice cleanse</button><button data-l="1">Level 2 · Water fast</button></div>
   <div class="card lvl rv"><div><div class="k" id="g2LK">Level 1</div><h3 id="g2LT"></h3><p id="g2LD"></p><div class="dots" id="g2LI"></div></div><div class="dayplan" id="g2LP"></div></div>
 </div></section>
 
@@ -408,13 +408,12 @@ if(window.MTHQuiz) MTHQuiz.mountAll(R);
 
 /* ---- cleanse levels ---- */
 var LV=[
- {t:"Gentle avocado & nut cleanse",d:"A whole avocado at breakfast and ⅓ cup of macadamia nuts at dinner, with a zero-calorie lunch. Nothing to cook or blend. The easiest way to start.",n:1,p:[["Breakfast","One avocado, lemon and sea salt"],["Lunch","Water or herbal tea"],["Dinner","⅓ cup of macadamia nuts"],["All day","Water and herbal tea"]]},
- {t:"Classic green juice cleanse",d:"Signature green juices through the day to give digestion a deeper rest, with mineral water to keep you steady.",n:2,p:[["Morning","Green juice"],["Midday","Green juice"],["Evening","Green juice or herbal tea"],["All day","Water and mineral salts"]]},
- {t:"Deep mineral water fast",d:"The deepest rest for the gut: mineral water and electrolytes only. For experienced fasters, ideally with medical guidance.",n:3,p:[["Morning","Mineral water + salts"],["Midday","Herbal tea"],["Evening","Mineral water"],["Note","Check with your doctor first"]]}
+ {t:"Green juice cleanse",d:"A 16 oz signature green juice at lunch, then your choice of dinner: an avocado, a handful of macadamia nuts, or a protein ice cream. Digestion gets a deep rest while you stay steady. The best place to start.",n:1,p:[["Breakfast","Warm lemon water or tea"],["Lunch","16 oz green juice"],["Dinner","Avocado, nuts or protein ice cream"],["All day","Water and herbal tea"]]},
+ {t:"Deep mineral water fast",d:"The deepest rest for the gut: mineral water and electrolytes only. For experienced fasters, ideally with medical guidance.",n:2,p:[["Morning","Mineral water + salts"],["Midday","Herbal tea"],["Evening","Mineral water"],["Note","Check with your doctor first"]]}
 ];
 function level(i){ var L=LV[i]; R.querySelectorAll("#g2Seg button").forEach(function(b,j){b.classList.toggle("on",j===i);});
   $("g2LK").textContent="Level "+(i+1); $("g2LT").textContent=L.t; $("g2LD").textContent=L.d;
-  $("g2LI").innerHTML="Intensity "+[0,1,2].map(function(j){return '<i class="'+(j<L.n?'on':'')+'"></i>';}).join("");
+  $("g2LI").innerHTML="Intensity "+[0,1].map(function(j){return '<i class="'+(j<L.n?'on':'')+'"></i>';}).join("");
   $("g2LP").innerHTML=L.p.map(function(r){ return '<div class="dp"><b>'+esc(r[0])+'</b><span>'+esc(r[1])+'</span></div>'; }).join(""); }
 R.querySelectorAll("#g2Seg button").forEach(function(b){ b.addEventListener("click",function(){ level(+b.dataset.l); }); }); level(0);
 

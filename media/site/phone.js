@@ -21,7 +21,7 @@
     gut:{
       name:"Gut Health Protocol", short:"Gut Health", fastGoal:16, fastNote:"Fat-burning shift · goal 16h",
       steps:["Fasting & cleanse","Meditation & journaling","Nature & sun","Sleep & clean air","Music & spirituality","Cardio & weights","High-protein diet"],
-      days:[["Morning green juice","Avocado & nut cleanse meal","14-hour fasting window"],["10-minute meditation","Journal three lines","2 litres of water"],
+      days:[["Morning green juice","Protein ice cream dinner","14-hour fasting window"],["10-minute meditation","Journal three lines","2 litres of water"],
             ["20 minutes of morning sun","Forest or park walk","Notice how calm you feel"],["No screens after 9pm","Lights out by 10:30","Log your sleep"],
             ["Music therapy session","Gratitude note","Morning green juice"],["Strength circuit","20-minute brisk walk","Rate your energy"],["Protein at every meal","3 litres of water","Day 7 check-in"]],
       food:{goal:1600, carbLabel:"Carbs", t:{p:130,c:110,f:55}, style:"High protein",

@@ -354,8 +354,9 @@
     var impression = !sym.length ? "" : top ? top.label : "Mild imbalance";
     // on medication (insulin, diabetes pills, a GLP-1): gentlest level, with their doctor
     var gentle = (C.gentle || []).some(function (k) { return has(a, k); });
-    var level = gentle || pct < 40 ? 1 : 2;
-    var levelName = level === 1 ? "Level 1 · Avocado & nut cleanse" + (gentle ? ", with your doctor" : "") : pct < 70 ? "Level 2 · Green juice cleanse" : "Level 2 · Green juice cleanse, with guidance";
+    // Level 1 (green juice) is where everyone starts; the water fast is only chosen inside the app
+    var level = 1;
+    var levelName = "Level 1 · Green juice cleanse" + (gentle ? ", with your doctor" : pct >= 70 ? ", with guidance" : "");
     var stress = pct < 35 ? "mild" : pct < 70 ? "moderate" : "high";
 
     // protocol bars: every step is in the plan; emphasis 40–100%
@@ -365,30 +366,34 @@
 
     // first 7 days: the same healing arc as the app (prep, cleanse, refeed, normal),
     // bar height = calories as a share of a normal day (≈2,000 kcal)
-    var NORM = 2000, cl = level === 1 ? "icecream" : "juice";
-    var A1 = level === 1 ? [
-      ["Prep", "Prep day", "Light meals and an early night; buy your avocados and nuts", 70, "prep"],
-      ["Cleanse 1", "Avocado & nut cleanse · day 1", "Mostly rest: sleep, clean air, meditation and music", 35, "fast", 700],
-      ["Cleanse 2", "Avocado & nut cleanse · day 2", "Gentle walk, journal, early night", 35, "fast", 700],
-      ["Cleanse 3", "Avocado & nut cleanse · day 3", "Light movement starts; digestion is fully resting", 35, "fast", 700],
-      ["Cleanse 4", "Avocado & nut cleanse · day 4", "Nature and sunlight; last cleanse day", 35, "fast", 700],
-      ["Transition", "Transition day", "Soft-boiled eggs, Greek yogurt and soft cooked vegetables", 70, "r2"],
-      ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
-    ] : [
+    var NORM = 2000, cl = "juice";
+    var A1 = [
       ["Prep", "Prep day", "Light plant-based meals and an early night", 70, "prep"],
-      ["Juice 1", "Green juice cleanse · day 1", "Juice plus an avocado or nut dinner; mostly rest, meditation and music", 20, "fast", 400],
+      ["Juice 1", "Green juice cleanse · day 1", "Juice at lunch, then an avocado, nuts or a protein ice cream for dinner; mostly rest, meditation and music", 20, "fast", 400],
       ["Juice 2", "Green juice cleanse · day 2", "Gentle walk, journal, early night", 20, "fast", 400],
       ["Juice 3", "Green juice cleanse · day 3", "Light movement starts; digestion is fully resting", 20, "fast", 400],
-      ["Refeed 1", "Refeed day 1", "Diluted green juice, coconut water and soft vegetables", 55, "r2"],
+      ["Refeed 1", "Refeed day 1", "Soft-boiled eggs, a small chicken salad and soft vegetables", 55, "r2"],
       ["Refeed 2", "Refeed day 2", "Gentle high-protein meals; strength or cardio begins", 80, "r3"],
       ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
     ];
+    if (C.product === "glp1") {   // the GLP-1 app has no juice or water fast; its gentlest level protects muscle
+      cl = "icecream";
+      levelName = "Level 1 · Protein bowl reset" + (gentle ? ", with your doctor" : "");
+      A1 = [
+        ["Prep", "Prep day", "Regular high-protein meals; buy Greek yogurt, protein powder and berries", 75, "prep"],
+        ["Reset 1", "Protein bowl reset · day 1", "Protein bowls and a protein shake (≈100 g protein); rest, meditation and music", 48, "fast", 950],
+        ["Reset 2", "Protein bowl reset · day 2", "Gentle walk, journal, early night", 48, "fast", 950],
+        ["Reset 3", "Protein bowl reset · day 3", "Light strength work starts to protect muscle", 48, "fast", 950],
+        ["Reset 4", "Protein bowl reset · day 4", "Nature and sunlight; last reset day", 48, "fast", 950],
+        ["Transition", "Transition day", "Eggs, fish or chicken with soft vegetables", 75, "r2"],
+        ["Normal", "Full protocol", "High-protein meals and all 7 healing steps", 100, "normal"]
+      ];
+    }
     var arc = A1.map(function (x, k) { return { d: k + 1, l: x[0], t: x[1], n: x[2], p: x[3], ph: x[4], kcal: x[5] || Math.round(NORM * x[3] / 100) }; });
-    var arcInfo = level === 1
-      ? { lvl: 1, emoji: "🥑", name: "Avocado & Nut Cleanse", diff: "Easy", sub: "Calories as a share of normal intake. One light prep day, then 4 easy days of one avocado at breakfast and ⅓ cup of nuts at dinner (≈700 kcal), then one transition day back to whole food.",
-          legend: [["prep", "Prep day (light meals)"], ["fast", "Avocado & nut days (≈700 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] }
-      : { lvl: 2, emoji: "🥬", name: "Green Juice Cleanse", diff: "Medium", sub: "Calories as a share of normal intake. One light plant-based prep day, then 3 simple days of a vegetable-forward juice plus an avocado or nut dinner (≈400 kcal), then two days easing back into whole food.",
-          legend: [["prep", "Prep day (light meals)"], ["fast", "Green juice days (≈400 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] };
+    var arcInfo = { lvl: 1, emoji: "🥬", name: "Green Juice Cleanse", diff: "Easier", sub: "Calories as a share of normal intake. One light plant-based prep day, then 3 simple days of a 16 oz green juice at lunch and your choice of an avocado, nuts or a protein ice cream for dinner (≈400 kcal), then two days easing back into whole food.",
+      legend: [["prep", "Prep day (light meals)"], ["fast", "Green juice days (≈400 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] };
+    if (C.product === "glp1") arcInfo = { lvl: 1, emoji: "🥣", name: "Protein Bowl Reset", diff: "Gentlest", sub: "Calories as a share of normal intake. One prep day, then 4 days of protein bowls and a protein shake (≈950 kcal, ≈100 g protein, so you keep your muscle), then one transition day back to whole food.",
+      legend: [["prep", "Prep day"], ["fast", "Protein bowl days (≈950 kcal)"], ["r2", "Food reintroduction"], ["normal", "Normal diet"]] };
     return { product: C.product, name: C.name, kind: C.kind, area: C.area, gentle: gentle, pct: pct, stress: stress, impression: impression, patterns: pats.slice(0, 3), level: level, levelName: levelName, plan: plan, focus: focus, arc: arc, arcInfo: arcInfo, cleanse: cl, answered: sym.length > 0 };
   }
 

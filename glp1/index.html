@@ -1779,7 +1779,7 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-sb.sel text { fill: var(--text); font-weight: 700; }
 #testsSlot { display: none !important; }
 </style>
-<script src="/media/shared/labs-extra.js?v=1"></script>
+<script src="/media/shared/labs-extra.js?v=2"></script>
 </head>
 <body>
 
@@ -1883,7 +1883,7 @@ input[type=range]::-webkit-slider-thumb:active {
             <div>
               <div class="gs-step">Step 2 · Your Test Results</div>
               <div class="di-title">Upload Doctor's Tests</div>
-              <div class="gs-lede">Blood work (kidney, albumin, iron, B12, vitamin D, HbA1c, liver, lipase), DEXA body-composition and bone scans, ultrasounds and eye-exam reports. Values are read, converted from Canadian units and fed into your risk scores when you press Generate.</div>
+              <div class="gs-lede">Blood work (kidney, albumin, iron, B12, vitamin D, HbA1c, cholesterol, hormones, liver, lipase), DEXA body-composition and bone scans, ultrasounds and eye-exam reports. Values are read in the units printed on your report and fed into your risk scores when you press Generate.</div>
             </div>
           </div>
           <label class="lab-drop" id="labDrop" for="labFile" tabindex="0">
@@ -2373,7 +2373,7 @@ input[type=range]::-webkit-slider-thumb:active {
 <script>
 // ═══════════════════════════════════════════════════════════════
 // LAB RESULTS & DIAGNOSTICS — GLP-1 edition
-// Reads uploaded / pasted reports in the browser, converts Canadian SI units,
+// Reads uploaded / pasted reports in the browser in whatever units they use (US or SI),
 // grades each marker and feeds points into the 12 GLP-1 conditions on Generate.
 // Condition keys: muscle protein regain gi dehyd gall bone nutr t2d ir masld lowsug
 const LAB_GROUPS = { sug:'Blood sugar & insulin', lip:'Cholesterol & triglycerides', liv:'Liver & pancreas', kid:'Kidney & electrolytes', inf:'Inflammation & iron',
@@ -2387,10 +2387,10 @@ const LAB_MARKERS = [
   // ── Urine (listed first so urine glucose / albumin never read as blood tests) ──
   { k:'acr', n:'Urine Albumin/Creatinine (ACR)', g:'urine', u:'mg/mmol', alt:[['mg/g',0.113]], pl:[0,300], ref:[null,3], opt:[null,2], dir:'hi', crit:[null,30], fast:'hi',
     a:/\b(albumin[\s\/-]*(to[\s-]*)?creatinine(\s+ratio)?|u?acr|microalbumin\w*)\b/i, hi:{dehyd:5, t2d:5},
-    mean:'Tiny amounts of albumin leaking into the urine are the earliest sign of kidney strain from sugar or blood pressure. Under 3 mg/mmol is normal; 3–30 is moderately raised; over 30 is severely raised.',
+    mean:'Tiny amounts of albumin leaking into the urine are the earliest sign of kidney strain from sugar or blood pressure. Under 30 mg/g (3 mg/mmol) is normal; 30–300 is moderately raised; over 300 is severely raised.',
     tie:'With a raised ACR, ask your doctor what protein target is safe before raising protein or starting creatine.', next:'Repeat twice over 3 months.' },
   { k:'uglu', n:'Urine Glucose', g:'urine', q:true, a:/\b(urine glucose|glucose,?\s*urine|glycosuria|u[\s-]?glucose)\b/i, pos:{t2d:10},
-    mean:'Sugar spills into the urine once blood glucose runs above about 10 mmol/L (180 mg/dL). SGLT2 diabetes drugs cause it on purpose.', tie:'Unless you take an SGLT2 drug, this points to blood sugar running high.', next:'HbA1c and fasting glucose if not already done.' },
+    mean:'Sugar spills into the urine once blood glucose runs above about 180 mg/dL (10 mmol/L). SGLT2 diabetes drugs cause it on purpose.', tie:'Unless you take an SGLT2 drug, this points to blood sugar running high.', next:'HbA1c and fasting glucose if not already done.' },
   { k:'uket', n:'Urine Ketones', g:'urine', q:true, a:/\b(urine ketones?|ketones?,?\s*urine|ketonuria)\b/i, pos:{protein:4},
     mean:'Ketones in the urine are expected on low-carb and reset days and when you eat very little. With very high blood sugar, vomiting or deep, fast breathing they are an emergency (ketoacidosis), a risk mainly with SGLT2 drugs or insulin.', tie:'If you are not on a reset, ketones can mean you are eating too little.', next:'If sugar is high and you feel unwell, go to emergency.' },
   { k:'usg', n:'Urine Specific Gravity', g:'urine', u:'', pl:[1.000,1.050], ref:[1.005,1.030], opt:[1.005,1.020], dir:'hi', fast:'hi',
@@ -2404,17 +2404,17 @@ const LAB_MARKERS = [
   { k:'a1c', n:'HbA1c', g:'sug', u:'%', alt:[['mmol/mol','ifcc']], pl:[3,18], ref:[null,5.6], opt:[null,5.4], dir:'hi', crit:[null,9],
     a:/\b(hba1c|a1c|glycated h(a)?emoglobin|ha?emoglobin a1c)\b/i, fast:'hi',
     pts: v => v < 5.7 ? { t2d:-6, ir:-4 } : v < 6.5 ? { ir:20, t2d:4 } : { t2d:30, ir:6 },
-    mean:'Your three-month blood-sugar average. Under 5.7% is normal, 5.7–6.4% is prediabetes, 6.5% and up is diabetes. Diabetes Canada uses 6.0–6.4% for prediabetes.',
+    mean:'Your three-month blood-sugar average. Under 5.7% is normal, 5.7–6.4% is prediabetes, 6.5% and up is diabetes.',
     tie:'GLP-1 drugs usually lower HbA1c by 1–2 points. If it falls fast and you have diabetic eye disease, keep your eye doctor in the loop.', next:'Recheck every 3 months.' },
   { k:'glucose', n:'Fasting Glucose', g:'sug', u:'mg/dL', alt:[['mmol/L',18]], pl:[30,600], ref:[70,99], opt:[72,90], dir:'hi', crit:[54,250],
     a:/\b(fasting\s+)?(plasma\s+)?glucose\b/i, not:/urine|tolerance|ogtt|random|a1c|2[\s-]?h|post[\s-]?prandial|average|mean/i,
     pts: v => v < 70 ? { lowsug:16 } : v < 100 ? { ir:-3, t2d:-3 } : v < 126 ? { ir:16 } : { t2d:22, ir:4 },
-    mean:'Blood sugar after an overnight fast. Under 5.6 mmol/L (100 mg/dL) is normal, 5.6–6.9 is impaired fasting glucose, 7.0 and up on two tests is diabetes. Under 3.9 mmol/L (70 mg/dL) is low.',
+    mean:'Blood sugar after an overnight fast. Under 100 mg/dL (5.6 mmol/L) is normal, 100–125 is prediabetes (impaired fasting glucose), 126 and up on two tests is diabetes. Under 70 mg/dL is low.',
     tie:'A low reading while on insulin or a sulfonylurea is a reason to call your prescriber before your next dose.', next:'Pair with fasting insulin to get HOMA-IR.' },
   { k:'insulin', n:'Fasting Insulin', g:'sug', u:'µIU/mL', alt:[['mU/L',1],['pmol/L',0.144]], pl:[0.5,300], ref:[2,25], opt:[2,8], dir:'hi', crit:null,
     a:/\b(fasting\s+)?(serum\s+)?insulin\b/i, not:/c[\s-]?peptide|homa|resistance|like|antibod|sensitiv|glargine|lispro|aspart|detemir|degludec|units/i,
     pts: v => v <= 6 ? { ir:-6 } : v <= 12 ? { ir:10 } : v <= 25 ? { ir:20, masld:3 } : { ir:26, masld:4 },
-    mean:'How much insulin your pancreas needs overnight to hold glucose steady. Above about 8–10 µIU/mL (60–70 pmol/L) usually means insulin resistance.',
+    mean:'How much insulin your pancreas needs overnight to hold glucose steady. Above about 8–10 µIU/mL usually means insulin resistance.',
     tie:'Falls as fat comes off and muscle is kept. Strength training improves it on its own.', next:'Recheck after 12 weeks.' },
   { k:'homa', n:'HOMA-IR (insulin resistance score)', g:'sug', u:'', pl:[0.1,40], ref:[null,2.5], opt:[null,1.5], dir:'hi',
     a:/\bhoma[\s-]?ir\b|\bhoma\b/i,
@@ -2427,7 +2427,7 @@ const LAB_MARKERS = [
   // ── Cholesterol & triglycerides ──
   { k:'tg', n:'Triglycerides', g:'lip', u:'mg/dL', alt:[['mmol/L',88.57]], pl:[20,5000], ref:[null,150], opt:[null,100], dir:'hi', crit:[null,500],
     a:/\b(triglycerides?|trigs?|tg)\b/i, not:/hdl\s*ratio|\/\s*hdl/i, hi:{ir:10, masld:4, gi:2}, ok:{ir:-2},
-    mean:'Blood fats that rise with sugar, refined carbs and alcohol. Under 1.7 mmol/L (150 mg/dL) is normal. Over 5.6 is a pancreatitis risk, which matters more on a GLP-1.',
+    mean:'Blood fats that rise with sugar, refined carbs and alcohol. Under 150 mg/dL (1.7 mmol/L) is normal. Over 500 is a pancreatitis risk, which matters more on a GLP-1.',
     tie:'Usually falls well on a GLP-1 with lower-carb eating.', next:'Recheck fasting in 3 months.' },
   { k:'hdl', n:'HDL Cholesterol', g:'lip', u:'mg/dL', alt:[['mmol/L',38.67]], pl:[5,200], ref:{m:[40,null], f:[50,null]}, opt:{m:[50,null], f:[60,null]}, dir:'lo',
     a:/\b(hdl)(\s*[\-‐]?\s*c(holesterol)?)?\b/i, not:/non[\s-]?hdl|ratio|hdl\s*\/|\/\s*hdl/i, lo:{ir:6},
@@ -2437,7 +2437,7 @@ const LAB_MARKERS = [
     mean:'LDL often drops a little with weight loss. Read it with ApoB.', tie:'If LDL climbs on a higher-fat plan, favour olive oil, fish, nuts and avocado over butter and coconut.', next:'Ask for ApoB.' },
   { k:'apob', n:'ApoB', g:'lip', u:'mg/dL', alt:[['g/L',100]], pl:[10,400], ref:[null,100], opt:[null,80], dir:'hi', crit:[null,160],
     a:/\b(apo[\s-]?b|apolipoprotein b)(\s*-?\s*100)?\b/i, hi:{ir:4},
-    mean:'The count of artery-clogging particles; the best single cholesterol marker of heart risk. Under 1.0 g/L is the usual target.', tie:'Read with LDL.', next:'Recheck in 3–6 months.' },
+    mean:'The count of artery-clogging particles; the best single cholesterol marker of heart risk. Under 100 mg/dL (1.0 g/L) is the usual target.', tie:'Read with LDL.', next:'Recheck in 3–6 months.' },
   { k:'tc', n:'Total Cholesterol', g:'lip', u:'mg/dL', alt:[['mmol/L',38.67]], pl:[50,800], ref:[null,200], opt:null, dir:'hi',
     a:/\b(total cholesterol|cholesterol,?\s*total|^\s*cholesterol)\b/i, not:/hdl|ldl|non|ratio/i, hi:{},
     mean:'A blunt overall number. HDL, triglycerides and ApoB say much more.', tie:'—', next:'—' },
@@ -2482,7 +2482,7 @@ const LAB_MARKERS = [
     mean:'Falls when vegetables and legumes drop out of a small diet.', tie:'Leafy greens and legumes cover it.', next:'—' },
   { k:'vitd', n:'Vitamin D (25-OH)', g:'nut', u:'ng/mL', alt:[['nmol/L',0.4]], pl:[3,200], ref:[30,100], opt:[40,80], dir:'lo',
     a:/\b(25[\s-]?(oh|hydroxy)\w*[\s-]*(vitamin\s*)?d\d?|vitamin\s*d\d?|vit\.?\s*d|calcidiol)\b/i, lo:{bone:8, nutr:4, muscle:2},
-    mean:'Needed for bone and muscle. Low levels are common with excess body fat and in Canadian winters.', tie:'Midday sun plus D3/K2 if low.', next:'Recheck after 3 months of supplementing.' },
+    mean:'Needed for bone and muscle. Low levels are common with excess body fat and through the winter months.', tie:'Midday sun plus D3/K2 if low.', next:'Recheck after 3 months of supplementing.' },
   { k:'ca', n:'Calcium', g:'nut', u:'mg/dL', alt:[['mmol/L',4.008]], pl:[4,16], ref:[8.6,10.3], opt:null, dir:'both', crit:[7.5,12],
     a:/\b(calcium|ca\+?)\b(?!\s*\/)/i, not:/ionized|urine|score|cac|scoring|coronary/i, lo:{bone:6}, hi:{},
     mean:'Blood calcium is held steady by your bones, so it says little about bone strength unless it is out of range.', tie:'Aim for 2–3 calcium-rich foods a day.', next:'If out of range, ask about PTH.' },
@@ -2529,7 +2529,8 @@ const LAB_MARKERS = [
     a:/\b(ha?emoglobin|hgb|hb)\b/i, not:/a1c|glycat|glyco|urine/i, lo:{nutr:10}, fast:'lo',
     mean:'Oxygen-carrying protein. Anemia causes fatigue, breathlessness and poor exercise recovery, and can skew HbA1c.', tie:'Anemia is a reason to skip resets until it is treated.', next:'Add ferritin, B12 and folate.' },
 ];
-if (window.MTH_LAB_EXTRA) window.MTH_LAB_EXTRA('glp1', LAB_MARKERS, LAB_GROUPS);   // hormones, lipids, full blood, urine, stool, GI-MAP, microbiome
+if (window.MTH_LAB_EXTRA) window.MTH_LAB_EXTRA('glp1', LAB_MARKERS, LAB_GROUPS);
+if (window.MTH_LAB_US) window.MTH_LAB_US(LAB_MARKERS);   // US unit spellings, and US units first when a report prints none   // hormones, lipids, full blood, urine, stool, GI-MAP, microbiome
 // Scan / exam findings read from DEXA, imaging, eye and sleep reports
 const LAB_FINDINGS = [
   { k:'img_sarc', n:'Low muscle mass', re:/sarcopeni\w*|low (appendicular )?(lean|muscle|skeletal muscle) mass|low alm|low smi/i, add:{muscle:26}, mean:'The scan shows low muscle (lean) mass for your size.', tie:'Strength training 2–3 times a week and protein at every meal become the top priority; slow the rate of weight loss.', next:'Repeat the scan in 6 months.' },
@@ -2556,15 +2557,19 @@ const labNormU = s => String(s || '').toLowerCase().replace(/[µμ]/g, 'u').repl
 function labSex() { const f = document.getElementById('diGenderF'); return f && f.classList.contains('active') ? 'f' : 'm'; }
 function labRange(r) { if (!r) return null; return Array.isArray(r) ? r : r[labSex()]; }
 function labUnits(m) { return [[m.u, 1]].concat(m.alt || []); }
+// Units with the member's most likely unit first (US units unless only SI exists)
+function labPref(m) { const p = m.pref || m.u, us = labUnits(m).filter(u => !/\^|x10e/i.test(u[0])); return us.filter(u => u[0] === p).concat(us.filter(u => u[0] !== p)); }   // spelling-only aliases are still read, just not listed
+function labUnitOf(m, unit) { const n = labNormU(unit); return labUnits(m).find(x => labNormU(x[0]) === n); }
+function labUnitName(m, unit) { const u = labUnitOf(m, unit); return u ? u[0] : unit; }
 function labToCanon(m, val, unit) {
-  const u = labUnits(m).find(x => x[0] === unit) || [m.u, 1];
+  const u = labUnitOf(m, unit) || [m.u, 1];
   if (u[1] === 'ifcc') return val * 0.0915 + 2.15;          // HbA1c mmol/mol → %
   return val * u[1];
 }
 function labFmt(v) { return v >= 100 ? Math.round(v) : v >= 10 ? +v.toFixed(1) : +v.toFixed(2); }
 function labRangeTxt(m, unit) {
   const r = labRange(m.ref); if (!r) return '';
-  const u = labUnits(m).find(x => x[0] === unit) || [m.u, 1];
+  const u = labUnitOf(m, unit) || [m.u, 1];
   const conv = v => u[1] === 'ifcc' ? Math.round((v - 2.15) / 0.0915) : labFmt(v / u[1]);
   return r[0] != null && r[1] != null ? `${conv(r[0])}–${conv(r[1])}` : r[0] != null ? `≥ ${conv(r[0])}` : `≤ ${conv(r[1])}`;
 }
@@ -2671,7 +2676,7 @@ function labParseText(text) {
       const nm = labNum(rest.replace(/^[^\d<>≤≥]*?(?=[<>≤≥]?\s*\d)/, '')); if (!nm || !isFinite(nm.v)) continue;
       let unit = labFindUnit(m, nm.rest);
       if (!unit) {   // no unit printed: pick the unit whose plausible range fits
-        const fit = labUnits(m).find(u => { const c = u[1] === 'ifcc' ? nm.v * 0.0915 + 2.15 : nm.v * u[1]; return c >= m.pl[0] && c <= m.pl[1]; });
+        const fit = labPref(m).find(u => { const c = u[1] === 'ifcc' ? nm.v * 0.0915 + 2.15 : nm.v * u[1]; return c >= m.pl[0] && c <= m.pl[1]; });
         if (!fit) continue; unit = fit[0];
       }
       const canon = labToCanon(m, nm.v, unit);
@@ -2772,7 +2777,7 @@ function labRenderTable() {
     if (m.img) cell = `<td colspan="2" class="lt-found">Found on report</td>`;
     else if (m.q) cell = `<td colspan="2"><select data-k="${k}" data-f="q"><option value="1"${it.val ? ' selected' : ''}>${(m.qlab || ['Positive / detected'])[0]}</option><option value="0"${!it.val ? ' selected' : ''}>${(m.qlab || [0, 'Negative'])[1]}</option></select></td>`;
     else cell = `<td class="lt-val"><input type="text" inputmode="decimal" value="${it.val}" data-k="${k}" data-f="v" aria-label="${m.n} value"></td>` +
-      `<td class="lt-unit"><select data-k="${k}" data-f="u" aria-label="${m.n} unit">${labUnits(m).map(u => `<option${u[0] === it.unit ? ' selected' : ''}>${u[0]}</option>`).join('')}</select></td>`;
+      `<td class="lt-unit"><select data-k="${k}" data-f="u" aria-label="${m.n} unit">${labPref(m).map(u => `<option${u[0] === labUnitName(m, it.unit) ? ' selected' : ''}>${u[0]}</option>`).join('')}</select></td>`;
     const rng = !m.q && !m.img ? labRangeTxt(m, it.unit) : '';
     return `<tr><td class="lt-dot"><i style="background:${LAB_COL[gr.st]}" title="${gr.st}"></i></td><td class="lt-name">${m.n}<small>${LAB_GROUPS[m.g]}${rng ? ' · ref ' + rng : ''}</small></td>${cell}<td class="lt-x"><button type="button" data-del="${k}" aria-label="Remove ${m.n}">×</button></td></tr>`;
   }).join('');
@@ -2795,7 +2800,7 @@ function labRenderReport() {
     .map(k => GUT_CONDITIONS.find(x => x.key === k).title.replace(/ \(.*\)$/, ''));
   const name = (document.getElementById('diName').value.trim()) || 'Your';
   const who = name === 'Your' ? 'Your' : labEsc(name) + '\'s';
-  const val = r => r.m.img ? 'Found' : r.m.q ? (r.it.val ? (r.m.qlab || ['Positive'])[0] : (r.m.qlab || [0, 'Negative'])[1]) : `${r.it.val} ${r.it.unit}`;
+  const val = r => r.m.img ? 'Found' : r.m.q ? (r.it.val ? (r.m.qlab || ['Positive'])[0] : (r.m.qlab || [0, 'Negative'])[1]) : `${r.it.val} ${labUnitName(r.m, r.it.unit)}`;
   const card = (r, open) => `<details class="lr-item" style="--lc:${LAB_COL[r.gr.st]}"${open ? ' open' : ''}><summary class="lr-item-top"><span class="lr-item-name">${r.m.n}${!r.m.q && !r.m.img ? ` <span class="lr-item-ref">ref ${labRangeTxt(r.m, r.it.unit)}</span>` : ''}</span><span class="lr-item-val">${val(r)}${!r.m.q && !r.m.img && r.gr.side ? (r.gr.side === 'hi' ? ' ↑' : ' ↓') : ''}</span></summary>` +
     `<div class="lr-item-txt">${r.m.mean} <b>Protocol:</b> ${r.m.tie}${r.m.next && r.m.next !== '—' ? ` <b>Next:</b> ${r.m.next}` : ''}</div></details>`;
   const crit = rows.filter(r => r.gr.st === 'crit'), fast = rows.filter(r => labFastCaution(r.k, r.gr));
@@ -2832,24 +2837,25 @@ function labChanged() {
 
 // ─── wiring ───
 const LAB_SAMPLE = `HbA1c  5.9 %
-Glucose, fasting  5.6 mmol/L
-Insulin, fasting  72 pmol/L
-Triglycerides  1.9 mmol/L
-HDL cholesterol  1.05 mmol/L
-LDL cholesterol  3.1 mmol/L
+Glucose, fasting  101 mg/dL
+Insulin, fasting  10 uIU/mL
+Triglycerides  168 mg/dL
+HDL cholesterol  41 mg/dL
+LDL cholesterol  120 mg/dL
+Total testosterone  310 ng/dL
 ALT  38 U/L
 GGT  44 U/L
-Albumin  33 g/L
-Ferritin  21 ug/L
-Vitamin B12  205 pmol/L
-25-OH Vitamin D  46 nmol/L
-Magnesium  0.71 mmol/L
-Creatinine  56 umol/L
+Albumin  3.3 g/dL
+Ferritin  21 ng/mL
+Vitamin B12  278 pg/mL
+25-OH Vitamin D  18 ng/mL
+Magnesium  1.7 mg/dL
+Creatinine  0.63 mg/dL
 eGFR  78 mL/min
 Sodium  139 mmol/L
 Potassium  3.6 mmol/L
 Lipase  72 U/L
-Hemoglobin  121 g/L
+Hemoglobin  12.1 g/dL
 DEXA body composition: low appendicular lean mass for height. Lumbar spine osteopenia.
 Abdominal ultrasound: mild hepatic steatosis. Gallbladder sludge, no stones.`;
 
@@ -2874,7 +2880,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const syncUnit = () => {
     const m = LAB_BY[sel.value];
     if (m.q) { unit.innerHTML = '<option value="1">' + (m.qlab || ['Positive'])[0] + '</option><option value="0">' + (m.qlab || [0, 'Negative'])[1] + '</option>'; val.style.visibility = 'hidden'; }
-    else { unit.innerHTML = labUnits(m).map(u => `<option>${u[0]}</option>`).join(''); val.style.visibility = ''; }
+    else { unit.innerHTML = labPref(m).map(u => `<option>${u[0]}</option>`).join(''); val.style.visibility = ''; }
   };
   sel.addEventListener('change', syncUnit); syncUnit();
   g('labAddBtn').addEventListener('click', () => {
@@ -3154,12 +3160,12 @@ const GUT_TESTS = [
     desc:'The simplest strength checks. Grip under 27 kg (men) or 16 kg (women), or more than 15 seconds for 5 chair stands, points to low muscle strength (EWGSOP2).' },
   { name:'Comprehensive Metabolic Panel + Albumin', prep:"Fast 8–12 hours, water only. Not on a day you have vomited or had diarrhea.", where:"Family doctor; any community lab.", core:true, tag:'critical', cond:['dehyd','protein','gall'], sym:['lowfluid','vomit','diarr','dizzy','kidney','under800'],
     desc:'Kidney function, sodium, potassium, liver enzymes and albumin. The safety check before and during treatment, and before any reset.' },
-  { name:'HbA1c, Fasting Glucose + Insulin', prep:"Fast 8–12 hours, water only.", where:"Family doctor; fasting insulin is often private pay in Canada (about $20–40).", core:true, tag:'important', cond:['t2d','ir','lowsug'], sym:['t2dx','prediab','insulin','sulfo','hypo','metformin'],
+  { name:'HbA1c, Fasting Glucose + Insulin', prep:"Fast 8–12 hours, water only.", where:"Family doctor, or a self-order lab (fasting insulin is often about $20–40 cash).", core:true, tag:'important', cond:['t2d','ir','lowsug'], sym:['t2dx','prediab','insulin','sulfo','hypo','metformin'],
     desc:'Tracks how much your blood sugar and insulin resistance have improved. Recheck every 3 months.' },
   { name:'CBC, Ferritin, B12 + Folate', prep:"Morning draw; pause B-vitamin supplements for 3 days.", where:"Family doctor; any community lab.", tag:'important', cond:['nutr','protein'], sym:['hair','fatigue','cold','under800','metformin','aversion'],
     desc:'Anemia, iron stores and B12, which fall with low intake and with metformin. Worth checking if hair is shedding.' },
   { name:'Vitamin D, Calcium + Magnesium', prep:"Morning draw.", where:"Family doctor; vitamin D may be private pay in some provinces.", tag:'important', cond:['bone','nutr'], sym:['osteo','menop','fatigue','constip','cold'],
-    desc:'The minerals and vitamin your bones need while you lose weight. Most Canadians run low on vitamin D from October to April.' },
+    desc:'The minerals and vitamin your bones need while you lose weight. Most people in northern states run low on vitamin D from October to April.' },
   { name:'Lipid Panel + ApoB', prep:"Fast 10–12 hours; no alcohol for 24 hours.", where:"Family doctor; ApoB is covered in most provinces.", tag:'baseline', cond:['ir','t2d'], sym:['prediab','t2dx','alcohol','sedentary'],
     desc:'Triglycerides, HDL, LDL and ApoB. Usually improves with weight loss; the baseline for your heart risk.' },
   { name:'Liver Enzymes + Abdominal Ultrasound', prep:"Fast 6–8 hours before the ultrasound; no alcohol for 48 hours before blood work.", where:"Family doctor; ultrasound at hospital or community imaging.", tag:'important', cond:['masld','gall'], sym:['fattyliver','gallhx','gallsx','alcohol','fastloss'],

@@ -335,7 +335,7 @@
     { k:'ogtt', n:'2-Hour Glucose (OGTT)', g:'sug', u:'mg/dL', alt:[['mmol/L',18]], pl:[30,600], ref:[null,139], opt:[null,120], dir:'hi', crit:[null,300],
     a:/\b(2[\s-]?h(ou)?r?s?\.?\s*(post[\s-]?(load|prandial)\s*)?(plasma\s+)?glucose|ogtt|glucose tolerance|post[\s-]?prandial glucose)\b/i,
     pts: v => v < 55 ? { hypo:16 } : v < 140 ? { prediabetes:-4, t2d:-4 } : v < 200 ? { prediabetes:22, ir:8, hypo:2 } : { t2d:28, ir:6 },
-    mean:'Blood sugar 2 hours after a 75 g glucose drink. Under 7.8 mmol/L (140 mg/dL) is normal, 7.8–11.0 is impaired glucose tolerance, 11.1 and up is diabetes. A late drop below 3.1 mmol/L points to reactive lows.',
+    mean:'Blood sugar 2 hours after a 75 g glucose drink. Under 140 mg/dL (7.8 mmol/L) is normal, 140–199 is impaired glucose tolerance, 200 and up is diabetes. A late drop below 55 mg/dL points to reactive lows.',
     tie:'A slow return to baseline is the clearest sign your insulin is working too hard. Walking after meals and eating protein first blunt the rise.', next:'A 14-day CGM shows your real meals.', w:{ gut:{ hi:{ dysbiosis:2 } }, glp1:{ hi:{ ir:3, t2d:3 } } } },
     { k:'homa', n:'HOMA-IR (insulin resistance score)', g:'sug', u:'', pl:[0.1,40], ref:[null,2.5], opt:[null,1.5], dir:'hi',
     a:/\bhoma[\s-]?ir\b|\bhoma\b/i,
@@ -378,4 +378,25 @@
     Array.prototype.push.apply(MARKERS, rest);
   };
   window.MTH_LAB_EXTRA.count = LIB.length;
+
+  /* US units. Results always stay in the units printed on the member's report;
+     these helpers only (1) spell US units the way US labs print them and
+     (2) pick a US unit first when a report prints no unit at all. */
+  var SI = /^(mmol\/l|umol\/l|nmol\/l|pmol\/l|g\/l|mg\/mmol|mmol\/mol|×10⁹\/l|×10¹²\/l|ug\/l|l\/l|kiu\/l|ng\/l|mg\/kg|umol\/g|mmol\/kg|iu\/l|meq\/l|10\^9\/l|x10e9\/l)$/;
+  var PRETTY = { 'k/ul':'K/µL', 'meq/l':'mEq/L', 'uiu/ml':'µIU/mL', 'miu/l':'mIU/L', 'ml/min/1.73':'mL/min/1.73m²', 'hdu/ml':'HDU/mL' };
+  function nu(s) { return String(s || '').toLowerCase().replace(/[µμ]/g, 'u').replace(/mcg/g, 'ug').replace(/litre|liter/g, 'l').replace(/\s+/g, ''); }
+  window.MTH_LAB_US = function (MARKERS) {
+    MARKERS.forEach(function (m) {
+      if (m.q || m.img || m.u == null) return;
+      var seen = {}; seen[nu(m.u)] = 1;
+      var alt = (m.alt || []).map(function (a) { seen[nu(a[0])] = 1; return [PRETTY[a[0]] || a[0], a[1]]; });
+      function add(u) { if (!seen[nu(u)]) { alt.push([u, 1]); seen[nu(u)] = 1; } }
+      if (m.u === '×10⁹/L') add('K/µL');
+      if (m.u === '×10¹²/L') add('M/µL');
+      if (m.u === 'µg/L' && /ferritin/i.test(m.n)) add('ng/mL');
+      m.alt = alt;
+      var all = [m.u].concat(alt.map(function (a) { return a[0]; }));
+      m.pref = all.filter(function (u) { return !SI.test(nu(u)); })[0] || m.u;
+    });
+  };
 })();
