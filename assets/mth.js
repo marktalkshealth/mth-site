@@ -259,11 +259,11 @@
     if(document.querySelector(".mx-h")||H.classList.contains("mx-bare")) return;
     var cur=M.product(), P=CONFIG.products[cur], inn=!!M.user, any=M.ownsAny(), ownCur=M.owns(cur);
     var initial=inn?M.esc((M.user.email||"?").charAt(0).toUpperCase()):"";
-    var links=[[any?"course.html":"protocols.html","Courses"],["app.html","Apps"],["community.html","Hub"]];
+    var links=[[any?"course.html":"protocols.html","Courses"],["app.html","Apps"],["community.html","Hub"],["/blog/","Blog"]];
     var cta=ownCur?'<a class="b sm" href="'+P.app+'">Open app</a>':any?'<a class="b sm" href="app.html">Open app</a>':'<a class="b sm wide" href="'+P.sales+'#checkout">Start · '+P.price+'</a>';
     var h=document.createElement("header"); h.className="mx-h";
     h.innerHTML='<div class="in"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a>'+
-      '<nav class="mx-nav" aria-label="Main">'+links.map(function(l){ return '<a href="'+l[0]+'"'+(M.page===l[0]?' class="on" aria-current="page"':'')+'>'+l[1]+'</a>'; }).join("")+'</nav>'+
+      '<nav class="mx-nav" aria-label="Main">'+links.map(function(l){ return '<a href="'+l[0]+'"'+((M.page===l[0]||(l[0]==="/blog/"&&/^\/blog\//.test(location.pathname)))?' class="on" aria-current="page"':'')+'>'+l[1]+'</a>'; }).join("")+'</nav>'+
       '<div class="mx-act">'+
         (inn?cta+'<a class="mx-me wide" href="account.html" title="Your account" aria-label="Your account">'+initial+'</a>'
             :'<a class="b sm ghost" href="'+M.loginUrl()+'">Sign in</a>'+cta)+
@@ -273,6 +273,7 @@
     var sl=[];
     CONFIG.order.forEach(function(k){ var q=CONFIG.products[k]; if(M.owns(k)){ sl.push([q.course,q.name,"Your course"]); sl.push([q.app,"Open the app",q.short+" · your daily plan"]); } });
     if(!any) sl.push(["protocols.html","Courses","See the healing programs"]);
+    sl.push(["/blog/","Blog","Research, explained"]);
     sl.push(inn?["account.html","My account",M.esc(M.user.email)]:[M.loginUrl(),"Sign in","Access your courses"]);
     sh.innerHTML='<div class="top"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a><button class="mx-burger" type="button" aria-label="Close menu" style="display:grid">'+ICON.close+'</button></div>'+
       '<nav>'+sl.map(function(l){ return '<a href="'+l[0]+'">'+l[1]+(l[2]?'<small>'+l[2]+'</small>':'')+'</a>'; }).join("")+'</nav>'+
