@@ -23,7 +23,11 @@ a.bs-shot:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(43,39,36,.
 .bs-card b{font-size:10.5px;line-height:1.25;font-weight:700;color:#20558a;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 .bs-card i{font-style:normal;font-size:9px;color:#5b616b;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .bs-k{display:block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:4px}
-.bs-t{font-weight:600;font-size:15px;line-height:1.35;margin:0 0 4px}
+.bs-t{font-weight:600;font-size:16px;line-height:1.4;margin:0 0 6px}
+.bs-l{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--terra);border-radius:999px;padding:2px 9px;margin-right:4px;vertical-align:2px}
+.bs-t a,.bs-t u{color:var(--terra);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:rgba(192,98,63,.45)}
+.bs-t a:hover{text-decoration-color:var(--terra)}
+.bs{border-left:4px solid var(--terra)}
 .bs-c{font-size:13px;color:var(--muted);margin:0 0 6px;line-height:1.4}
 .bs-a{font-size:13.5px;font-weight:600;color:var(--terra);text-decoration:none}
 .bs-a:hover{text-decoration:underline}

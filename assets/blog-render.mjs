@@ -15,7 +15,7 @@ export const COURSES = {
   sugar: { name: "The Diabetes Protocol", url: "/diabetes" },
   glp1:  { name: "The GLP-1 Weight Loss Protocol", url: "/glp1" }
 };
-const V = "202610291900";
+const V = "202610301500";
 
 export function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -76,8 +76,8 @@ export function studyBox(p) {
     : '<span class="bs-card" aria-hidden="true"><small>' + (pub ? "PubMed" : "The study") + '</small><b>' + esc(p.study_title || p.title) + '</b><i>' + esc(p.study_cite || "") + '</i></span>';
   const open = url ? '<a class="bs-shot" href="' + url + '" target="_blank" rel="noopener">' : '<span class="bs-shot">';
   return '<aside class="bs" aria-label="The study">' + open + shot + (url ? "</a>" : "</span>") +
-    '<div class="bs-tx"><span class="bs-k">The study</span>' +
-    (p.study_title ? '<p class="bs-t">' + esc(p.study_title) + '</p>' : "") +
+    '<div class="bs-tx">' +
+    (p.study_title ? '<p class="bs-t"><span class="bs-l">Study:</span> ' + (url ? '<a href="' + url + '" target="_blank" rel="noopener">' + esc(p.study_title) + '</a>' : '<u>' + esc(p.study_title) + '</u>') + '</p>' : '<span class="bs-k">The study</span>') +
     (p.study_cite ? '<p class="bs-c">' + esc(p.study_cite) + '</p>' : "") +
     (url ? '<a class="bs-a" href="' + url + '" target="_blank" rel="noopener">' + (pub ? "Read it on PubMed" : "Read the study") + ' →</a>' : "") +
     "</div></aside>";
