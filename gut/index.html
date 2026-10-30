@@ -6228,6 +6228,16 @@ fxRender(); fxLoadLive();
     pillIdle();
   }
   window.gpSaveNow = saveNow;
+  /* Reset: wipes this member's intake, stats, lab results, calendar and tracker so they can start the arc fresh */
+  window.gpReset = async function () {
+    clearTimeout(timer); timer = null; applying = true;
+    const blank = { v: 1, savedAt: Date.now(), member: member ? member.id : null, reset: true, intake: { gen: false, sym: {} }, cal: {}, fx: null };
+    try { if (member) await rpc('gp_save', { p_id: member.id, p_email: member.email, p_data: blank }); }
+    catch (e) { applying = false; throw e; }
+    try { Object.keys(localStorage).filter(k => FX_KEYS.includes(k) || k === 'mth_fastplan_gut' || k.indexOf('mth_ms_gut_') === 0).forEach(ls.del); } catch (e) {}
+    ls.set(LOCAL)(JSON.stringify(blank));
+    try { sessionStorage.setItem('mth_app_tab3', 'arc'); } catch (e) {}
+  };
 
   /* ---------- hooks: anything the member changes marks the state dirty ---------- */
   const wrap = name => {

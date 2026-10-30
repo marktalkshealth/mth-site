@@ -86,6 +86,20 @@ html.app-desk #shell .frame{flex:1;min-height:0;position:relative;background:#ff
 html.app-desk #shell iframe{flex:1;height:auto;min-height:0;background:#fffcf7}
 html.app-desk #shell .ld{top:220px}
 html.app-phone #shell .lnk{display:none}
+/* ---------- Reset (start the healing arc over) ---------- */
+#shell .rst{flex:none;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:1px solid #d9c2b4;background:#fff;color:#b8553a;font:600 13px 'DM Sans',system-ui,sans-serif;cursor:pointer}
+#shell .rst:hover{background:#fbefe8}
+#shell .rst svg{width:15px;height:15px}
+@media (max-width:440px){#shell .rst{width:38px;height:38px;padding:0;justify-content:center}#shell .rst span{display:none}#shell .rst svg{width:18px;height:18px}}
+#shell .rs .c h3{margin-top:2px}
+#shell .rs .row{display:flex;gap:10px}
+#shell .rs .row button{flex:1;min-height:50px;border-radius:14px;font:600 15px 'DM Sans',system-ui,sans-serif;cursor:pointer}
+#shell .rs button.no{border:1px solid #ddd3c6;background:#fff;color:#2b2622}
+#shell .rs button.go{border:0;background:#b8553a;color:#fff}
+#shell .rs button[disabled]{opacity:.6;cursor:default}
+#shell .rs .err{display:none;margin:0 0 12px;color:#b8553a}
+html.app-desk #shell .rs{align-items:center;justify-content:center}
+html.app-desk #shell .rs .c{width:440px;max-width:calc(100% - 32px);border-radius:20px;padding:26px 24px}
 </style>
 </head>
 <body>
@@ -95,10 +109,12 @@ html.app-phone #shell .lnk{display:none}
     <div class="t"><div class="k">Your protocol</div><div class="n">Your <em>app</em></div></div>
     <div class="lnk"><a class="b sm ghost" href="course.html">Course</a><a class="b sm ghost" href="?view=app">Phone view</a></div>
     <button type="button" class="ins" aria-label="Install the app on your phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Install</span></button>
+    <button type="button" class="rst" aria-label="Reset and start over"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Reset</span></button>
     <a class="me" href="account.html" aria-label="Your account"></a>
   </div>
   <div class="frame"><div class="ld">Opening your protocol&hellip;</div><iframe title="Your protocol app" allow="fullscreen; clipboard-write"></iframe></div>
   <div class="sh" role="dialog" aria-modal="true" aria-label="Add the app to your home screen"><div class="c"><img class="ic" alt="" src="assets/app-icon-180.png"><h3>Add Mark Talks Health to your home screen</h3><p>It opens full screen, straight into your protocol, like any other app.</p><ol></ol><button type="button" class="ok">Got it</button></div></div>
+  <div class="sh rs" role="dialog" aria-modal="true" aria-label="Reset your protocol"><div class="c"><h3>Start over?</h3><p>This clears your stats, symptoms, diagnosis, lab results and healing arc calendar, on every device, so you can fill in the intake again from the beginning. It can&rsquo;t be undone.</p><p class="err">Couldn&rsquo;t reset right now. Check your connection and try again.</p><div class="row"><button type="button" class="no">Cancel</button><button type="button" class="go">Yes, reset</button></div></div></div>
 </div>
 <script>
 (async function(){
@@ -127,6 +143,21 @@ html.app-phone #shell .lnk{display:none}
   else if(window.__APPVIEW==="app"){ /* forced phone view on a computer: offer a way back */ var bk=shell.querySelector("a.home"); bk.href="app.html?p="+PK+"&view=desktop"; bk.setAttribute("aria-label","Back to the desktop view"); }
   fr.addEventListener("load",function(){ ld.style.display="none"; });
   fr.src=DIR+"/index.html?mode=app"+(window.__DESK?"&view=desktop":"&view=app");
+
+  /* ---------- Reset: wipe the intake and healing arc, then reload a fresh protocol ---------- */
+  var rs=shell.querySelector(".rs"), rgo=rs.querySelector(".go"), rerr=rs.querySelector(".err");
+  shell.querySelector(".rst").addEventListener("click",function(){ rerr.style.display="none"; rgo.disabled=false; rgo.textContent="Yes, reset"; rs.classList.add("on"); });
+  rs.addEventListener("click",function(e){ if(e.target===rs||e.target.classList.contains("no")) rs.classList.remove("on"); });
+  rgo.addEventListener("click",async function(){
+    rgo.disabled=true; rgo.textContent="Resetting\u2026"; rerr.style.display="none";
+    try{
+      var w=fr.contentWindow;
+      if(!w||typeof w.gpReset!=="function") throw new Error("protocol not ready");
+      await w.gpReset();
+      rs.classList.remove("on"); ld.style.display=""; 
+      fr.src=DIR+"/index.html?mode=app"+(window.__DESK?"&view=desktop":"&view=app")+"&r="+Date.now();
+    }catch(e){ console.warn("[reset]",e); rerr.style.display="block"; rgo.disabled=false; rgo.textContent="Try again"; }
+  });
 
   /* ---------- Install button: phones and tablets only, hidden once installed ---------- */
   var ins=shell.querySelector(".ins"), sh=shell.querySelector(".sh"), ua=navigator.userAgent||"";

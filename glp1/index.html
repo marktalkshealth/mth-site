@@ -6652,6 +6652,15 @@ fxRender(); fxLoadLive();
     pillIdle();
   }
   window.gpSaveNow = saveNow;
+  /* Reset: wipes this member's intake, stats, lab results, calendar and tracker so they can start the arc fresh */
+  window.gpReset = async function () {
+    clearTimeout(timer); timer = null; applying = true;
+    const blank = { v: 1, savedAt: Date.now(), member: member.id, reset: true, intake: { gen: false, sym: {} }, cal: {}, fx: null };
+    try { await store(blank); } catch (e) { applying = false; throw e; }
+    try { Object.keys(localStorage).filter(k => FX_KEYS.includes(k) || k === 'mth_fastplan_' + PRODUCT || k.indexOf('mth_ms_' + PRODUCT + '_') === 0).forEach(ls.del); } catch (e) {}
+    ls.set(LOCAL)(JSON.stringify(blank));
+    try { sessionStorage.setItem('mth_app_tab3', 'arc'); } catch (e) {}
+  };
   const wrap = name => { const f = window[name]; if (typeof f !== 'function') return; window[name] = function () { const out = f.apply(this, arguments); dirty(); return out; }; };
   ['markPending', 'generateAll', 'diHealUpdate', 'diMasterUpdate', 'labChanged'].forEach(wrap);
   try { const set = Storage.prototype.setItem; Storage.prototype.setItem = function (k, v) { set.call(this, k, v); if (FX_KEYS.includes(k)) dirty(); }; } catch (e) {}
