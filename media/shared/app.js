@@ -39,7 +39,7 @@
     var pst = document.createElement('style');
     pst.textContent =
       'html.mth-planner body{background:#fffcf7!important}' +
-      'html.mth-planner .hc-head,html.mth-planner .hc-grid3,html.mth-planner .hc-below,html.mth-planner #fastingArcContainer,html.mth-planner #planSlot,' +
+      'html.mth-planner .hc-head,html.mth-planner .hc-grid3,html.mth-planner .hc-below,html.mth-planner .hc-risk-row,html.mth-planner #fastingArcContainer,html.mth-planner #planSlot,' +
       'html.mth-planner #fxOverview,html.mth-planner .ca-outer,html.mth-planner #main,html.mth-planner .fx-fab,html.mth-planner .hc-cap,html.mth-planner .hero,' +
       'html.mth-planner #fx>.fx-tabs,html.mth-planner .fx-lede{display:none!important}' +
       'html.mth-planner .fx-outer,html.mth-planner #fx{display:block!important}' +
@@ -123,7 +123,7 @@ html.mth-app .di-outer { padding: 12px 14px 0 !important; max-width: 640px !impo
 html.mth-app .hc-card { padding: 0 !important; background: transparent !important; border: 0 !important; box-shadow: none !important; }
 
 /* the full software stays on the page, out of sight */
-html.mth-app .hc-head, html.mth-app .hc-below, html.mth-app #fastingArcContainer, html.mth-app #planSlot,
+html.mth-app .hc-head, html.mth-app .hc-below, html.mth-app .hc-risk-row, html.mth-app .hc-tests-out, html.mth-app #fastingArcContainer, html.mth-app #planSlot,
 html.mth-app .fx-outer, html.mth-app #fx, html.mth-app #fxOverview, html.mth-app .ca-outer, html.mth-app #main,
 html.mth-app .fx-fab, html.mth-app .hc-cap, html.mth-app .hc-heal { display: none !important; }
 html.mth-app .hc-grid3, html.mth-app .mp-pane { display: none !important; }
@@ -137,6 +137,7 @@ html.mth-app[data-mth-tab="arc"] .hc-grid3 { display: flex !important; gap: 12px
   grid-template-columns: none !important; scrollbar-width: none; -webkit-overflow-scrolling: touch; margin: 0 -14px; padding: 2px 14px 6px; transition: height .2s ease; }
 html.mth-app .hc-grid3::-webkit-scrollbar { display: none; }
 html.mth-app .hc-mid { display: contents !important; }
+html.mth-app .hc-tests, html.mth-app .hc-tests-in { display: contents !important; }
 html.mth-app .hc-intake, html.mth-app .gs-panel, html.mth-app .lab-panel { flex: 0 0 100% !important; min-width: 0; max-width: 100%; scroll-snap-align: center; scroll-snap-stop: always; }
 html.mth-app .hc-intake { display: block !important; }
 html.mth-app .di-panel { padding: 16px 14px !important; border-radius: 18px !important; margin: 0 !important; border: 1px solid #e7dccb !important; box-shadow: none !important; background: #fff !important; }
@@ -149,12 +150,22 @@ html.mth-app .hc-card { display: flex !important; flex-direction: column; }
 html.mth-app .mp-archead { order: 1; } html.mth-app[data-mth-tab="arc"] .hc-grid3 { order: 2; } html.mth-app .mp-arcfoot2 { order: 3; }
 html.mth-app .mp-archint { order: 4; } html.mth-app #fastingArcContainer { order: 5; } html.mth-app .mp-arcsum { order: 6; } html.mth-app .mp-arcfoot { order: 7; }
 html.mth-app[data-mth-tab="arc"]:not(.mth-setup) #fastingArcContainer { display: block !important; margin: 0 0 10px !important; padding: 0 !important; }
-html.mth-app #fastingArcContainer .chart-card { margin: 0 !important; padding: 14px !important; border-radius: 18px !important; border: 1px solid #e7dccb !important; background: #fff !important; box-shadow: none !important;
-  overflow-x: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: thin; opacity: 1 !important; transform: none !important; }
-html.mth-app #fastingArcContainer .chart-title { font-size: 1.35rem !important; line-height: 1.15 !important; position: sticky; left: 0; }
-html.mth-app #fastingArcContainer .chart-sub { font-size: .82rem !important; line-height: 1.45 !important; position: sticky; left: 0; max-width: calc(100vw - 60px); }
-html.mth-app #fastingArcContainer .chart-legend { position: sticky; left: 0; max-width: calc(100vw - 60px); }
-html.mth-app #fastingArcContainer .slope-chart { min-width: 760px !important; height: 232px !important; }
+html.mth-app #fastingArcContainer .chart-card { margin: 0 !important; padding: 14px 12px !important; border-radius: 18px !important; border: 1px solid #e7dccb !important; background: #fff !important; box-shadow: none !important;
+  overflow: hidden !important; opacity: 1 !important; transform: none !important; }
+html.mth-app #fastingArcContainer .chart-title { font-size: 1.2rem !important; line-height: 1.15 !important; }
+html.mth-app #fastingArcContainer .chart-sub { font-size: .78rem !important; line-height: 1.45 !important; }
+html.mth-app #fastingArcContainer .chart-legend { flex-wrap: wrap; gap: 4px 12px; font-size: .7rem; }
+/* the whole arc fits the screen: no sideways scrolling */
+html.mth-app #fastingArcContainer .slope-chart { min-width: 0 !important; width: 100% !important; height: 190px !important; gap: 2px !important; }
+html.mth-app #fastingArcContainer .slope-col { min-width: 0 !important; gap: 3px !important; }
+html.mth-app #fastingArcContainer .slope-col:hover { transform: none; }
+html.mth-app #fastingArcContainer .slope-bar { border-radius: 4px 4px 0 0 !important; }
+html.mth-app #fastingArcContainer .slope-cal { font-size: .66rem !important; }
+html.mth-app #fastingArcContainer .slope-kcal { font-size: .5rem !important; white-space: normal !important; text-align: center; line-height: 1.1; }
+html.mth-app #fastingArcContainer .slope-label { font-size: .5rem !important; white-space: normal !important; line-height: 1.15; letter-spacing: .02em !important; min-height: 2.3em; }
+/* disease risk: Arc tab only, right under the arc */
+html.mth-app[data-mth-tab="arc"]:not(.mth-setup) .hc-risk-row { display: block !important; order: 5; margin: 0 0 10px !important; }
+html.mth-app .hc-risk-row .rk-rows { grid-template-columns: 1fr !important; }
 html.mth-app.mth-setup .mp-archint { display: none !important; }
 
 /* Food and Exercise use the full planner from the desktop (photos, recipes, swap, log, shopping list, workouts) */
