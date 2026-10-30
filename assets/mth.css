@@ -425,3 +425,6 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 :is(#mqx,html) .mq-grid{align-items:start}
 :is(#mqx,html) .mq-next{min-width:150px}
 :is(#mqx,html) .mq-heal .mq-foc{min-height:64px}
+
+/* Oct 30: the old price is always crossed out ($147 → $97) */
+s.mx-was,.mx-was{text-decoration:line-through!important;text-decoration-thickness:1.5px!important;text-decoration-color:currentColor;opacity:.62;font-weight:500;margin-right:2px;white-space:nowrap}

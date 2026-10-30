@@ -15,7 +15,7 @@ export const COURSES = {
   sugar: { name: "The Diabetes Protocol", url: "/diabetes" },
   glp1:  { name: "The GLP-1 Weight Loss Protocol", url: "/glp1" }
 };
-const V = "202610302000";
+const V = "202610302100";
 
 export function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -76,7 +76,7 @@ export function studyBox(p) {
     : '<span class="bs-card" aria-hidden="true"><small>' + (pub ? "PubMed" : "The study") + '</small><b>' + esc(p.study_title || p.title) + '</b><i>' + esc(p.study_cite || "") + '</i></span>';
   return '<aside class="bs" aria-label="The study"><span class="bs-shot">' + shot + '</span>' +
     '<div class="bs-tx">' +
-    (p.study_title ? '<p class="bs-t"><span class="bs-l">Study:</span> <u>' + esc(p.study_title) + '</u></p>' : '<span class="bs-k">The study</span>') +
+    '<span class="bs-k">The study</span>' + (p.study_title ? '<p class="bs-t">' + esc(p.study_title) + '</p>' : "") +
     (p.study_cite ? '<p class="bs-c">' + esc(p.study_cite) + '</p>' : "") +
     "</div></aside>";
 }
@@ -111,15 +111,24 @@ function head(o) {
 }
 
 /* one article page. opts.preview = drawn inside the admin editor (no site header) */
+/* the article's photo sits small on the right, in the middle of the article (before its 2nd paragraph) */
+export function withPhoto(body, p) {
+  if (!p.cover_img) return body;
+  const fig = '<figure class="bl-fig"><img src="' + esc(p.cover_img) + '" alt="' + esc(p.title || "") + '" loading="lazy"></figure>';
+  const at = []; const re = /<p>/gi; let m; while ((m = re.exec(body))) at.push(m.index);
+  const k = at.length >= 4 ? at[1] : at.length >= 2 ? at[1] : 0;
+  return body.slice(0, k) + fig + body.slice(k);
+}
 export function articleBody(p) {
   const date = p.published_at || p.updated_at || p.created_at;
-  const c = COURSES[p.cta];
   return '<article class="bl" data-noedit>' +
-    '<p class="bl-meta"><a href="/blog/">The Blog</a>' + (date ? ' · <time datetime="' + esc(new Date(date).toISOString().slice(0, 10)) + '">' + esc(niceDate(date)) + "</time>" : "") + ' · ' + readMins(p) + ' min read</p>' +
+    '<p class="bl-meta"><a href="/blog/">The Blog</a></p>' +
     '<h1 class="bl-t">' + esc(p.title || "Untitled") + "</h1>" +
-    (p.cover_img ? '<img class="bl-cover" src="' + esc(p.cover_img) + '" alt="">' : "") +
+    (p.description ? '<p class="bl-sub">' + esc(p.description) + "</p>" : "") +
+    '<div class="bl-author"><img class="bl-av" src="/blog/img/mark.jpg" alt="Mark"><div><b>Mark</b><span>' +
+    (date ? '<time datetime="' + esc(new Date(date).toISOString().slice(0, 10)) + '">' + esc(niceDate(date)) + "</time> · " : "") + readMins(p) + " min read</span></div></div>" +
     studyBox(p) +
-    '<div class="bl-body">' + cleanBody(p.body) + "</div>" +
+    '<div class="bl-body">' + withPhoto(cleanBody(p.body), p) + "</div>" +
     ctaBox(p) +
     "</article>";
 }
@@ -138,7 +147,7 @@ export function articlePage(p, more) {
   const others = (more || []).filter(x => x.slug !== p.slug).slice(0, 3);
   return head({ title: p.title + " · Mark Talks Health", ogTitle: p.title, desc, url, article: true, image: p.cover_img || p.study_img, ld }) +
     '<body class="blog">\n<main id="main" class="bl-wrap">' + articleBody(p) +
-    (others.length ? '<nav class="bl-more" aria-label="More articles" data-noedit><h2>Keep reading</h2>' + others.map(listItem).join("") + '<a class="bl-all" href="/blog/">All articles →</a></nav>' : "") +
+    (others.length ? '<nav class="bl-more" aria-label="More articles" data-noedit><p class="bl-sec">Keep reading</p>' + others.map(listItem).join("") + '<a class="bl-all" href="/blog/">All articles →</a></nav>' : "") +
     '<div class="bl-foot" data-noedit>' + sourceLine(p) +
     '<p class="bl-fine">Written by Mark, health educator at Mark Talks Health. Educational, not medical advice: talk to your healthcare provider before changing your diet, fasting or medication.</p></div>' +
     "</main>\n</body>\n</html>";
@@ -146,16 +155,19 @@ export function articlePage(p, more) {
 
 function listItem(p) {
   const date = p.published_at || p.updated_at;
-  return '<a class="bl-item" href="/blog/' + esc(p.slug) + '/"><span class="bl-d">' + esc(niceDate(date)) + "</span><b>" + esc(p.title) + "</b><span>" + esc(summary(p, 150)) + "</span></a>";
+  return '<a class="bl-item" href="/blog/' + esc(p.slug) + '/"><span class="bl-tx"><b>' + esc(p.title) + '</b><span class="bl-sum">' + esc(summary(p, 160)) +
+    '</span><span class="bl-d">' + esc(niceDate(date)) + " · " + readMins(p) + " min read</span></span>" +
+    (p.cover_img ? '<img class="bl-th" src="' + esc(p.cover_img) + '" alt="" loading="lazy">' : "") + "</a>";
 }
 
 export function indexPage(posts) {
   const url = SITE + "/blog/";
   const desc = "Gut health, fasting and natural healing research, explained in plain English. Every article is built around a real study you can read for yourself.";
   return head({ title: "The Blog · Mark Talks Health", desc, url, ld: { "@context": "https://schema.org", "@type": "Blog", name: "The Mark Talks Health Blog", url } }) +
-    '<body class="blog">\n<main id="main" class="bl-wrap" data-noedit><header class="bl-home"><div class="kick">The Blog</div><h1 class="t">Research, <em>explained</em></h1>' +
-    '<p class="lead">Each article takes one real study and explains what it found and what it means for you.</p></header>' +
-    (posts.length ? '<div class="bl-list">' + posts.map(listItem).join("") + "</div>" : '<p class="muted">The first articles are on their way.</p>') +
+    '<body class="blog">\n<main id="main" class="bl-wrap" data-noedit><header class="bl-home"><img class="bl-logo" src="/assets/app-icon-192.png" alt=""><h1 class="bl-name">Mark Talks Health</h1>' +
+    '<p class="bl-tag">Gut health, fasting and natural healing research, explained in plain English. One real study at a time.</p><p class="bl-by">By Mark</p></header>' +
+    '<p class="bl-sec">Latest</p>' +
+    (posts.length ? '<div class="bl-list">' + posts.map(listItem).join("") + "</div>" : '<p class="bl-empty">The first articles are on their way.</p>') +
     "</main>\n</body>\n</html>";
 }
 
@@ -170,4 +182,4 @@ export async function fetchPosts(fetchFn, query) {
   if (!r.ok) throw new Error("Supabase " + r.status + " " + (await r.text()).slice(0, 300));
   return r.json();
 }
-export const LIST_COLS = "slug,title,description,body,published_at,updated_at";
+export const LIST_COLS = "slug,title,description,body,cover_img,published_at,updated_at";

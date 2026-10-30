@@ -260,7 +260,7 @@
     var cur=M.product(), P=CONFIG.products[cur], inn=!!M.user, any=M.ownsAny(), ownCur=M.owns(cur);
     var initial=inn?M.esc((M.user.email||"?").charAt(0).toUpperCase()):"";
     var links=[[any?"course.html":"protocols.html","Courses"],["app.html","Apps"],["community.html","Hub"],["/blog/","Blog"]];
-    var cta=ownCur?'<a class="b sm" href="'+P.app+'">Open app</a>':any?'<a class="b sm" href="app.html">Open app</a>':'<a class="b sm wide" href="'+P.sales+'#checkout">Start · '+P.price+'</a>';
+    var cta=ownCur?'<a class="b sm" href="'+P.app+'">Open app</a>':any?'<a class="b sm" href="app.html">Open app</a>':'<a class="b sm wide" href="'+P.sales+'#checkout">Start · '+(P.was?'<s class="mx-was">'+P.was+'</s> ':'')+P.price+'</a>';
     var h=document.createElement("header"); h.className="mx-h";
     h.innerHTML='<div class="in"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a>'+
       '<nav class="mx-nav" aria-label="Main">'+links.map(function(l){ return '<a href="'+l[0]+'"'+((M.page===l[0]||(l[0]==="/blog/"&&/^\/blog\//.test(location.pathname)))?' class="on" aria-current="page"':'')+'>'+l[1]+'</a>'; }).join("")+'</nav>'+
@@ -277,7 +277,7 @@
     sl.push(inn?["account.html","My account",M.esc(M.user.email)]:[M.loginUrl(),"Sign in","Access your courses"]);
     sh.innerHTML='<div class="top"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a><button class="mx-burger" type="button" aria-label="Close menu" style="display:grid">'+ICON.close+'</button></div>'+
       '<nav>'+sl.map(function(l){ return '<a href="'+l[0]+'">'+l[1]+(l[2]?'<small>'+l[2]+'</small>':'')+'</a>'; }).join("")+'</nav>'+
-      '<div class="bot">'+(ownCur?'<a class="b full" href="'+P.app+'">Open my app</a>':'<a class="b full" href="'+P.sales+'#checkout">Start the '+P.name+' · '+P.price+'</a>')+
+      '<div class="bot">'+(ownCur?'<a class="b full" href="'+P.app+'">Open my app</a>':'<a class="b full" href="'+P.sales+'#checkout">Start the '+P.name+' · '+(P.was?'<s class="mx-was">'+P.was+'</s> ':'')+P.price+'</a>')+
         (inn?'<button class="b full ghost" type="button" data-out>Sign out</button>':'<a class="b full ghost" href="'+M.loginUrl()+'">Sign in</a>')+'</div>';
     document.body.insertBefore(h,document.body.firstChild);
     document.body.appendChild(sh);
@@ -411,7 +411,7 @@
   function coSummary(k){
     var P=CONFIG.products[k];
     return '<div class="mx-co-sum"><div class="mx-co-im" style="background-image:url(\''+P.thumb+'\')"></div><div><div class="mx-co-k">One-time payment</div><h3>'+M.esc(P.name)+'</h3>'+
-      '<div class="mx-co-pr">'+(P.was?'<s>'+P.was+'</s>':'')+'<b>'+P.price+'</b><small>Lifetime access</small></div></div>'+
+      '<div class="mx-co-pr">'+(P.was?'<s class="mx-was">'+P.was+'</s>':'')+'<b>'+P.price+'</b><small>Lifetime access</small></div></div>'+
       '<ul>'+INCL.map(function(t){ return '<li>'+t+'</li>'; }).join("")+'</ul>'+
       '<p class="mx-co-g"><b>30-day money-back guarantee.</b> Card, Apple Pay and Google Pay.</p></div>';
   }
@@ -422,7 +422,7 @@
     var slot=box.querySelector(".mx-co-form"); box.querySelector(".mx-co-left").innerHTML=coSummary(k);
     if(CO.live){ try{ CO.live.destroy(); }catch(e){} CO.live=null; }
     if(M.user&&M.owns(k)){ slot.innerHTML='<div class="mx-co-own"><h3>You own this protocol</h3><p>Everything is unlocked on your account.</p><a class="b full" href="'+CONFIG.products[k].course+'">Open my course</a></div>'; return; }
-    if(!CONFIG.stripeKey){ slot.innerHTML='<div class="mx-co-own"><button class="b full" type="button" data-co-go>Continue to secure payment · '+CONFIG.products[k].price+'</button></div>';
+    if(!CONFIG.stripeKey){ slot.innerHTML='<div class="mx-co-own"><button class="b full" type="button" data-co-go>Continue to secure payment · '+(CONFIG.products[k].was?'<s class="mx-was">'+CONFIG.products[k].was+'</s> ':'')+CONFIG.products[k].price+'</button></div>';
       slot.querySelector("[data-co-go]").onclick=function(){ coRedirect(k,this); }; return; }
     slot.innerHTML='<div class="mx-wait">Loading secure checkout…</div><div class="mx-co-mount"></div>';
     var ask=++CO.n;

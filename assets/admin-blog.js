@@ -104,7 +104,7 @@
           '<div><label class="lbl" for="bgDesc">Line Google shows <span id="bgDn"></span></label><input class="inp" id="bgDesc" maxlength="170" placeholder="Leave empty to use the first sentences" value="'+esc(p.description||"")+'"></div></div>'+
           '<details><summary>More</summary><div style="display:grid;gap:10px;margin-top:10px">'+
             '<div><label class="lbl" for="bgSlug">Web address</label><div style="display:flex;gap:6px;align-items:center"><span class="small">marktalkshealth.com/blog/</span><input class="inp" id="bgSlug" value="'+esc(p.slug||"")+'" placeholder="made from the title"'+(live()?' disabled title="Take the article down first to change its address"':'')+'></div></div>'+
-            '<div><label class="lbl">Picture at the top (optional)</label><div class="fl" style="display:flex;gap:8px;align-items:center"><label class="b sm ghost">Choose picture<input type="file" accept="image/*" hidden id="bgCover"></label><span class="small" id="bgCvN">'+(p.cover_img?'Has a picture · <a href="javascript:void(0)" id="bgCvX">remove</a>':'None')+'</span></div></div>'+
+            '<div><label class="lbl">Small photo in the article (optional)</label><div class="fl" style="display:flex;gap:8px;align-items:center"><label class="b sm ghost">Choose picture<input type="file" accept="image/*" hidden id="bgCover"></label><span class="small" id="bgCvN">'+(p.cover_img?'Has a picture · <a href="javascript:void(0)" id="bgCvX">remove</a>':'None')+'</span></div></div>'+
             (p.id?'<div><button class="danger" id="bgDel">Delete this article</button></div>':'')+
           '</div></details></div>'+
       '</div>';

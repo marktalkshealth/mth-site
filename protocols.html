@@ -14,9 +14,9 @@
 <link rel="apple-touch-icon" href="assets/app-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mth.css?v=202610301900">
+<link rel="stylesheet" href="assets/mth.css?v=202610302100">
 <script src="assets/vendor/supabase-2.118.0.js"></script>
-<script src="assets/mth.js?v=202610301900"></script>
+<script src="assets/mth.js?v=202610302100"></script>
 <style>
 .pg{max-width:1120px;margin:0 auto;padding:10px 20px 50px}
 .grid{display:grid;gap:18px;margin-top:26px}
@@ -51,7 +51,7 @@ MTH.ready.then(function(){
   var C=MTH.config, IMG=C.assets+"steps/";
   document.getElementById("grid").innerHTML=C.order.map(function(k){ var P=C.products[k], own=MTH.owns(k);
     return '<a class="card pc" href="'+(own?P.course:P.sales)+'"><div class="im" style="background-image:url(\''+(P.thumb||IMG+P.img+'.jpg')+'\')"></div><div class="tx"><div class="kick">'+(own?'You own this':'Protocol')+'</div><h3>'+MTH.esc(P.name)+'</h3><p>'+MTH.esc(P.line)+'</p>'+
-      '<div class="ft"><span class="pr">'+(own?'':'<s>'+P.was+'</s><b>'+P.price+'</b>')+'</span><span class="b sm'+(own?' dark':'')+'">'+(own?'Open':'Learn more')+'</span></div></div></a>'; }).join("");
+      '<div class="ft"><span class="pr">'+(own?'':'<s class="mx-was">'+P.was+'</s> <b>'+P.price+'</b>')+'</span><span class="b sm'+(own?' dark':'')+'">'+(own?'Open':'Learn more')+'</span></div></div></a>'; }).join("");
 });
 </script>
 </body>

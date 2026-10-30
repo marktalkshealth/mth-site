@@ -1,74 +1,80 @@
 /* =================================================================
    MARK TALKS HEALTH — BLOG
-   Simple reading pages: title, the study, the article, a small link.
+   Oct 30: a calm, Substack-style reading page. Dark ink type on a near-white
+   page, one narrow column, thin rules, small square photos in the list and
+   one small photo tucked into the middle of each article.
    Sits on top of mth.css (header, footer, palette). Pages are drawn by
    assets/blog-render.mjs.
 ================================================================= */
-.bl-wrap{max-width:720px;margin:0 auto;padding:30px 20px 60px}
+body.blog{background:#fdfbf8}
+.bl-wrap{max-width:700px;margin:0 auto;padding:40px 22px 70px;color:var(--ink)}
+.bl-wrap a{color:inherit}
 
-/* article */
-.bl-meta{font-size:13px;color:var(--muted);margin:0 0 12px;letter-spacing:.02em}
-.bl-meta a{color:var(--terra);font-weight:600;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:11px}
-.bl-t{font-family:var(--serif);font-weight:500;font-size:clamp(34px,6vw,52px);line-height:1.06;letter-spacing:-.012em;margin:0 0 26px}
-.bl-cover{display:block;width:100%;border-radius:16px;margin:0 0 26px;aspect-ratio:16/9;object-fit:cover}
+/* ---------- the blog home ---------- */
+.bl-home{text-align:center;padding:10px 0 8px}
+.bl-logo{width:56px;height:56px;border-radius:12px;display:block;margin:0 auto 14px}
+.bl-name{font-family:var(--serif);font-weight:600;font-size:clamp(34px,6vw,44px);line-height:1.05;letter-spacing:-.01em;margin:0;color:var(--ink)}
+.bl-tag{font-size:16px;line-height:1.55;color:var(--muted);margin:10px auto 0;max-width:470px}
+.bl-by{font-size:13px;color:var(--faint);margin:12px 0 0}
+.bl-sec{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:26px 0 0;padding-bottom:10px;border-bottom:1px solid var(--line)}
 
-/* the study box: small PubMed screenshot + citation */
-.bs{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 30px}
-@media(max-width:520px){.bs{grid-template-columns:104px minmax(0,1fr);gap:12px;padding:12px}}
-.bs-shot{display:block;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff;aspect-ratio:4/3;text-decoration:none;transition:transform .15s,box-shadow .15s}
-a.bs-shot:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(43,39,36,.12)}
+/* one post in a list: words on the left, small square photo on the right */
+.bl-list{display:block}
+.bl-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.bl-item .bl-tx{display:flex;flex-direction:column;gap:6px;min-width:0}
+.bl-item b{font-family:var(--sans);font-weight:700;font-size:19px;line-height:1.3;letter-spacing:-.005em;color:var(--ink)}
+.bl-item .bl-sum{font-size:15px;line-height:1.5;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bl-item .bl-d{font-size:12.5px;color:var(--faint);letter-spacing:.01em}
+.bl-item:hover b{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.bl-th{width:112px;height:112px;border-radius:6px;object-fit:cover;display:block;background:var(--bg2);flex:none}
+@media(max-width:520px){.bl-item{gap:14px;padding:18px 0}.bl-item b{font-size:17px}.bl-th{width:84px;height:84px}.bl-item .bl-sum{font-size:14px}}
+
+/* ---------- an article ---------- */
+.bl-meta{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin:0 0 14px}
+.bl-meta a{color:var(--faint);text-decoration:none}
+.bl-meta a:hover{color:var(--ink)}
+.bl-t{font-family:var(--serif);font-weight:600;font-size:clamp(36px,6.2vw,50px);line-height:1.06;letter-spacing:-.012em;margin:0 0 12px;color:var(--ink)}
+.bl-sub{font-size:19px;line-height:1.5;color:var(--muted);margin:0 0 22px}
+.bl-author{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 30px}
+.bl-av{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;background:var(--bg2)}
+.bl-author div{display:flex;flex-direction:column;gap:1px;font-size:14px;line-height:1.35}
+.bl-author b{font-weight:600;color:var(--ink)}
+.bl-author span{color:var(--faint);font-size:13px}
+
+/* the study: a quiet box with a small PubMed-style card */
+.bs{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px;margin:0 0 32px}
+@media(max-width:520px){.bs{grid-template-columns:92px minmax(0,1fr);gap:12px;padding:12px}}
+.bs-shot{display:block;border-radius:4px;overflow:hidden;border:1px solid var(--line);background:#fff;aspect-ratio:4/3}
 .bs-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
-.bs-card{display:flex;flex-direction:column;gap:4px;height:100%;padding:9px 10px;font-family:Arial,Helvetica,sans-serif;color:#212121;overflow:hidden}
-.bs-card small{font-size:10px;font-weight:700;color:#20558a;letter-spacing:.02em}
-.bs-card b{font-size:10.5px;line-height:1.25;font-weight:700;color:#20558a;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-.bs-card i{font-style:normal;font-size:9px;color:#5b616b;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.bs-k{display:block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:4px}
-.bs-t{font-weight:600;font-size:16px;line-height:1.4;margin:0 0 6px}
-.bs-l{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--terra);border-radius:999px;padding:2px 9px;margin-right:4px;vertical-align:2px}
-.bs-t a,.bs-t u{color:var(--terra);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:rgba(192,98,63,.45)}
-.bs-t a:hover{text-decoration-color:var(--terra)}
-.bs{border-left:4px solid var(--terra)}
-.bs-c{font-size:13px;color:var(--muted);margin:0 0 6px;line-height:1.4}
-.bs-a{font-size:13.5px;font-weight:600;color:var(--terra);text-decoration:none}
-.bs-a:hover{text-decoration:underline}
+.bs-card{display:flex;flex-direction:column;gap:4px;height:100%;padding:8px 9px;font-family:Arial,Helvetica,sans-serif;color:#212121;overflow:hidden}
+.bs-card small{font-size:9.5px;font-weight:700;color:#20558a}
+.bs-card b{font-size:10px;line-height:1.25;font-weight:700;color:#20558a;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.bs-card i{font-style:normal;font-size:8.5px;color:#5b616b;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.bs-k{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 5px}
+.bs-t{font-weight:600;font-size:15.5px;line-height:1.4;margin:0 0 5px;color:var(--ink)}
+.bs-c{font-size:13px;color:var(--muted);margin:0;line-height:1.45}
 
-/* the words */
-.bl-body p{font-size:18.5px;line-height:1.75;color:#3a332e;margin:0 0 1.15em}
-.bl-body a{color:var(--terra)}
-@media(max-width:520px){.bl-body p{font-size:17.5px}}
-.bl-cta{margin:34px 0 0;padding-top:20px;border-top:1px solid var(--line);font-size:16px;color:var(--muted)}
-.bl-cta a{color:var(--terra);font-weight:600}
-.bl-fine{font-size:12.5px;color:var(--faint);margin:18px 0 0}
+/* the words: a calm reading serif */
+.bl-body{font-family:Charter,"Bitstream Charter","Iowan Old Style","Sitka Text",Cambria,Georgia,serif}
+.bl-body p{font-size:20px;line-height:1.7;color:#2f2925;margin:0 0 1.15em}
+.bl-body a{color:var(--terra);text-underline-offset:3px}
+.bl-body::after{content:"";display:table;clear:both}
+@media(max-width:520px){.bl-body p{font-size:18.5px;line-height:1.68}}
 
-/* more articles + the blog home list */
-.bl-more{margin-top:48px}
-.bl-more h2{font-family:var(--serif);font-weight:500;font-size:26px;margin:0 0 10px}
-.bl-home{margin:10px 0 26px}
-.bl-list{display:grid;gap:0}
-.bl-item{display:grid;gap:4px;padding:20px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
-.bl-item:last-child{border-bottom:1px solid var(--line)}
-.bl-item b{font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.15}
-.bl-item:hover b{color:var(--terra)}
-.bl-item span{color:var(--muted);font-size:15px}
-.bl-item .bl-d{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+/* the small photo tucked into the middle of the article */
+.bl-fig{float:right;width:min(42%,270px);margin:6px 0 14px 24px}
+.bl-fig img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;box-shadow:0 1px 2px rgba(43,39,36,.08)}
+@media(max-width:520px){.bl-fig{width:44%;margin:5px 0 10px 16px}}
 
-/* end of the article: a small course link, more to read, then the source */
-.bl-go{margin:30px 0 0;font-size:17px}
+/* end of the article */
+.bl-go{clear:both;margin:30px 0 0;font-size:17px}
 .bl-go a{color:var(--terra);font-weight:600;text-decoration:none}
 .bl-go a:hover{text-decoration:underline}
-.bl-next{margin:38px 0 0;background:var(--dark);color:#f7f1e7;border-radius:20px;padding:26px 24px 24px;position:relative;overflow:hidden}
-.bl-next::before{content:"";position:absolute;width:240px;height:240px;right:-80px;top:-100px;border-radius:50%;background:radial-gradient(circle,rgba(184,146,74,.28),transparent 70%)}
-.bl-next .kick{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-.bl-next h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,4.4vw,34px);line-height:1.1;margin:6px 0 10px;color:#fff}
-.bl-next h2 em{color:#e9a988}
-.bl-next p{font-size:16px;line-height:1.6;color:rgba(247,241,231,.8);margin:0 0 18px;max-width:520px}
-.bl-next .b{background:var(--terra);border-color:var(--terra);color:#fff}
-.bl-next .b:hover{background:var(--terraD)}
-.bl-all{display:inline-block;margin-top:12px;font-weight:600;color:var(--terra);text-decoration:none}
-.bl-foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
+.bl-more{margin-top:52px}
+.bl-more .bl-sec{margin-top:0}
+.bl-all{display:inline-block;margin-top:16px;font-weight:600;font-size:15px;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.bl-foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
 .bl-src{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
 .bl-src a{color:var(--muted);text-decoration:underline}
-.bs-t u{text-decoration-line:underline}
-/* headlines in a touch of terracotta */
-.bl-t,.bl-item b{color:var(--terra)}
-.bl-item:hover b{color:var(--terraD)}
+.bl-fine{font-size:12.5px;color:var(--faint);margin:14px 0 0;line-height:1.5}
+.bl-empty{color:var(--muted);padding:30px 0}
