@@ -15,7 +15,7 @@ export const COURSES = {
   sugar: { name: "The Diabetes Protocol", url: "/diabetes" },
   glp1:  { name: "The GLP-1 Weight Loss Protocol", url: "/glp1" }
 };
-const V = "202610301600";
+const V = "202610301900";
 
 export function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -81,17 +81,12 @@ export function studyBox(p) {
     "</div></aside>";
 }
 
-/* end of the article: the course as the next step */
-const CTA = {
-  gut:   { k: "Your next step", h: "Want this working in <em>your</em> gut?", p: "The Gut Health Protocol turns studies like this into a plan you can actually follow. A short cleanse. Then meals, movement and daily habits built around your symptoms. Day by day.", b: "See the Gut Health Protocol" },
-  sugar: { k: "Your next step", h: "Ready to get your blood sugar <em>steady</em>?", p: "The Diabetes Protocol takes research like this and turns it into a day-by-day plan for your meals, movement and habits.", b: "See the Diabetes Protocol" },
-  glp1:  { k: "Your next step", h: "Want the results <em>without</em> losing muscle?", p: "The GLP-1 Weight Loss Protocol turns research like this into a daily plan that protects your muscle while the weight comes off.", b: "See the GLP-1 Protocol" }
-};
+/* end of the article: one small link to the course */
+const CTA = { gut: "See the Gut Health Protocol", sugar: "See the Diabetes Protocol", glp1: "See the GLP-1 Protocol" };
 export function ctaBox(p) {
   const c = COURSES[p.cta], t = CTA[p.cta]; if (!c || !t) return "";
   const href = c.url + "?utm_source=blog&amp;utm_medium=article&amp;utm_campaign=" + esc(p.slug);
-  return '<aside class="bl-next" aria-label="Your next step"><div class="kick">' + t.k + '</div><h2>' + t.h + '</h2><p>' + t.p + '</p>' +
-    '<a class="b" href="' + href + '">' + t.b + ' →</a></aside>';
+  return '<p class="bl-go"><a href="' + href + '">' + t + ' →</a></p>';
 }
 export function sourceLine(p) {
   if (!p.study_url) return "";
