@@ -15,7 +15,7 @@ export const COURSES = {
   sugar: { name: "The Diabetes Protocol", url: "/diabetes" },
   glp1:  { name: "The GLP-1 Weight Loss Protocol", url: "/glp1" }
 };
-const V = "202610302100";
+const V = "202610302200";
 
 export function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -67,18 +67,23 @@ export function slugify(t) {
 }
 
 /* the study box: the PubMed screenshot (or a tidy citation card), the citation and a link */
+/* tiny reference under the byline: a small blue PubMed card and one line about the study (no links out) */
+export function shortCite(c) {
+  c = String(c || "").trim(); if (!c) return "";
+  const yr = (c.match(/\b(19|20)\d{2}\b/) || [""])[0];
+  const first = (c.match(/^([A-Z][A-Za-z'\-]+(?:\s[a-z]{1,3}\s[A-Z][A-Za-z'\-]+)?)/) || [""])[0];
+  const jm = /et al\.?\s*([^,;.]+?)[,.;]?\s*(?:\(?\d{4})/.exec(c);
+  const journal = jm ? jm[1].trim() : "";
+  if (!first && !journal) return c.slice(0, 60);
+  return [first ? first + " et al." : "", [journal, yr].filter(Boolean).join(" ")].filter(Boolean).join(" · ");
+}
 export function studyBox(p) {
-  /* top of the article: shows the study, but no links out (the link to it sits at the very bottom) */
-  if (!p.study_title && !p.study_cite && !p.study_img) return "";
-  const pub = /pubmed|ncbi\.nlm\.nih\.gov/i.test(p.study_url || "");
-  const shot = p.study_img
-    ? '<img src="' + esc(p.study_img) + '" alt="' + esc(pub ? "The study on PubMed" : "The study") + '" loading="lazy">'
-    : '<span class="bs-card" aria-hidden="true"><small>' + (pub ? "PubMed" : "The study") + '</small><b>' + esc(p.study_title || p.title) + '</b><i>' + esc(p.study_cite || "") + '</i></span>';
-  return '<aside class="bs" aria-label="The study"><span class="bs-shot">' + shot + '</span>' +
-    '<div class="bs-tx">' +
-    '<span class="bs-k">The study</span>' + (p.study_title ? '<p class="bs-t">' + esc(p.study_title) + '</p>' : "") +
-    (p.study_cite ? '<p class="bs-c">' + esc(p.study_cite) + '</p>' : "") +
-    "</div></aside>";
+  if (!p.study_title && !p.study_cite) return "";
+  const pub = !p.study_url || /pubmed|ncbi\.nlm\.nih\.gov/i.test(p.study_url);
+  const sc = shortCite(p.study_cite);
+  return '<aside class="bs" aria-label="The study" title="' + esc((p.study_title || "") + (p.study_cite ? " — " + p.study_cite : "")) + '">' +
+    '<span class="bs-pm">' + (pub ? "PubMed" : "Study") + '</span>' +
+    '<span class="bs-one">' + (sc ? '<b>' + esc(sc) + '</b> ' : "") + esc(p.study_title || "") + "</span></aside>";
 }
 
 /* end of the article: one small link to the course */
