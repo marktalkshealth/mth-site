@@ -6,11 +6,12 @@
    page in a frame and lists every change.
    In the admin frame, clicking text sends it to the editing box on the
    right of the admin screen (it types into the page live). In a full
-   window, the text is edited right on the page with the same toolbar.
+   window, a panel docked to the right edge does the same. No floating
+   toolbars over the words.
 ================================================================= */
 (function(){
   var M=window.MTH, sb=M.sb, inFrame=window.top!==window;
-  var cur=null, bar=null, tools=null;
+  var cur=null, bar=null;
 
   function waitRoot(){ return new Promise(function(ok){ (function t(){ if(M.wordsRoot) return ok(M.wordsRoot); setTimeout(t,120); })(); }); }
   function tell(){ try{ if(inFrame) window.parent.postMessage({ type:"mth-words-saved", page:M.pageKey },location.origin); }catch(e){} }
@@ -21,18 +22,21 @@
     '[data-mte].mte-on{outline:2.5px solid #c0623f!important;background:rgba(255,252,247,.92)!important;color:#2b2724!important;cursor:text}'+
     '.mte-bar{position:fixed;left:0;right:0;bottom:0;z-index:2147483000;background:#2b2724;color:#f3e7d3;font:600 13.5px Inter,system-ui,sans-serif;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px 14px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px rgba(0,0,0,.2)}'+
     '.mte-bar a,.mte-bar button{color:#2b2724;background:#f7f1e7;border:0;border-radius:999px;padding:7px 14px;font:inherit;cursor:pointer;text-decoration:none}'+
-    '.mte-tools{position:absolute;z-index:2147483001;display:flex;flex-wrap:wrap;align-items:center;gap:6px;max-width:calc(100vw - 16px);background:#2b2724;padding:6px;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.25);font:600 13px Inter,system-ui,sans-serif}'+
-    '.mte-tools button{border:0;border-radius:8px;padding:7px 11px;font:inherit;cursor:pointer;background:#46403a;color:#fff}'+
-    '.mte-tools button.save{background:#c0623f}.mte-tools button.b{font-weight:800}.mte-tools button.i{font-style:italic;font-family:Georgia,serif}'+
+    '.mte-dock{position:fixed;z-index:2147483001;right:0;top:0;bottom:0;width:360px;background:#fffcf7;border-left:1px solid rgba(43,39,36,.14);box-shadow:-10px 0 30px rgba(43,39,36,.08);padding:20px 18px 80px;overflow:auto;font:15px/1.45 Inter,system-ui,sans-serif;color:#2b2724;box-sizing:border-box}'+
+    '.mte-dock h3{font:500 24px/1.1 "Cormorant Garamond",Georgia,serif;margin:0 0 8px;color:#2b2724}'+
+    '.mte-dock .what{font-size:13px;color:#7a716a;margin:0 0 10px}'+
+    '.mte-dock .empty{font-size:14px;color:#7a716a}'+
+    '.mte-dock .rte-bar{margin-bottom:10px}'+
+    '.mte-dock .box{min-height:110px;max-height:45vh;overflow:auto;border:1.5px solid rgba(43,39,36,.16);border-radius:12px;background:#fff;padding:12px 14px;font-size:17px;line-height:1.5;outline:none;word-break:break-word}'+
+    '.mte-dock .box:focus{border-color:#c0623f;box-shadow:0 0 0 3px rgba(192,98,63,.15)}'+
+    '.mte-dock .box em{font-style:italic;color:#c0623f}'+
+    '.mte-dock .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}'+
+    '.mte-dock .acts button{border:1px solid rgba(43,39,36,.18);border-radius:999px;background:#fff;color:#2b2724;font:600 13.5px Inter,system-ui,sans-serif;padding:8px 16px;cursor:pointer}'+
+    '.mte-dock .acts button.save{background:#c0623f;border-color:#c0623f;color:#fff}'+
+    '.mte-dock .tip{font-size:12.5px;color:#7a716a;margin-top:14px}'+
+    'html.mte-docked body{padding-right:360px!important}html.mte-docked .mte-bar{right:360px}'+
+    '@media(max-width:899px){.mte-dock{top:auto;left:0;width:auto;max-height:46vh;border-left:0;border-top:1px solid rgba(43,39,36,.14);box-shadow:0 -10px 30px rgba(43,39,36,.12);padding:14px 14px 70px}html.mte-docked body{padding-right:0!important;padding-bottom:48vh!important}html.mte-docked .mte-bar{right:0}.mte-dock .box{max-height:18vh}.mte-dock .tip{display:none}}'+
     'body{padding-bottom:64px}';
-
-  function place(){
-    if(!cur||!tools) return;
-    var r=cur.getBoundingClientRect(), top=r.top+window.scrollY-48;
-    if(r.top<60) top=r.bottom+window.scrollY+8;
-    tools.style.top=top+"px";
-    tools.style.left=Math.max(8,Math.min(r.left+window.scrollX,window.scrollX+document.documentElement.clientWidth-tools.offsetWidth-8))+"px";
-  }
 
   async function save(el,html){
     var w=el.__mw, key=w.saveKey||w.key, r;
@@ -49,17 +53,7 @@
 
   function stop(){
     if(!cur) return;
-    cur.removeAttribute("contenteditable"); cur.classList.remove("mte-on");
-    cur=null; if(tools){ var tb=tools.querySelector(".rte-bar"); if(tb&&tb.destroy) tb.destroy(); tools.remove(); tools=null; }
-  }
-  async function commit(){
-    if(!cur) return;
-    var el=cur, html=M.cleanHtml(window.MTHRich?window.MTHRich.html(el):el.innerHTML);
-    stop();
-    if(html===M.cleanHtml(el.__mte0)) return;              /* nothing typed */
-    el.innerHTML=html;
-    var ok=await save(el,html);
-    if(!ok) el.innerHTML=el.__mte0;
+    cur.classList.remove("mte-on"); cur=null;
   }
   function cancel(){ if(!cur) return; var el=cur; el.innerHTML=el.__mte0; stop(); }
   async function original(){
@@ -81,25 +75,64 @@
 
   function start(el){
     if(cur===el) return;
-    if(cur){ if(inFrame) commitLive(); else commit(); }
+    if(cur) commitLive();
     cur=el; el.__mte0=el.innerHTML; el.classList.add("mte-on");
-    if(inFrame){
-      /* edit in the box on the right of the admin screen */
-      post({ type:"mth-words-pick", label:label(el), html:el.innerHTML, orig:el.__mw.text, changed:!!el.__mw.saveKey });
-      return;
-    }
-    el.setAttribute("contenteditable","true"); el.focus();
-    try{ var rg=document.createRange(); rg.selectNodeContents(el); rg.collapse(false); var sel=getSelection(); sel.removeAllRanges(); sel.addRange(rg); }catch(e){}
-    tools=document.createElement("div"); tools.className="mte-tools";
-    tools.appendChild(window.MTHRich.toolbar(el,{ toast:M.toast, change:place }));
-    var acts=document.createElement("span"); acts.style.cssText="display:flex;gap:6px";
-    acts.innerHTML='<button class="save" data-a="save">Save</button><button data-a="cancel">Cancel</button><button data-a="orig" title="Put the original words back">Original</button>';
-    tools.appendChild(acts);
-    document.body.appendChild(tools); place();
-    acts.addEventListener("mousedown",function(e){ e.preventDefault(); });   /* keep the cursor in the text */
-    acts.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; e.stopPropagation();
-      if(b.dataset.a==="save") commit(); else if(b.dataset.a==="cancel") cancel(); else original(); });
+    var info={ label:label(el), html:el.innerHTML, orig:el.__mw.text, changed:!!el.__mw.saveKey };
+    if(inFrame) post(Object.assign({ type:"mth-words-pick" },info));   /* the box on the right of the admin screen */
+    else dock.open(info);                                               /* the box docked on the right of this window */
   }
+  /* actions from the editing box (admin panel or docked panel) */
+  async function act(d){
+    if(!cur) return;
+    if(d.type==="live"){ cur.innerHTML=M.cleanHtml(d.html); return; }
+    if(d.type==="save"){ cur.innerHTML=M.cleanHtml(d.html); await commitLive(); }
+    else if(d.type==="cancel") cancel();
+    else if(d.type==="orig") await original();
+    if(inFrame) post({ type:"mth-words-closed" }); else dock.close();
+  }
+
+  /* full-window mode: an editing panel fixed to the right edge, away from the words */
+  var dock={
+    el:null, box:null, bar:null,
+    make:function(){
+      var d=this.el=document.createElement("aside"); d.className="mte-dock";
+      d.innerHTML='<h3>Edit the words</h3><div class="empty">Click any words on the page and they’ll appear here to change.</div>'+
+        '<div class="live" hidden><div class="what"></div><div class="tb"></div><div class="box" contenteditable="true" spellcheck="true"></div>'+
+        '<div class="acts"><button class="save" data-a="save">Save</button><button data-a="cancel">Cancel</button><button data-a="orig" title="Put the original words back">Original</button></div>'+
+        '<p class="tip">Select words, then pick a size or press B, I or U. <b>Normal text</b> takes the formatting off. <b>Enter</b> saves · <b>Shift+Enter</b> new line · <b>Esc</b> cancels.</p></div>';
+      document.body.appendChild(d); document.documentElement.classList.add("mte-docked");
+      var box=this.box=d.querySelector(".box"), self=this;
+      function h(){ return window.MTHRich?window.MTHRich.html(box):box.innerHTML; }
+      box.addEventListener("input",function(){ act({ type:"live", html:h() }); });
+      box.addEventListener("keydown",function(e){
+        if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); act({ type:"save", html:h() }); }
+        else if(e.key==="Escape"){ e.preventDefault(); act({ type:"cancel" }); } });
+      box.addEventListener("paste",function(e){ e.preventDefault();
+        var t=(e.clipboardData||window.clipboardData).getData("text/plain").replace(/\s*\n\s*/g," ");
+        try{ document.execCommand("insertText",false,t); }catch(x){} act({ type:"live", html:h() }); });
+      d.querySelector(".acts").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return;
+        if(b.dataset.a==="save"){ if(!box.textContent.trim()){ M.toast("Type some words first, or press Original"); return; } act({ type:"save", html:h() }); }
+        else act({ type:b.dataset.a }); });
+      self.h=h;
+    },
+    open:function(info){
+      var d=this.el, box=this.box;
+      d.querySelector(".what").textContent=info.label+(info.changed?" · changed before":"")+" · was: "+(info.orig.length>90?info.orig.slice(0,89)+"…":info.orig);
+      box.innerHTML=M.cleanHtml(info.html);
+      if(this.bar&&this.bar.destroy) this.bar.destroy();
+      var h=this.h;
+      this.bar=window.MTHRich.toolbar(box,{ toast:M.toast, change:function(){ act({ type:"live", html:h() }); } });
+      d.querySelector(".tb").appendChild(this.bar);
+      d.querySelector(".empty").hidden=true; d.querySelector(".live").hidden=false;
+      box.focus();
+      try{ var rg=document.createRange(); rg.selectNodeContents(box); rg.collapse(false); var sl=getSelection(); sl.removeAllRanges(); sl.addRange(rg); }catch(e){}
+    },
+    close:function(){
+      if(this.bar&&this.bar.destroy) this.bar.destroy(); this.bar=null; this.box.innerHTML="";
+      this.el.querySelector(".empty").hidden=false; this.el.querySelector(".live").hidden=true;
+    }
+  };
+
   /* frame mode: the words were typed in the admin box and are already showing here */
   async function commitLive(){
     if(!cur) return; var el=cur, before=el.__mte0, h=M.cleanHtml(el.innerHTML);
@@ -118,38 +151,25 @@
     root.querySelectorAll(".rv").forEach(function(el){ el.classList.add("in"); });   /* show everything, no scroll animations */
 
     bar=document.createElement("div"); bar.className="mte-bar";
-    bar.innerHTML='<span>✎ Editing words · '+(inFrame?'click any text, then change it in the box on the right.':'click any text, type, then Save.')+' Green outline = changed.</span>'+(inFrame?'':'<a href="'+location.pathname+'">Done</a>');
+    bar.innerHTML='<span>✎ Editing words · '+(inFrame?'click any text, then change it in the box on the right.':'click any text, then change it in the panel on the right.')+' Green outline = changed.</span>'+(inFrame?'':'<a href="'+location.pathname+'">Done</a>');
     document.body.appendChild(bar);
+    if(!inFrame) dock.make();
 
     document.addEventListener("click",function(e){
-      if(tools&&tools.contains(e.target)) return;
       if(bar.contains(e.target)) return;
+      if(dock.el&&dock.el.contains(e.target)) return;
       var el=e.target.closest("[data-mte]");
       if(el){ e.preventDefault(); e.stopPropagation(); start(el); return; }
-      if(cur&&!inFrame&&!cur.contains(e.target)) commit();
       if(e.target.closest("a[href],.g2-buy,button.btn")){ e.preventDefault(); e.stopPropagation(); M.toast("Links and buy buttons are paused while you edit"); }
     },true);
-    document.addEventListener("keydown",function(e){
-      if(!cur||inFrame) return;
-      if(e.key==="Escape"){ e.preventDefault(); cancel(); }
-      else if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); commit(); }
-    },true);
-    document.addEventListener("input",function(){ place(); });
-    window.addEventListener("scroll",place,{passive:true}); window.addEventListener("resize",place);
-    /* pasting: plain text only */
-    document.addEventListener("paste",function(e){ if(!cur||!cur.contains(e.target)) return; e.preventDefault();
-      var t=(e.clipboardData||window.clipboardData).getData("text/plain"); try{ document.execCommand("insertText",false,t); }catch(x){} },true);
     /* the admin screen can ask to reload after "Put back" */
     window.addEventListener("message",async function(e){
       if(e.origin!==location.origin||!e.data) return; var d=e.data;
       if(d.type==="mth-words-reload"){ location.reload(); return; }
-      if(!cur) return;
-      if(d.type==="mth-words-live"){ cur.innerHTML=M.cleanHtml(d.html); }
-      else if(d.type==="mth-words-save"){ cur.innerHTML=M.cleanHtml(d.html); await commitLive(); post({ type:"mth-words-closed" }); }
-      else if(d.type==="mth-words-cancel"){ cancel(); post({ type:"mth-words-closed" }); }
-      else if(d.type==="mth-words-orig"){ await original(); post({ type:"mth-words-closed" }); }
+      var m=/^mth-words-(live|save|cancel|orig)$/.exec(d.type);
+      if(m) act({ type:m[1], html:d.html });
     });
   }
   if(window.MTHRich) begin();
-  else { var rs=document.createElement("script"); rs.src="assets/rich-edit.js?v=202610301200"; rs.onload=begin; rs.onerror=begin; document.head.appendChild(rs); }
+  else { var rs=document.createElement("script"); rs.src="assets/rich-edit.js?v=202610301500"; rs.onload=begin; rs.onerror=begin; document.head.appendChild(rs); }
 })();

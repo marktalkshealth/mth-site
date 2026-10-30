@@ -502,7 +502,7 @@
       /* plain pages (no design template): their words are in <main> */
       if(!document.getElementById("design")){ var mn=document.querySelector("main"); if(mn){ try{ parts(mn); M.applyWords(mn); }catch(e){} } }
       /* Admin -> Website words opens pages with ?edit=1 */
-      if(M.qs("edit")==="1"&&M.user&&!document.getElementById("mte-js")){ var s=document.createElement("script"); s.id="mte-js"; s.src="assets/site-edit.js?v=202610301200"; document.head.appendChild(s); }
+      if(M.qs("edit")==="1"&&M.user&&!document.getElementById("mte-js")){ var s=document.createElement("script"); s.id="mte-js"; s.src="assets/site-edit.js?v=202610301500"; document.head.appendChild(s); }
     }
     if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",go); else go();
   });

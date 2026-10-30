@@ -8,7 +8,7 @@
 ================================================================= */
 (function(){
   if(window.MTHRich) return;
-  var SIZES=[["0.8","Small"],["1","Normal size"],["1.25","Large"],["1.5","Larger"],["2","Huge"]];
+  var SIZES=[["0.8","Small"],["1","Normal"],["1.25","Large"],["1.5","Larger"],["2","Huge"]];
 
   function inside(ed){ var s=getSelection(); return s.rangeCount&&ed.contains(s.getRangeAt(0).commonAncestorContainer); }
   function exec(c,v){ try{ document.execCommand("styleWithCSS",false,false); }catch(e){} try{ return document.execCommand(c,false,v); }catch(e){ return false; } }
@@ -112,7 +112,7 @@
 
   var CSS='.rte-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}'+
     '.rte-bar button,.rte-bar select{border:1px solid rgba(43,39,36,.18);border-radius:8px;background:#fff;color:#2b2724;font:600 13.5px Inter,system-ui,sans-serif;padding:7px 10px;cursor:pointer;min-width:36px;line-height:1.1}'+
-    '.rte-bar select{padding:7px 8px}'+
+    '.rte-bar select{padding:7px 6px;width:auto}'+
     '.rte-bar button:hover{border-color:#c0623f}'+
     '.rte-bar button.on{background:#2b2724;color:#f7f1e7;border-color:#2b2724}'+
     '.rte-bar .rte-i i{font-family:Georgia,serif}'+
