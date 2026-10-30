@@ -1878,43 +1878,6 @@ input[type=range]::-webkit-slider-thumb:active {
           <div id="gsMedNote"></div>
         </div>
 
-        <div class="di-panel lab-panel" id="labPanel">
-          <div class="gs-head">
-            <div>
-              <div class="gs-step">Step 2 · Your Test Results</div>
-              <div class="di-title">Upload Doctor's Tests</div>
-              <div class="gs-lede">Blood work (kidney, albumin, iron, B12, vitamin D, HbA1c, cholesterol, hormones, liver, lipase), DEXA body-composition and bone scans, ultrasounds and eye-exam reports. Values are read in the units printed on your report and fed into your risk scores when you press Generate.</div>
-            </div>
-          </div>
-          <label class="lab-drop" id="labDrop" for="labFile" tabindex="0">
-            <input type="file" id="labFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.csv,application/pdf,image/*,text/plain,text/csv" multiple hidden>
-            <span class="lab-drop-ico" aria-hidden="true">📄</span>
-            <span class="lab-drop-main">Drop reports here or tap to upload</span>
-            <span class="lab-drop-sub">PDF, photo or screenshot, TXT or CSV · several files at once is fine</span>
-          </label>
-          <div class="lab-status" id="labStatus" aria-live="polite"></div>
-          <div class="lab-files" id="labFiles"></div>
-          <details class="lab-more">
-            <summary>Paste text or add a value by hand</summary>
-            <textarea class="lab-paste" id="labPaste" rows="4" placeholder="e.g.  Albumin  34 g/L&#10;Ferritin  20 ug/L&#10;DEXA: low appendicular lean mass"></textarea>
-            <div class="lab-btn-row">
-              <button type="button" class="lab-btn lab-btn-solid" id="labReadPaste">Read pasted text</button>
-              <button type="button" class="lab-btn" id="labSample">Try a sample panel</button>
-            </div>
-            <div class="lab-add">
-              <select class="di-select" id="labAddSel" aria-label="Marker"></select>
-              <input type="text" inputmode="decimal" class="di-input" id="labAddVal" placeholder="Value" aria-label="Value">
-              <select class="di-select" id="labAddUnit" aria-label="Unit"></select>
-              <button type="button" class="lab-btn lab-btn-solid" id="labAddBtn">Add</button>
-            </div>
-          </details>
-          <div class="lab-table-head">
-            <div class="lab-sub-title">Results found <span class="lab-count" id="labCount"></span></div>
-            <button type="button" class="li-clear" id="labClear">Clear</button>
-          </div>
-          <div class="lab-table-wrap"><table class="lab-table" id="labTable"></table></div>
-          <div class="lab-privacy">🔒 Read in your browser. Nothing is uploaded to a server.</div>
-        </div>
       </div>
 
       <div class="hc-col hc-heal">
@@ -1951,22 +1914,65 @@ input[type=range]::-webkit-slider-thumb:active {
       </div>
     </div>
       </div>
+      <!-- Tests: upload + analysis in one box under the symptoms and sliders -->
+      <div class="di-panel hc-tests" id="hcTests">
+        <div class="hc-tests-in">
+        <div class="lab-panel hc-tests-up" id="labPanel">
+          <div class="gs-head">
+            <div>
+              <div class="gs-step">Step 2 · Your Test Results</div>
+              <div class="di-title">Upload Doctor's Tests</div>
+              <div class="gs-lede">Blood work (kidney, albumin, iron, B12, vitamin D, HbA1c, cholesterol, hormones, liver, lipase), DEXA body-composition and bone scans, ultrasounds and eye-exam reports. Values are read in the units printed on your report and fed into your risk scores when you press Generate.</div>
+            </div>
+          </div>
+          <label class="lab-drop" id="labDrop" for="labFile" tabindex="0">
+            <input type="file" id="labFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.csv,application/pdf,image/*,text/plain,text/csv" multiple hidden>
+            <span class="lab-drop-ico" aria-hidden="true">📄</span>
+            <span class="lab-drop-main">Drop reports here or tap to upload</span>
+            <span class="lab-drop-sub">PDF, photo or screenshot, TXT or CSV · several files at once is fine</span>
+          </label>
+          <div class="lab-status" id="labStatus" aria-live="polite"></div>
+          <div class="lab-files" id="labFiles"></div>
+          <details class="lab-more">
+            <summary>Paste text or add a value by hand</summary>
+            <textarea class="lab-paste" id="labPaste" rows="4" placeholder="e.g.  Albumin  34 g/L&#10;Ferritin  20 ug/L&#10;DEXA: low appendicular lean mass"></textarea>
+            <div class="lab-btn-row">
+              <button type="button" class="lab-btn lab-btn-solid" id="labReadPaste">Read pasted text</button>
+              <button type="button" class="lab-btn" id="labSample">Try a sample panel</button>
+            </div>
+            <div class="lab-add">
+              <select class="di-select" id="labAddSel" aria-label="Marker"></select>
+              <input type="text" inputmode="decimal" class="di-input" id="labAddVal" placeholder="Value" aria-label="Value">
+              <select class="di-select" id="labAddUnit" aria-label="Unit"></select>
+              <button type="button" class="lab-btn lab-btn-solid" id="labAddBtn">Add</button>
+            </div>
+          </details>
+          <div class="lab-table-head">
+            <div class="lab-sub-title">Results found <span class="lab-count" id="labCount"></span></div>
+            <button type="button" class="li-clear" id="labClear">Clear</button>
+          </div>
+          <div class="lab-table-wrap"><table class="lab-table" id="labTable"></table></div>
+          <div class="lab-privacy">🔒 Read in your browser. Nothing is uploaded to a server.</div>
+        </div>
+          <div class="hc-tests-out lab-report-panel">
+            <div class="di-title">Test Results Analysis</div>
+            <div id="labReport"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Below: GLP-1 Risk + Lab analysis -->
-    <div class="hc-below">
+    <!-- Cleanse arc (Level 1 protein bowl · 2 lean protein · 3 mineral water): full width under the intake panels -->
+    <div id="fastingArcContainer" class="di-arc-row"></div>
+    <!-- Digestive disease risk: under the arc -->
+    <div class="hc-risk-row">
       <div class="di-panel">
         <div class="di-title">GLP-1 Risk Assessment</div>
         <div class="hc-sub">Pattern match for 12 GLP-1 risks, from muscle loss to weight regain, adjusted by your test results. Tap a row for the details.</div>
         <div id="diRiskList" class="hc-stage"></div>
       </div>
-      <div class="di-panel lab-report-panel">
-        <div class="di-title">Test Results Analysis</div>
-        <div id="labReport"></div>
-      </div>
     </div>
-    <!-- Cleanse arc (Level 1 protein bowl · 2 lean protein · 3 mineral water): full width under the intake panels -->
-    <div id="fastingArcContainer" class="di-arc-row"></div>
     <!-- Cleanse meal plan: right under the arc -->
     <!-- Cleanse meal plan cards retired: the daily plan below replaces them (slot kept hidden so the protocol code still runs) -->
     <div id="planSlot" class="plan-slot" hidden></div>
@@ -1999,8 +2005,15 @@ input[type=range]::-webkit-slider-thumb:active {
 .hc-grid3 { display: grid; grid-template-columns: minmax(250px,.95fr) minmax(0,1.35fr) minmax(290px,1.05fr); gap: 10px; align-items: stretch; }
 .hc-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .hc-col > .di-panel:last-child { flex: 1; }
-@media (max-width: 1200px) { .hc-grid3 { grid-template-columns: 1fr 1fr; } .hc-mid { grid-column: 1 / -1; order: 3; } }
-@media (max-width: 700px)  { .hc-grid3 { grid-template-columns: 1fr; } }
+.hc-grid3 { grid-template-areas: "intake mid heal" "intake tests tests"; }
+.hc-grid3 > .hc-intake { grid-area: intake; } .hc-grid3 > .hc-mid { grid-area: mid; } .hc-grid3 > .hc-heal { grid-area: heal; } .hc-grid3 > .hc-tests { grid-area: tests; }
+.hc-tests-in { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 18px; align-items: start; }
+.hc-tests-out { border-left: 1px solid var(--border, rgba(42,38,34,.12)); padding-left: 18px; min-width: 0; }
+.hc-tests-up { min-width: 0; }
+.hc-risk-row { margin-top: 10px; }
+@media (max-width: 1200px) { .hc-grid3 { grid-template-columns: 1fr 1fr; grid-template-areas: "intake heal" "mid mid" "tests tests"; } }
+@media (max-width: 900px)  { .hc-tests-in { grid-template-columns: 1fr; } .hc-tests-out { border-left: 0; padding-left: 0; border-top: 1px solid var(--border, rgba(42,38,34,.12)); padding-top: 14px; } }
+@media (max-width: 700px)  { .hc-grid3 { grid-template-columns: 1fr; grid-template-areas: "intake" "mid" "heal" "tests"; } }
 .hc-below { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(0,1fr); gap: 10px; margin-top: 10px; align-items: start; }
 @media (max-width: 1000px) { .hc-below { grid-template-columns: 1fr; } }
 .rk-rows { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; }
@@ -3607,7 +3620,7 @@ function updateCalories() {
     const kEl = c.querySelector('.slope-kcal'); if (kEl) kEl.textContent = k ? kfmt(k) + ' kcal' : '0 kcal';
     if (c.dataset.k != null) {
       c.querySelector('.slope-cal').textContent = pct + '%';
-      c.querySelector('.slope-bar').style.height = Math.max(8, Math.round(pct / 100 * 150)) + 'px';
+      { const sb = c.querySelector('.slope-bar'), hh = Math.max(8, Math.round(pct / 100 * 150)) + 'px'; sb.dataset.h = hh; sb.style.height = hh; }
     }
   });
   const box = document.getElementById('calBox'); if (!box) return;
@@ -5511,11 +5524,15 @@ function animateNumber(el, target, duration, suffix) {
 // SMOOTH SLOPE BAR ENTRANCE ANIMATION
 // ═══════════════════════════════════════════════════════════════
 function animateSlopeBars() {
-  const bars = document.querySelectorAll('.slope-bar');
+  const bars = document.querySelectorAll('#fastingArcContainer .slope-bar');
   bars.forEach((bar, i) => {
-    const targetH = bar.style.height;
+    const cur = bar.style.height;
+    const targetH = (cur && cur !== '0px') ? cur : (bar.dataset.h || '');
+    if (!targetH) return;
+    bar.dataset.h = targetH;
+    clearTimeout(bar._growT);
     bar.style.height = '0px';
-    setTimeout(() => { bar.style.height = targetH; }, i * 40);
+    bar._growT = setTimeout(() => { bar.style.height = bar.dataset.h; }, i * 40);
   });
 }
 
