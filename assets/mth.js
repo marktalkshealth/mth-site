@@ -11,6 +11,9 @@
   var CONFIG={
     supabaseUrl:"https://oihefcsonqjeicelezln.supabase.co",
     supabaseKey:"sb_publishable_vxaKCnn-2XlvV7MmoV3wqg_dxgdqtz2",
+    /* Google sign-in button runs on marktalkshealth.com (not supabase.co).
+       Paste the OAuth Client ID from Google Cloud > Clients here. Blank = old redirect flow. */
+    googleClientId:"",
     /* the three protocols: sales page, course and app for each */
     products:{
       gut:  { name:"Gut Health Protocol", short:"Gut Health", price:"$97", was:"$147", sales:"gut.html",      course:"course.html?p=gut",   app:"app.html?p=gut",   img:"1-fasting", thumb:"/media/site/courses/gut.jpg", line:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse." },
@@ -41,6 +44,7 @@
   });
 
   var M=window.MTH={ config:CONFIG, sb:sb, user:null, owned:[] };
+  M.googleClientId=CONFIG.googleClientId;
   M.base=location.href.replace(/[#?].*$/,"").replace(/[^/]*$/,"");
   M.page=(location.pathname.split("/").pop()||"index.html").toLowerCase();
   M.esc=function(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
