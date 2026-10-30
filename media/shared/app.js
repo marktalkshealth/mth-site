@@ -587,7 +587,7 @@ html.mth-app.mth-wait body::after { content: 'Opening your plan…'; position: f
       for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-selected', bs[i].dataset.tab === tab ? 'true' : 'false');
       if (window.fxPhone && (tab === 'food' || tab === 'move')) {
         root.classList.add('mth-fx');
-        try { var A0 = arc(); window.fxPhone.show(tab === 'food' ? 'eat' : 'move', iso(dayDate(A0, vday(A0)))); } catch (e) { console.warn(e); }
+        try { var A0 = arc(); window.fxPhone.show(tab === 'food' ? 'eat' : 'move', A0.today < 1 && !view ? iso(mid(new Date())) : iso(dayDate(A0, vday(A0)))); } catch (e) { console.warn(e); }
       }
       (R[tab] || rToday)();
       if (tab === 'arc') requestAnimationFrame(function () { goPage(page, false); });

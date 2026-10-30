@@ -1443,7 +1443,16 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-lede { font-size: .82rem; color: var(--muted); line-height: 1.55; margin: 8px 0 14px; max-width: 900px; }
 
 /* day strip */
-.fx-strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; overflow: visible; padding: 4px 2px 10px; }
+.fx-strip { display: grid; grid-template-columns: repeat(var(--n, 7), minmax(0, 1fr)); gap: 6px; overflow: visible; padding: 4px 2px 10px; }
+.fx-d.ph-prep { background: #f7e8d8; border-color: #e7c7a6; }
+.fx-d.ph-cleanse { background: #e2efe6; border-color: #b9d4c2; }
+.fx-d.ph-refeed { background: #e3ebfa; border-color: #bccdee; }
+.fx-d.ph-gentle, .fx-d.ph-keto { background: #ece6f3; border-color: #d3c8e2; }
+.fx-d.ph-pre { background: #fff; border-style: dashed; }
+.fx-d.today .w { color: #b5532f; font-weight: 800; }
+.fx-d.today:not(.sel) { box-shadow: 0 0 0 2px #c0623f inset !important; }
+.fx-d.sel.today .w { color: #e8c870; }
+.fx-d.sel[class] { background: #1e2820; border-color: #1e2820; }
 .fx-d { min-width: 0; border: 1px solid var(--border); background: var(--cream); border-radius: 14px; padding: 8px 4px 7px; text-align: center; cursor: pointer; font: inherit; color: var(--text); position: relative; transition: transform .15s, box-shadow .2s, background .2s; }
 .fx-d:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.06); }
 .fx-d .w { display: block; font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
@@ -1456,7 +1465,7 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-d.sel::after { opacity: 1; background: #e8c870; }
 .fx-d.today:not(.sel) { box-shadow: 0 0 0 2px #2e5c45 inset; }
 .fx-d .chk { position: absolute; top: 4px; right: 5px; width: 12px; height: 12px; border-radius: 50%; background: #2e5c45; color: #fff; font-size: 8px; line-height: 12px; }
-@media (max-width: 640px) { .fx-strip { gap: 3px; } .fx-d { padding: 6px 1px 7px; border-radius: 11px; } .fx-d b { font-size: 1.15rem; } .fx-d .w, .fx-d .p { font-size: .5rem; letter-spacing: .02em; } .fx-d:hover { transform: none; } }
+@media (max-width: 640px) { .fx-strip { gap: 3px; grid-template-columns: repeat(var(--nm, 7), minmax(0, 1fr)); row-gap: 5px; } .fx-d { padding: 6px 1px 7px; border-radius: 11px; } .fx-d b { font-size: 1.15rem; } .fx-d .w, .fx-d .p { font-size: .5rem; letter-spacing: .02em; } .fx-d:hover { transform: none; } }
 
 /* main grid */
 .fx-grid { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: 18px; margin-top: 6px; align-items: start; }
@@ -4421,7 +4430,7 @@ function caStart() {
   if (!window._caStart) {
     let s = null; try { s = localStorage.getItem('mth_glp_start'); } catch (e) {}
     const p = s && /^\d{4}-\d{2}-\d{2}$/.test(s) ? s.split('-').map(Number) : null;
-    window._caStart = p ? new Date(p[0], p[1] - 1, p[2]) : caMid(new Date());
+    window._caStart = p ? new Date(p[0], p[1] - 1, p[2]) : (() => { const x = caMid(new Date()); x.setDate(x.getDate() + 2); return x; })();   // prep tomorrow, Day 1 the day after
   }
   return window._caStart;
 }
@@ -5817,9 +5826,10 @@ const ICO = {
 function fxRender() {
   const host = document.getElementById('fx'); if (!host || typeof caStart !== 'function') return;
   const M = model(), t = todayISO();
-  const startD = addD(M.start, -1), span = 6;   // 7 days that follow the arc: prep day + the first 6 days
+  const startD = addD(M.start, -1), span = Math.max(6, M.cEnd + 1);   // the whole arc: prep day, cleanse, refeed, first normal day (at least 7 days)
   const days = [...Array(span + 1)].map((_, i) => addD(startD, i));
-  if (!sel || !days.includes(sel)) sel = days.includes(t) ? t : M.start;
+  if (todayISO() < startD) days.unshift(todayISO());   // arc starts later: today sits first so it's easy to find
+  if (!sel || !days.includes(sel)) sel = days.includes(t) ? t : startD;
   const d = dayIdx(sel, M), P = phaseOf(d, M), plan = planFor(sel, M), rec = dayRec(sel);
   const goal = dayGoal(P, plan), mv = moveFor(d, M);
   const slots = Object.keys(plan).filter(k => plan[k]).sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b));
@@ -5920,8 +5930,8 @@ function fxRender() {
     </div>
   </div>
   <p class="fx-lede">${tab === 'eat' ? esc(subTxt) + ' Tap a photo for the recipe, tick each meal as you eat it, and your calories and protein add up on the left.' : tab === 'move' ? 'Your strength plan comes from your own strength test. Log each set; weights go up when you are ready, and your Muscle &amp; Strength Index shows whether the weight you are losing is fat or muscle.' : esc(PR.sub)}</p>
-  <div class="fx-strip" id="fxStrip">${days.map(x => { const dd = dayIdx(x, M), pp = phaseOf(dd, M), r = S.days[x], dt = fromISO(x), sc = dayScore(x, M), done = sc.total && sc.pct >= 1;
-    return `<button class="fx-d ${x === sel ? 'sel' : ''} ${x === t ? 'today' : ''}" data-day="${x}" style="--pc:${PCOL[pp.k]}" aria-label="${esc(pp.name)}, ${esc(dt.toDateString())}">${done ? '<span class="chk">✓</span>' : ''}<span class="w">${CA_WD[dt.getDay()]}</span><b>${dt.getDate()}</b><span class="p">${esc(pp.short)}</span></button>`; }).join('')}</div>
+  <div class="fx-strip" id="fxStrip" style="--n:${days.length};--nm:${days.length > 7 ? Math.ceil(days.length / 2) : days.length}">${days.map(x => { const dd = dayIdx(x, M), pre = dd < 0, pp = pre ? { k: 'pre', name: 'Before your arc', short: 'Get ready' } : phaseOf(dd, M), r = S.days[x], dt = fromISO(x), sc = dayScore(x, M), done = sc.total && sc.pct >= 1;
+    return `<button class="fx-d ph-${pp.k} ${x === sel ? 'sel' : ''} ${x === t ? 'today' : ''}" data-day="${x}" style="--pc:${PCOL[pp.k] || '#8a7b6e'}" aria-label="${x === t ? 'Today, ' : ''}${esc(pp.name)}, ${esc(dt.toDateString())}">${done ? '<span class="chk">✓</span>' : ''}<span class="w">${x === t ? 'Today' : CA_WD[dt.getDay()]}</span><b>${dt.getDate()}</b><span class="p">${esc(pp.short)}</span></button>`; }).join('')}</div>
   <div class="fx-tabs" role="tablist">
     <button role="tab" aria-selected="${tab === 'eat'}" data-tab="eat"><span class="n">1</span>Eat<small>${fmt(food)} of ${fmt(goal)} kcal · ${r0(eatM.p)} g protein</small></button>
     <button role="tab" aria-selected="${tab === 'move'}" data-tab="move"><span class="n">2</span>Move &amp; Strength<small>${MT0.k === 'lift' ? 'Strength ' + MT0.day : MT0.k === 'cardio' ? 'Cardio' : 'Rest day'}${rec.move ? ' · done ✓' : ''}${(() => { const ix = msIndex(msLatest()); return S.ms.tests.length > 1 && ix != null ? ' · index ' + ix : S.ms.tests.length ? '' : ' · test first'; })()}</small></button>
@@ -6489,7 +6499,7 @@ if (typeof generateAll === 'function') {
   const _gen = generateAll;
   generateAll = function () {
     if (window._restoring) { const out = _gen.apply(this, arguments); try { fxRender(); } catch (e) { console.error(e); } return out; }   // restoring a saved member: keep their day
-    const t = caMid(new Date());
+    const t = caMid(new Date()); t.setDate(t.getDate() + 2);   // too late to start today: prep day is tomorrow, Day 1 the day after
     window._caStart = t; window._caDay = 1; sel = null;
     const tISO = caISO(t);   // a fresh protocol starts with nothing ticked from today on (weight logs are kept)
     Object.keys(S.days).forEach(k => { if (k >= tISO) { const r = S.days[k]; r.eaten = {}; r.prac = {}; r.move = false; r.water = 0; r.extra = []; r.plan = null; } });
@@ -6667,6 +6677,6 @@ fxRender(); fxLoadLive();
 </script>
 <script>/* mth-embed-resize: tells the course page how tall the app is */(function(){if(window.parent===window)return;var last=0;function send(){var h=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);if(h!==last){last=h;try{parent.postMessage({type:"mth-height",h:h},"*")}catch(e){}}}if(window.ResizeObserver)new ResizeObserver(send).observe(document.documentElement);window.addEventListener("load",send);setInterval(send,1500);send();})();</script>
 <script>/* phone app layout: only on the members' /app page (?mode=app), never inside the course lessons */
-if(/[?&]mode=app\b/.test(location.search)){var s=document.createElement('script');s.src='/media/shared/app.js?v=13';document.body.appendChild(s);}</script>
+if(/[?&]mode=app\b/.test(location.search)){var s=document.createElement('script');s.src='/media/shared/app.js?v=14';document.body.appendChild(s);}</script>
 </body>
 </html>
