@@ -15,7 +15,7 @@ export const COURSES = {
   sugar: { name: "The Diabetes Protocol", url: "/diabetes" },
   glp1:  { name: "The GLP-1 Weight Loss Protocol", url: "/glp1" }
 };
-const V = "202610301900";
+const V = "202610302000";
 
 export function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));

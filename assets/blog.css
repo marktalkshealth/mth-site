@@ -69,3 +69,25 @@ a.bs-shot:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(43,39,36,.
 .bl-src{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
 .bl-src a{color:var(--muted);text-decoration:underline}
 .bs-t u{text-decoration-line:underline}
+
+/* ---- a little color: terracotta, sage and gold take turns ---- */
+.bl-home{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--terraS) 0%,#fbefe6 45%,var(--sageS) 100%);border-radius:22px;padding:30px 26px 26px;margin:6px 0 30px}
+.bl-home::before,.bl-home::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.bl-home::before{width:220px;height:220px;right:-60px;top:-80px;background:radial-gradient(circle,rgba(184,146,74,.35),transparent 70%)}
+.bl-home::after{width:180px;height:180px;left:-70px;bottom:-90px;background:radial-gradient(circle,rgba(122,143,110,.35),transparent 70%)}
+.bl-home>*{position:relative}
+.bl-home .lead{color:#5a4f47}
+.bl-list{gap:16px}
+.bl-item,.bl-item:last-child{--ac:var(--terra);--acS:var(--terraS);background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ac);border-radius:16px;padding:20px 22px;transition:transform .15s,box-shadow .15s}
+.bl-item:nth-child(3n+2){--ac:#5f7554;--acS:var(--sageS)}
+.bl-item:nth-child(3n+3){--ac:#9a7633;--acS:#f3e8d2}
+.bl-item b{color:var(--ac)}
+.bl-item:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(43,39,36,.08)}
+.bl-item:hover b{color:var(--ac);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.bl-item .bl-d{justify-self:start;background:var(--acS);color:var(--ac);font-weight:700;border-radius:999px;padding:3px 10px;font-size:11px}
+.bl-more .bl-list,.bl-more{display:grid;gap:14px}
+.bl-all{justify-self:start}
+/* titles in color, not black */
+.bl-t{color:var(--terraD)}
+.bl-home h1.t{color:#5f7554}
+.bl-more h2{color:#5f7554}
