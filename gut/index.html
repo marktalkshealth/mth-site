@@ -1443,8 +1443,8 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-lede { font-size: .82rem; color: var(--muted); line-height: 1.55; margin: 8px 0 14px; max-width: 900px; }
 
 /* day strip */
-.fx-strip { display: flex; gap: 6px; overflow-x: auto; padding: 4px 2px 10px; scroll-snap-type: x proximity; scrollbar-width: thin; }
-.fx-d { flex: 0 0 64px; scroll-snap-align: start; border: 1px solid var(--border); background: var(--cream); border-radius: 14px; padding: 8px 4px 7px; text-align: center; cursor: pointer; font: inherit; color: var(--text); position: relative; transition: transform .15s, box-shadow .2s, background .2s; }
+.fx-strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; overflow: visible; padding: 4px 2px 10px; }
+.fx-d { min-width: 0; border: 1px solid var(--border); background: var(--cream); border-radius: 14px; padding: 8px 4px 7px; text-align: center; cursor: pointer; font: inherit; color: var(--text); position: relative; transition: transform .15s, box-shadow .2s, background .2s; }
 .fx-d:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.06); }
 .fx-d .w { display: block; font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .fx-d b { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; line-height: 1.05; }
@@ -1456,6 +1456,7 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-d.sel::after { opacity: 1; background: #e8c870; }
 .fx-d.today:not(.sel) { box-shadow: 0 0 0 2px #2e5c45 inset; }
 .fx-d .chk { position: absolute; top: 4px; right: 5px; width: 12px; height: 12px; border-radius: 50%; background: #2e5c45; color: #fff; font-size: 8px; line-height: 12px; }
+@media (max-width: 640px) { .fx-strip { gap: 3px; } .fx-d { padding: 6px 1px 7px; border-radius: 11px; } .fx-d b { font-size: 1.15rem; } .fx-d .w, .fx-d .p { font-size: .5rem; letter-spacing: .02em; } .fx-d:hover { transform: none; } }
 
 /* main grid */
 .fx-grid { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: 18px; margin-top: 6px; align-items: start; }
@@ -5476,8 +5477,8 @@ document.addEventListener('click', function(e) {
 // Animate slope bars on load
 window.addEventListener('load', () => { setTimeout(animateSlopeBars, 300); });
 </script>
-<script src="/media/shared/train.js?v=2"></script>
-<script src="/media/shared/kitchen.js?v=1"></script>
+<script src="/media/shared/train.js?v=3"></script>
+<script src="/media/shared/kitchen.js?v=2"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════
    EAT & MOVE: daily food + movement tracker
@@ -5699,7 +5700,7 @@ const ICO = {
 function fxRender() {
   const host = document.getElementById('fx'); if (!host || typeof caStart !== 'function') return;
   const M = model(), t = todayISO();
-  const startD = addD(M.start, -1), span = Math.max(21, M.after + 13);
+  const startD = addD(M.start, -1), span = 6;   // 7 days that follow the arc: prep day + the first 6 days
   const days = [...Array(span + 1)].map((_, i) => addD(startD, i));
   if (!sel || !days.includes(sel)) sel = days.includes(t) ? t : M.start;
   const d = dayIdx(sel, M), P = phaseOf(d, M), plan = planFor(sel, M), rec = dayRec(sel);
@@ -5795,12 +5796,12 @@ function fxRender() {
       <button class="fx-btn dark" data-fx="shop">${ICO.cart}Shopping list</button>
     </div>
   </div>
-  <p class="fx-lede">${tab === 'move' ? 'Your strength and cardio plan follows your protocol day by day: gentle while you cleanse, building once you are back on whole foods. Log each set and the plan progresses with you.' : tab === 'eat' ? esc(subTxt) + ' Tap a photo for the recipe, tick each meal as you eat it, and your calories, macros and movement add up on the left.' : esc(PR.sub)}</p>
+  <p class="fx-lede">${tab === 'move' ? 'Pick from a short list of simple exercises. Your arc sets the pace: gentle while you cleanse, a little more once you are back on whole foods.' : tab === 'eat' ? esc(subTxt) + ' Tap a photo for the recipe, tick each meal as you eat it, and your calories, macros and movement add up on the left.' : esc(PR.sub)}</p>
   <div class="fx-strip" id="fxStrip">${days.map(x => { const dd = dayIdx(x, M), pp = phaseOf(dd, M), r = S.days[x], dt = fromISO(x), sc = dayScore(x, M), done = sc.total && sc.pct >= 1;
     return `<button class="fx-d ${x === sel ? 'sel' : ''} ${x === t ? 'today' : ''}" data-day="${x}" style="--pc:${PCOL[pp.k]}" aria-label="${esc(pp.name)}, ${esc(dt.toDateString())}">${done ? '<span class="chk">✓</span>' : ''}<span class="w">${CA_WD[dt.getDay()]}</span><b>${dt.getDate()}</b><span class="p">${esc(pp.short)}</span></button>`; }).join('')}</div>
   <div class="fx-tabs" role="tablist">
     <button role="tab" aria-selected="${tab === 'eat'}" data-tab="eat"><span class="n">1</span>Eat<small>${fmt(food)} of ${fmt(goal)} kcal</small></button>
-    ${window.MTHTrain ? `<button role="tab" aria-selected="${tab === 'move'}" data-tab="move"><span class="n">2</span>Move &amp; Strength<small>${(() => { const T0 = trT(sel); return T0.k === 'lift' ? 'Strength ' + T0.day : T0.k === 'cardio' ? 'Cardio' : T0.k === 'walk' ? 'Walk' : 'Rest & mobility'; })()}${rec.move ? ' · done ✓' : ''}</small></button>` : ''}
+    ${window.MTHTrain ? `<button role="tab" aria-selected="${tab === 'move'}" data-tab="move"><span class="n">2</span>Move &amp; Strength<small>${(() => { const T0 = trT(sel); return T0.k === 'lift' ? 'Strength' : T0.k === 'cardio' ? 'Cardio' : T0.k === 'walk' ? 'Walk' : 'Rest & mobility'; })()}${rec.move ? ' · done ✓' : ''}</small></button>` : ''}
     <button role="tab" aria-selected="${tab === 'prac'}" data-tab="prac"><span class="n">${window.MTHTrain ? 3 : 2}</span>Healing Practices<small>${PR.items.length ? pracDone + ' of ' + PR.items.length + ' done' : 'Start tomorrow'}</small></button>
   </div>
   ${tab === 'eat' ? eatHTML : tab === 'move' ? trView(sel) : pracHTML}`;

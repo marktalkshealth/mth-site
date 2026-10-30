@@ -1443,8 +1443,8 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-lede { font-size: .82rem; color: var(--muted); line-height: 1.55; margin: 8px 0 14px; max-width: 900px; }
 
 /* day strip */
-.fx-strip { display: flex; gap: 6px; overflow-x: auto; padding: 4px 2px 10px; scroll-snap-type: x proximity; scrollbar-width: thin; }
-.fx-d { flex: 0 0 64px; scroll-snap-align: start; border: 1px solid var(--border); background: var(--cream); border-radius: 14px; padding: 8px 4px 7px; text-align: center; cursor: pointer; font: inherit; color: var(--text); position: relative; transition: transform .15s, box-shadow .2s, background .2s; }
+.fx-strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; overflow: visible; padding: 4px 2px 10px; }
+.fx-d { min-width: 0; border: 1px solid var(--border); background: var(--cream); border-radius: 14px; padding: 8px 4px 7px; text-align: center; cursor: pointer; font: inherit; color: var(--text); position: relative; transition: transform .15s, box-shadow .2s, background .2s; }
 .fx-d:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.06); }
 .fx-d .w { display: block; font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .fx-d b { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; line-height: 1.05; }
@@ -1456,6 +1456,7 @@ input[type=range]::-webkit-slider-thumb:active {
 .fx-d.sel::after { opacity: 1; background: #e8c870; }
 .fx-d.today:not(.sel) { box-shadow: 0 0 0 2px #2e5c45 inset; }
 .fx-d .chk { position: absolute; top: 4px; right: 5px; width: 12px; height: 12px; border-radius: 50%; background: #2e5c45; color: #fff; font-size: 8px; line-height: 12px; }
+@media (max-width: 640px) { .fx-strip { gap: 3px; } .fx-d { padding: 6px 1px 7px; border-radius: 11px; } .fx-d b { font-size: 1.15rem; } .fx-d .w, .fx-d .p { font-size: .5rem; letter-spacing: .02em; } .fx-d:hover { transform: none; } }
 
 /* main grid */
 .fx-grid { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: 18px; margin-top: 6px; align-items: start; }
@@ -5605,8 +5606,8 @@ document.addEventListener('click', function(e) {
 // Animate slope bars on load
 window.addEventListener('load', () => { setTimeout(animateSlopeBars, 300); });
 </script>
-<script src="/media/shared/train.js?v=2"></script>
-<script src="/media/shared/kitchen.js?v=1"></script>
+<script src="/media/shared/train.js?v=3"></script>
+<script src="/media/shared/kitchen.js?v=2"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════
    EAT & MOVE: daily food + movement tracker
@@ -5816,7 +5817,7 @@ const ICO = {
 function fxRender() {
   const host = document.getElementById('fx'); if (!host || typeof caStart !== 'function') return;
   const M = model(), t = todayISO();
-  const startD = addD(M.start, -1), span = Math.max(21, M.after + 13);
+  const startD = addD(M.start, -1), span = 6;   // 7 days that follow the arc: prep day + the first 6 days
   const days = [...Array(span + 1)].map((_, i) => addD(startD, i));
   if (!sel || !days.includes(sel)) sel = days.includes(t) ? t : M.start;
   const d = dayIdx(sel, M), P = phaseOf(d, M), plan = planFor(sel, M), rec = dayRec(sel);

@@ -57,7 +57,7 @@
 
   /* ---------- 7-day planner ---------- */
   function weekView() {
-    const M = H.model(), sel = H.sel(), days = [...Array(7)].map((_, i) => H.addD(sel, i)), PT = H.protTarget ? H.protTarget() : null;
+    const M = H.model(), sel = H.sel(), days = [...Array(7)].map((_, i) => H.addD(H.model().start, i - 1)), PT = H.protTarget ? H.protTarget() : null;
     const cols = days.map(x => {
       const d = H.dayIdx(x, M), P = H.phaseOf(d, M), plan = H.planFor(x, M), dt = H.fromISO(x), rec = S().days[x] || { eaten: {} };
       const slots = Object.keys(plan).filter(k => plan[k]).sort((a, b) => H.ORDER.indexOf(a) - H.ORDER.indexOf(b));
@@ -80,7 +80,7 @@
   }
   function newWeek() {
     const M = H.model(), sel = H.sel();
-    [...Array(7)].map((_, i) => H.addD(sel, i)).forEach(x => { const P = H.phaseOf(H.dayIdx(x, M), M); if (P.k === 'keto' || P.k === 'gentle') { const rec = S().days[x]; const fav = rec && rec.plan ? Object.keys(rec.plan).filter(k => isFav(rec.plan[k])) : []; const keep = {}; fav.forEach(k => keep[k] = rec.plan[k]); H.planFor(x, M, true); const r2 = S().days[x]; Object.assign(r2.plan, keep); } });
+    [...Array(7)].map((_, i) => H.addD(H.model().start, i - 1)).forEach(x => { const P = H.phaseOf(H.dayIdx(x, M), M); if (P.k === 'keto' || P.k === 'gentle') { const rec = S().days[x]; const fav = rec && rec.plan ? Object.keys(rec.plan).filter(k => isFav(rec.plan[k])) : []; const keep = {}; fav.forEach(k => keep[k] = rec.plan[k]); H.planFor(x, M, true); const r2 = S().days[x]; Object.assign(r2.plan, keep); } });
     H.save(); H.rerender(); H.toast('New week of meals. Favorites kept.');
   }
 
@@ -151,7 +151,7 @@
 
   /* ---------- batch-cook prep plan ---------- */
   function openPrep() {
-    const M = H.model(), sel = H.sel(), days = [...Array(7)].map((_, i) => H.addD(sel, i)), uses = {};
+    const M = H.model(), sel = H.sel(), days = [...Array(7)].map((_, i) => H.addD(H.model().start, i - 1)), uses = {};
     days.forEach((x, di) => { const p = H.planFor(x, M); Object.keys(p).forEach(k => { const r = H.byId(p[k]); if (!r || r.supp || !(r.ing || []).length) return; (uses[r.id] = uses[r.id] || { r, n: 0, days: [] }).n++; uses[r.id].days.push(di); }); });
     const list = Object.values(uses).sort((a, b) => b.n - a.n || mins(b.r) - mins(a.r));
     const batch = list.filter(u => u.n > 1 || (u.r.batch && (u.r.batch.fridge || u.r.batch.freezer) && mins(u.r) >= 30)).slice(0, 6), rest = list.filter(u => !batch.includes(u));
@@ -228,7 +228,7 @@
 .kx-seg button.on{background:#1e2820;color:#fff}
 .kx-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-end;flex-wrap:wrap}.kx-top p{font-size:.8rem;color:var(--muted,#6b7f72);margin:3px 0 0;max-width:620px;line-height:1.5}
 .kx-avg{display:grid;grid-template-columns:auto auto;gap:0 6px;align-items:baseline;font-size:.68rem;color:var(--muted,#6b7f72)}.kx-avg b{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:#2e5c45;text-align:right}
-.kx-grid{display:grid;grid-template-columns:repeat(7,minmax(168px,1fr));gap:10px;overflow-x:auto;padding:4px 2px 8px;margin-top:10px;scroll-snap-type:x proximity}
+.kx-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:4px 2px 8px;margin-top:10px}
 .kx-col{background:#fff;border:1px solid var(--border,#e4dccd);border-top:4px solid var(--pc);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:7px;min-width:0;scroll-snap-align:start}
 .kx-col.sel{box-shadow:0 0 0 2px #1e2820}
 .kx-h{border:0;background:none;text-align:left;cursor:pointer;padding:2px 2px 2px;display:flex;justify-content:space-between;align-items:baseline;font:inherit}
@@ -276,7 +276,7 @@
 .kx-pi{border:0;padding:0;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:#efe7da;cursor:pointer}.kx-pi img{width:100%;height:100%;object-fit:cover;display:block}
 .kx-note{font-size:.72rem;background:#f6efe2;border-radius:8px;padding:5px 8px;margin-top:5px;line-height:1.45}
 .kx-keep{display:flex;gap:6px;margin-top:5px}.kx-keep span{font-size:.62rem;background:#e7ecdd;color:#4c6142;border-radius:999px;padding:2px 8px;font-weight:600}
-@media(max-width:640px){.kx-grid{grid-template-columns:repeat(7,78%)}.kx-tools{grid-template-columns:1fr}.kx-cards{grid-template-columns:1fr 1fr;gap:8px}.kx-cb{padding:7px 8px 9px}.kx-ct{font-size:.76rem}}`;
+@media(max-width:900px){.kx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.kx-grid{grid-template-columns:1fr}.kx-tools{grid-template-columns:1fr}.kx-cards{grid-template-columns:1fr 1fr;gap:8px}.kx-cb{padding:7px 8px 9px}.kx-ct{font-size:.76rem}}`;
   const st = document.createElement('style'); st.id = 'kxCSS'; st.textContent = css; document.head.appendChild(st);
 
   window.MTHKitchen = { init: a => { H = a; }, toolbar, weekView, newWeek, picker, openSwap, openLibrary, openPrep, enhanceRecipe, servPicker, clipFor, CLIPS };

@@ -81,6 +81,8 @@
     jog: { n: 'Jogging', mus: 'Cardio', eq: 'none', time: true, cues: ['An easy jog: you can still speak in short sentences.', 'Short, quick steps landing under your hips, not out in front.', 'Walk breaks are fine: try 2 minutes jogging, 1 minute walking.'], easier: 'Alternate 1 minute jogging with 2 minutes walking.', harder: 'Longer jogging stretches, or a gentle hill.' },
     bike: { n: 'Cycling', mus: 'Cardio', eq: 'none', time: true, cues: ['Set the seat so your knee is slightly bent at the bottom of the pedal stroke.', 'Steady, comfortable pace: you can still talk.', 'Indoors or outdoors both count.'], easier: 'Lower resistance, shorter session.', harder: 'More resistance, or 1-minute harder efforts.' },
     swim: { n: 'Swimming', mus: 'Cardio', eq: 'none', time: true, cues: ['Easy, continuous laps at a pace you could keep for 30 minutes.', 'Rest at the wall whenever you need to.', 'Water walking or aqua aerobics count too.'], easier: 'Water walking, or rest every length.', harder: 'Longer sets without stopping.' },
+    shadowbox: { n: 'Shadow boxing', mus: 'Cardio, arms & core', eq: 'none', time: true, cues: ['Stand with your feet staggered, knees soft, hands up by your chin.', 'Throw easy straight punches, then hooks, turning from your hips. Keep moving your feet.', 'Work for 2 minutes, rest for 1. Breathe out on every punch.'], easier: 'Slower punches, feet still.', harder: 'Faster combinations, or add squats between rounds.' },
+    situp: { n: 'Sit-ups', mus: 'Core', eq: 'none', cues: ['Lie on your back, knees bent, feet flat. Hands across your chest.', 'Curl up slowly, lifting your shoulders and then your back off the floor.', 'Lower back down over 2 to 3 seconds.'], easier: 'Crunches: lift only your shoulders.', harder: 'Hold for 2 seconds at the top.' },
     march: { n: 'March in place', mus: 'Warm-up', eq: 'none', time: true, cues: ['Stand tall and march, lifting your knees to hip height if you can.', 'Swing your arms. Breathe through your nose.'], easier: 'Smaller steps, hold a counter.', harder: 'Faster, or add arm circles.' },
     catcow: { n: 'Cat-cow', mus: 'Spine mobility', eq: 'none', cues: ['On hands and knees.', 'Round your back up as you breathe out, then let your belly drop as you breathe in.', 'Move slowly with your breath.'], easier: 'Smaller movements.', harder: 'Add a slow hip circle.' },
     hamstring: { n: 'Seated hamstring stretch', mus: 'Cool-down', eq: 'none', time: true, cues: ['Sit with one leg straight, the other bent.', 'Hinge forward from your hips until you feel a gentle stretch.', 'Breathe slowly. No bouncing.'], easier: 'Bend the straight knee a little.', harder: 'Reach a little further on each breath out.' },
@@ -104,6 +106,14 @@
   const WARM = [['march', '2 min'], ['catcow', '8 slow reps']], COOL = [['hamstring', '30 sec a side'], ['child', '45 sec']];
   const MOB = [['catcow', '8 slow reps'], ['birddog', '6 each side'], ['hamstring', '30 sec a side'], ['child', '45 sec'], ['walk', '10 min after a meal']];
   const CARDIO = [['Cycling', 'bike'], ['Jogging', 'jog'], ['Swimming', 'swim'], ['Brisk walk', 'walk'], ['Marching indoors', 'march']];
+  /* ---------- the simple list members pick from ---------- */
+  const PICK = [
+    { k: 'walk', n: 'Walking', e: '🚶', d: '20–30 min', c: 'cardio' }, { k: 'jog', n: 'Jogging', e: '🏃', d: '20–30 min', c: 'cardio' },
+    { k: 'bike', n: 'Cycling', e: '🚴', d: '20–30 min', c: 'cardio' }, { k: 'swim', n: 'Swimming', e: '🏊', d: '20–30 min', c: 'cardio' },
+    { k: 'shadowbox', n: 'Shadow boxing', e: '🥊', d: '3 rounds of 2 min', c: 'cardio' },
+    { k: 'squat', n: 'Squats', e: '🦵', d: '2–3 sets of 10', c: 'strength' }, { k: 'lunge', n: 'Lunges', e: '🚶', d: '2–3 sets of 8 each leg', c: 'strength' },
+    { k: 'pushup', n: 'Push-ups', e: '💪', d: '2–3 sets of 8–10', c: 'strength' }, { k: 'situp', n: 'Sit-ups', e: '🔥', d: '2–3 sets of 10', c: 'strength' }
+  ];
   const LVL = { found: 'Foundation', build: 'Build', strong: 'Strong' };
   const EQ = { db: 'Dumbbells', band: 'Resistance band', none: 'No equipment' };
   const BASE = { found: 8, build: 12, strong: 17.5 };   // curl-equivalent dumbbell (lb) when there's no strength test
@@ -150,60 +160,36 @@
   const chip = (k, t) => `<button type="button" class="tr-mini" data-tr-ex="${k}"><img loading="lazy" alt="" src="${poster(k, 200)}" onerror="this.remove()"><span><b>${e(EX[k].n)}</b><small>${e(t)}</small></span></button>`;
 
   function main(iso, T) {
-    const S = store(), log = S.log[iso] = S.log[iso] || {};
-    if (T.k === 'lift') {
-      const pats = DAYS[T.day];
-      const cards = pats.map(p => {
-        const tg = target(p, iso, T.sets), X = EX[tg.k], sets = log[p] = log[p] || [];
-        while (sets.length < tg.sets) sets.push({ r: '', w: tg.w == null ? '' : tg.w, done: false });
-        sets.forEach(x => { if (!x.done && !x.wt && tg.w != null) x.w = tg.w; });
-        const unit = X.time ? 'sec' : 'reps', done = sets.filter(s => s.done).length, pb = best(p, tg.k);
-        return `<div class="tr-ex ${done >= tg.sets ? 'done' : ''}">
-          <div class="tr-ex-h">${thumb(tg.k)}<div class="tr-ex-i"><div class="tr-pat">${e(PAT[p].n)}</div><button type="button" class="tr-ex-n" data-tr-ex="${tg.k}">${e(X.n)}</button>
-            <div class="tr-ex-t">${tg.sets} × ${tg.lo}–${tg.hi} ${unit}${tg.w != null ? ` @ <b>${tg.w} lb</b>${X.one ? ' (one dumbbell)' : ' each hand'}` : X.eq === 'band' ? ' · band' : ' · bodyweight'}</div>
-            ${tg.note ? `<div class="tr-note">${e(tg.note)}</div>` : ''}${pb ? `<div class="tr-pb">🏆 Best: ${tg.w != null ? Math.round(pb) + ' lb est. max' : Math.round(pb) + ' ' + unit}</div>` : ''}</div>
-            <span class="tr-cnt">${done}/${tg.sets}</span></div>
-          <div class="tr-sets">${sets.map((s, i) => `<div class="tr-set ${s.done ? 'on' : ''}"><span class="n">${i + 1}</span>
-            <label><input class="fx-in" type="number" inputmode="numeric" min="0" placeholder="${tg.hi}" value="${e(s.r)}" data-tr-set="${p}|${i}|r"><small>${unit}</small></label>
-            ${tg.w != null ? `<label><input class="fx-in" type="number" inputmode="decimal" step="2.5" min="0" value="${e(s.w)}" data-tr-set="${p}|${i}|w"><small>lb</small></label>` : '<span></span>'}
-            <button type="button" class="fx-ico eat" data-tr-done="${p}|${i}" aria-pressed="${!!s.done}">✓ ${s.done ? 'Done' : 'Log'}</button></div>`).join('')}</div></div>`;
-      }).join('');
-      const total = pats.reduce((a, p) => a + Math.min((log[p] || []).filter(s => s.done).length, T.sets), 0), need = pats.length * T.sets;
-      const rec = H.dayRec(iso);
-      return `<div class="fx-sec-h"><h3>Strength ${T.day} · ${LVL[level()]}</h3><span>${total} of ${need} sets · about ${T.sets >= 3 ? 40 : T.sets === 2 ? 30 : 15} min</span></div>
-        <div class="tr-prog"><i style="width:${need ? total / need * 100 : 0}%"></i></div>
-        <p class="tr-lede">${T.note ? e(T.note) + ' ' : ''}Stop 1–3 reps short of failure and rest 60–90 seconds between sets; the timer starts when you log a set. Weights and reps go up automatically once you hit the top of the range on every set. Tap any photo to watch how it's done.</p>
-        <div class="tr-blk"><div class="fx-slot">Warm-up · 3 min</div><div class="tr-minis">${WARM.map(w => chip(w[0], w[1])).join('')}</div></div>
-        <div class="tr-exs">${cards}</div>
-        <div class="tr-blk"><div class="fx-slot">Cool-down · 2 min</div><div class="tr-minis">${COOL.map(w => chip(w[0], w[1])).join('')}</div></div>
-        <div class="tr-finish"><button type="button" class="fx-btn ${rec.move ? '' : 'dark'}" data-tr-finish="1">✓ ${rec.move ? 'Workout logged' : 'Finish workout'}</button><span>${rec.move ? 'Nice work. Protein within 2 hours helps your muscles repair.' : 'Log your sets, then finish to count it in your daily score.'}</span></div>`;
-    }
-    if (T.k === 'cardio' || T.k === 'walk') {
-      const c = log.cardio = log.cardio || { min: '', type: 'Cycling' }, cur = (CARDIO.find(x => x[0] === c.type) || CARDIO[0])[1], rec = H.dayRec(iso);
-      return `<div class="fx-sec-h"><h3>${e(T.title || 'Zone 2 cardio')} · ${T.min} min</h3><span>${e(T.next || '')}</span></div>
-        <div class="tr-hero" data-tr-ex="${cur}"><img alt="" src="${poster(cur, 900)}" onerror="this.remove()"><i>▶</i><span>${e(c.type)}</span></div>
-        <p class="tr-lede">${e(T.text || 'A pace where you can talk but not sing: cycling, jogging, swimming or brisk walking. A 10-minute walk after a meal also counts and steadies blood sugar.')}</p>
-        <label class="tr-csel"><span>Cardio type</span><select class="fx-in" data-tr-csel="1" aria-label="Choose your cardio">${CARDIO.map(t => `<option value="${t[0]}"${t[0] === (CARDIO.find(x => x[0] === c.type) || CARDIO[0])[0] ? ' selected' : ''}>${t[0]}</option>`).join('')}</select></label>
-        <div class="tr-cmin"><label>Minutes<input class="fx-in" type="number" inputmode="numeric" min="0" value="${e(c.min)}" placeholder="${T.min}" data-tr-cmin="1"></label>
-          <div class="tr-quick">${[10, 20, 30, 45].map(m => `<button type="button" class="tr-chip" data-tr-cadd="${m}">${m} min</button>`).join('')}</div></div>
-        <div class="tr-finish"><button type="button" class="fx-btn ${rec.move ? '' : 'dark'}" data-tr-finish="1">✓ ${rec.move ? 'Cardio logged' : 'Log cardio'}</button></div>`;
-    }
-    // rest, mobility, prep, bed rest
-    const rec = H.dayRec(iso), list = T.k === 'bed' ? [['catcow', '6 slow reps in bed or on the floor'], ['hamstring', '30 sec a side'], ['child', '45 sec']] : MOB;
-    return `<div class="fx-sec-h"><h3>${e(T.title || 'Rest & mobility')}</h3><span>${T.min ? T.min + ' min' : ''}</span></div>
-      <p class="tr-lede">${e(T.text || 'Recovery day. Gentle mobility keeps your joints happy and makes tomorrow’s session feel better.')}</p>
-      <div class="tr-minis big">${list.map(w => chip(w[0], w[1])).join('')}</div>
-      <div class="tr-finish"><button type="button" class="fx-btn ${rec.move ? '' : 'dark'}" data-tr-finish="1">✓ ${rec.move ? 'Done' : 'Mark as done'}</button></div>`;
+    const S = store(), log = S.log[iso] = S.log[iso] || {}, pk = log.pick = log.pick || {}, c = log.cardio = log.cardio || { min: '' };
+    const rec = H.dayRec(iso), gentle = T.k === 'bed' || (T.k === 'walk' && T.min <= 10);
+    const sug = T.k === 'lift' ? 'strength' : T.k === 'cardio' ? 'cardio' : null;
+    const isSug = x => gentle ? x.k === 'walk' : sug ? x.c === sug : x.k === 'walk';
+    const head = T.k === 'lift' ? 'Strength day' : T.k === 'cardio' ? (T.title || 'Cardio day') : (T.title || 'Easy day');
+    const mins = T.k === 'lift' ? 15 : T.min || 20, n = Object.keys(pk).filter(k => pk[k]).length;
+    const tile = x => { const has = MEDIA[x.k];
+      return `<div class="tr-pk ${pk[x.k] ? 'on' : ''} ${isSug(x) ? 'sug' : ''}">
+        <button type="button" class="tr-pk-b" data-tr-pick="${x.k}" aria-pressed="${!!pk[x.k]}">
+          <span class="tr-pk-img">${has ? `<img loading="lazy" alt="" src="${poster(x.k, 240)}" onerror="this.remove()">` : ''}<em>${x.e}</em></span>
+          <b>${e(x.n)}</b><small>${e(x.d)}</small>${pk[x.k] ? '<i class="tr-pk-ok">✓</i>' : ''}</button>
+        ${has ? `<button type="button" class="tr-pk-v" data-tr-ex="${x.k}" aria-label="Watch ${e(x.n)}">▶</button>` : `<button type="button" class="tr-pk-v" data-tr-ex="${x.k}" aria-label="How to do ${e(x.n)}">?</button>`}</div>`; };
+    return `<div class="fx-sec-h"><h3>${e(head)} · about ${mins} min</h3><span>${rec.move ? 'Done ✓' : n ? n + ' picked' : ''}</span></div>
+      <p class="tr-lede">${e(T.text || (T.k === 'lift' ? 'Pick two or three moves and do 2–3 easy sets of each, stopping a few reps before you tire out.' : 'Pick anything you enjoy and go at a pace where you can still talk.'))}${gentle ? '' : ' The highlighted ones suit today best, but any of them count.'} Tap ▶ for a short how-to.</p>
+      <div class="tr-pks">${PICK.map(tile).join('')}</div>
+      <div class="tr-cmin"><label>Minutes<input class="fx-in" type="number" inputmode="numeric" min="0" value="${e(c.min)}" placeholder="${mins}" data-tr-cmin="1"></label>
+        <div class="tr-quick">${[10, 15, 20, 30].map(m => `<button type="button" class="tr-chip ${+c.min === m ? 'on' : ''}" data-tr-cadd="${m}">${m} min</button>`).join('')}</div></div>
+      <div class="tr-finish"><button type="button" class="fx-btn ${rec.move ? '' : 'dark'}" data-tr-finish="1">✓ ${rec.move ? 'Exercise logged' : 'Log today’s exercise'}</button></div>`;
   }
 
   /* ---------- side cards ---------- */
-  function settings(withLevel) {
+  function settings() { return ''; }
+  function settingsOld(withLevel) {
     return `<div class="tr-set-card"><div class="fx-slot">Your setup</div>
       ${withLevel ? `<div class="tr-row"><span>Level</span><div class="tr-seg">${Object.keys(LVL).map(k => `<button type="button" class="${level() === k ? 'on' : ''}" data-tr-lvl="${k}">${LVL[k]}</button>`).join('')}</div></div>` : ''}
       <div class="tr-row"><span>Equipment</span><div class="tr-seg">${Object.keys(EQ).map(k => `<button type="button" class="${equip() === k ? 'on' : ''}" data-tr-eq="${k}">${EQ[k]}</button>`).join('')}</div></div>
       <p>${withLevel ? 'Not sure? Start at Foundation. Move up when every set feels comfortable at the top of the range.' : 'Your level comes from your strength test.'} Exercises swap automatically to match your equipment.</p></div>`;
   }
-  function history(iso) {
+  function history() { return ''; }
+  function historyOld(iso) {
     const L = store().log, days = Object.keys(L).filter(x => x <= iso && Object.keys(L[x]).some(p => Array.isArray(L[x][p]) && L[x][p].some(s => s.done))).sort().reverse();
     const vol = x => Object.keys(L[x]).reduce((a, p) => a + (Array.isArray(L[x][p]) ? L[x][p].filter(s => s.done).reduce((b, s) => b + (+s.w || 0) * (+s.r || 0), 0) : 0), 0);
     const sets = x => Object.keys(L[x]).reduce((a, p) => a + (Array.isArray(L[x][p]) ? L[x][p].filter(s => s.done).length : 0), 0);
@@ -223,7 +209,7 @@
     return `<div class="tr-wkbox"><div class="fx-slot">This week</div><div class="tr-wks">${cells}</div><div class="tr-wk-sum"><b>${lifts}</b> strength session${lifts === 1 ? '' : 's'} logged in the last 7 days · aim for 2–3</div></div>`;
   }
   function view(iso, T, asideTop) {
-    return `<div class="tr-grid"><aside class="tr-side">${asideTop || ''}${week(iso)}${settings(!H.level)}${history(iso)}</aside><div class="tr-main">${main(iso, T)}</div></div>`;
+    return `<div class="tr-simple">${asideTop || ''}${main(iso, T)}</div>`;
   }
 
   /* ---------- exercise sheet with looping demo video ---------- */
@@ -231,13 +217,13 @@
     const X = EX[k]; if (!X) return;
     const pats = Object.keys(PAT).filter(p => ['found', 'build', 'strong'].some(l => { const v = PAT[p][l]; return (typeof v === 'string' ? v : Object.values(v).join(' ')).split(' ').includes(k); }));
     const pb = pats.length ? best(pats[0], k) : 0;
-    H.modal(`<div class="tr-vid"><video src="${clip(k)}" poster="${poster(k, 900)}" autoplay muted loop playsinline preload="metadata" onerror="this.outerHTML='<img alt=&quot;&quot; src=&quot;'+this.poster+'&quot; style=&quot;width:100%;height:100%;object-fit:cover&quot;>'"></video></div>
+    H.modal(`${MEDIA[k] ? `<div class="tr-vid"><video src="${clip(k)}" poster="${poster(k, 900)}" autoplay muted loop playsinline preload="metadata" onerror="this.outerHTML='<img alt=&quot;&quot; src=&quot;'+this.poster+'&quot; style=&quot;width:100%;height:100%;object-fit:cover&quot;>'"></video></div>` : ''}
       <div class="fx-pad" style="padding-top:14px"><div class="fx-kicker">${e(X.mus)}${X.eq !== 'none' ? ' · ' + e(EQ[X.eq]) : ''}</div><h2>${e(X.n)}</h2>
       <h4 style="margin-top:12px">How to do it</h4><ol class="fx-steps">${X.cues.map(c => `<li><span>${e(c)}</span></li>`).join('')}</ol>
       <div class="tr-eh"><div><b>Easier</b><span>${e(X.easier)}</span></div><div><b>Harder</b><span>${e(X.harder)}</span></div></div>
       ${pb ? `<div class="tr-pb" style="margin-top:10px">🏆 Your best: ${X.m ? Math.round(pb) + ' lb estimated 1-rep max' : Math.round(pb) + (X.time ? ' sec' : ' reps')}</div>` : ''}
       <p class="fx-mm" style="margin-top:12px">Breathe out on the effort. Stop if anything hurts sharply or you feel dizzy. With osteoporosis, a past fracture, a hernia or recent surgery, have a physiotherapist check your form first.</p>
-      <p class="tr-credit">Demo video: Pexels</p></div>`);
+      ${MEDIA[k] ? '<p class="tr-credit">Demo video: Pexels</p>' : ''}</div>`);
   }
 
   /* ---------- rest timer ---------- */
@@ -260,10 +246,11 @@
   });
   document.addEventListener('click', ev => {
     if (!H) return;
-    const b = ev.target.closest('[data-tr-ex],[data-tr-done],[data-tr-finish],[data-tr-ctype],[data-tr-cadd],[data-tr-lvl],[data-tr-eq],[data-tr-rest]'); if (!b) return;
+    const b = ev.target.closest('[data-tr-pick],[data-tr-ex],[data-tr-done],[data-tr-finish],[data-tr-ctype],[data-tr-cadd],[data-tr-lvl],[data-tr-eq],[data-tr-rest]'); if (!b) return;
     const S = store(), iso = H.sel();
     if (b.dataset.trRest != null) { const el = document.getElementById('trRest'); el && el._adj && el._adj(+b.dataset.trRest); return; }
     if (b.dataset.trEx) { ev.stopPropagation(); return openEx(b.dataset.trEx); }
+    if (b.dataset.trPick) { const l = S.log[iso] = S.log[iso] || {}, pk = l.pick = l.pick || {}; pk[b.dataset.trPick] = !pk[b.dataset.trPick]; H.save(); H.rerender(); return; }
     if (b.dataset.trLvl) { S.tr.lvl = b.dataset.trLvl; H.save(); H.rerender(); H.toast(LVL[b.dataset.trLvl] + ' level'); return; }
     if (b.dataset.trEq) { S.tr.eq = b.dataset.trEq; H.save(); H.rerender(); H.toast('Exercises matched to: ' + EQ[b.dataset.trEq].toLowerCase()); return; }
     if (b.dataset.trCtype) { const l = S.log[iso] = S.log[iso] || {}; (l.cardio = l.cardio || {}).type = b.dataset.trCtype; H.save(); H.rerender(); return; }
@@ -294,6 +281,20 @@
 
   /* ---------- styles ---------- */
   const css = `
+.tr-simple{max-width:980px}
+.tr-pks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:4px 0 4px}
+.tr-pk{position:relative;min-width:0}
+.tr-pk-b{width:100%;display:grid;gap:2px;text-align:left;background:#fff;border:1px solid var(--border,#e4dccd);border-radius:14px;padding:6px 6px 8px;cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+.tr-pk.sug .tr-pk-b{border-color:#c9b98f;background:#fdf9f0}
+.tr-pk.on .tr-pk-b{border-color:#2e5c45;background:#f1f8f3;box-shadow:0 0 0 1px #2e5c45}
+.tr-pk-img{position:relative;display:grid;place-items:center;height:74px;border-radius:10px;overflow:hidden;background:#f1ebe0;margin-bottom:4px}
+.tr-pk-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tr-pk-img em{font-style:normal;font-size:1.6rem}
+.tr-pk-img img+em{display:none}
+.tr-pk-b b{font-size:.8rem;line-height:1.2}.tr-pk-b small{font-size:.66rem;color:var(--muted,#6b7f72);line-height:1.25}
+.tr-pk-ok{position:absolute;top:10px;left:10px;width:20px;height:20px;border-radius:50%;background:#2e5c45;color:#fff;font-style:normal;font-size:.66rem;display:grid;place-items:center}
+.tr-pk-v{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(255,255,255,.94);color:#2e5c45;font-size:.62rem;font-weight:700;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.18);display:grid;place-items:center;padding-left:1px}
+@media(max-width:640px){.tr-pks{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.tr-pk-img{height:58px}.tr-pk-b{padding:5px 5px 7px}.tr-pk-b b{font-size:.74rem}.tr-pk-b small{font-size:.6rem}.tr-pk-v{width:22px;height:22px;top:8px;right:8px}.tr-pk-ok{top:8px;left:8px}}
 .tr-lede{font-size:.82rem;line-height:1.6;color:var(--muted,#6b7f72);margin:0 2px 12px}
 .tr-prog{height:6px;border-radius:6px;background:#ece5da;overflow:hidden;margin:-4px 2px 10px}.tr-prog i{display:block;height:100%;background:#2e5c45;border-radius:6px;transition:width .5s}
 .tr-blk{margin:4px 0 12px}.tr-minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:6px}
@@ -342,7 +343,7 @@
 .tr-stats div{background:#fff;border-radius:10px;padding:8px 4px;text-align:center}.tr-stats b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1;color:#2e5c45}.tr-stats span{font-size:.62rem;color:var(--muted,#6b7f72)}
 .tr-hist ul{list-style:none;margin:10px 0 0;padding:0}.tr-hist li{display:grid;grid-template-columns:1fr auto;gap:2px 8px;padding:7px 0;border-top:1px solid var(--border,#e4dccd);font-size:.74rem}
 .tr-hist li em{grid-column:1/-1;font-style:normal;color:var(--muted,#6b7f72);font-size:.68rem}
-.tr-vid{background:#111;aspect-ratio:16/9;border-radius:20px 20px 0 0;overflow:hidden;max-width:100%}
+.tr-vid{background:#111;width:100%;height:min(210px,32vh);border-radius:20px 20px 0 0;overflow:hidden;max-width:100%}
 .tr-vid video{width:100%;height:100%;object-fit:cover;display:block}
 .tr-eh{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.tr-eh div{background:var(--cream,#faf6ef);border-radius:12px;padding:9px 11px;font-size:.76rem;line-height:1.45}.tr-eh b{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:#2e5c45;margin-bottom:2px}
 .tr-grid{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
