@@ -48,7 +48,7 @@
     catch(e){ MTH.toast("Couldn’t send: "+e.message,6000); }
     if(btn){ btn.disabled=false; btn.textContent="Send me a test"; }
   }
-  var FORMAT_HELP='<p class="em-help">Type like a normal email. Extras: <code>## Heading</code> · <code>**bold**</code> · <code>[link text](https://marktalkshealth.com/gut)</code> · a button on its own line: <code>[[Start the protocol|https://marktalkshealth.com/gut]]</code> · <code>- bullet</code> · <code>{{first_name|friend}}</code> = their first name, or “friend”. Links to your site are tracked so sales are credited to the email.</p>';
+  var FORMAT_HELP='<p class="em-help">Type like a normal letter. The subject line becomes the big headline at the top. Extras: <code>## Heading</code> · <code>### Small gold label</code> · <code>**bold**</code> · <code>[link text](https://marktalkshealth.com/gut)</code> · a button on its own line: <code>[[Start the protocol|https://marktalkshealth.com/gut]]</code> · <code>- bullet</code> (start every bullet with <code>**bold**</code> and they show as numbered steps 01, 02, 03) · <code>&gt; quote</code> = big italic quote · <code>---</code> = gold divider · <code>:::dark</code> … <code>:::</code> = a dark band · <code>Mark</code> alone on the last line = your signature · <code>{{first_name|friend}}</code> = their first name, or “friend”. Links to your site are tracked so sales are credited to the email.</p>';
 
   /* ================= OVERVIEW ================= */
   A.screen("email",{ nav:"Email", group:"Customers", live:true, help:"Your own email system. The checklist keeps your emails out of spam; the numbers show how they’re doing. Green ticks = good.", render: async function(V){
