@@ -284,6 +284,13 @@
     h.querySelector(".mx-burger").addEventListener("click",function(){ sh.classList.add("on"); document.body.style.overflow="hidden"; });
     sh.querySelector(".mx-burger").addEventListener("click",function(){ sh.classList.remove("on"); document.body.style.overflow=""; });
     var so=sh.querySelector("[data-out]"); if(so) so.addEventListener("click",M.signOut);
+    /* Mark (admin): the round profile symbol and the menu's account link open Admin directly */
+    if(inn){
+      var toAdmin=function(){ var me=h.querySelector(".mx-me"); if(me){ me.href="admin.html"; me.title="Admin"; me.setAttribute("aria-label","Open admin"); }
+        sh.querySelectorAll('a[href="account.html"]').forEach(function(a){ a.href="admin.html"; a.innerHTML='Admin<small>Run your business</small>'; }); };
+      try{ if(localStorage.getItem("mth_admin")===M.user.id) toAdmin(); }catch(e){}
+      M.sb.rpc("mth_is_admin").then(function(r){ if(r.data===true){ toAdmin(); try{ localStorage.setItem("mth_admin",M.user.id); }catch(e){} } else { try{ localStorage.removeItem("mth_admin"); }catch(e){} } },function(){});
+    }
     if(CONFIG.testMode){ var t=document.createElement("div"); t.className="mx-test"; t.innerHTML='<b>Preview site</b> · Stripe test mode<span class="wide"> · test card 4242 4242 4242 4242</span>'; document.body.insertBefore(t,document.body.firstChild); }
   }
   function footer(){

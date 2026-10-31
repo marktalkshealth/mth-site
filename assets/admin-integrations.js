@@ -26,9 +26,9 @@
 
   /* ================= INTEGRATIONS ================= */
   function dot(on){ return '<span class="status-dot'+(on?' on':'')+'"></span>'; }
-  A.screen("integrations",{ nav:"Connections", group:"Growing", help:"Where your website connects to other services (payments, email, Metricool). Green dot = connected. Follow the steps under any gray dot.", render: async function(V){
+  A.screen("integrations",{ nav:"Connections", group:"Growing", help:"Where your website connects to other services (Stripe payments, Resend email, Metricool). Green dot = connected. Follow the steps under any gray dot.", render: async function(V){
     var st={}; try{ st=await MTH.fn("mth-sync",{ action:"status" }); }catch(e){}
-    var P=st.providers||{}, log=[]; try{ log=(await A.rpc("mth_admin_sync_log",{ p_limit:60 },true)||[]).filter(function(l){ return l.provider!=="resend"&&l.provider!=="kit"; }).slice(0,30); }catch(e){}
+    var P=st.providers||{}, log=[]; try{ log=(await A.rpc("mth_admin_sync_log",{ p_limit:60 },true)||[]).filter(function(l){ return l.provider!=="resend"&&l.provider!=="kit"&&l.provider!=="mailerlite"; }).slice(0,30); }catch(e){}
     var site=MTH.base;
     function card(title,on,body){ return '<div class="card panel" style="margin-bottom:14px"><h3>'+dot(on)+esc(title)+'</h3>'+body+'</div>'; }
     function secret(name,hint){ return '<li>Supabase → <b>Edge Functions → Secrets</b> → add <code>'+name+'</code>'+(hint?' = '+hint:'')+'</li>'; }
@@ -37,9 +37,8 @@
       card("Stripe payments",!!st.stripe,'<p class="small">'+(st.stripe?'Test key added.'+(st.live_allowed?' <b>Live payments are allowed.</b>':' Live payments are blocked until you add ALLOW_LIVE.'):'Not switched on yet.')+'</p><ol class="step-list">'+secret("STRIPE_SECRET_KEY","your sk_test_… key (Stripe → Developers → API keys)")+
         '<li><b>Refunds and backup:</b> Stripe → Developers → Webhooks → add endpoint <code>'+FN+'mth-stripe-webhook</code> with events <code>checkout.session.completed</code> and <code>charge.refunded</code>, then add its signing secret as <code>STRIPE_WEBHOOK_SECRET</code> '+dot(!!st.stripe_webhook)+'. With this on, a full refund in Stripe closes that person\u2019s access by itself and marks them Refunded.</li>'+
         '<li>Going live: swap in <code>sk_live_…</code> and add <code>ALLOW_LIVE</code> = <code>true</code></li></ol>')+
-      card("Email — your own system on Resend",!!P.resend,'<p class="small">Your emails now run from this site: automatic welcome emails, one-off emails, unsubscribes and bounce protection. Kit is no longer needed. <a href="#email">Open Email →</a></p><ol class="step-list"><li>Sign-in codes: Supabase → <b>Authentication → Emails → SMTP settings</b> use <code>smtp.resend.com</code>, port <code>465</code>, user <code>resend</code>, password = a Resend API key.</li><li>Inbox checklist and setup steps: <a href="#email">Email → Overview</a> and <a href="#email-set">Email → Settings</a>.</li></ol>')+
-      card("MailerLite",!!P.mailerlite,'<p class="small">Only if you choose MailerLite instead of Kit.</p><ol class="step-list">'+secret("MAILERLITE_API_KEY")+secret("MAILERLITE_GROUP_ID","(optional) the group to add people to")+'</ol>')+
-      card("Leads in — ManyChat, Zapier, Make, any tool",!!st.hook,'<p class="small">Send a person into your CRM (and on to your email service) from another tool.</p><ol class="step-list">'+secret("HOOK_SECRET","any long random password you make up")+
+      card("Email — your own system on Resend",!!P.resend,'<p class="small">Your emails now run from this site: automatic welcome emails, one-off emails, unsubscribes and bounce protection. <a href="#email">Open Email →</a></p><ol class="step-list"><li>Sign-in codes: Supabase → <b>Authentication → Emails → SMTP settings</b> use <code>smtp.resend.com</code>, port <code>465</code>, user <code>resend</code>, password = a Resend API key.</li><li>Inbox checklist and setup steps: <a href="#email">Email → Overview</a> and <a href="#email-set">Email → Settings</a>.</li></ol>')+
+      card("Leads in — ManyChat, Zapier, Make, any tool",!!st.hook,'<p class="small">Send a person into your CRM from another tool.</p><ol class="step-list">'+secret("HOOK_SECRET","any long random password you make up")+
         '<li>In ManyChat: Action → <b>External Request</b> → POST <code>'+FN+'mth-hook</code>, header <code>X-MTH-Secret</code> = your HOOK_SECRET, body:</li></ol>'+
         '<div class="code-box">{ "email": "{{email}}", "name": "{{first_name}}", "tags": ["manychat","gut"], "source": "manychat" }</div>')+
       card("Leads out — any other tool",!!P.webhook,'<p class="small">Sends every new list sign-up, account and purchase to a Zapier / Make / n8n webhook as JSON.</p><ol class="step-list">'+secret("OUTBOUND_WEBHOOK_URL")+secret("OUTBOUND_WEBHOOK_SECRET","(optional) sent as the X-MTH-Secret header")+'</ol>')+
@@ -47,6 +46,6 @@
       '<div class="sec-h">Recent syncs</div><div class="card" style="overflow:auto"><table class="ct"><thead><tr><th>When</th><th>Email</th><th>Event</th><th>Service</th><th>Result</th></tr></thead><tbody>'+
       (log.map(function(l){ return '<tr><td class="small">'+A.when(l.created_at,true)+'</td><td>'+esc(l.email)+'</td><td>'+esc(l.event)+'</td><td>'+esc(l.provider)+'</td><td>'+(l.ok?'<span class="pill own">OK</span>':'<span class="pill tag">'+esc(l.detail||"failed")+'</span>')+'</td></tr>'; }).join("")||'<tr><td colspan="5" class="muted" style="padding:16px">Nothing sent yet.</td></tr>')+'</tbody></table></div>';
     document.getElementById("test").onclick=async function(){ this.disabled=true; var r=await MTH.fn("mth-sync",{ action:"test" }); this.disabled=false;
-      var res=(r.results||[]); MTH.toast(res.length?res.map(function(x){ return x.provider+": "+(x.ok?"OK":"failed"); }).join(" · "):"No email service switched on yet",4000); A.refresh(); };
+      var res=(r.results||[]); MTH.toast(res.length?res.map(function(x){ return x.provider+": "+(x.ok?"OK":"failed"); }).join(" · "):"Nothing switched on to test yet",4000); A.refresh(); };
   }});
 })();
