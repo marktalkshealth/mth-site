@@ -40,7 +40,7 @@
     <form id="s1" autocomplete="on" novalidate>
       <div class="kick">Mark Talks Health</div>
       <h1>Sign <em>in</em></h1>
-      <p class="sub">Continue with Google, or get a 6-digit code by email. No password to remember. New here? This also creates your account.</p>
+      <p class="sub">Continue with Google, or get a sign-in code by email. No password to remember. New here? This also creates your account.</p>
       <div id="m1" class="msg hidden" role="alert"></div>
       <label class="check" style="margin:0 0 18px"><input type="checkbox" id="rem" checked> Remember me on this device</label>
       <div id="gsi" style="display:flex;justify-content:center;min-height:44px;margin:0 0 4px" hidden></div>
@@ -58,7 +58,7 @@
       <h1>Enter your <em>code</em></h1>
       <p class="sub">We sent a code to <span class="who" id="who"></span>. It can take a minute to arrive; check spam too.</p>
       <div id="m2" class="msg hidden" role="alert"></div>
-      <div class="field"><label for="cd">6-digit code</label><input class="inp code" id="cd" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="8" placeholder="••••••" required></div>
+      <div class="field"><label for="cd">Code from the email</label><input class="inp code" id="cd" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="10" placeholder="••••••••" required></div>
       <button class="b full" id="go" type="submit">Sign in</button>
       <div class="row" style="margin-top:16px"><button class="link" type="button" id="back">Use a different email</button><button class="link" type="button" id="again" disabled>Resend code</button></div>
       <p class="fine">Got a sign-in link instead of a code? Tapping the link works too.</p>
@@ -153,11 +153,14 @@
     }catch(err){ show("m1","err",friendly(err)); }
     b.disabled=false; b.textContent="Email me a code";
   });
-  $("cd").addEventListener("input",function(){ var v=this.value.replace(/\D/g,"").slice(0,8); if(v!==this.value) this.value=v; if(v.length===6&&!this._auto){ this._auto=1; $("s2").requestSubmit?$("s2").requestSubmit():$("go").click(); } if(v.length<6) this._auto=0; });
+  /* codes are 8 digits (Supabase setting); a pasted or autofilled code of 6-10 digits submits by itself, a typed one at 8 */
+  $("cd").addEventListener("input",function(e){ var v=this.value.replace(/\D/g,"").slice(0,10); if(v!==this.value) this.value=v;
+    var whole=e&&e.inputType&&e.inputType!=="insertText"&&v.length>=6;
+    if((v.length===8||whole)&&!this._auto){ this._auto=1; $("s2").requestSubmit?$("s2").requestSubmit():$("go").click(); } if(v.length<6) this._auto=0; });
   $("s2").addEventListener("submit",async function(e){
     e.preventDefault(); hide("m2");
     var code=$("cd").value.replace(/\D/g,"");
-    if(code.length<6){ show("m2","err","Enter the 6-digit code from the email."); return; }
+    if(code.length<6){ show("m2","err","Enter the whole code from the email."); return; }
     var b=$("go"); b.disabled=true; b.textContent="Signing in…";
     try{
       var r=await MTH.sb.auth.verifyOtp({ email:email, token:code, type:"email" });
