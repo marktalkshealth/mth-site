@@ -13,6 +13,8 @@
     supabaseKey:"sb_publishable_vxaKCnn-2XlvV7MmoV3wqg_dxgdqtz2",
     /* Google sign-in button runs on marktalkshealth.com (not supabase.co).
        Paste the OAuth Client ID from Google Cloud > Clients here. Blank = old redirect flow. */
+    /* Meta (Facebook/Instagram) ads: Pixel / dataset ID from Events Manager. Blank = off. */
+    metaPixel:"731792002926539",
     googleClientId:"654337134467-gsf1egjr086tn5k520ekm07imcritk60.apps.googleusercontent.com",
     /* the three protocols: sales page, course and app for each */
     products:{
@@ -51,6 +53,13 @@
   M.qs=function(k){ try{ return new URLSearchParams(location.search).get(k); }catch(e){ return null; } };
   M.setRemember=function(on){ var l=ls(); if(l) l.setItem(REMEMBER,on?"1":"0"); };
   M.remembered=remembered;
+  /* ---------- Meta Pixel: page views only. Sign-ups and purchases are reported from the server
+     (Conversions API) with no health details. Never loads in Admin. ---------- */
+  (function(){
+    var id=CONFIG.metaPixel; if(!id||/\/admin(\.html)?$/.test(location.pathname)||window.fbq) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+    window.fbq("init",id); window.fbq("track","PageView");
+  })();
   /* ---------- conversion tracking: where visitors came from, and what they did ----------
      first touch (utm_* from social posts / tracking links) is kept on the device and credited
      to the list sign-up, account and purchase. Visits are logged once per browser session. */
@@ -63,8 +72,12 @@
     if(ref&&ref!==location.hostname&&!q.utm_source){ q.utm_source=ref.replace(/^www\./,"").replace(/^(l|m|lm)\./,""); q.utm_medium="referral"; }
     var has=Object.keys(q).length>0;
     if(has){ q.landing=M.page||"index.html"; try{ if(!l.getItem("mth_first")) l.setItem("mth_first",JSON.stringify(q)); l.setItem("mth_last",JSON.stringify(q)); }catch(e){} }
-    M.utm=function(){ try{ return JSON.parse(l.getItem("mth_first")||"null")||JSON.parse(l.getItem("mth_last")||"null"); }catch(e){ return null; } };
-    M.track=function(ev,product){ try{ sb.rpc("mth_track",{ p_anon:M.anon, p_event:ev, p_page:M.page, p_utm:(ev==="visit"&&has)?q:M.utm(), p_product:product||null }).then(function(){},function(){}); }catch(e){} };
+    /* Meta ad clicks: keep the click id (fbclid) and the pixel's browser id so purchases can be credited to the ad */
+    try{ var fbcl=new URLSearchParams(location.search).get("fbclid"); if(fbcl&&l) l.setItem("mth_fbc","fb.1."+Date.now()+"."+fbcl.slice(0,500)); }catch(e){}
+    var fbIds=function(){ var o={}; try{ var c=l&&l.getItem("mth_fbc"); if(c) o.fbc=c; var m=document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/); if(m) o.fbp=decodeURIComponent(m[1]).slice(0,120); if(o.fbc||o.fbp) o.ua=String(navigator.userAgent||"").slice(0,300); }catch(e){} return o; };
+    M.utm=function(){ var u=null; try{ u=JSON.parse(l.getItem("mth_first")||"null")||JSON.parse(l.getItem("mth_last")||"null"); }catch(e){}
+      var f=fbIds(); if(f.fbc||f.fbp){ u=Object.assign({},u||{},f); } return u; };
+    M.track=function(ev,product){ try{ sb.rpc("mth_track",{ p_anon:M.anon, p_event:ev, p_page:M.page, p_utm:(ev==="visit"&&has)?Object.assign({},q,fbIds()):M.utm(), p_product:product||null }).then(function(){},function(){}); }catch(e){} };
     var sk="mth_v_"+M.page; var ses=ss();
     if(M.page!=="admin.html"&&(has||!(ses&&ses.getItem("mth_v")))){ try{ ses&&ses.setItem("mth_v","1"); }catch(e){} M.track("visit"); }
   })();
