@@ -41,7 +41,8 @@ export async function onRequestPost({ request }) {
   const t = new URL(request.url).searchParams.get("t") || "";
   if (!TOKEN.test(t)) return new Response("bad link", { status: 400 });
   const raw = await request.text();
-  const oneClick = /List-Unsubscribe=One-Click/i.test(raw);
+  /* mail apps send "List-Unsubscribe=One-Click" as a form, sometimes multipart; any POST without resub=1 unsubscribes */
+  const oneClick = /List-Unsubscribe/i.test(raw);
   const resub = !oneClick && /(^|&)resub=1(&|$)/.test(raw);
   const r = await engine(t, resub);
   if (oneClick) return new Response("unsubscribed", { status: r.ok ? 200 : 202 });
