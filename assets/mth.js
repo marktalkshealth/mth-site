@@ -14,7 +14,7 @@
     /* Google sign-in button runs on marktalkshealth.com (not supabase.co).
        Paste the OAuth Client ID from Google Cloud > Clients here. Blank = old redirect flow. */
     /* Meta (Facebook/Instagram) ads: Pixel / dataset ID from Events Manager. Blank = off. */
-    metaPixel:"731792002926539",
+    metaPixel:"986888890506760",
     googleClientId:"654337134467-gsf1egjr086tn5k520ekm07imcritk60.apps.googleusercontent.com",
     /* the three protocols: sales page, course and app for each */
     products:{
