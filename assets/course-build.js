@@ -50,6 +50,12 @@
     var seen={};
     (q[2].data||[]).forEach(function(v){
       var kind=v.kind||"video", it={ row:v, id:v.id, kind:kind, title:v.title, url:v.video_url||"", hidden:!!v.hidden };
+      /* a lesson Mark deleted: never shown, and not added back at the end */
+      if(kind==="removed"){
+        var rid=(v.video_url||"").replace(/^lesson:/,""); if(!lessonById[rid]||seen[rid]) return;
+        seen[rid]=1; it.lesson=lessonById[rid]; it.title=v.title||it.lesson.title;
+        var rs=byId[v.section_id]||byId[homeOf[rid]]||first; (rs.removed=rs.removed||[]).push(it); return;
+      }
       if(kind==="lesson"){
         var lid=(v.video_url||"").replace(/^lesson:/,""), l=lessonById[lid]; if(!l||seen[lid]) return;
         seen[lid]=1; it.lesson=l; it.title=v.title||l.title;

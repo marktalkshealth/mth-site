@@ -177,7 +177,7 @@
         '<div class="vacts"><button class="ic" data-up title="Move up" aria-label="Move up">↑</button><button class="ic" data-dn title="Move down" aria-label="Move down">↓</button>'+
         '<select class="sel vmv" data-mv aria-label="Move to another module"><option value="">Move to…</option>'+moveOpts+'</select>'+
         (live?'<a class="ic" href="'+cq+'l='+(it.kind==="lesson"?it.lesson.id:'v_'+it.id)+'" target="_blank" rel="noopener" title="See it like a member" aria-label="Preview">▶</a>':'')+file+
-        (it.kind==="lesson"?'<button class="ic wide" data-hide title="'+(it.hidden?'Show this lesson to members':'Hide this lesson from members')+'">'+(it.hidden?'Show':'Hide')+'</button>':'<button class="ic del" data-del title="Delete" aria-label="Delete">✕</button>')+'</div></li>';
+        (it.kind==="lesson"?'<button class="ic wide" data-hide title="'+(it.hidden?'Show this lesson to members':'Hide this lesson from members')+'">'+(it.hidden?'Show':'Hide')+'</button>':'')+'<button class="ic del" data-del title="Delete" aria-label="Delete">✕</button></div></li>';
     }
     function secHtml(s,si){
       var a=art(s.thumb,s.img), last=si===S.course.sections.length-1;
@@ -191,6 +191,7 @@
             (s.builtIn?'<button class="ic wide" data-mhide>'+(s.hidden?'Show module':'Hide module')+'</button>':'<button class="ic del" data-mdel title="Delete this module">✕</button>')+'</div></div>'+
         '<ol class="vlist" data-sec="'+s.id+'">'+s.items.map(function(it,i){ return rowHtml(it,i,s); }).join("")+'</ol>'+
         '<div class="vsec-a" style="margin-top:10px"><label class="b sm">+ Videos<input type="file" multiple accept="video/*,.mp4,.mov,.mkv,.webm" hidden data-add></label><label class="b sm">+ Ebook<input type="file" multiple accept=".pdf,.html,.htm" hidden data-addeb></label><button class="b sm ghost" data-link>+ Paste a video link</button></div>'+
+        ((s.removed&&s.removed.length)?'<p class="small" style="margin:8px 0 0"><a href="#" data-restore>Bring back '+s.removed.length+' deleted lesson'+(s.removed.length>1?'s':'')+'</a></p>':'')+
         '<div class="vdrop">Drop videos or ebooks (PDF / HTML) here. Pick several at once and they upload one after another.</div>'+
         '</section>';
     }
@@ -273,6 +274,13 @@
           S.course.sections.splice(si,1); draw(); saveSecOrder();
         };
 
+        var rs=el.querySelector("[data-restore]"); if(rs) rs.onclick=async function(e){
+          e.preventDefault(); var ids=s.removed.map(function(x){ return x.id; });
+          var r=await sb.from("mth_videos").update({ kind:"lesson", hidden:false, section_id:s.id, position:s.items.length, updated_at:now() }).in("id",ids);
+          if(r.error) return MTH.toast("Couldn’t bring them back: "+r.error.message);
+          s.removed.forEach(function(x){ x.kind="lesson"; x.hidden=false; x.row.kind="lesson"; x.row.hidden=false; x.row.section_id=s.id; s.items.push(x); });
+          s.removed=[]; draw(); saveOrder(); MTH.toast("Lessons are back");
+        };
         el.querySelector("[data-add]").onchange=function(){ addFiles(s.id,this.files); this.value=""; };
         el.querySelector("[data-addeb]").onchange=function(){ addFiles(s.id,this.files); this.value=""; };
         el.querySelector("[data-link]").onclick=function(){
@@ -339,6 +347,14 @@
         };
         var dl=li.querySelector("[data-del]"); if(dl) dl.onclick=async function(){
           if(QUEUE.some(function(q){ return q.id===id; })||(busy&&JOB[id]&&/Uploading/.test(JOB[id]))) return MTH.toast("Wait for this upload to finish first");
+          if(it.kind==="lesson"){
+            if(!confirm('Delete the lesson "'+it.title+'"? Members won’t see it any more. You can bring it back from the link under this module.')) return;
+            var rr=await sb.from("mth_videos").update({ kind:"removed", hidden:true, updated_at:now() }).eq("id",id);
+            if(rr.error) return MTH.toast("Couldn’t delete: "+rr.error.message);
+            var ls=S.course.sections.filter(function(x){ return x.items.indexOf(it)>-1; })[0];
+            if(ls){ ls.items=ls.items.filter(function(y){ return y!==it; }); (ls.removed=ls.removed||[]).push(it); }
+            li.remove(); saveOrder(); draw(); MTH.toast("Lesson deleted"); return;
+          }
           if(!confirm('Delete "'+it.title+'"? Members won’t see it any more.'+(streamId(it.url)?' The uploaded video is removed from Cloudflare too.':it.kind==="ebook"&&it.url?' The ebook file is removed too.':''))) return;
           var r=await sb.from("mth_videos").delete().eq("id",id);
           if(r.error) return MTH.toast("Couldn’t delete: "+r.error.message);
