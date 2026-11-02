@@ -272,7 +272,7 @@
     if(document.querySelector(".mx-h")||H.classList.contains("mx-bare")) return;
     var cur=M.product(), P=CONFIG.products[cur], inn=!!M.user, any=M.ownsAny(), ownCur=M.owns(cur);
     var initial=inn?M.esc((M.user.email||"?").charAt(0).toUpperCase()):"";
-    var links=[[any?"course.html":"protocols.html","Courses"],["app.html","Apps"],["community.html","Hub"],["/blog/","Blog"]];
+    var links=[[any?"course.html":"protocols.html","Courses"],["app.html","Apps"],["community.html","Community"],["/blog/","Blog"]];
     var cta=ownCur?'<a class="b sm" href="'+P.app+'">Open app</a>':any?'<a class="b sm" href="app.html">Open app</a>':'<a class="b sm wide" href="'+P.sales+'#checkout">Start · '+(P.was?'<s class="mx-was">'+P.was+'</s> ':'')+P.price+'</a>';
     var h=document.createElement("header"); h.className="mx-h";
     h.innerHTML='<div class="in"><a class="mx-word" href="index.html">Mark Talks <em>Health</em></a>'+
@@ -427,7 +427,7 @@
   /* ---------- on-page checkout: Stripe's secure form right on the page (no pop-up, no new page) ----------
      <div class="mx-co" data-co="gut"></div>  (one per page; a [data-pick] row of buttons switches the course) */
   var CO={ box:null, cur:null, live:null, n:0 };
-  var INCL=["Personalized healing software","7-part video course + interactive ebook","High-protein recipes and meal planner","Fasting clock, tracker and dashboard","Healing Hub community and live Q&amp;A"];
+  var INCL=["Personalized healing software","7-part video course + interactive ebook","High-protein recipes and meal planner","Fasting clock, tracker and dashboard","Members community and live Q&amp;A"];
   function coSummary(k){
     var P=CONFIG.products[k];
     return '<div class="mx-co-sum"><div class="mx-co-im" style="background-image:url(\''+P.thumb+'\')"></div><div><div class="mx-co-k">One-time payment</div><h3>'+M.esc(P.name)+'</h3>'+
