@@ -15,7 +15,7 @@ export const COURSES = {
   sugar: { name: "The Diabetes Protocol", url: "/diabetes" },
   glp1:  { name: "The GLP-1 Weight Loss Protocol", url: "/glp1" }
 };
-const V = "202610302200";
+const V = "202611031700";
 
 export function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -152,10 +152,17 @@ export function articlePage(p, more) {
   const others = (more || []).filter(x => x.slug !== p.slug).slice(0, 3);
   return head({ title: p.title + " · Mark Talks Health", ogTitle: p.title, desc, url, article: true, image: p.cover_img || p.study_img, ld }) +
     '<body class="blog">\n<main id="main" class="bl-wrap">' + articleBody(p) +
+    newsBox("blog-" + p.slug) +
     (others.length ? '<nav class="bl-more" aria-label="More articles" data-noedit><p class="bl-sec">Keep reading</p>' + others.map(listItem).join("") + '<a class="bl-all" href="/blog/">All articles →</a></nav>' : "") +
     '<div class="bl-foot" data-noedit>' + sourceLine(p) +
     '<p class="bl-fine">Written by Mark, health educator at Mark Talks Health. Educational, not medical advice: talk to your healthcare provider before changing your diet, fasting or medication.</p></div>' +
     "</main>\n</body>\n</html>";
+}
+
+/* weekly email signup box (wired up by mth.js listForms) */
+function newsBox(source) {
+  return '<aside class="bl-news" data-noedit><div class="mx-news"><div class="tx"><b>The weekly email</b><span>One real study, one simple tip, every week. Free.</span></div>' +
+    '<form class="mx-list" data-source="' + esc(source).slice(0, 40) + '"><input class="inp" name="email" type="email" placeholder="Your email" autocomplete="email" aria-label="Your email" required><button class="b">Join</button></form></div></aside>';
 }
 
 function listItem(p) {
@@ -171,6 +178,7 @@ export function indexPage(posts) {
   return head({ title: "The Blog · Mark Talks Health", desc, url, ld: { "@context": "https://schema.org", "@type": "Blog", name: "The Mark Talks Health Blog", url } }) +
     '<body class="blog">\n<main id="main" class="bl-wrap" data-noedit><header class="bl-home"><img class="bl-logo" src="/assets/app-icon-192.png" alt=""><h1 class="bl-name">Mark Talks Health</h1>' +
     '<p class="bl-tag">Gut health, fasting and natural healing research, explained in plain English. One real study at a time.</p><p class="bl-by">By Mark</p></header>' +
+    newsBox("blog-index") +
     '<p class="bl-sec">Latest</p>' +
     (posts.length ? '<div class="bl-list">' + posts.map(listItem).join("") + "</div>" : '<p class="bl-empty">The first articles are on their way.</p>') +
     "</main>\n</body>\n</html>";

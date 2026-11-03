@@ -306,6 +306,11 @@
     }
     if(CONFIG.testMode){ var t=document.createElement("div"); t.className="mx-test"; t.innerHTML='<b>Preview site</b> · Stripe test mode<span class="wide"> · test card 4242 4242 4242 4242</span>'; document.body.insertBefore(t,document.body.firstChild); }
   }
+  /* the weekly email signup (footer, blog). Joining = the email list: welcome emails first, then the weekly email. */
+  M.newsBox=function(source,dark){
+    return '<div class="mx-news'+(dark?' dark':'')+'"><div class="tx"><b>The weekly email</b><span>One real study, one simple tip, every week. Free.</span></div>'+
+      '<form class="mx-list" data-source="'+M.esc(source||"site")+'"><input class="inp" name="email" type="email" placeholder="Your email" autocomplete="email" aria-label="Your email" required><button class="b">Join</button></form></div>';
+  };
   function footer(){
     if(document.querySelector(".mx-f")||H.classList.contains("mx-bare")) return;
     var f=document.createElement("footer"); f.className="mx-f";
@@ -315,7 +320,7 @@
       f.innerHTML='<div class="in"><div class="fine">&copy; '+new Date().getFullYear()+' Mark Talks Health · Educational, not medical advice · <a href="picks.html">My Picks</a> · <a href="partners.html">Work with me</a> · <a href="mailto:marktalkshealth@gmail.com">Help</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div></div>';
       document.body.appendChild(f); return;
     }
-    f.innerHTML='<div class="in"><div class="brand">Mark Talks Health</div>'+
+    f.innerHTML=(M.user?'':'<div class="in news">'+M.newsBox("footer-"+pg,true)+'</div>')+'<div class="in"><div class="brand">Mark Talks Health</div>'+
       '<nav aria-label="Footer"><a href="/blog/">Blog</a><a href="gut.html">Gut Health</a><a href="diabetes.html">Diabetes</a><a href="glp1.html">GLP-1</a><a href="picks.html">My Picks</a><a href="partners.html">Work with me</a>'+(M.user?'<a href="account.html">My account</a>':'<a href="'+M.loginUrl()+'">Sign in</a>')+'<a href="mailto:marktalkshealth@gmail.com">Help</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds</a></nav>'+
       '<div class="fine">Educational, not medical advice. Results vary; talk to your healthcare provider before fasting or cleansing. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
     document.body.appendChild(f);
@@ -524,6 +529,7 @@
   M.ready.then(function(){
     function go(){
       M.chrome();
+      try{ M.listForms(document); }catch(e){}
       /* plain pages (no design template): their words are in <main> */
       if(!document.getElementById("design")){ var mn=document.querySelector("main"); if(mn){ try{ parts(mn); M.applyWords(mn); }catch(e){} } }
       /* Admin -> Website words opens pages with ?edit=1 */

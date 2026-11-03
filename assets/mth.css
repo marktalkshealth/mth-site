@@ -428,3 +428,17 @@ h1.t em,h2.t em{font-style:italic;color:var(--terra)}
 
 /* Oct 30: the old price is always crossed out ($147 → $97) */
 s.mx-was,.mx-was{text-decoration:line-through!important;text-decoration-thickness:1.5px!important;text-decoration-color:currentColor;opacity:.62;font-weight:500;margin-right:2px;white-space:nowrap}
+
+/* weekly email signup (footer + blog) */
+.mx-news{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;width:100%}
+.mx-news .tx b{display:block;font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.15;color:var(--ink)}
+.mx-news .tx span{font-size:14px;color:var(--muted)}
+.mx-news .mx-list{flex:1 1 320px;justify-content:flex-end}
+.mx-news .mx-list .inp{min-height:46px}
+.mx-news .mx-list button{min-height:46px;padding:0 22px}
+.mx-news.dark .tx b{color:#fff}.mx-news.dark .tx span{color:#cbbfb2}
+.mx-news.dark .mx-list-ok{color:#c9d8bf;font-size:20px}
+.mx-f .in.news{padding:14px 0 14px;margin-bottom:10px;border-bottom:1px solid #4a433d}
+.bl-news{margin:44px 0 0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.bl-news .mx-news .mx-list{justify-content:flex-start}
+@media(max-width:600px){.mx-news .mx-list{justify-content:stretch}.mx-news .mx-list button{flex:1 1 auto}}
