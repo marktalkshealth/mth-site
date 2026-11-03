@@ -1890,6 +1890,8 @@ input[type=range]::-webkit-slider-thumb:active {
         <div class="hc-sub">Symptom-pattern match for 12 digestive conditions, adjusted by your test results. Tap a row for the details.</div>
         <div id="diRiskList" class="hc-stage"></div>
       </div>
+      <!-- Talk to Your Doctor: guide + one-page visit summary (media/shared/doctor.js) -->
+      <div id="docTalk"></div>
     </div>
     <!-- Cleanse meal plan: right under the arc -->
     <!-- Cleanse meal plan cards retired: the daily plan below replaces them (slot kept hidden so the protocol code still runs) -->
@@ -6286,5 +6288,6 @@ fxRender(); fxLoadLive();
 <script>/* mth-embed-resize: tells the course page how tall the app is */(function(){if(window.parent===window)return;var last=0;function send(){var h=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);if(h!==last){last=h;try{parent.postMessage({type:"mth-height",h:h},"*")}catch(e){}}}if(window.ResizeObserver)new ResizeObserver(send).observe(document.documentElement);window.addEventListener("load",send);setInterval(send,1500);send();})();</script>
 <script>/* phone app layout: only on the members' /app page (?mode=app), never inside the course lessons */
 if(/[?&]mode=app\b/.test(location.search)){var s=document.createElement('script');s.src='/media/shared/app.js?v=14';document.body.appendChild(s);}</script>
+<script src="/media/shared/doctor.js?v=1"></script>
 </body>
 </html>
