@@ -442,3 +442,8 @@ s.mx-was,.mx-was{text-decoration:line-through!important;text-decoration-thicknes
 .bl-news{margin:44px 0 0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
 .bl-news .mx-news .mx-list{justify-content:flex-start}
 @media(max-width:600px){.mx-news .mx-list{justify-content:stretch}.mx-news .mx-list button{flex:1 1 auto}}
+
+/* quiz result offer: guarantee line + the sales-page link */
+:is(#mqx,html) .mq-guar{font-size:13px;color:var(--muted,#6e6259);margin:12px 0 0}
+:is(#mqx,html) .mq-guar a{color:var(--terra,#c0623f)}
+:is(#mqx,html) .mq-buy .mx-was{opacity:.75;font-weight:500;margin:0 2px}

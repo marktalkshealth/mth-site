@@ -7,6 +7,7 @@
 ================================================================= */
 (function () {
   var Core = window.MTHQuizCore;
+  var SALES = { gut: "gut.html", sugar: "diabetes.html", glp1: "glp1.html" };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
   function arcHtml(r) {
@@ -125,7 +126,14 @@
         '<div class="mq-k">Your ' + esc(C.kind) + ' assessment' + (name ? " · " + esc(name) : "") + '</div>' +
         (r.patterns.length ? '<div class="mq-pats">' + r.patterns.slice(0, 2).map(function (p) { return '<p><b>' + esc(p.label) + ':</b> ' + esc(p.text) + "</p>"; }).join("") + "</div>" : "") +
         arcHtml(r) +
-        '<p class="mq-inbox">' + "✓ Check your inbox for your full protocol." + "</p>";
+        '<p class="mq-inbox">' + "✓ Check your inbox for your full protocol." + "</p>" +
+        /* the offer, right where they're most ready: their own plan, done for them */
+        '<div class="mq-cta"><div class="mq-k">Your next step</div><h4>' + esc(C.name) + '</h4>' +
+          '<p>The plan above, built and run for you: your personal healing app (your 7-day arc, daily meals and exercise), the 7-part video course and the Healing Hub. One payment, lifetime access.</p>' +
+          '<button type="button" class="mq-buy">Start my plan · <s class="mx-was">$147</s> $97</button>' +
+          '<p class="mq-guar">30-day money-back guarantee · Secure checkout · <a href="' + esc(SALES[C.product] || "protocols.html") + '">See everything included</a></p>' +
+          '<p class="mq-fine">An educational assessment based on your answers, not a medical diagnosis. Talk to your doctor before fasting or changing any medication.</p></div>';
+      box.querySelector(".mq-buy").addEventListener("click", function () { if (window.MTH) MTH.buy(C.product, this); else location.href = (SALES[C.product] || "protocols.html") + "#checkout"; });
       box.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
