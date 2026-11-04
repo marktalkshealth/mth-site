@@ -56,7 +56,7 @@
   /* ---------- Meta Pixel: page views only. Sign-ups and purchases are reported from the server
      (Conversions API) with no health details. Never loads in Admin. ---------- */
   (function(){
-    var id=CONFIG.metaPixel; if(!id||/\/admin(\.html)?$/.test(location.pathname)||window.fbq) return;
+    var id=CONFIG.metaPixel; var fr=false; try{ fr=window.self!==window.top; }catch(e){ fr=true; } if(fr||!id||/\/admin(\.html)?$/.test(location.pathname)||window.fbq) return;
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
     window.fbq("init",id); window.fbq("track","PageView");
   })();
@@ -79,7 +79,8 @@
       var f=fbIds(); if(f.fbc||f.fbp){ u=Object.assign({},u||{},f); } return u; };
     M.track=function(ev,product){ try{ sb.rpc("mth_track",{ p_anon:M.anon, p_event:ev, p_page:M.page, p_utm:(ev==="visit"&&has)?Object.assign({},q,fbIds()):M.utm(), p_product:product||null }).then(function(){},function(){}); }catch(e){} };
     var sk="mth_v_"+M.page; var ses=ss();
-    if(M.page!=="admin.html"&&(has||!(ses&&ses.getItem("mth_v")))){ try{ ses&&ses.setItem("mth_v","1"); }catch(e){} M.track("visit"); }
+    var framed=false; try{ framed=window.self!==window.top; }catch(e){ framed=true; } /* admin page previews must not count as visits */
+    if(!framed&&M.page!=="admin.html"&&(has||!(ses&&ses.getItem("mth_v")))){ try{ ses&&ses.setItem("mth_v","1"); }catch(e){} M.track("visit"); }
   })();
   M.isPhone=function(){ try{ return matchMedia("(pointer: coarse)").matches&&Math.min(screen.width,screen.height)<=820; }catch(e){ return false; } };
 

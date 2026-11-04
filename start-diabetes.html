@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" class="mx-bare">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Free 60-Second Blood Sugar Quiz · Mark Talks Health</title>
+<meta name="description" content="Answer 7 quick questions and get your blood sugar pattern, your healing steps ranked for you, and a free 7-day reset plan.">
+<meta property="og:title" content="What is your blood sugar telling you? · Free 60-second quiz">
+<meta property="og:description" content="7 quick questions. Your blood sugar pattern, your healing steps ranked for you and a free 7-day reset plan.">
+<meta property="og:image" content="https://marktalkshealth.com/media/site/mark-kitchen.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f7f1e7">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mth.css?v=202611031900">
+<script src="assets/vendor/supabase-2.118.0.js"></script>
+<script src="assets/mth.js?v=202611041900"></script>
+<script src="assets/quiz-core.js?v=202610301200"></script>
+<script src="assets/quiz.js?v=202611031900"></script>
+<style>
+/* Ad landing page: the quiz is the first thing on screen. No menu, nothing to wander off to. */
+body{background:var(--bg)}
+.st-bar{display:flex;align-items:center;justify-content:center;padding:14px 20px 0}
+.st-bar a{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:-.005em}
+.st-bar a em{font-style:italic;font-weight:500;color:var(--terra)}
+.st{max-width:1080px;margin:0 auto;padding:18px 20px 10px}
+.st-top{text-align:center;max-width:640px;margin:0 auto 18px}
+.st-top h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(34px,7vw,52px);line-height:1.04;letter-spacing:-.015em;color:var(--ink);margin:8px 0 10px}
+.st-top h1 em{font-style:italic;color:var(--terra)}
+.st-top .lead{margin:0 auto;font-size:16px}
+.st-ticks{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;margin-top:12px;font-size:13px;color:var(--muted)}
+.st-ticks span::before{content:"\2713";color:var(--sage);font-weight:700;margin-right:6px}
+.st-get{max-width:1080px;margin:0 auto;padding:30px 20px 0;display:grid;gap:12px}
+.st-get .it{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.st-get .it b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;font-weight:600;color:var(--ink);line-height:1.2}
+.st-get .it span{font-size:14px;color:var(--muted)}
+.st-get .n{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:var(--gold);line-height:1;margin-bottom:4px}
+.st-me{max-width:1080px;margin:0 auto;padding:34px 20px 10px;display:grid;gap:20px;align-items:center}
+.st-me .ph{border-radius:18px;min-height:280px;background:#efe5d6 url('/media/site/mark-kitchen.jpg') center 35%/cover no-repeat}
+.st-me h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:34px;line-height:1.1;color:var(--ink);margin:0 0 10px}
+.st-me h2 em{font-style:italic;color:var(--terra)}
+.st-me p{color:var(--ink);font-size:15.5px;line-height:1.62;margin:0 0 12px}
+.st-me .sig{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:26px;color:var(--terra)}
+.st-again{text-align:center;padding:26px 20px 8px}
+.st-f{max-width:1080px;margin:26px auto 0;padding:18px 20px 34px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--faint);line-height:1.6}
+.st-f a{color:var(--muted)}
+@media(min-width:760px){.st-get{grid-template-columns:repeat(3,1fr)}.st-me{grid-template-columns:5fr 6fr;gap:34px}.st-me .ph{min-height:380px}.st{padding-top:26px}}
+</style>
+</head>
+<body>
+<div class="st-bar"><a href="index.html">Mark Talks <em>Health</em></a></div>
+
+<main>
+  <section class="st">
+    <div class="st-top">
+      <div class="kick">Free · 60 seconds</div>
+      <h1>What is your blood sugar <em>telling you?</em></h1>
+      <p class="lead">Answer 7 quick questions. See your blood sugar pattern as you go, then get your healing steps ranked for you and a free 7-day reset plan.</p>
+      <div class="st-ticks"><span>Free</span><span>7 questions</span><span>Instant results</span><span>Educational, not a diagnosis</span></div>
+    </div>
+    <div data-mth-quiz="sugar" data-source="start-diabetes"></div>
+  </section>
+
+  <section class="st-get" aria-label="What you get">
+    <div class="it"><div class="n">01</div><b>Your blood sugar pattern</b><span>A plain-English read on what your answers point to, updated live as you go.</span></div>
+    <div class="it"><div class="n">02</div><b>Your healing steps, ranked</b><span>The seven steps of my method, in the order that matters most for you.</span></div>
+    <div class="it"><div class="n">03</div><b>Your 7-day reset plan</b><span>A gentle day-by-day arc, emailed to you so you can start this week.</span></div>
+  </section>
+
+  <section class="st-me">
+    <div class="ph" role="img" aria-label="Mark in his kitchen with a board of whole foods"></div>
+    <div>
+      <div class="kick">Who made this</div>
+      <h2>I'm Mark. I lost <em>100 pounds</em> by changing how I live.</h2>
+      <p>I'm not a doctor. I'm the guy who spent years struggling with my weight, cravings and energy crashes, then spent years in the research once I found what worked: simple changes to how I ate, slept, moved and handled stress, backed by real studies.</p>
+      <p>This quiz is the same first step I use with everyone. It takes a minute, it's free, and you'll walk away knowing exactly where to start.</p>
+      <div class="sig">&ndash; Mark</div>
+    </div>
+  </section>
+
+  <div class="st-again"><a class="btn" href="#top" data-top>Take the free quiz</a></div>
+</main>
+
+<footer class="st-f">
+  Educational, not medical advice. Results vary; talk to your healthcare provider before fasting, cleansing or changing medications.<br>
+  &copy; <span data-y></span> Mark Talks Health · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:marktalkshealth@gmail.com">Contact</a>
+</footer>
+
+<script>
+(function(){
+  document.querySelector("[data-y]").textContent=new Date().getFullYear();
+  document.querySelector("[data-top]").addEventListener("click",function(e){ e.preventDefault(); var q=document.querySelector(".st"); if(q) q.scrollIntoView({ behavior:"smooth" }); });
+  if(window.MTHQuiz) MTHQuiz.mountAll();
+})();
+</script>
+</body>
+</html>

@@ -10,7 +10,8 @@
 
   /* ================= EMAIL JOURNEYS (the map) ================= */
   function trigText(t){
-    if(t==="list_join") return "Someone joins your email list";
+    if(t==="list_join") return "Someone joins your list (gut quiz, home page, assessment)";
+    if(/^list_join:/.test(t)) return "Someone takes the free "+prodShort(t.split(":")[1])+" quiz";
     if(t==="manual") return "Only people you add by hand";
     if(t==="purchase:any") return "Someone buys any program";
     if(/^purchase:/.test(t)) return "Someone buys "+prodShort(t.split(":")[1]);
@@ -69,6 +70,8 @@
   var PAGES=[
     ["index","/","Home page","Info","menu",true,"The front door. App demo, then the free Healing Assessment."],
     ["start","/start","Free 60-second gut quiz","Funnel","hidden",true,"Where your Meta ads send people. Quiz first, then results with the $97 offer."],
+    ["start-diabetes","/start-diabetes","Free 60-second blood sugar quiz","Funnel","hidden",true,"Ad and post landing page for Diabetes. Quiz first, then results with the $97 offer."],
+    ["start-glp1","/start-glp1","Free 60-second GLP-1 quiz","Funnel","hidden",true,"Ad and post landing page for GLP-1. Quiz first, then results with the $97 offer."],
     ["gut","/gut","Gut Health Protocol","Sales page","footer",true,"Your main sales page, with checkout at the bottom. Your social bio link."],
     ["diabetes","/diabetes","Diabetes Protocol","Sales page","footer",true,"Sales page with checkout at the bottom."],
     ["glp1","/glp1","GLP-1 Weight Loss Protocol","Sales page","footer",true,"Sales page with checkout at the bottom."],
@@ -117,6 +120,8 @@
     var nums=function(k){ var x=S(k); return '<span class="pf-num"><b>'+x.v+'</b> visitors</span><span class="pf-num"><b>'+x.j+'</b> sign-ups</span><span class="pf-num"><b>'+x.p+'</b> sales</span>'; };
     var pg=function(k){ for(var i=0;i<PAGES.length;i++) if(PAGES[i][0]===k) return PAGES[i]; return null; };
     var openA=function(u){ return '<a class="pf-open" href="'+esc(u)+'" target="_blank" rel="noopener">marktalkshealth.com'+esc(u)+' ↗</a>'; };
+    /* live previews: a tiny copy of the real page; click it to skim every page full size */
+    var thumb=function(u){ return '<button type="button" class="pf-thumb" data-skim="'+esc(u)+'" title="Preview this page"><iframe src="'+esc(pfFile(u))+'" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><span>Preview</span></button>'; };
 
     /* where people land: every page with visitors, biggest first */
     var land=PAGES.map(function(p){ return { p:p, s:S(p[0]) }; }).filter(function(x){ return x.s.v>0&&x.p[4]!=="admin"; }).sort(function(a,b){ return b.s.v-a.s.v; }).slice(0,8);
@@ -124,40 +129,69 @@
     var landHtml=land.length?land.map(function(x){ return '<div class="pf-bar"><span class="pf-bar-n">'+esc(x.p[2])+'</span><span class="pf-bar-t"><i style="width:'+Math.max(3,Math.round(100*x.s.v/maxV))+'%"></i></span><b>'+x.s.v+'</b></div>'; }).join(""):'<p class="muted small" style="margin:0">No visitors in this period yet.</p>';
 
     /* the 3 funnels */
-    var F3=[["gut","gut","Gut Health","Social bio, posts and ads (through the free gut quiz)"],["sugar","diabetes","Diabetes","Posts and links you share"],["glp1","glp1","GLP-1 Weight Loss","Posts and links you share"]];
+    var F3=[["gut","gut","Gut Health","start","Free gut quiz"],["sugar","diabetes","Diabetes","start-diabetes","Free blood sugar quiz"],["glp1","glp1","GLP-1 Weight Loss","start-glp1","Free GLP-1 quiz"]];
     var funnelHtml=F3.map(function(f){
-      var sp=S(f[1]), on=mailOn("purchase:"+f[0]), quiz=f[0]==="gut"?S("start"):null;
-      return '<div class="card pf-fun"><div class="pf-fun-h"><b>'+esc(f[2])+'</b><span class="small muted">'+esc(f[3])+'</span></div><div class="pf-flow">'+
-        (quiz?'<div class="pf-step"><span class="pf-k">Free gut quiz</span><b>'+quiz.v+'</b><span>visitors</span><small>'+quiz.j+' gave their email</small>'+openA("/start")+'</div><span class="pf-arr">→</span>':'')+
-        '<div class="pf-step"><span class="pf-k">Sales page</span><b>'+sp.v+'</b><span>visitors</span>'+openA("/"+f[1])+'</div><span class="pf-arr">→</span>'+
+      var sp=S(f[1]), on=mailOn("purchase:"+f[0]), lj=mailOn("list_join:"+f[0])||(f[0]==="gut"&&mailOn("list_join")), quiz=S(f[3]);
+      return '<div class="card pf-fun"><div class="pf-fun-h"><b>'+esc(f[2])+'</b><span class="small muted">Ads and posts → free quiz → sales page → $97 → member emails</span></div><div class="pf-flow">'+
+        '<div class="pf-step">'+thumb("/"+f[3])+'<span class="pf-k">'+esc(f[4])+'</span><b>'+quiz.v+'</b><span>visitors</span><small>'+quiz.j+' gave their email</small>'+openA("/"+f[3])+'</div><span class="pf-arr">→</span>'+
+        '<a class="pf-step '+(lj?'ok':'warn')+'" href="#journeys"><span class="pf-k">Quiz follow-up emails</span><b>'+(lj?'On':'Off')+'</b><span>'+(lj?'they get the '+esc(f[2])+' emails':'not set up yet')+'</span></a><span class="pf-arr">→</span>'+
+        '<div class="pf-step">'+thumb("/"+f[1])+'<span class="pf-k">Sales page</span><b>'+sp.v+'</b><span>visitors</span>'+openA("/"+f[1])+'</div><span class="pf-arr">→</span>'+
         '<div class="pf-step"><span class="pf-k">Bought · $97</span><b>'+sp.p+'</b><span>sales</span><small>'+pct(sp.p,sp.v)+' of visitors</small></div><span class="pf-arr">→</span>'+
-        '<a class="pf-step '+(on?'ok':'warn')+'" href="#journeys"><span class="pf-k">Welcome emails</span><b>'+(on?'On':'Off')+'</b><span>'+(on?'running':'not set up yet')+'</span></a>'+
+        '<a class="pf-step '+(on?'ok':'warn')+'" href="#journeys"><span class="pf-k">Member emails</span><b>'+(on?'On':'Off')+'</b><span>'+(on?'running':'not set up yet')+'</span></a>'+
       '</div></div>'; }).join("");
 
     /* unlisted pages */
-    var UN=["start","assessment","healing","library","snapshot","get-app","go"];
+    var UN=["assessment","healing","library","snapshot","get-app","go"];
     var unHtml=UN.map(function(k){ var p=pg(k); if(!p) return ""; var x=S(k);
-      return '<div class="card pf-un"><b>'+esc(p[2])+'</b><span class="small muted">'+esc(p[6]||"")+'</span><div class="pf-nums">'+nums(k)+'</div>'+openA(p[1])+'</div>'; }).join("");
+      return '<div class="card pf-un">'+(k==="go"?'':thumb(p[1]))+'<b>'+esc(p[2])+'</b><span class="small muted">'+esc(p[6]||"")+'</span><div class="pf-nums">'+nums(k)+'</div>'+openA(p[1])+'</div>'; }).join("");
 
     /* everything else, folded away */
-    var rest=PAGES.filter(function(p){ return ["index","gut","diabetes","glp1"].indexOf(p[0])<0&&UN.indexOf(p[0])<0; });
+    var rest=PAGES.filter(function(p){ return ["index","gut","diabetes","glp1","start","start-diabetes","start-glp1"].indexOf(p[0])<0&&UN.indexOf(p[0])<0; });
     var restHtml='<table class="ct pf-t"><thead><tr><th>Page</th><th>Who can find it</th><th>Visitors</th><th>Sign-ups</th><th>Sales</th></tr></thead><tbody>'+
       rest.map(function(p){ var x=S(p[0]), w=WHERE[p[4]]; return '<tr><td><b>'+esc(p[2])+'</b> '+openA(p[1])+'</td><td><span class="pf-w '+w[1]+'">'+w[0]+'</span></td><td>'+x.v+'</td><td>'+x.j+'</td><td>'+x.p+'</td></tr>'; }).join("")+'</tbody></table>';
 
     var h=S("index");
     V.innerHTML=
       '<div class="pf-explain"><b>How your website works</b><span>① People arrive from ads, social posts or Google</span><span>② They land on <u>one</u> page</span><span>③ That page either <b>sells</b> ($97 checkout) or <b>collects an email</b> (free quiz or assessment)</span><span>④ Your emails take it from there</span>'+
-        '<select class="sel" id="pd" style="width:auto;margin-left:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select></div>'+
+        '<button type="button" class="b sm" id="pfSkim" style="margin-left:auto">▶ Skim every page</button><select class="sel" id="pd" style="width:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select></div>'+
       '<div class="pf-top">'+
         '<div class="card panel"><h3>Where people land</h3>'+landHtml+'</div>'+
-        '<div class="card panel pf-home"><h3>Front door · Home page</h3><div class="pf-nums big">'+nums("index")+'</div><p class="small muted" style="margin:4px 0">Everyone from Google and your blog starts here. It shows the app, then the free Healing Assessment.</p>'+openA("/")+'</div>'+
+        '<div class="card panel pf-home">'+thumb("/")+'<h3>Front door · Home page</h3><div class="pf-nums big">'+nums("index")+'</div><p class="small muted" style="margin:4px 0">Everyone from Google and your blog starts here. It shows the app, then the free Healing Assessment.</p>'+openA("/")+'</div>'+
       '</div>'+
       '<div class="sec-h">Your 3 funnels · read left to right</div><div class="pf-funs">'+funnelHtml+'</div>'+
       '<div class="sec-h">Unlisted pages · not in any menu, only reached by a link you share (ads, bio, emails)</div><div class="pf-uns">'+unHtml+'</div>'+
       '<details class="pf-rest"><summary>Everything else · menu pages, members pages and legal ('+rest.length+')</summary><div class="card" style="overflow:auto;margin-top:6px">'+restHtml+'</div></details>';
     V.querySelector("#pd").value=String(pdays);
     V.querySelector("#pd").onchange=function(){ pdays=Number(this.value); A.refresh(); };
+    var SKIM=[["/","Home page"],["/start","Gut · free quiz"],["/gut","Gut · sales page"],["/start-diabetes","Diabetes · free quiz"],["/diabetes","Diabetes · sales page"],["/start-glp1","GLP-1 · free quiz"],["/glp1","GLP-1 · sales page"],["/assessment","Free Healing Assessment"],["/healing","How healing works"],["/library","Library"],["/snapshot","Healing Snapshot"],["/get-app","Get the app"],["/protocols","Courses"],["/blog/","Blog"]];
+    V.querySelector("#pfSkim").onclick=function(){ skim(SKIM,0); };
+    var fit=function(){ V.querySelectorAll(".pf-thumb").forEach(function(t){ var fr=t.querySelector("iframe"); if(fr) fr.style.transform="scale("+(t.clientWidth/1280)+")"; }); };
+    fit(); if(window.ResizeObserver){ var ro=new ResizeObserver(fit); ro.observe(V); }
+    V.querySelectorAll("[data-skim]").forEach(function(b){ b.onclick=function(){ var u=b.dataset.skim, i=SKIM.map(function(x){ return x[0]; }).indexOf(u); if(i<0){ SKIM.push([u,u]); i=SKIM.length-1; } skim(SKIM,i); }; });
   }});
+
+  /* the exact file behind a pretty address (/gut is the sales page gut.html, not the /gut/ app folder) */
+  function pfFile(u){ return (u==="/"||/\/$/.test(u)||/\.html$/.test(u))?u:u+".html"; }
+  /* full-size page viewer: arrows or ← → keys to skim, Phone / Computer view */
+  function skim(list,i){
+    var m=document.createElement("div"); m.className="pf-skim"; var phone=false;
+    m.innerHTML='<div class="pf-skim-bar"><button type="button" class="b sm ghost" data-p>←</button><b data-t></b><button type="button" class="b sm ghost" data-n>→</button>'+
+      '<span class="pf-skim-dots" data-d></span><button type="button" class="b sm ghost" data-v>📱 Phone view</button><a class="b sm ghost" data-o target="_blank" rel="noopener">Open ↗</a><button type="button" class="b sm" data-x>✕ Close</button></div>'+
+      '<div class="pf-skim-stage"><iframe data-f></iframe></div>';
+    document.body.appendChild(m); document.body.style.overflow="hidden";
+    var f=m.querySelector("[data-f]");
+    function show(){ i=(i+list.length)%list.length; f.src=pfFile(list[i][0]); m.querySelector("[data-t]").textContent=(i+1)+" / "+list.length+" · "+list[i][1]+" · marktalkshealth.com"+list[i][0];
+      m.querySelector("[data-o]").href=list[i][0];
+      m.querySelector("[data-d]").innerHTML=list.map(function(x,k){ return '<i class="'+(k===i?'on':'')+'" data-k="'+k+'" title="'+esc(x[1])+'"></i>'; }).join(""); }
+    function close(){ m.remove(); document.body.style.overflow=""; document.removeEventListener("keydown",key); }
+    function key(e){ if(e.key==="ArrowRight"){ i++; show(); } else if(e.key==="ArrowLeft"){ i--; show(); } else if(e.key==="Escape") close(); }
+    m.querySelector("[data-p]").onclick=function(){ i--; show(); };
+    m.querySelector("[data-n]").onclick=function(){ i++; show(); };
+    m.querySelector("[data-x]").onclick=close;
+    m.querySelector("[data-v]").onclick=function(){ phone=!phone; m.classList.toggle("phone",phone); this.textContent=phone?"🖥 Computer view":"📱 Phone view"; };
+    m.querySelector("[data-d]").onclick=function(e){ var d=e.target.closest("[data-k]"); if(d){ i=+d.dataset.k; show(); } };
+    document.addEventListener("keydown",key); show();
+  }
 
   /* ================= THE TOP ROW ================= */
   A.departments([
