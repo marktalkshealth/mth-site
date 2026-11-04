@@ -435,3 +435,37 @@ html.adm-compact .adm-main{--serif:var(--sans)}
 .jm-node{padding:8px 8px}
 .jm-lane{padding:9px 9px}
 .pf-f{padding:7px 8px}
+/* ---------- Pages screen (Nov 4 2026): explainer, landing bars, front door, 3 funnels, unlisted ---------- */
+.pf-explain{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;padding:6px 10px;margin:0 0 8px;border-radius:6px;background:#2b2724;color:#f3e7d3;font-size:12px}
+.pf-explain b{color:#e3b77a}
+.pf-explain .sel{min-height:24px;font-size:12px;padding:0 6px}
+.pf-top{display:grid;grid-template-columns:1.3fr 1fr;gap:8px}
+@media(max-width:900px){.pf-top{grid-template-columns:1fr}}
+.pf-bar{display:grid;grid-template-columns:170px 1fr 40px;align-items:center;gap:8px;font-size:12px;padding:2px 0}
+.pf-bar-n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-bar-t{height:9px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.pf-bar-t i{display:block;height:100%;background:var(--terra)}
+.pf-bar b{text-align:right}
+.pf-nums{display:flex;gap:12px;flex-wrap:wrap;margin:4px 0}
+.pf-num{font-size:11.5px;color:var(--muted)}
+.pf-num b{font-size:15px;color:var(--ink);margin-right:3px}
+.pf-nums.big .pf-num b{font-size:22px}
+.pf-open{font-size:11px;color:var(--muted)}
+.pf-funs{display:grid;gap:6px}
+.pf-fun{padding:6px 10px}
+.pf-fun-h{display:flex;gap:10px;align-items:baseline;margin-bottom:4px}
+.pf-fun-h b{font-size:13.5px}
+.pf-flow{display:flex;align-items:stretch;gap:6px;overflow-x:auto}
+.pf-step{flex:1 1 0;min-width:130px;display:flex;flex-direction:column;gap:0;padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;text-decoration:none;color:inherit}
+.pf-step .pf-k{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--terra)}
+.pf-step b{font-size:20px;line-height:1.15}
+.pf-step span:not(.pf-k){font-size:11px;color:var(--muted)}
+.pf-step small{font-size:11px;color:var(--ink)}
+.pf-step.ok{background:#eaf2ec;border-color:#bcd3c3}.pf-step.ok b{color:#2e5c45}
+.pf-step.warn{background:#fbeee8;border-color:#e9c3b4}.pf-step.warn b{color:#c0623f}
+.pf-arr{align-self:center;color:var(--terra);font-size:14px;flex:none}
+.pf-uns{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px}
+.pf-un{padding:6px 10px;display:flex;flex-direction:column;gap:2px}
+.pf-un b{font-size:13px}
+.pf-rest{margin-top:10px}
+.pf-rest summary{cursor:pointer;font-size:12px;font-weight:600;color:var(--muted)}

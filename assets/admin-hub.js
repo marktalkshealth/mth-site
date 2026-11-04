@@ -57,7 +57,8 @@
         '<div class="jm-track">'+track+'</div>'+
         (s.stop_on_purchase?'<div class="jm-branch">↳ <b>If they buy</b> at any point, they leave this journey early and start the new-member journey for what they bought, so they never get “please buy” emails after paying.</div>':'')+'</div>';
     }
-    V.innerHTML='<div class="adm-h"><div><div class="kick">Email journeys</div><h1>How your emails <em>flow</em></h1></div><div class="acts"><a class="b sm ghost" href="#email-bc/new">Write a one-off email</a><a class="b sm" href="#email-seq">All automatic emails</a></div></div>'+
+    V.innerHTML='<div class="pf-explain"><b>How your emails work</b><span>① Something happens (they join your list or buy)</span><span>② That starts one journey</span><span>③ The emails in it go out by themselves, one after another, with a wait between each</span><span>④ Tap any email to change its words</span></div>'+
+      '<div class="adm-h"><div><div class="kick">Email journeys</div><h1>How your emails <em>flow</em></h1></div><div class="acts"><a class="b sm ghost" href="#email-bc/new">Write a one-off email</a><a class="b sm" href="#email-seq">All automatic emails</a></div></div>'+
       '<div class="sec-h">The big picture · stranger to member</div>'+bigHtml+
       '<div class="sec-h">Every automatic journey</div>'+(seqs.map(lane).join("")||'<div class="card panel"><p class="muted">No automatic emails yet. <a href="#email-seq">Make your first one</a>.</p></div>')+
       '<p class="small" style="margin-top:14px">Emails go out by themselves every 5 minutes. Changing an email’s words updates it for everyone, including people already part-way through.</p>';
@@ -102,26 +103,60 @@
   ];
   var filter="all", pdays=30;
 
-  A.screen("pages",{ nav:"Pages & funnels", help:"Every page on your website. “Unlisted” pages aren’t in any menu: people only reach them from a link you share, like an ad or your bio. The numbers show visitors, sign-ups and sales for each page.", render: async function(V){
-    var stats={}; try{ (await A.rpc("mth_admin_page_stats",{ p_days:pdays },true)||[]).forEach(function(r){ stats[r.page]=r; }); }catch(e){}
-    var rows=PAGES.filter(function(p){ return filter==="all"||(filter==="listed"&&(p[4]==="menu"||p[4]==="footer"))||(filter==="unlisted"&&p[4]==="hidden")||(filter==="funnels"&&(p[3]==="Funnel"||p[3]==="Sales page"))||(filter==="members"&&(p[4]==="members"||p[4]==="admin")); });
-    var n=function(k){ return PAGES.filter(function(p){ return (k==="listed"&&(p[4]==="menu"||p[4]==="footer"))||(k==="unlisted"&&p[4]==="hidden")||(k==="funnels"&&(p[3]==="Funnel"||p[3]==="Sales page"))||(k==="members"&&(p[4]==="members"||p[4]==="admin")); }).length; };
-    var chips=[["all","All pages",PAGES.length],["funnels","Funnels & sales",n("funnels")],["listed","Listed",n("listed")],["unlisted","Unlisted",n("unlisted")],["members","Members only",n("members")]];
-    V.innerHTML='<div class="adm-h"><div><div class="kick">Pages & funnels</div><h1>Your <em>website</em>, page by page</h1></div><div class="acts"><select class="sel" id="pd" style="width:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select><a class="b sm" href="#words">Edit page words</a></div></div>'+
-      '<div class="sec-h">Your funnels · where each kind of visitor goes</div><div class="pf-funnels">'+FUNNELS.map(function(f){
-        return '<div class="card pf-f"><b class="pf-n">'+esc(f[0])+'</b><div class="pf-steps">'+f.slice(1).filter(Boolean).map(function(x,i){ var link=x.charAt(0)==="/";
-          return (i?'<span class="pf-a">→</span>':'')+(link?'<a class="pf-s url" href="'+x+'" target="_blank" rel="noopener">marktalkshealth.com'+esc(x)+'</a>':'<span class="pf-s">'+esc(x)+'</span>'); }).join("")+'</div></div>'; }).join("")+'</div>'+
-      '<div class="sec-h">Every page</div><div class="chips">'+chips.map(function(c){ return '<button class="chip'+(filter===c[0]?' on':'')+'" data-f="'+c[0]+'">'+c[1]+' · '+c[2]+'</button>'; }).join("")+'</div>'+
-      '<div class="card" style="overflow:auto"><table class="ct pf-t"><thead><tr><th>Page</th><th>Type</th><th>Who can find it</th><th class="hm">On Google</th><th>Visitors</th><th>Sign-ups</th><th>Sales</th><th></th></tr></thead><tbody>'+
-      rows.map(function(p){ var s=stats[p[0]]||stats[p[0]==="index"?"":"~"]||{}, w=WHERE[p[4]];
-        return '<tr data-u="'+esc(p[1])+'"><td><b>'+esc(p[2])+'</b><br><a class="small" href="'+esc(p[1])+'" target="_blank" rel="noopener">marktalkshealth.com'+esc(p[1])+'</a>'+(p[6]?'<br><span class="small">'+esc(p[6])+'</span>':'')+'</td>'+
-          '<td><span class="pill">'+esc(p[3])+'</span></td><td><span class="pf-w '+w[1]+'">'+w[0]+'</span></td><td class="hm">'+(p[5]?'Yes':'<span class="muted">No</span>')+'</td>'+
-          '<td>'+(Number(s.visitors)||0)+'</td><td>'+((Number(s.list_joins)||0)+(Number(s.signups)||0))+'</td><td>'+(Number(s.purchases)||0)+'</td>'+
-          '<td><a class="b sm ghost" href="'+esc(p[1])+'" target="_blank" rel="noopener">Open ↗</a></td></tr>'; }).join("")+'</tbody></table></div>'+
-      '<p class="small" style="margin-top:12px">Visitors count once per browser visit. Sign-ups and sales are credited to the page where they happened. Want a new funnel page? Ask Claude and it will show up here.</p>';
+  /* Nov 4 2026: one clear picture — how it works, where people land, the front door, the 3 funnels, the unlisted pages */
+  A.screen("pages",{ nav:"Pages & funnels", render: async function(V){
+    var stats={}, seqs=[];
+    var r=await Promise.all([
+      A.rpc("mth_admin_page_stats",{ p_days:pdays },true).catch(function(){ return []; }),
+      sb.from("mth_email_sequences").select("trigger,active").then(function(x){ return x.data||[]; },function(){ return []; })
+    ]);
+    (r[0]||[]).forEach(function(x){ stats[x.page]=x; }); seqs=r[1];
+    var S=function(k){ var x=stats[k]||(k==="index"?stats[""]:null)||{}; return { v:Number(x.visitors)||0, j:(Number(x.list_joins)||0)+(Number(x.signups)||0), p:Number(x.purchases)||0 }; };
+    var pct=function(a,b){ return b?Math.round(100*a/b)+"%":"–"; };
+    var mailOn=function(t){ return seqs.some(function(q){ return q.trigger===t&&q.active; }); };
+    var nums=function(k){ var x=S(k); return '<span class="pf-num"><b>'+x.v+'</b> visitors</span><span class="pf-num"><b>'+x.j+'</b> sign-ups</span><span class="pf-num"><b>'+x.p+'</b> sales</span>'; };
+    var pg=function(k){ for(var i=0;i<PAGES.length;i++) if(PAGES[i][0]===k) return PAGES[i]; return null; };
+    var openA=function(u){ return '<a class="pf-open" href="'+esc(u)+'" target="_blank" rel="noopener">marktalkshealth.com'+esc(u)+' ↗</a>'; };
+
+    /* where people land: every page with visitors, biggest first */
+    var land=PAGES.map(function(p){ return { p:p, s:S(p[0]) }; }).filter(function(x){ return x.s.v>0&&x.p[4]!=="admin"; }).sort(function(a,b){ return b.s.v-a.s.v; }).slice(0,8);
+    var maxV=land.length?land[0].s.v:1;
+    var landHtml=land.length?land.map(function(x){ return '<div class="pf-bar"><span class="pf-bar-n">'+esc(x.p[2])+'</span><span class="pf-bar-t"><i style="width:'+Math.max(3,Math.round(100*x.s.v/maxV))+'%"></i></span><b>'+x.s.v+'</b></div>'; }).join(""):'<p class="muted small" style="margin:0">No visitors in this period yet.</p>';
+
+    /* the 3 funnels */
+    var F3=[["gut","gut","Gut Health","Social bio, posts and ads (through the free gut quiz)"],["sugar","diabetes","Diabetes","Posts and links you share"],["glp1","glp1","GLP-1 Weight Loss","Posts and links you share"]];
+    var funnelHtml=F3.map(function(f){
+      var sp=S(f[1]), on=mailOn("purchase:"+f[0]), quiz=f[0]==="gut"?S("start"):null;
+      return '<div class="card pf-fun"><div class="pf-fun-h"><b>'+esc(f[2])+'</b><span class="small muted">'+esc(f[3])+'</span></div><div class="pf-flow">'+
+        (quiz?'<div class="pf-step"><span class="pf-k">Free gut quiz</span><b>'+quiz.v+'</b><span>visitors</span><small>'+quiz.j+' gave their email</small>'+openA("/start")+'</div><span class="pf-arr">→</span>':'')+
+        '<div class="pf-step"><span class="pf-k">Sales page</span><b>'+sp.v+'</b><span>visitors</span>'+openA("/"+f[1])+'</div><span class="pf-arr">→</span>'+
+        '<div class="pf-step"><span class="pf-k">Bought · $97</span><b>'+sp.p+'</b><span>sales</span><small>'+pct(sp.p,sp.v)+' of visitors</small></div><span class="pf-arr">→</span>'+
+        '<a class="pf-step '+(on?'ok':'warn')+'" href="#journeys"><span class="pf-k">Welcome emails</span><b>'+(on?'On':'Off')+'</b><span>'+(on?'running':'not set up yet')+'</span></a>'+
+      '</div></div>'; }).join("");
+
+    /* unlisted pages */
+    var UN=["start","assessment","healing","library","snapshot","get-app","go"];
+    var unHtml=UN.map(function(k){ var p=pg(k); if(!p) return ""; var x=S(k);
+      return '<div class="card pf-un"><b>'+esc(p[2])+'</b><span class="small muted">'+esc(p[6]||"")+'</span><div class="pf-nums">'+nums(k)+'</div>'+openA(p[1])+'</div>'; }).join("");
+
+    /* everything else, folded away */
+    var rest=PAGES.filter(function(p){ return ["index","gut","diabetes","glp1"].indexOf(p[0])<0&&UN.indexOf(p[0])<0; });
+    var restHtml='<table class="ct pf-t"><thead><tr><th>Page</th><th>Who can find it</th><th>Visitors</th><th>Sign-ups</th><th>Sales</th></tr></thead><tbody>'+
+      rest.map(function(p){ var x=S(p[0]), w=WHERE[p[4]]; return '<tr><td><b>'+esc(p[2])+'</b> '+openA(p[1])+'</td><td><span class="pf-w '+w[1]+'">'+w[0]+'</span></td><td>'+x.v+'</td><td>'+x.j+'</td><td>'+x.p+'</td></tr>'; }).join("")+'</tbody></table>';
+
+    var h=S("index");
+    V.innerHTML=
+      '<div class="pf-explain"><b>How your website works</b><span>① People arrive from ads, social posts or Google</span><span>② They land on <u>one</u> page</span><span>③ That page either <b>sells</b> ($97 checkout) or <b>collects an email</b> (free quiz or assessment)</span><span>④ Your emails take it from there</span>'+
+        '<select class="sel" id="pd" style="width:auto;margin-left:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select></div>'+
+      '<div class="pf-top">'+
+        '<div class="card panel"><h3>Where people land</h3>'+landHtml+'</div>'+
+        '<div class="card panel pf-home"><h3>Front door · Home page</h3><div class="pf-nums big">'+nums("index")+'</div><p class="small muted" style="margin:4px 0">Everyone from Google and your blog starts here. It shows the app, then the free Healing Assessment.</p>'+openA("/")+'</div>'+
+      '</div>'+
+      '<div class="sec-h">Your 3 funnels · read left to right</div><div class="pf-funs">'+funnelHtml+'</div>'+
+      '<div class="sec-h">Unlisted pages · not in any menu, only reached by a link you share (ads, bio, emails)</div><div class="pf-uns">'+unHtml+'</div>'+
+      '<details class="pf-rest"><summary>Everything else · menu pages, members pages and legal ('+rest.length+')</summary><div class="card" style="overflow:auto;margin-top:6px">'+restHtml+'</div></details>';
     V.querySelector("#pd").value=String(pdays);
     V.querySelector("#pd").onchange=function(){ pdays=Number(this.value); A.refresh(); };
-    V.querySelectorAll("[data-f]").forEach(function(b){ b.onclick=function(){ filter=b.dataset.f; A.refresh(); }; });
   }});
 
   /* ================= THE TOP ROW ================= */
@@ -130,7 +165,7 @@
     { k:"crm", ic:"👥", t:"CRM", s:"People & sales", ids:["contacts","sales","access"], tabs:{ contacts:"People", sales:"Sales", access:"Give access" } },
     { k:"email", ic:"✉️", t:"Email journeys", s:"Automatic emails", ids:["journeys","email-seq","email-bc","email","email-set"], tabs:{ journeys:"Journey map", "email-seq":"Automatic emails", "email-bc":"One-off emails", email:"Health & numbers", "email-set":"Settings" } },
     { k:"ads", ic:"📣", t:"Paid ads", s:"Meta ads", ids:["ads"] },
-    { k:"pages", ic:"🧭", t:"Pages & funnels", s:"Listed & unlisted", ids:["pages"] },
+    { k:"pages", ic:"🧭", t:"Pages", s:"Home, funnels, unlisted", ids:["pages"] },
     { k:"stats", ic:"📈", t:"Analytics", s:"What’s working", ids:["overview","conversions"], tabs:{ overview:"Dashboard", conversions:"What’s working" } },
     { k:"edit", ic:"✎", t:"Edit", s:"Pages, blog, courses", ids:["edit","words","blog","content","thumbs"], tabs:{ edit:"All", words:"Website pages", blog:"Blog", content:"Courses", thumbs:"Thumbnails" } },
     { k:"social", ic:"🎬", t:"Social", s:"Posts", ids:["studio"] },

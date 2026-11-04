@@ -112,13 +112,13 @@
   function shell(){
     var root=document.getElementById("adm");
     if(!A.DEPTS) A.departments(A.order.map(function(k){ return { k:k, ic:"•", t:A.screens[k].nav, s:"", ids:[k] }; }));
-    var site=[["index.html","Website"],["protocols.html","Courses"],["/blog/","Blog"],["app.html","App"],["account.html","My account"]];
+    var site=[["#pages","Pages"],["index.html","Website"],["protocols.html","Courses"],["/blog/","Blog"],["app.html","App"],["account.html","My account"]];
     var bar=A.DEPTS.map(function(d){ return '<a href="#'+d.ids[0]+'" data-d="'+d.k+'" draggable="'+(POP?'false':'true')+'" title="'+A.esc(d.t+(d.s?' · '+d.s:''))+(POP?'':' · drag me off to put me on another monitor')+'">'+
       '<span class="ic">'+d.ic+'</span><b>'+A.esc(d.t)+'</b>'+(POP?'':'<button class="tear" data-tear="'+d.k+'" title="Open in its own window" aria-label="Open '+A.esc(d.t)+' in its own window">⧉</button>')+'<i class="badge hidden" data-c="'+d.ids[0]+'"></i></a>'; }).join("");
     /* Nov 4 2026: one thin bar — sections on the left, a tiny list of site links in the right corner */
     root.innerHTML='<div class="adm-top"><div class="adm-bar"><a class="adm-brand" href="index.html" title="Mark Talks Health website">MTH</a>'+
       '<nav class="adm-depts" aria-label="Admin sections" role="tablist">'+bar+'</nav>'+
-      '<nav class="adm-site" aria-label="My website">'+site.map(function(l){ return '<a href="'+l[0]+'" target="_blank" rel="noopener">'+l[1]+'</a>'; }).join("")+'</nav></div></div>'+
+      '<nav class="adm-site" aria-label="My website">'+site.map(function(l){ return '<a href="'+l[0]+'"'+(l[0].charAt(0)==="#"?'':' target="_blank" rel="noopener"')+'>'+l[1]+'</a>'; }).join("")+'</nav></div></div>'+
       '<main class="adm-main" id="admMain"></main>';
     var nav=root.querySelector(".adm-depts"), sx=0, sy=0;
     nav.addEventListener("click",function(e){ var t=e.target.closest("[data-tear]"); if(t){ e.preventDefault(); e.stopPropagation(); A.detach(t.dataset.tear); return; }

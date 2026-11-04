@@ -300,6 +300,7 @@
     /* Mark (admin): the round profile symbol and the menu's account link open Admin directly */
     if(inn){
       var toAdmin=function(){ var me=h.querySelector(".mx-me"); if(me){ me.href="admin.html"; me.title="Admin"; me.setAttribute("aria-label","Open admin"); }
+        var nv=h.querySelector(".mx-nav"); if(nv&&!nv.querySelector("[data-pages]")){ var pa=document.createElement("a"); pa.href="admin.html#pages"; pa.textContent="Pages"; pa.setAttribute("data-pages",""); pa.title="Only you see this: your home page, funnels and unlisted pages"; nv.appendChild(pa); }
         sh.querySelectorAll('a[href="account.html"]').forEach(function(a){ a.href="admin.html"; a.innerHTML='Admin<small>Run your business</small>'; }); };
       try{ if(localStorage.getItem("mth_admin")===M.user.id) toAdmin(); }catch(e){}
       M.sb.rpc("mth_is_admin").then(function(r){ if(r.data===true){ toAdmin(); try{ localStorage.setItem("mth_admin",M.user.id); }catch(e){} } else { try{ localStorage.removeItem("mth_admin"); }catch(e){} } },function(){});
