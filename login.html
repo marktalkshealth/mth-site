@@ -76,7 +76,13 @@
 
   function show(id,kind,text){ var m=$(id); m.className="msg "+kind; m.textContent=text; }
   function hide(id){ $(id).className="msg hidden"; }
-  function go(){ location.replace(next); }
+  /* Mark (admin) lands in his control room after signing in, unless a page sent him here */
+  function go(){
+    if(next!=="account.html") return location.replace(next);
+    var done=false, to=function(u){ if(!done){ done=true; location.replace(u); } };
+    setTimeout(function(){ to(next); },2500);
+    try{ MTH.sb.rpc("mth_is_admin").then(function(r){ to(r&&r.data===true?"admin.html":next); },function(){ to(next); }); }catch(e){ to(next); }
+  }
   function friendly(e){
     var t=(e&&(e.message||e.error_description||e.msg))||String(e||"");
     var c=e&&(e.status||e.code);
