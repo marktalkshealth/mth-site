@@ -8,7 +8,7 @@
   function manual(k){ try{ return localStorage.getItem("mth_setup_"+k)==="1"; }catch(e){ return false; } }
   function setManual(k,v){ try{ localStorage.setItem("mth_setup_"+k,v?"1":"0"); }catch(e){} }
 
-  A.screen("today",{ nav:"Today", group:"Start here", live:true, help:"Start here each day. Make a post, write or edit something, or open your vault. The checklist below tells you what’s left to set up, one small step at a time.",
+  A.screen("today",{ nav:"Today", group:"Start here", live:true, 
   render: async function(V){
     var st={}, media=[], posts=[], tasks=[], fun=[];
     var r=await Promise.all([
@@ -51,8 +51,7 @@
     ];
     var doneN=steps.filter(function(s){ return s.done; }).length, next=steps.filter(function(s){ return !s.done; })[0];
     var hr=new Date().getHours();
-    V.innerHTML='<div class="adm-h"><div><div class="kick">'+new Date().toLocaleDateString(undefined,{ weekday:"long", month:"long", day:"numeric" })+'</div><h1>Good '+(hr<12?'morning':hr<18?'afternoon':'evening')+', <em>Mark</em></h1></div></div>'+
-      '<div class="today-big">'+
+    V.innerHTML='<div class="today-big">'+
         '<a class="card tb" href="#studio"><span class="ic">🎬</span><b>Make a post</b><span>Plan, write and film</span></a>'+
         '<a class="card tb" href="#edit"><span class="ic">✎</span><b>Edit my website</b><span>Pages, blog, courses, thumbnails</span></a>'+
         '<a class="card tb" href="#blog/new"><span class="ic">📰</span><b>Write a blog article</b><span>Title, study, words, Save</span></a>'+
