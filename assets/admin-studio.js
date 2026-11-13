@@ -208,7 +208,7 @@
         '<div class="field"><label>YouTube title</label><input class="inp" id="yt" maxlength="100" value="'+esc(p.youtube_title||"")+'"></div></div>'+
       '</div><div style="display:grid;gap:14px">'+
       '<div class="card panel"><button class="b full" id="save">Save</button><div class="acts"><button class="b sm ghost" id="dup">Duplicate</button><button class="b sm ghost" id="posted">Mark posted</button></div><div id="chk" style="margin-top:12px"></div></div>'+
-      ("auto_publish" in p?'<div class="card panel"><h3>Auto-post</h3><label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" id="ap"'+(p.auto_publish?' checked':'')+' style="width:22px;height:22px;accent-color:var(--terra);flex:0 0 auto;margin-top:2px"><span><b>Post this by itself at the publish time</b><br><span class="small">Goes to Instagram and your Facebook Page. TikTok and YouTube still go by hand or Metricool.</span></span></label><div id="aps" style="margin-top:10px"></div><a class="small" href="#autopost">Auto-post settings →</a></div>':'')+
+      ("auto_publish" in p?'<div class="card panel"><h3>Auto-post</h3><label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" id="ap"'+(p.auto_publish?' checked':'')+' style="width:22px;height:22px;accent-color:var(--terra);flex:0 0 auto;margin-top:2px"><span><b>Post this by itself at the publish time</b><br><span class="small">Goes to Instagram and your Facebook Page. TikTok and YouTube still go by hand or Metricool.</span></span></label><div id="aps" style="margin-top:10px"></div>'+("experiment_id" in p?'<div class="field" style="margin:10px 0 6px"><label>Test group (optional)</label><select class="sel" id="exg"><option value="">No test</option></select></div>':'')+'<a class="small" href="#autopost">Auto-post settings →</a> · <a class="small" href="#lab">Tests &amp; results →</a></div>':'')+
       '<div class="card panel"><h3>Link &amp; tracking</h3><div class="field"><label>Send people to</label><select class="sel" id="lp">'+LINKPAGES.map(function(x){ return '<option value="'+x[0]+'"'+(p.link_page===x[0]?' selected':'')+'>'+x[1]+'</option>'; }).join("")+'</select></div>'+
         '<div class="field"><label>Protocol this post sells</label><select class="sel" id="pr"><option value="">—</option>'+C.order.map(function(k){ return '<option value="'+k+'"'+(p.product===k?' selected':'')+'>'+C.products[k].name+'</option>'; }).join("")+'</select></div>'+
         '<div id="links"></div><div class="kpis" style="grid-template-columns:repeat(2,1fr);margin-top:10px"><div class="card kpi"><b>'+(stats.visits||0)+'</b><span>Visits</span></div><div class="card kpi"><b>'+(stats.list_joins||0)+'</b><span>List sign-ups</span></div><div class="card kpi"><b>'+(stats.purchases||0)+'</b><span>Sales</span></div><div class="card kpi"><b>'+A.money(stats.revenue_cents||0)+'</b><span>Revenue</span></div></div></div>'+
@@ -224,6 +224,7 @@
       p.captions[tab]=$("cpx").value; p.cta=$("cta").value; p.hashtags=$("hs").value; p.first_comment=$("fc").value; p.youtube_title=$("yt").value;
       p.link_page=$("lp").value; p.product=$("pr").value||null; p.notes=$("nt").value;
       if($("ap")) p.auto_publish=$("ap").checked;
+      if($("exg")&&$("exg").dataset.ready){ var xv=$("exg").value.split("|"); p.experiment_id=xv[0]?Number(xv[0]):null; p.variant=xv[0]?xv.slice(1).join("|"):null; }
       return p;
     }
     function counts(){
@@ -265,7 +266,7 @@
       if(p.auto_publish&&p.status!=="posted"&&p.status!=="scheduled"&&p.status!=="ready"){ p.status="scheduled"; $("st").value="scheduled"; }
       var b=$("save"); b.disabled=true; b.textContent="Saving…"; try{ var s=await savePost(p); p.slug=s.slug; p.id=s.id; links(); MTH.toast("Saved"); }catch(e){} b.disabled=false; b.textContent="Save"; }
     $("save").onclick=save;
-    $("dup").onclick=async function(){ collect(); var c=Object.assign({},p); delete c.id; delete c.slug; delete c.publish_state; if("auto_publish" in c) c.auto_publish=false; c.title=p.title+" (copy)"; c.status="idea"; c.publish_at=null; var s=await savePost(c); A.go("post/"+s.id); };
+    $("dup").onclick=async function(){ collect(); var c=Object.assign({},p); delete c.id; delete c.slug; delete c.publish_state; if("auto_publish" in c) c.auto_publish=false; if("experiment_id" in c){ c.experiment_id=null; c.variant=null; } c.title=p.title+" (copy)"; c.status="idea"; c.publish_at=null; var s=await savePost(c); A.go("post/"+s.id); };
     $("posted").onclick=async function(){ $("st").value="posted"; await save(); };
     $("tele").onclick=function(){ var w=window.open("","_blank"); if(!w) return; w.document.write('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teleprompter</title><body style="margin:0;background:#111;color:#fff;font:600 7vw/1.35 Georgia,serif;padding:40vh 6vw 80vh"><div id="t"></div><script>document.getElementById("t").textContent='+JSON.stringify(($("hk").value+"\n\n"+$("sc").value).trim())+';var s=0;function go(){scrollBy(0,1.2);requestAnimationFrame(go)}setTimeout(go,1500);<\/script>'); w.document.close(); };
     $("ma").onclick=function(){ var u=$("mu").value.trim(); if(!/^https?:\/\//.test(u)) return MTH.toast("Paste a full link starting with https://"); p.media_urls.push(u); $("mu").value=""; media(); check(); };
@@ -284,6 +285,9 @@
     (function(){ var el=$("aps"); if(!el) return; var s=p.publish_state||{}, N={ instagram:"Instagram", facebook:"Facebook" };
       el.innerHTML=Object.keys(N).filter(function(k){ return s[k]&&s[k].status; }).map(function(k){ var x=s[k], ok=x.status==="posted", bad=x.status==="failed"||x.status==="check";
         return '<div class="row-i" style="padding:5px 0"><span>'+N[k]+(x.error?'<br><span class="small" style="color:#7e3b25">'+esc(x.error)+'</span>':'')+'</span><span>'+(ok?'<span class="pill own">Posted</span>'+(x.url?' <a class="small" href="'+esc(x.url)+'" target="_blank" rel="noopener">Open</a>':''):bad?'<span class="pill tag">'+(x.status==="check"?"Check it":"Didn’t post")+'</span>':'<span class="pill list">Sending…</span>')+'</span></div>'; }).join(""); })();
+    if($("exg")) sb.from("mth_experiments").select("id,name,variants,status").then(function(x){ var el=$("exg"); if(!el||x.error) return;
+      (x.data||[]).filter(function(e){ return e.status==="running"||e.id===p.experiment_id; }).forEach(function(e){ (e.variants||[]).forEach(function(v){ var o=document.createElement("option"); o.value=e.id+"|"+v.key; o.textContent=e.name+" · "+(v.label||v.key); if(p.experiment_id===e.id&&p.variant===v.key) o.selected=true; el.appendChild(o); }); });
+      el.dataset.ready="1"; });
     media(); platUI();
   }});
 })();

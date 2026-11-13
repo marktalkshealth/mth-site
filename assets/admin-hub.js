@@ -202,7 +202,7 @@
     { k:"pages", ic:"🧭", t:"Pages", s:"Home, funnels, unlisted", ids:["pages"] },
     { k:"stats", ic:"📈", t:"Analytics", s:"What’s working", ids:["overview","conversions"], tabs:{ overview:"Dashboard", conversions:"What’s working" } },
     { k:"edit", ic:"✎", t:"Edit", s:"Pages, blog, courses", ids:["edit","words","blog","content","thumbs"], tabs:{ edit:"All", words:"Website pages", blog:"Blog", content:"Courses", thumbs:"Thumbnails" } },
-    { k:"social", ic:"🎬", t:"Social", s:"Posts, auto-post & DMs", ids:["studio","autopost"], tabs:{ studio:"Posts", autopost:"Auto-post & DMs" } },
+    { k:"social", ic:"🎬", t:"Social", s:"Posts, auto-post & DMs", ids:["studio","autopost","lab"], tabs:{ studio:"Posts", autopost:"Auto-post & DMs", lab:"Tests & results" } },
     { k:"vault", ic:"📚", t:"Vault", s:"Ebooks & books", ids:["library"] },
     { k:"money", ic:"🤝", t:"Brand deals", s:"Sponsors", ids:["brands","quote","ratecard"], tabs:{ brands:"Brand deals", quote:"Price calculator", ratecard:"Rate card" } },
     { k:"settings", ic:"⚙", t:"Settings", s:"Connections", ids:["integrations"] }

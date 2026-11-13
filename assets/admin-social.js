@@ -69,17 +69,17 @@
         '<li>Open '+link("https://developers.facebook.com/apps/","your Meta app")+' and switch it from Development to <b>Live</b> (top of the page). Posts from an app that isn’t Live are only visible to you.</li>'+
         '<li>Open '+link("https://business.facebook.com/settings/system-users?business_id=931066053191224","Business settings → System users")+'. Pick your system user (or add one, role Admin).</li>'+
         '<li>Press <b>Assign assets</b> and give it your <b>Facebook Page</b> (full control) and your <b>Instagram account</b>.</li>'+
-        '<li>Press <b>Generate token</b>, choose your app, set it to <b>never expire</b>, and tick these 9: <code>pages_show_list</code>, <code>pages_read_engagement</code>, <code>pages_manage_posts</code>, <code>pages_manage_engagement</code>, <code>pages_messaging</code>, <code>instagram_basic</code>, <code>instagram_content_publish</code>, <code>instagram_manage_comments</code>, <code>instagram_manage_messages</code>.</li>'+
+        '<li>Press <b>Generate token</b>, choose your app, set it to <b>never expire</b>, and tick these 11: <code>pages_show_list</code>, <code>pages_read_engagement</code>, <code>pages_manage_posts</code>, <code>pages_manage_engagement</code>, <code>pages_messaging</code>, <code>instagram_basic</code>, <code>instagram_content_publish</code>, <code>instagram_manage_comments</code>, <code>instagram_manage_messages</code>, <code>instagram_manage_insights</code>, <code>read_insights</code>. (The last two let your <a href="#lab">Tests &amp; results</a> screen read views and watch time.)</li>'+
         '<li>Copy the token, paste it below and press Connect.</li>'+
         '<li>On your phone: Instagram → Settings → Messages and story replies → Message controls → <b>Allow access to messages</b> = on. (Needed for the auto-DMs.)</li></ol>';
       var ytSteps='<ol class="step-list">'+
-        '<li>Open '+link("https://console.cloud.google.com/apis/library/youtube.googleapis.com","YouTube Data API")+' (project “Mark Talks Health”) and press <b>Enable</b>.</li>'+
+        '<li>Open '+link("https://console.cloud.google.com/apis/library/youtube.googleapis.com","YouTube Data API")+' (project “Mark Talks Health”) and press <b>Enable</b>. Then do the same for '+link("https://console.cloud.google.com/apis/library/youtubeanalytics.googleapis.com","YouTube Analytics API")+' (that one gives watch time).</li>'+
         '<li>Open '+link("https://console.cloud.google.com/auth/clients","Google sign-in clients")+' → <b>Create client</b> → Web application. Under “Authorized redirect URIs” paste this exactly:</li></ol>'+
         '<div class="code-box" id="ru">'+esc(st.redirect_uri||"")+'</div><ol class="step-list" start="3">'+
         '<li>Open '+link("https://console.cloud.google.com/auth/audience","Audience")+' and press <b>Publish app</b>, so the sign-in doesn’t run out every 7 days.</li>'+
         '<li>Paste the client ID and client secret below, press Save, then Connect YouTube and pick your channel. Google will warn the app isn’t verified: press Advanced → Continue (it’s your own app).</li></ol>';
 
-      V.innerHTML='<div class="adm-h"><div><div class="kick">Social</div><h1>Auto-post &amp; DMs</h1></div><div class="acts"><button class="b sm ghost" id="run">Run now</button><a class="b sm" href="#studio">Posts</a></div></div>'+
+      V.innerHTML='<div class="adm-h"><div><div class="kick">Social</div><h1>Auto-post &amp; DMs</h1></div><div class="acts"><button class="b sm ghost" id="run">Run now</button><a class="b sm ghost" href="#lab">Tests &amp; results</a><a class="b sm" href="#studio">Posts</a></div></div>'+
         '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px">'+
           sw("swp",!!S.enabled,"Auto-posting is","Posts you ticked Auto-post on go out at their publish time.")+
           sw("swd",!!S.dm_enabled,"Auto-DMs are","Keyword comments get your link. Only comments made after you switch this on.")+'</div>'+
