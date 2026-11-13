@@ -31,7 +31,7 @@
   }
   async function loadPosts(){ var r=await sb.from("mth_posts").select("*").order("publish_at",{ ascending:true, nullsFirst:false }).order("created_at",{ ascending:false }); if(r.error) throw r.error; return r.data||[]; }
   async function savePost(p){
-    var row=Object.assign({},p); delete row.created_at; row.updated_at=new Date().toISOString();
+    var row=Object.assign({},p); delete row.created_at; delete row.publish_state; row.updated_at=new Date().toISOString();
     var r=row.id?await sb.from("mth_posts").update(row).eq("id",row.id).select().single():await sb.from("mth_posts").insert(row).select().single();
     if(r.error){ MTH.toast("Couldn’t save: "+r.error.message); throw r.error; }
     var saved=r.data;
@@ -69,7 +69,7 @@
 
   /* ================= STUDIO (board / calendar / list) ================= */
   var view=localStorage.getItem("mth_studio_view")||"board", month=null, fprod="";
-  A.screen("studio",{ nav:"Posts", group:"Growing", help:"Plan your social posts. Each card is one post. Move it along as you go: idea → write → film → edit → ready. Then Export for Metricool to schedule them.", render: async function(V){
+  A.screen("studio",{ nav:"Posts", group:"Growing", help:"Plan your social posts. Each card is one post. Move it along as you go: idea → write → film → edit → ready. Tick Auto-post on a post and it goes to Instagram and Facebook by itself at its publish time (TikTok and YouTube: Export for Metricool).", render: async function(V){
     var P=await loadPosts();
     if(fprod) P=P.filter(function(p){ return p.product===fprod; });
     var due=P.filter(function(p){ return p.status!=="posted"&&p.publish_at&&new Date(p.publish_at)<Date.now(); }).length;
@@ -208,10 +208,11 @@
         '<div class="field"><label>YouTube title</label><input class="inp" id="yt" maxlength="100" value="'+esc(p.youtube_title||"")+'"></div></div>'+
       '</div><div style="display:grid;gap:14px">'+
       '<div class="card panel"><button class="b full" id="save">Save</button><div class="acts"><button class="b sm ghost" id="dup">Duplicate</button><button class="b sm ghost" id="posted">Mark posted</button></div><div id="chk" style="margin-top:12px"></div></div>'+
+      ("auto_publish" in p?'<div class="card panel"><h3>Auto-post</h3><label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" id="ap"'+(p.auto_publish?' checked':'')+' style="width:22px;height:22px;accent-color:var(--terra);flex:0 0 auto;margin-top:2px"><span><b>Post this by itself at the publish time</b><br><span class="small">Goes to Instagram and your Facebook Page. TikTok and YouTube still go by hand or Metricool.</span></span></label><div id="aps" style="margin-top:10px"></div><a class="small" href="#autopost">Auto-post settings →</a></div>':'')+
       '<div class="card panel"><h3>Link &amp; tracking</h3><div class="field"><label>Send people to</label><select class="sel" id="lp">'+LINKPAGES.map(function(x){ return '<option value="'+x[0]+'"'+(p.link_page===x[0]?' selected':'')+'>'+x[1]+'</option>'; }).join("")+'</select></div>'+
         '<div class="field"><label>Protocol this post sells</label><select class="sel" id="pr"><option value="">—</option>'+C.order.map(function(k){ return '<option value="'+k+'"'+(p.product===k?' selected':'')+'>'+C.products[k].name+'</option>'; }).join("")+'</select></div>'+
         '<div id="links"></div><div class="kpis" style="grid-template-columns:repeat(2,1fr);margin-top:10px"><div class="card kpi"><b>'+(stats.visits||0)+'</b><span>Visits</span></div><div class="card kpi"><b>'+(stats.list_joins||0)+'</b><span>List sign-ups</span></div><div class="card kpi"><b>'+(stats.purchases||0)+'</b><span>Sales</span></div><div class="card kpi"><b>'+A.money(stats.revenue_cents||0)+'</b><span>Revenue</span></div></div></div>'+
-      '<div class="card panel"><h3>Media</h3><p class="small" style="margin-top:0">Upload the finished video or images (public links, so Metricool can fetch them). Up to 10.</p><div id="md"></div><div class="addrow"><label class="b sm">Upload<input type="file" id="up" accept="video/*,image/*" multiple hidden></label><input class="inp" id="mu" placeholder="…or paste a public link"><button class="b sm ghost" id="ma">Add</button></div></div>'+
+      '<div class="card panel"><h3>Media</h3><p class="small" style="margin-top:0">Upload the finished video or images (public links, so Instagram, Facebook and Metricool can fetch them). Up to 10. Files up to 50 MB.</p><div id="md"></div><div class="addrow"><label class="b sm">Upload<input type="file" id="up" accept="video/*,image/*" multiple hidden></label><input class="inp" id="mu" placeholder="…or paste a public link"><button class="b sm ghost" id="ma">Add</button></div></div>'+
       '<div class="card panel"><h3>Post now (by hand)</h3><p class="small" style="margin-top:0">Copies the full caption for one platform, ready to paste.</p><div class="acts" id="cpy"></div></div>'+
       '<div class="card panel"><h3>Notes</h3><textarea class="inp" id="nt">'+esc(p.notes||"")+'</textarea></div>'+
       '</div></div>';
@@ -222,6 +223,7 @@
       p.publish_at=pa?new Date(pa).toISOString():null; p.hook=$("hk").value; p.script=$("sc").value; p.caption=$("cp").value;
       p.captions[tab]=$("cpx").value; p.cta=$("cta").value; p.hashtags=$("hs").value; p.first_comment=$("fc").value; p.youtube_title=$("yt").value;
       p.link_page=$("lp").value; p.product=$("pr").value||null; p.notes=$("nt").value;
+      if($("ap")) p.auto_publish=$("ap").checked;
       return p;
     }
     function counts(){
@@ -258,9 +260,12 @@
     }
     document.querySelectorAll("#pf [data-p]").forEach(function(c){ c.onclick=function(){ var k=c.dataset.p, i=p.platforms.indexOf(k); if(i>-1) p.platforms.splice(i,1); else p.platforms.push(k); c.classList.toggle("on"); platUI(); }; });
     ["t","hk","sc","cp","cpx","cta","hs","fc","yt","pa"].forEach(function(i){ $(i).addEventListener("input",counts); });
-    async function save(){ collect(); var b=$("save"); b.disabled=true; b.textContent="Saving…"; try{ var s=await savePost(p); p.slug=s.slug; p.id=s.id; links(); MTH.toast("Saved"); }catch(e){} b.disabled=false; b.textContent="Save"; }
+    async function save(){ collect();
+      if(p.auto_publish&&!p.publish_at){ MTH.toast("Auto-post needs a publish date and time",5000); return; }
+      if(p.auto_publish&&p.status!=="posted"&&p.status!=="scheduled"&&p.status!=="ready"){ p.status="scheduled"; $("st").value="scheduled"; }
+      var b=$("save"); b.disabled=true; b.textContent="Saving…"; try{ var s=await savePost(p); p.slug=s.slug; p.id=s.id; links(); MTH.toast("Saved"); }catch(e){} b.disabled=false; b.textContent="Save"; }
     $("save").onclick=save;
-    $("dup").onclick=async function(){ collect(); var c=Object.assign({},p); delete c.id; delete c.slug; c.title=p.title+" (copy)"; c.status="idea"; c.publish_at=null; var s=await savePost(c); A.go("post/"+s.id); };
+    $("dup").onclick=async function(){ collect(); var c=Object.assign({},p); delete c.id; delete c.slug; delete c.publish_state; if("auto_publish" in c) c.auto_publish=false; c.title=p.title+" (copy)"; c.status="idea"; c.publish_at=null; var s=await savePost(c); A.go("post/"+s.id); };
     $("posted").onclick=async function(){ $("st").value="posted"; await save(); };
     $("tele").onclick=function(){ var w=window.open("","_blank"); if(!w) return; w.document.write('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teleprompter</title><body style="margin:0;background:#111;color:#fff;font:600 7vw/1.35 Georgia,serif;padding:40vh 6vw 80vh"><div id="t"></div><script>document.getElementById("t").textContent='+JSON.stringify(($("hk").value+"\n\n"+$("sc").value).trim())+';var s=0;function go(){scrollBy(0,1.2);requestAnimationFrame(go)}setTimeout(go,1500);<\/script>'); w.document.close(); };
     $("ma").onclick=function(){ var u=$("mu").value.trim(); if(!/^https?:\/\//.test(u)) return MTH.toast("Paste a full link starting with https://"); p.media_urls.push(u); $("mu").value=""; media(); check(); };
@@ -268,6 +273,7 @@
       var files=[].slice.call(this.files||[]); if(!files.length) return;
       for(var i=0;i<files.length;i++){ var f=files[i], ext=(f.name.split(".").pop()||"bin").toLowerCase().replace(/[^a-z0-9]/g,"");
         var path="posts/"+(p.id||"new")+"/"+Date.now()+"-"+i+"."+ext;
+        if(f.size>50*1024*1024){ MTH.toast(f.name+" is "+Math.round(f.size/1048576)+" MB. Your storage plan takes files up to 50 MB, so this one can’t be uploaded here yet.",9000); continue; }
         MTH.toast("Uploading "+f.name+"…",8000);
         var up=await sb.storage.from("social-media").upload(path,f,{ upsert:true, contentType:f.type||undefined });
         if(up.error){ MTH.toast("Upload failed: "+up.error.message); continue; }
@@ -275,6 +281,9 @@
       }
       media(); check(); save();
     };
+    (function(){ var el=$("aps"); if(!el) return; var s=p.publish_state||{}, N={ instagram:"Instagram", facebook:"Facebook" };
+      el.innerHTML=Object.keys(N).filter(function(k){ return s[k]&&s[k].status; }).map(function(k){ var x=s[k], ok=x.status==="posted", bad=x.status==="failed"||x.status==="check";
+        return '<div class="row-i" style="padding:5px 0"><span>'+N[k]+(x.error?'<br><span class="small" style="color:#7e3b25">'+esc(x.error)+'</span>':'')+'</span><span>'+(ok?'<span class="pill own">Posted</span>'+(x.url?' <a class="small" href="'+esc(x.url)+'" target="_blank" rel="noopener">Open</a>':''):bad?'<span class="pill tag">'+(x.status==="check"?"Check it":"Didn’t post")+'</span>':'<span class="pill list">Sending…</span>')+'</span></div>'; }).join(""); })();
     media(); platUI();
   }});
 })();
