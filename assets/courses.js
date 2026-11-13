@@ -43,63 +43,74 @@ window.MTH_COURSES={
      {
       "id": "fasting",
       "title": "Fasting & the green juice cleanse",
-      "mins": 12,
-      "text": "Why giving your gut a rest kick-starts repair: autophagy, the three cleanse levels (avocado & nut, green juice and mineral water) and how to fast safely, with the electrolytes that keep you steady.",
+      "mins": 10,
+      "text": "Two videos. First the repair switch: autophagy, what a 100-person fasting trial did to blood work, and what fasting does for joints and the brain. Then how to rest your gut with the juice cleanse or the water fast, how to come back to food, and who needs to check with their doctor first.",
       "quiz": [
        {
-        "q": "What is autophagy?",
+        "q": "What does autophagy mean?",
         "o": [
-         "A type of juice cleanse",
-         "The body's built-in cellular recycling and clean-up process",
-         "A hormone that makes you hungry",
-         "A form of exercise"
+         "Fat burning",
+         "Self eating: your cells recycling their own worn out parts",
+         "A kind of juice cleanse",
+         "A hunger hormone"
         ],
         "a": 1,
-        "fb": "Autophagy means \"self-eating\": your cells break down and recycle damaged parts. Fasting is one of its strongest triggers."
+        "fb": "Autophagy is your body's built-in recycling system. The discovery of how it works won the Nobel Prize in 2016."
        },
        {
-        "q": "Roughly when does autophagy start to switch on during a fast?",
+        "q": "Which 2 hormones fall when you fast, flipping your body from growth into repair?",
         "o": [
-         "After 1–2 hours",
-         "After 12–16 hours",
-         "After 5 days",
-         "Only during sleep"
-        ],
-        "a": 1,
-        "fb": "Around 12–16 hours in, stored sugar runs low and insulin drops, so the clean-up process begins. It builds from there."
-       },
-       {
-        "q": "Which fasting style is described as the best entry point for beginners?",
-        "o": [
-         "A 7-day water fast",
-         "Juice fasting",
-         "One meal a day",
-         "A dry fast"
-        ],
-        "a": 1,
-        "fb": "Juice fasting gives your gut a rest while still providing vitamins and plant nutrients, which makes it gentler to start with."
-       },
-       {
-        "q": "The Fasting Mimicking Diet (FMD) was developed by which researcher?",
-        "o": [
-         "Dr. Valter Longo",
-         "Dr. Otto Warburg",
-         "Dr. James Pennebaker",
-         "Dr. Roger Ulrich"
+         "Insulin and IGF-1",
+         "Melatonin and serotonin",
+         "Adrenaline and cortisol",
+         "Estrogen and testosterone"
         ],
         "a": 0,
-        "fb": "Dr. Longo's team at USC designed FMD: five low-calorie, plant-based days that give many of fasting's benefits while still eating a little."
+        "fb": "Insulin and IGF-1 tell your cells to grow and store. When they fall, the cleanup crew finally gets a turn."
        },
        {
-        "q": "In 16:8 intermittent fasting, what do the numbers mean?",
+        "q": "In Valter Longo's trial of 100 people, who improved the most?",
         "o": [
-         "16 meals and 8 snacks a week",
-         "16 hours fasting and an 8-hour eating window",
-         "16 days fasting and 8 days eating",
-         "16 glasses of water and 8 hours of sleep"
+         "The youngest people",
+         "People who were already healthy",
+         "People who started with the worst numbers",
+         "People who exercised the most"
+        ],
+        "a": 2,
+        "fb": "Fasting fixed what was off. People with high blood pressure, cholesterol or inflammation improved most, and healthy numbers barely moved."
+       },
+       {
+        "q": "What happened to gut stem cells after a 24 hour fast in the MIT study (in mice)?",
+        "o": [
+         "They shut down",
+         "Their repair power roughly doubled",
+         "Nothing changed",
+         "They turned into fat cells"
         ],
         "a": 1,
-        "fb": "16:8 is the most studied daily schedule: you eat within an 8-hour window and fast for the other 16 hours."
+        "fb": "The stem cells that rebuild your gut lining switched to burning fat and got better at repair, most of all in older animals."
+       },
+       {
+        "q": "What are the 2 cleanse levels in this course?",
+        "o": [
+         "Keto and carnivore",
+         "Juice cleanse and water fast",
+         "Broth fast and dry fast",
+         "Smoothies and soup"
+        ],
+        "a": 1,
+        "fb": "The juice cleanse is the gentler place to start. The water fast flips the repair switch the hardest."
+       },
+       {
+        "q": "Who should talk to their doctor before any fast?",
+        "o": [
+         "Only people over 70",
+         "Nobody, fasting is safe for everyone",
+         "Anyone on insulin, blood sugar pills or blood pressure medication, or who is pregnant or has had an eating disorder",
+         "Only people who have never fasted"
+        ],
+        "a": 2,
+        "fb": "Your numbers can drop fast when you stop eating, and your doctor may need to adjust your dose to keep you safe."
        }
       ]
      }
@@ -115,126 +126,126 @@ window.MTH_COURSES={
      {
       "id": "meditation",
       "title": "Meditation",
-      "mins": 10,
+      "mins": 5,
       "text": "Stress shows up in the gut. Learn what a few minutes of daily practice does to your stress hormones and brain, and a simple routine you can start today.",
       "quiz": [
        {
-        "q": "In the Harvard brain-scan studies, how long did an MBSR meditation course take to show measurable brain changes?",
+        "q": "After an 8 week mindfulness course, what happened to the brain's alarm center (the amygdala)?",
         "o": [
-         "1 day",
-         "8 weeks",
-         "2 years",
-         "10 years"
+         "It grew larger",
+         "It got less dense",
+         "It stopped working",
+         "Nothing changed"
         ],
         "a": 1,
-        "fb": "About 8 weeks of regular practice was enough to see changes on MRI scans, so a steady habit adds up quickly."
+        "fb": "The alarm center got less dense, and the more a person's stress came down, the more it changed. The memory area (hippocampus) grew."
        },
        {
-        "q": "Which part of the brain, the \"alarm system\" for fear and stress, became less dense after the meditation course?",
+        "q": "How much meditation training did the beginners in the Wake Forest pain study get?",
         "o": [
-         "The amygdala",
-         "The spinal cord",
-         "The cerebellum",
-         "The optic nerve"
+         "4 sessions of 20 minutes",
+         "8 weeks of daily practice",
+         "A 3 month retreat",
+         "1 hour a day for a year"
         ],
         "a": 0,
-        "fb": "The amygdala drives stress reactions. As it quietens, people report less stress and anxiety."
+        "fb": "Just 80 minutes in total. Pain felt about 40% less intense and 57% less unpleasant."
        },
        {
-        "q": "Which brainwave state is described as \"relaxed alertness\", common in experienced meditators?",
+        "q": "Why is calming your mind a gut treatment?",
         "o": [
-         "Beta",
-         "Alpha",
-         "Gamma",
-         "Delta"
+         "It burns calories",
+         "Your gut only digests properly in the rest and digest gear",
+         "It kills gut bacteria",
+         "It raises stomach acid"
         ],
         "a": 1,
-        "fb": "Alpha is the calm, focused state. Meditation helps shift a stressed, high-beta brain toward it."
+        "fb": "You can't digest properly in the stress gear. Meditation shifts you into rest and digest, where healing happens."
        },
        {
-        "q": "What does BDNF, which rises with regular meditation, help the brain do?",
+        "q": "In the UCLA sleep trial, what worked better for poor sleepers?",
         "o": [
-         "Store fat",
-         "Grow new neurons and strengthen connections",
-         "Produce stomach acid",
-         "Raise cortisol"
+         "A sleep habits class",
+         "Sleeping pills",
+         "A 6 week mindfulness course",
+         "Afternoon naps"
         ],
-        "a": 1,
-        "fb": "BDNF is like fertiliser for brain cells. It supports learning, memory and mood."
+        "a": 2,
+        "fb": "The mindfulness group slept better and had less fatigue and depression. A busy head is behind most sleep trouble."
        },
        {
-        "q": "What does meditation do to cortisol, the main stress hormone?",
+        "q": "When your mind wanders during meditation, what does that mean?",
         "o": [
-         "Raises it",
-         "Lowers it",
-         "Has no effect",
-         "Turns it into insulin"
+         "You failed and should stop",
+         "You are doing it wrong",
+         "Noticing it and coming back is the exercise",
+         "You need a longer session"
         ],
-        "a": 1,
-        "fb": "Regular practice lowers cortisol, which calms inflammation and helps break the stress and pain cycle."
+        "a": 2,
+        "fb": "That's the rep. Start with 5 minutes a day and build up from there."
        }
       ]
      },
      {
       "id": "journaling",
       "title": "Journaling",
-      "mins": 8,
+      "mins": 5,
       "text": "Writing things down calms the mind and shows you patterns in your symptoms. A short, guided way to journal through your reset.",
       "quiz": [
        {
-        "q": "How long was each writing session in Pennebaker's expressive writing studies?",
+        "q": "In the New Zealand wound study, how many of the expressive writers had healed by day 11?",
         "o": [
-         "2 minutes",
-         "About 15 minutes a day",
-         "2 hours",
-         "All day"
+         "42%",
+         "50%",
+         "76%",
+         "100%"
         ],
-        "a": 1,
-        "fb": "Just 15 minutes a day for 4 days was enough to see real health benefits. It's a small, doable habit."
+        "a": 2,
+        "fb": "76% of the people who wrote about their feelings had healed, compared with 42% of the people who wrote about their daily plans."
        },
        {
-        "q": "In his original study, what happened to students who wrote about difficult experiences?",
+        "q": "In Pennebaker's original study, students who wrote about hard experiences for 4 days did what over the next 6 months?",
         "o": [
-         "They visited the health center about half as often",
-         "They got sick more often",
-         "Nothing changed",
-         "They stopped sleeping"
+         "Got better grades",
+         "Visited the health center about half as often",
+         "Slept 2 hours longer",
+         "Lost weight"
+        ],
+        "a": 1,
+        "fb": "One hour of honest writing in total, and about half as many doctor visits."
+       },
+       {
+        "q": "What did the Baylor study find helps you fall asleep faster?",
+        "o": [
+         "Writing a to do list for the coming days",
+         "Reading the news",
+         "Writing about what you already finished",
+         "Counting backwards"
         ],
         "a": 0,
-        "fb": "Putting hard feelings into words seems to take a load off the body as well as the mind."
+        "fb": "The to do list group fell asleep about 9 minutes faster, and the more detailed the list, the faster they dropped off."
        },
        {
-        "q": "Which stress hormone tends to be lower on days people journal?",
+        "q": "What is the simplest gratitude practice from the lesson?",
         "o": [
-         "Insulin",
-         "Cortisol",
-         "Melatonin",
-         "Oxytocin"
+         "Writing a letter every day",
+         "3 good things at the end of the day",
+         "A 1 hour journaling session",
+         "Meditating on gratitude for 30 minutes"
         ],
         "a": 1,
-        "fb": "Writing helps the brain \"close the loop\" on worries, so the stress system settles and cortisol drops."
+        "fb": "Three things that went well today, even small ones. It trains your brain to look for what's working."
        },
        {
-        "q": "Which type of bedtime writing helped people fall asleep fastest?",
+        "q": "What should you end every journal entry with?",
         "o": [
-         "Writing a to-do list for tomorrow",
-         "Writing about what went wrong today",
-         "Copying out a book",
-         "Writing nothing at all"
-        ],
-        "a": 0,
-        "fb": "Getting tomorrow's tasks onto paper offloads them from your mind, so you fall asleep faster."
-       },
-       {
-        "q": "What does gratitude journaling help with, according to the review of 64 trials?",
-        "o": [
-         "Only handwriting",
-         "Lower anxiety and better mood and sleep",
-         "Weight gain",
-         "Nothing measurable"
+         "A list of your worries",
+         "One next step",
+         "A drawing",
+         "Yesterday's entry"
         ],
         "a": 1,
-        "fb": "Writing down a few things you're grateful for each night is linked to calmer moods and better sleep."
+        "fb": "One next step keeps you moving forward so you're not going around in circles."
        }
       ]
      }
@@ -250,63 +261,63 @@ window.MTH_COURSES={
      {
       "id": "sunlight",
       "title": "Sunlight",
-      "mins": 8,
+      "mins": 5,
       "text": "Morning light, vitamin D and your body clock: how to get the right amount of sun safely.",
       "quiz": [
        {
-        "q": "In the hospital studies, what happened to patients in sunnier rooms?",
+        "q": "In the Swedish study of about 30,000 women, how did sun avoiders compare with those who got the most sun?",
         "o": [
-         "They stayed longer",
-         "They recovered faster and used less pain medication",
-         "Nothing changed",
-         "They slept less"
+         "They lived longer",
+         "Roughly twice the death rate",
+         "No difference",
+         "Half the death rate"
         ],
         "a": 1,
-        "fb": "Brighter rooms were linked to quicker recovery, earlier discharge and less need for pain relief."
+        "fb": "Sun avoiders had roughly twice the death rate over 20 years. It's one study and can't prove cause, but it's striking."
        },
        {
-        "q": "Which vitamin does your skin make from sunlight?",
+        "q": "Spine surgery patients in brighter hospital rooms used how much less pain medication?",
         "o": [
-         "Vitamin C",
-         "Vitamin D",
-         "Vitamin B12",
-         "Vitamin K"
+         "2%",
+         "22%",
+         "60%",
+         "None"
         ],
         "a": 1,
-        "fb": "UVB light on your skin starts vitamin D production, which supports immunity, bones and mood."
+        "fb": "About 46% more sunlight, and 22% less pain medication every hour."
        },
        {
-        "q": "Why is morning sunlight especially helpful?",
+        "q": "When is the most important light of the day for your body clock?",
         "o": [
-         "It's warmer",
-         "It resets your body clock, which improves sleep that night",
-         "It has no UV",
-         "It boosts caffeine"
+         "Midday",
+         "Late afternoon",
+         "Morning",
+         "Just before bed"
+        ],
+        "a": 2,
+        "fb": "15 to 30 minutes of morning light sets your clock, lifts your serotonin and lets melatonin rise on time that night."
+       },
+       {
+        "q": "How does sunlight lower blood pressure, apart from vitamin D?",
+        "o": [
+         "It makes you sweat",
+         "It releases nitric oxide from your skin, which relaxes blood vessels",
+         "It slows your heart",
+         "It thins your blood"
         ],
         "a": 1,
-        "fb": "Morning light sets your circadian rhythm, so melatonin is released on time in the evening."
+        "fb": "Edinburgh researchers found blood pressure came down within about 20 minutes."
        },
        {
-        "q": "Which mood chemical does sunlight help your brain make?",
+        "q": "What is rule number 1 with the sun?",
         "o": [
-         "Serotonin",
-         "Adrenaline",
-         "Cortisol",
-         "Histamine"
+         "Get as much as you can",
+         "Only go out at noon",
+         "Never burn",
+         "Always wear a hat"
         ],
-        "a": 0,
-        "fb": "Serotonin lifts mood and dampens pain signals, one reason sunny days feel better."
-       },
-       {
-        "q": "What happens to blood pressure after about 20 minutes of sun, according to the Edinburgh research?",
-        "o": [
-         "It goes up sharply",
-         "It drops slightly as nitric oxide widens blood vessels",
-         "It stays exactly the same",
-         "It becomes irregular"
-        ],
-        "a": 1,
-        "fb": "UVA light releases nitric oxide from the skin, relaxing blood vessels. Enjoy the sun, but never burn."
+        "a": 2,
+        "fb": "A burn is damage. Build up gradually with short, regular exposure."
        }
       ]
      },
@@ -376,8 +387,65 @@ window.MTH_COURSES={
      {
       "id": "forest",
       "title": "Forest bathing",
-      "mins": 6,
-      "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week."
+      "mins": 5,
+      "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week.",
+      "quiz": [
+       {
+        "q": "After a 2 to 3 day forest trip, what happened to natural killer cell activity?",
+        "o": [
+         "It dropped by half",
+         "It rose by about 50%",
+         "It stayed the same",
+         "It doubled every day"
+        ],
+        "a": 1,
+        "fb": "Natural killer cells hunt virus infected and abnormal cells. Their activity rose by about half, and a matching city trip changed nothing."
+       },
+       {
+        "q": "How long did the immune lift last after a longer forest trip?",
+        "o": [
+         "A few hours",
+         "1 day",
+         "Up to 30 days",
+         "1 year"
+        ],
+        "a": 2,
+        "fb": "Up to 30 days, which is why a forest day once a month keeps it switched on."
+       },
+       {
+        "q": "What are phytoncides?",
+        "o": [
+         "A kind of pollen",
+         "Natural oils trees release to protect themselves",
+         "Forest soil bacteria",
+         "A vitamin in leaves"
+        ],
+        "a": 1,
+        "fb": "They are the scent of a pine or cedar forest. Breathing them in raised killer cells and lowered stress hormones."
+       },
+       {
+        "q": "In the Stanford study, what did a 90 minute nature walk do that a walk beside a busy road did not?",
+        "o": [
+         "Burned more calories",
+         "Reduced brooding and quieted a brain area that is overactive in depression",
+         "Raised blood pressure",
+         "Improved eyesight"
+        ],
+        "a": 1,
+        "fb": "Only the nature walkers came back brooding less."
+       },
+       {
+        "q": "How do you forest bathe?",
+        "o": [
+         "Hike as fast as you can",
+         "Walk slowly, breathe deeply, phone away",
+         "Run with headphones on",
+         "Only in winter"
+        ],
+        "a": 1,
+        "fb": "It isn't a hike. Slow down, breathe through your nose, or simply sit against a tree for 20 minutes."
+       }
+      ]
      }
     ]
    },
@@ -391,126 +459,126 @@ window.MTH_COURSES={
      {
       "id": "sleep",
       "title": "Sleep",
-      "mins": 10,
+      "mins": 5,
       "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
       "quiz": [
        {
-        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
+        "q": "In the sleep lab study, caffeine taken 6 hours before bed did what?",
         "o": [
-         "55–58°F",
-         "65–68°F",
-         "75–78°F",
-         "Above 80°F"
+         "Nothing",
+         "Cut sleep by more than 1 hour",
+         "Helped people fall asleep",
+         "Only affected dreams"
         ],
         "a": 1,
-        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
+        "fb": "And people didn't notice. Caffeine has a half life of about 5 hours, so the cutoff is noon."
        },
        {
-        "q": "About how long is the half-life of caffeine in most adults?",
+        "q": "What bedroom temperature supports deep sleep?",
+        "o": [
+         "60 to 62°F",
+         "65 to 68°F",
+         "72 to 75°F",
+         "78 to 80°F"
+        ],
+        "a": 1,
+        "fb": "Your core temperature has to drop 1 to 2 degrees to fall asleep, and a cool room lets it."
+       },
+       {
+        "q": "What did ordinary room light in the evening do in the Harvard study?",
+        "o": [
+         "Nothing",
+         "Raised melatonin",
+         "Cut the melatonin window by about 90 minutes",
+         "Improved deep sleep"
+        ],
+        "a": 2,
+        "fb": "Use warm dim lamps for the last hour, blackout curtains, and keep your phone out of the bedroom."
+       },
+       {
+        "q": "How long before bed should you finish eating?",
         "o": [
          "30 minutes",
-         "About 6 hours",
-         "24 hours",
-         "A week"
+         "1 hour",
+         "About 3 hours",
+         "It doesn't matter"
         ],
-        "a": 1,
-        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
+        "a": 2,
+        "fb": "Digestion and body temperature need about 3 hours to wind down."
        },
        {
-        "q": "How long before bed should you avoid screens and bright blue light?",
+        "q": "Which habit anchors your whole body clock?",
         "o": [
-         "5 minutes",
-         "About 1 hour",
-         "It doesn't matter",
-         "12 hours"
+         "Going to bed at 9",
+         "The same wake time every day, weekends too",
+         "A nap after lunch",
+         "Sleeping in on Sundays"
         ],
         "a": 1,
-        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
-       },
-       {
-        "q": "Why are blackout curtains recommended?",
-        "o": [
-         "They keep the room warm",
-         "Even a little light can cut melatonin, and darkness lets it rise fully",
-         "They block noise",
-         "They look better"
-        ],
-        "a": 1,
-        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
-       },
-       {
-        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
-        "o": [
-         "Its blue light and stimulating content keep your brain alert",
-         "It uses too much electricity",
-         "It makes the room hot",
-         "It has no effect on sleep"
-        ],
-        "a": 0,
-        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
+        "fb": "Your wake time matters more than your bedtime."
        }
       ]
      },
      {
       "id": "air",
       "title": "Indoor air quality",
-      "mins": 6,
+      "mins": 5,
       "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
       "quiz": [
        {
-        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
+        "q": "About how much of your life do you spend indoors?",
         "o": [
-         "It is cleaner",
-         "It is 2–5 times more polluted",
-         "It is exactly the same",
-         "It has no pollutants"
+         "30%",
+         "50%",
+         "70%",
+         "90%"
         ],
-        "a": 1,
-        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
+        "a": 3,
+        "fb": "About 90%, and the EPA says indoor air is often 2 to 5 times more polluted than outdoor air."
        },
        {
-        "q": "Radon is dangerous partly because it is…",
+        "q": "What is the leading cause of lung cancer in people who have never smoked?",
         "o": [
-         "Bright red and smelly",
-         "Colorless and odourless, so you need a monitor to detect it",
-         "Only found in big cities",
-         "Harmless in small amounts"
+         "Mold",
+         "Radon",
+         "Dust",
+         "Pollen"
         ],
         "a": 1,
-        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
+        "fb": "Radon causes about 21,000 US deaths a year. A test kit costs 15 to 30 dollars."
        },
        {
-        "q": "What are VOCs?",
+        "q": "What indoor humidity keeps mold away?",
         "o": [
-         "Vitamins in vegetables",
-         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
-         "A type of mould",
-         "Oxygen molecules"
+         "10 to 20%",
+         "40 to 50%",
+         "65 to 75%",
+         "Above 80%"
         ],
         "a": 1,
-        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
+        "fb": "Above 60% the risk of mold climbs fast. A small humidity meter costs about 15 dollars."
        },
        {
-        "q": "What does mould need to grow indoors?",
+        "q": "A closed bedroom can reach what carbon dioxide level by morning?",
         "o": [
-         "Sunlight",
-         "Moisture",
-         "Cold air",
-         "Electricity"
+         "About 420 ppm",
+         "About 800 ppm",
+         "2,000 ppm or more",
+         "It stays the same as outside"
         ],
-        "a": 1,
-        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
+        "a": 2,
+        "fb": "Outside air is about 420. Crack a window or leave the door open and aim for under 800."
        },
        {
-        "q": "What is the target carbon dioxide level for good thinking and sleep?",
+        "q": "What does a true HEPA filter NOT remove?",
         "o": [
-         "Below 800 ppm",
-         "Around 2,500 ppm",
-         "Over 4,000 ppm",
-         "It doesn't matter"
+         "Fine particles",
+         "Mold spores",
+         "Pollen",
+         "Gases, radon and carbon dioxide"
         ],
-        "a": 0,
-        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
+        "a": 3,
+        "fb": "HEPA catches particles. Gases need activated carbon, and radon and CO2 need venting and fresh air."
        }
       ]
      }
@@ -526,63 +594,74 @@ window.MTH_COURSES={
      {
       "id": "music",
       "title": "Music therapy",
-      "mins": 8,
+      "mins": 9,
       "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
       "quiz": [
        {
-        "q": "What happened to cortisol after surgery when patients listened to calming music?",
+        "q": "What did the Lancet review of 73 surgery trials find about music?",
         "o": [
-         "It rose",
-         "It dropped compared with silence",
-         "Nothing changed",
-         "It disappeared completely"
+         "It distracted surgeons",
+         "Less pain, less anxiety and fewer painkillers",
+         "No effect",
+         "It only worked for children"
         ],
         "a": 1,
-        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
+        "fb": "About 7,000 patients, and it worked even under general anesthesia."
        },
        {
-        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
+        "q": "Your favorite song releases dopamine at how many separate moments?",
         "o": [
-         "About 60 beats per minute",
-         "About 140 beats per minute",
-         "About 200 beats per minute",
-         "Tempo doesn't matter"
+         "1",
+         "2",
+         "5",
+         "None"
+        ],
+        "a": 1,
+        "fb": "Once in the build up, when your brain predicts what's coming, and again at the peak."
+       },
+       {
+        "q": "What tempo is most calming music?",
+        "o": [
+         "20 to 40 beats a minute",
+         "60 to 80 beats a minute",
+         "120 to 140 beats a minute",
+         "Over 160 beats a minute"
+        ],
+        "a": 1,
+        "fb": "About the speed of a resting heartbeat. For sleep go under 60, for exercise 120 or more."
+       },
+       {
+        "q": "What is the iso principle?",
+        "o": [
+         "Always play calm music",
+         "Start with music that matches how you feel, then step it down",
+         "Only listen with headphones",
+         "Play the same song on repeat"
+        ],
+        "a": 1,
+        "fb": "Jumping straight from stressed to calm rarely works. You take the stairs."
+       },
+       {
+        "q": "How long was a typical music session in the clinical trials?",
+        "o": [
+         "2 minutes",
+         "20 to 30 minutes",
+         "2 hours",
+         "All day"
+        ],
+        "a": 1,
+        "fb": "Headphones on, eyes closed, really listening, for 20 to 30 minutes."
+       },
+       {
+        "q": "What are the 3 parts of the daily 15 minute practice?",
+        "o": [
+         "Music, stillness and gratitude",
+         "Running, lifting and stretching",
+         "Reading, writing and talking",
+         "Juice, water and rest"
         ],
         "a": 0,
-        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
-       },
-       {
-        "q": "What is \"brainwave entrainment\"?",
-        "o": [
-         "Training your memory with flashcards",
-         "The brain gradually syncing its rhythm to a steady sound",
-         "A type of headphone",
-         "Sleeping with music on"
-        ],
-        "a": 1,
-        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
-       },
-       {
-        "q": "Which nerve does slow, steady music help activate to calm the body?",
-        "o": [
-         "The vagus nerve",
-         "The optic nerve",
-         "The sciatic nerve",
-         "The funny bone"
-        ],
-        "a": 0,
-        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
-       },
-       {
-        "q": "When does the brain release dopamine while listening to music?",
-        "o": [
-         "Only when the music stops",
-         "As it anticipates and reaches the musical \"payoff\" or resolution",
-         "Never",
-         "Only with loud music"
-        ],
-        "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favorite song feels so good."
+        "fb": "Music that matches your mood then slows down, a few minutes of quiet, and 3 things you're grateful for."
        }
       ]
      }
@@ -602,59 +681,70 @@ window.MTH_COURSES={
       "text": "Walking, cardio and simple strength work that wake up your metabolism without draining you, with how to progress week by week.",
       "quiz": [
        {
-        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
+        "q": "In the Diabetes Prevention Program, how did lifestyle change compare with metformin?",
         "o": [
-         "15 minutes",
+         "The drug won easily",
+         "They were equal",
+         "Lifestyle cut diabetes risk by 58%, the drug by 31%",
+         "Neither worked"
+        ],
+        "a": 2,
+        "fb": "About 150 minutes of walking a week and a little weight loss nearly doubled the drug's result."
+       },
+       {
+        "q": "Why does a walk after a meal lower blood sugar?",
+        "o": [
+         "It makes you sweat sugar out",
+         "Working muscles pull sugar from the blood without needing insulin",
+         "It slows digestion",
+         "It raises insulin"
+        ],
+        "a": 1,
+        "fb": "Working muscle has a second door called GLUT4 that doesn't need the insulin key. A 10 minute walk is enough."
+       },
+       {
+        "q": "What is the weekly cardio target?",
+        "o": [
+         "30 minutes",
          "150 minutes",
-         "1,500 minutes",
-         "Any amount over 10 hours"
+         "500 minutes",
+         "It doesn't matter"
         ],
         "a": 1,
-        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
+        "fb": "150 minutes a week at a pace where you can still talk. If you're starting out, 10 minutes is a win."
        },
        {
-        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
+        "q": "Why does muscle matter for blood sugar?",
         "o": [
-         "Stretching only",
-         "Strength (resistance) training",
-         "Walking slowly",
-         "Sitting upright"
+         "It stores fat",
+         "It is the biggest sugar sponge in your body",
+         "It makes insulin",
+         "It slows digestion"
         ],
         "a": 1,
-        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
+        "fb": "Most of the sugar from a meal is soaked up by muscle, so more muscle means more room to put it away."
        },
        {
-        "q": "What is the \"afterburn\" (EPOC) effect?",
+        "q": "What are the 5 moves in the strength plan?",
         "o": [
-         "Sore muscles the next day",
-         "A raised metabolism for hours after a hard workout",
-         "Sunburn from outdoor exercise",
-         "Heartburn after eating"
-        ],
-        "a": 1,
-        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
-       },
-       {
-        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
-        "o": [
-         "Visceral fat",
-         "Fat under the skin on your arms",
-         "Fat in your feet",
-         "Brown fat"
+         "Squats, lunges, push ups, sit ups and shadow boxing",
+         "Deadlifts, bench press, rows, curls and dips",
+         "Running, cycling, swimming, rowing and hiking",
+         "Yoga, pilates, stretching, tai chi and dance"
         ],
         "a": 0,
-        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
+        "fb": "No gym needed. Two sessions a week, and a little bit more each week."
        },
        {
-        "q": "How does exercise lower blood sugar without needing insulin?",
+        "q": "What should you do for exercise during your cleanse week?",
         "o": [
-         "It makes you sweat out sugar",
-         "Working muscles pull sugar in through GLUT4 transporters",
-         "It stops the liver from working",
-         "It doesn't lower blood sugar"
+         "Train as hard as possible",
+         "Rest for the first 2 days, then only gentle walks",
+         "Lift heavy every day",
+         "Run every morning"
         ],
         "a": 1,
-        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
+        "fb": "Your body is busy repairing. Build back up once you're eating again."
        }
       ]
      },
@@ -733,71 +823,169 @@ window.MTH_COURSES={
      {
       "id": "keto",
       "title": "The High Protein Meal Plan",
-      "mins": 12,
+      "mins": 5,
       "text": "How protein-first meals keep you full, protect muscle while you lose fat, and give your gut lining the building blocks to repair, and how to build a high-protein plate after your cleanse.",
       "quiz": [
        {
-        "q": "Which nutrient keeps you full the longest per calorie?",
+        "q": "Which hormone, the same one weight loss shots copy, does a high protein meal turn up?",
         "o": [
-         "Protein",
-         "Sugar",
-         "Fat",
-         "Alcohol"
-        ],
-        "a": 0,
-        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
-       },
-       {
-        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
-        "o": [
-         "0.3 g",
-         "About 1.2–1.6 g",
-         "5 g",
-         "No target needed"
+         "Insulin",
+         "GLP-1",
+         "Cortisol",
+         "Melatonin"
         ],
         "a": 1,
-        "fb": "Around 0.55–0.75 g per pound a day protects muscle while you lose fat and gives your body the building blocks to repair."
+        "fb": "Your gut makes its own GLP-1. Protein also turns down ghrelin, the hunger hormone."
        },
        {
-        "q": "About how much protein per meal helps your muscles rebuild best?",
+        "q": "What are protein's 3 jobs?",
         "o": [
-         "5 g",
-         "About 25–40 g",
-         "100 g",
-         "It doesn't matter"
+         "Energy, sweetness and fiber",
+         "Fullness, costing more energy to digest, and protecting muscle",
+         "Hydration, sleep and mood",
+         "Storing fat, raising sugar and building bone"
         ],
         "a": 1,
-        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
+        "fb": "Higher protein diets lost more fat and kept more muscle in the pooled weight loss trials."
        },
        {
-        "q": "Why does protein help when you're losing weight?",
+        "q": "What is the simple protein rule in this course?",
         "o": [
-         "It protects muscle so the weight you lose is fat",
-         "It adds water weight",
-         "It stops digestion",
-         "It replaces sleep"
+         "10 grams a day",
+         "30 grams at every meal",
+         "100 grams at dinner",
+         "Protein only on training days"
         ],
-        "a": 0,
-        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
+        "a": 1,
+        "fb": "30 grams looks like a palm sized piece of meat or fish, or 4 to 5 eggs. Eat it first."
        },
        {
-        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
+        "q": "What should you eat first on your plate?",
         "o": [
-         "About 20–30%",
-         "1%",
-         "Over 80%",
-         "None"
+         "Bread",
+         "Fruit",
+         "The protein",
+         "Dessert"
         ],
-        "a": 0,
-        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
+        "a": 2,
+        "fb": "Protein first fills you up and steadies your blood sugar, then the vegetables."
+       },
+       {
+        "q": "Why does protein matter even more when you lose weight fast or use a GLP-1?",
+        "o": [
+         "It speeds up weight loss",
+         "It protects your muscle so the weight you lose is fat",
+         "It replaces water",
+         "It blocks the medication"
+        ],
+        "a": 1,
+        "fb": "Muscle is the engine that keeps the weight off. Protein plus lifting is how you keep it."
        }
       ]
      },
      {
       "id": "hydration",
       "title": "High hydration",
-      "mins": 6,
-      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days."
+      "mins": 2,
+      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days.",
+      "quiz": [
+       {
+        "q": "Fewer than how many Americans get enough potassium?",
+        "o": [
+         "1 in 2",
+         "1 in 5",
+         "1 in 20",
+         "Nearly everyone gets enough"
+        ],
+        "a": 2,
+        "fb": "Potassium helps steady your heart rhythm, blood pressure and muscles. You get it from vegetables, avocado and fish."
+       },
+       {
+        "q": "What is often mistaken for hunger?",
+        "o": [
+         "Tiredness",
+         "Thirst",
+         "Cold",
+         "Boredom only"
+        ],
+        "a": 1,
+        "fb": "A lot of what we think is hunger is really thirst, so drink first."
+       },
+       {
+        "q": "When does Mark drink a big glass of water?",
+        "o": [
+         "Only at dinner",
+         "As soon as he gets up and before every meal",
+         "Only after exercise",
+         "Just before bed"
+        ],
+        "a": 1,
+        "fb": "Your body needs plenty of water to process protein and keep digestion moving."
+       }
+      ]
+     },
+     {
+      "id": "supplements",
+      "title": "Nature's supplements & the pills worth taking",
+      "mins": 5,
+      "text": "The three foods that work like a multivitamin (oysters, beef liver and canned sardines), then the three pills that have earned a place: creatine, collagen with vitamin C, and lactoferrin. Food first, pills last.",
+      "quiz": [
+       {
+        "q": "Which food has about 3 times your daily zinc in a 3 ounce serving?",
+        "o": [
+         "Chicken breast",
+         "Oysters",
+         "Spinach",
+         "Rice"
+        ],
+        "a": 1,
+        "fb": "Oysters have more zinc than any other food. Canned smoked oysters once or twice a week is plenty."
+       },
+       {
+        "q": "Why is beef liver treated like a supplement and kept to a small serving about once a week?",
+        "o": [
+         "It is expensive",
+         "It is very high in vitamin A, which builds up in your body",
+         "It has no nutrients",
+         "It is hard to digest"
+        ],
+        "a": 1,
+        "fb": "A 3 ounce serving has almost 9 times your daily vitamin A. If you're pregnant, talk to your doctor before eating liver."
+       },
+       {
+        "q": "What do you get from the soft bones in canned sardines?",
+        "o": [
+         "Zinc",
+         "Calcium and vitamin D",
+         "Vitamin C",
+         "Fiber"
+        ],
+        "a": 1,
+        "fb": "Plus protein, omega 3 fats and more than 3 days of B12 in a single can."
+       },
+       {
+        "q": "What is the daily dose of creatine, and what does it need to work?",
+        "o": [
+         "20 grams, and nothing else",
+         "3 to 5 grams, alongside strength training",
+         "1 gram, with coffee",
+         "50 grams, on rest days only"
+        ],
+        "a": 1,
+        "fb": "Creatine without the training did nothing in the studies. Check with your doctor first if you have kidney disease."
+       },
+       {
+        "q": "How does Mark rank the evidence for lactoferrin?",
+        "o": [
+         "Proven beyond doubt",
+         "Promising but not proven",
+         "Useless",
+         "Dangerous"
+        ],
+        "a": 1,
+        "fb": "Much of the research is early and done in the lab. Food comes first, then nature's supplements, then pills."
+       }
+      ]
      }
     ]
    }
@@ -838,63 +1026,74 @@ window.MTH_COURSES={
      {
       "id": "fasting",
       "title": "Fasting & your blood sugar",
-      "mins": 12,
-      "text": "Why short, guided fasts help insulin come down and blood sugar settle, the three cleanse levels, and how to fast safely. If you take insulin or blood-sugar medication, talk to your doctor before you fast.",
+      "mins": 10,
+      "text": "Two videos. First the repair switch: autophagy, what a 100-person fasting trial did to blood work, and what fasting does for joints and the brain. Then how to rest your gut with the juice cleanse or the water fast, how to come back to food, and who needs to check with their doctor first.",
       "quiz": [
        {
-        "q": "What is autophagy?",
+        "q": "What does autophagy mean?",
         "o": [
-         "A type of juice cleanse",
-         "The body's built-in cellular recycling and clean-up process",
-         "A hormone that makes you hungry",
-         "A form of exercise"
+         "Fat burning",
+         "Self eating: your cells recycling their own worn out parts",
+         "A kind of juice cleanse",
+         "A hunger hormone"
         ],
         "a": 1,
-        "fb": "Autophagy means \"self-eating\": your cells break down and recycle damaged parts. Fasting is one of its strongest triggers."
+        "fb": "Autophagy is your body's built-in recycling system. The discovery of how it works won the Nobel Prize in 2016."
        },
        {
-        "q": "Roughly when does autophagy start to switch on during a fast?",
+        "q": "Which 2 hormones fall when you fast, flipping your body from growth into repair?",
         "o": [
-         "After 1–2 hours",
-         "After 12–16 hours",
-         "After 5 days",
-         "Only during sleep"
-        ],
-        "a": 1,
-        "fb": "Around 12–16 hours in, stored sugar runs low and insulin drops, so the clean-up process begins. It builds from there."
-       },
-       {
-        "q": "Which fasting style is described as the best entry point for beginners?",
-        "o": [
-         "A 7-day water fast",
-         "Juice fasting",
-         "One meal a day",
-         "A dry fast"
-        ],
-        "a": 1,
-        "fb": "Juice fasting gives your gut a rest while still providing vitamins and plant nutrients, which makes it gentler to start with."
-       },
-       {
-        "q": "The Fasting Mimicking Diet (FMD) was developed by which researcher?",
-        "o": [
-         "Dr. Valter Longo",
-         "Dr. Otto Warburg",
-         "Dr. James Pennebaker",
-         "Dr. Roger Ulrich"
+         "Insulin and IGF-1",
+         "Melatonin and serotonin",
+         "Adrenaline and cortisol",
+         "Estrogen and testosterone"
         ],
         "a": 0,
-        "fb": "Dr. Longo's team at USC designed FMD: five low-calorie, plant-based days that give many of fasting's benefits while still eating a little."
+        "fb": "Insulin and IGF-1 tell your cells to grow and store. When they fall, the cleanup crew finally gets a turn."
        },
        {
-        "q": "In 16:8 intermittent fasting, what do the numbers mean?",
+        "q": "In Valter Longo's trial of 100 people, who improved the most?",
         "o": [
-         "16 meals and 8 snacks a week",
-         "16 hours fasting and an 8-hour eating window",
-         "16 days fasting and 8 days eating",
-         "16 glasses of water and 8 hours of sleep"
+         "The youngest people",
+         "People who were already healthy",
+         "People who started with the worst numbers",
+         "People who exercised the most"
+        ],
+        "a": 2,
+        "fb": "Fasting fixed what was off. People with high blood pressure, cholesterol or inflammation improved most, and healthy numbers barely moved."
+       },
+       {
+        "q": "What happened to gut stem cells after a 24 hour fast in the MIT study (in mice)?",
+        "o": [
+         "They shut down",
+         "Their repair power roughly doubled",
+         "Nothing changed",
+         "They turned into fat cells"
         ],
         "a": 1,
-        "fb": "16:8 is the most studied daily schedule: you eat within an 8-hour window and fast for the other 16 hours."
+        "fb": "The stem cells that rebuild your gut lining switched to burning fat and got better at repair, most of all in older animals."
+       },
+       {
+        "q": "What are the 2 cleanse levels in this course?",
+        "o": [
+         "Keto and carnivore",
+         "Juice cleanse and water fast",
+         "Broth fast and dry fast",
+         "Smoothies and soup"
+        ],
+        "a": 1,
+        "fb": "The juice cleanse is the gentler place to start. The water fast flips the repair switch the hardest."
+       },
+       {
+        "q": "Who should talk to their doctor before any fast?",
+        "o": [
+         "Only people over 70",
+         "Nobody, fasting is safe for everyone",
+         "Anyone on insulin, blood sugar pills or blood pressure medication, or who is pregnant or has had an eating disorder",
+         "Only people who have never fasted"
+        ],
+        "a": 2,
+        "fb": "Your numbers can drop fast when you stop eating, and your doctor may need to adjust your dose to keep you safe."
        }
       ]
      }
@@ -910,126 +1109,126 @@ window.MTH_COURSES={
      {
       "id": "meditation",
       "title": "Meditation",
-      "mins": 10,
+      "mins": 5,
       "text": "Stress shows up in the gut. Learn what a few minutes of daily practice does to your stress hormones and brain, and a simple routine you can start today.",
       "quiz": [
        {
-        "q": "In the Harvard brain-scan studies, how long did an MBSR meditation course take to show measurable brain changes?",
+        "q": "After an 8 week mindfulness course, what happened to the brain's alarm center (the amygdala)?",
         "o": [
-         "1 day",
-         "8 weeks",
-         "2 years",
-         "10 years"
+         "It grew larger",
+         "It got less dense",
+         "It stopped working",
+         "Nothing changed"
         ],
         "a": 1,
-        "fb": "About 8 weeks of regular practice was enough to see changes on MRI scans, so a steady habit adds up quickly."
+        "fb": "The alarm center got less dense, and the more a person's stress came down, the more it changed. The memory area (hippocampus) grew."
        },
        {
-        "q": "Which part of the brain, the \"alarm system\" for fear and stress, became less dense after the meditation course?",
+        "q": "How much meditation training did the beginners in the Wake Forest pain study get?",
         "o": [
-         "The amygdala",
-         "The spinal cord",
-         "The cerebellum",
-         "The optic nerve"
+         "4 sessions of 20 minutes",
+         "8 weeks of daily practice",
+         "A 3 month retreat",
+         "1 hour a day for a year"
         ],
         "a": 0,
-        "fb": "The amygdala drives stress reactions. As it quietens, people report less stress and anxiety."
+        "fb": "Just 80 minutes in total. Pain felt about 40% less intense and 57% less unpleasant."
        },
        {
-        "q": "Which brainwave state is described as \"relaxed alertness\", common in experienced meditators?",
+        "q": "Why is calming your mind a gut treatment?",
         "o": [
-         "Beta",
-         "Alpha",
-         "Gamma",
-         "Delta"
+         "It burns calories",
+         "Your gut only digests properly in the rest and digest gear",
+         "It kills gut bacteria",
+         "It raises stomach acid"
         ],
         "a": 1,
-        "fb": "Alpha is the calm, focused state. Meditation helps shift a stressed, high-beta brain toward it."
+        "fb": "You can't digest properly in the stress gear. Meditation shifts you into rest and digest, where healing happens."
        },
        {
-        "q": "What does BDNF, which rises with regular meditation, help the brain do?",
+        "q": "In the UCLA sleep trial, what worked better for poor sleepers?",
         "o": [
-         "Store fat",
-         "Grow new neurons and strengthen connections",
-         "Produce stomach acid",
-         "Raise cortisol"
+         "A sleep habits class",
+         "Sleeping pills",
+         "A 6 week mindfulness course",
+         "Afternoon naps"
         ],
-        "a": 1,
-        "fb": "BDNF is like fertiliser for brain cells. It supports learning, memory and mood."
+        "a": 2,
+        "fb": "The mindfulness group slept better and had less fatigue and depression. A busy head is behind most sleep trouble."
        },
        {
-        "q": "What does meditation do to cortisol, the main stress hormone?",
+        "q": "When your mind wanders during meditation, what does that mean?",
         "o": [
-         "Raises it",
-         "Lowers it",
-         "Has no effect",
-         "Turns it into insulin"
+         "You failed and should stop",
+         "You are doing it wrong",
+         "Noticing it and coming back is the exercise",
+         "You need a longer session"
         ],
-        "a": 1,
-        "fb": "Regular practice lowers cortisol, which calms inflammation and helps break the stress and pain cycle."
+        "a": 2,
+        "fb": "That's the rep. Start with 5 minutes a day and build up from there."
        }
       ]
      },
      {
       "id": "journaling",
       "title": "Journaling",
-      "mins": 8,
+      "mins": 5,
       "text": "Writing things down calms the mind and shows you patterns in your symptoms. A short, guided way to journal through your reset.",
       "quiz": [
        {
-        "q": "How long was each writing session in Pennebaker's expressive writing studies?",
+        "q": "In the New Zealand wound study, how many of the expressive writers had healed by day 11?",
         "o": [
-         "2 minutes",
-         "About 15 minutes a day",
-         "2 hours",
-         "All day"
+         "42%",
+         "50%",
+         "76%",
+         "100%"
         ],
-        "a": 1,
-        "fb": "Just 15 minutes a day for 4 days was enough to see real health benefits. It's a small, doable habit."
+        "a": 2,
+        "fb": "76% of the people who wrote about their feelings had healed, compared with 42% of the people who wrote about their daily plans."
        },
        {
-        "q": "In his original study, what happened to students who wrote about difficult experiences?",
+        "q": "In Pennebaker's original study, students who wrote about hard experiences for 4 days did what over the next 6 months?",
         "o": [
-         "They visited the health center about half as often",
-         "They got sick more often",
-         "Nothing changed",
-         "They stopped sleeping"
+         "Got better grades",
+         "Visited the health center about half as often",
+         "Slept 2 hours longer",
+         "Lost weight"
+        ],
+        "a": 1,
+        "fb": "One hour of honest writing in total, and about half as many doctor visits."
+       },
+       {
+        "q": "What did the Baylor study find helps you fall asleep faster?",
+        "o": [
+         "Writing a to do list for the coming days",
+         "Reading the news",
+         "Writing about what you already finished",
+         "Counting backwards"
         ],
         "a": 0,
-        "fb": "Putting hard feelings into words seems to take a load off the body as well as the mind."
+        "fb": "The to do list group fell asleep about 9 minutes faster, and the more detailed the list, the faster they dropped off."
        },
        {
-        "q": "Which stress hormone tends to be lower on days people journal?",
+        "q": "What is the simplest gratitude practice from the lesson?",
         "o": [
-         "Insulin",
-         "Cortisol",
-         "Melatonin",
-         "Oxytocin"
+         "Writing a letter every day",
+         "3 good things at the end of the day",
+         "A 1 hour journaling session",
+         "Meditating on gratitude for 30 minutes"
         ],
         "a": 1,
-        "fb": "Writing helps the brain \"close the loop\" on worries, so the stress system settles and cortisol drops."
+        "fb": "Three things that went well today, even small ones. It trains your brain to look for what's working."
        },
        {
-        "q": "Which type of bedtime writing helped people fall asleep fastest?",
+        "q": "What should you end every journal entry with?",
         "o": [
-         "Writing a to-do list for tomorrow",
-         "Writing about what went wrong today",
-         "Copying out a book",
-         "Writing nothing at all"
-        ],
-        "a": 0,
-        "fb": "Getting tomorrow's tasks onto paper offloads them from your mind, so you fall asleep faster."
-       },
-       {
-        "q": "What does gratitude journaling help with, according to the review of 64 trials?",
-        "o": [
-         "Only handwriting",
-         "Lower anxiety and better mood and sleep",
-         "Weight gain",
-         "Nothing measurable"
+         "A list of your worries",
+         "One next step",
+         "A drawing",
+         "Yesterday's entry"
         ],
         "a": 1,
-        "fb": "Writing down a few things you're grateful for each night is linked to calmer moods and better sleep."
+        "fb": "One next step keeps you moving forward so you're not going around in circles."
        }
       ]
      }
@@ -1045,63 +1244,63 @@ window.MTH_COURSES={
      {
       "id": "sunlight",
       "title": "Sunlight",
-      "mins": 8,
+      "mins": 5,
       "text": "Morning light, vitamin D and your body clock: how to get the right amount of sun safely.",
       "quiz": [
        {
-        "q": "In the hospital studies, what happened to patients in sunnier rooms?",
+        "q": "In the Swedish study of about 30,000 women, how did sun avoiders compare with those who got the most sun?",
         "o": [
-         "They stayed longer",
-         "They recovered faster and used less pain medication",
-         "Nothing changed",
-         "They slept less"
+         "They lived longer",
+         "Roughly twice the death rate",
+         "No difference",
+         "Half the death rate"
         ],
         "a": 1,
-        "fb": "Brighter rooms were linked to quicker recovery, earlier discharge and less need for pain relief."
+        "fb": "Sun avoiders had roughly twice the death rate over 20 years. It's one study and can't prove cause, but it's striking."
        },
        {
-        "q": "Which vitamin does your skin make from sunlight?",
+        "q": "Spine surgery patients in brighter hospital rooms used how much less pain medication?",
         "o": [
-         "Vitamin C",
-         "Vitamin D",
-         "Vitamin B12",
-         "Vitamin K"
+         "2%",
+         "22%",
+         "60%",
+         "None"
         ],
         "a": 1,
-        "fb": "UVB light on your skin starts vitamin D production, which supports immunity, bones and mood."
+        "fb": "About 46% more sunlight, and 22% less pain medication every hour."
        },
        {
-        "q": "Why is morning sunlight especially helpful?",
+        "q": "When is the most important light of the day for your body clock?",
         "o": [
-         "It's warmer",
-         "It resets your body clock, which improves sleep that night",
-         "It has no UV",
-         "It boosts caffeine"
+         "Midday",
+         "Late afternoon",
+         "Morning",
+         "Just before bed"
+        ],
+        "a": 2,
+        "fb": "15 to 30 minutes of morning light sets your clock, lifts your serotonin and lets melatonin rise on time that night."
+       },
+       {
+        "q": "How does sunlight lower blood pressure, apart from vitamin D?",
+        "o": [
+         "It makes you sweat",
+         "It releases nitric oxide from your skin, which relaxes blood vessels",
+         "It slows your heart",
+         "It thins your blood"
         ],
         "a": 1,
-        "fb": "Morning light sets your circadian rhythm, so melatonin is released on time in the evening."
+        "fb": "Edinburgh researchers found blood pressure came down within about 20 minutes."
        },
        {
-        "q": "Which mood chemical does sunlight help your brain make?",
+        "q": "What is rule number 1 with the sun?",
         "o": [
-         "Serotonin",
-         "Adrenaline",
-         "Cortisol",
-         "Histamine"
+         "Get as much as you can",
+         "Only go out at noon",
+         "Never burn",
+         "Always wear a hat"
         ],
-        "a": 0,
-        "fb": "Serotonin lifts mood and dampens pain signals, one reason sunny days feel better."
-       },
-       {
-        "q": "What happens to blood pressure after about 20 minutes of sun, according to the Edinburgh research?",
-        "o": [
-         "It goes up sharply",
-         "It drops slightly as nitric oxide widens blood vessels",
-         "It stays exactly the same",
-         "It becomes irregular"
-        ],
-        "a": 1,
-        "fb": "UVA light releases nitric oxide from the skin, relaxing blood vessels. Enjoy the sun, but never burn."
+        "a": 2,
+        "fb": "A burn is damage. Build up gradually with short, regular exposure."
        }
       ]
      },
@@ -1171,8 +1370,65 @@ window.MTH_COURSES={
      {
       "id": "forest",
       "title": "Forest bathing",
-      "mins": 6,
-      "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week."
+      "mins": 5,
+      "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week.",
+      "quiz": [
+       {
+        "q": "After a 2 to 3 day forest trip, what happened to natural killer cell activity?",
+        "o": [
+         "It dropped by half",
+         "It rose by about 50%",
+         "It stayed the same",
+         "It doubled every day"
+        ],
+        "a": 1,
+        "fb": "Natural killer cells hunt virus infected and abnormal cells. Their activity rose by about half, and a matching city trip changed nothing."
+       },
+       {
+        "q": "How long did the immune lift last after a longer forest trip?",
+        "o": [
+         "A few hours",
+         "1 day",
+         "Up to 30 days",
+         "1 year"
+        ],
+        "a": 2,
+        "fb": "Up to 30 days, which is why a forest day once a month keeps it switched on."
+       },
+       {
+        "q": "What are phytoncides?",
+        "o": [
+         "A kind of pollen",
+         "Natural oils trees release to protect themselves",
+         "Forest soil bacteria",
+         "A vitamin in leaves"
+        ],
+        "a": 1,
+        "fb": "They are the scent of a pine or cedar forest. Breathing them in raised killer cells and lowered stress hormones."
+       },
+       {
+        "q": "In the Stanford study, what did a 90 minute nature walk do that a walk beside a busy road did not?",
+        "o": [
+         "Burned more calories",
+         "Reduced brooding and quieted a brain area that is overactive in depression",
+         "Raised blood pressure",
+         "Improved eyesight"
+        ],
+        "a": 1,
+        "fb": "Only the nature walkers came back brooding less."
+       },
+       {
+        "q": "How do you forest bathe?",
+        "o": [
+         "Hike as fast as you can",
+         "Walk slowly, breathe deeply, phone away",
+         "Run with headphones on",
+         "Only in winter"
+        ],
+        "a": 1,
+        "fb": "It isn't a hike. Slow down, breathe through your nose, or simply sit against a tree for 20 minutes."
+       }
+      ]
      }
     ]
    },
@@ -1186,126 +1442,126 @@ window.MTH_COURSES={
      {
       "id": "sleep",
       "title": "Sleep",
-      "mins": 10,
+      "mins": 5,
       "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
       "quiz": [
        {
-        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
+        "q": "In the sleep lab study, caffeine taken 6 hours before bed did what?",
         "o": [
-         "55–58°F",
-         "65–68°F",
-         "75–78°F",
-         "Above 80°F"
+         "Nothing",
+         "Cut sleep by more than 1 hour",
+         "Helped people fall asleep",
+         "Only affected dreams"
         ],
         "a": 1,
-        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
+        "fb": "And people didn't notice. Caffeine has a half life of about 5 hours, so the cutoff is noon."
        },
        {
-        "q": "About how long is the half-life of caffeine in most adults?",
+        "q": "What bedroom temperature supports deep sleep?",
+        "o": [
+         "60 to 62°F",
+         "65 to 68°F",
+         "72 to 75°F",
+         "78 to 80°F"
+        ],
+        "a": 1,
+        "fb": "Your core temperature has to drop 1 to 2 degrees to fall asleep, and a cool room lets it."
+       },
+       {
+        "q": "What did ordinary room light in the evening do in the Harvard study?",
+        "o": [
+         "Nothing",
+         "Raised melatonin",
+         "Cut the melatonin window by about 90 minutes",
+         "Improved deep sleep"
+        ],
+        "a": 2,
+        "fb": "Use warm dim lamps for the last hour, blackout curtains, and keep your phone out of the bedroom."
+       },
+       {
+        "q": "How long before bed should you finish eating?",
         "o": [
          "30 minutes",
-         "About 6 hours",
-         "24 hours",
-         "A week"
+         "1 hour",
+         "About 3 hours",
+         "It doesn't matter"
         ],
-        "a": 1,
-        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
+        "a": 2,
+        "fb": "Digestion and body temperature need about 3 hours to wind down."
        },
        {
-        "q": "How long before bed should you avoid screens and bright blue light?",
+        "q": "Which habit anchors your whole body clock?",
         "o": [
-         "5 minutes",
-         "About 1 hour",
-         "It doesn't matter",
-         "12 hours"
+         "Going to bed at 9",
+         "The same wake time every day, weekends too",
+         "A nap after lunch",
+         "Sleeping in on Sundays"
         ],
         "a": 1,
-        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
-       },
-       {
-        "q": "Why are blackout curtains recommended?",
-        "o": [
-         "They keep the room warm",
-         "Even a little light can cut melatonin, and darkness lets it rise fully",
-         "They block noise",
-         "They look better"
-        ],
-        "a": 1,
-        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
-       },
-       {
-        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
-        "o": [
-         "Its blue light and stimulating content keep your brain alert",
-         "It uses too much electricity",
-         "It makes the room hot",
-         "It has no effect on sleep"
-        ],
-        "a": 0,
-        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
+        "fb": "Your wake time matters more than your bedtime."
        }
       ]
      },
      {
       "id": "air",
       "title": "Indoor air quality",
-      "mins": 6,
+      "mins": 5,
       "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
       "quiz": [
        {
-        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
+        "q": "About how much of your life do you spend indoors?",
         "o": [
-         "It is cleaner",
-         "It is 2–5 times more polluted",
-         "It is exactly the same",
-         "It has no pollutants"
+         "30%",
+         "50%",
+         "70%",
+         "90%"
         ],
-        "a": 1,
-        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
+        "a": 3,
+        "fb": "About 90%, and the EPA says indoor air is often 2 to 5 times more polluted than outdoor air."
        },
        {
-        "q": "Radon is dangerous partly because it is…",
+        "q": "What is the leading cause of lung cancer in people who have never smoked?",
         "o": [
-         "Bright red and smelly",
-         "Colorless and odourless, so you need a monitor to detect it",
-         "Only found in big cities",
-         "Harmless in small amounts"
+         "Mold",
+         "Radon",
+         "Dust",
+         "Pollen"
         ],
         "a": 1,
-        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
+        "fb": "Radon causes about 21,000 US deaths a year. A test kit costs 15 to 30 dollars."
        },
        {
-        "q": "What are VOCs?",
+        "q": "What indoor humidity keeps mold away?",
         "o": [
-         "Vitamins in vegetables",
-         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
-         "A type of mould",
-         "Oxygen molecules"
+         "10 to 20%",
+         "40 to 50%",
+         "65 to 75%",
+         "Above 80%"
         ],
         "a": 1,
-        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
+        "fb": "Above 60% the risk of mold climbs fast. A small humidity meter costs about 15 dollars."
        },
        {
-        "q": "What does mould need to grow indoors?",
+        "q": "A closed bedroom can reach what carbon dioxide level by morning?",
         "o": [
-         "Sunlight",
-         "Moisture",
-         "Cold air",
-         "Electricity"
+         "About 420 ppm",
+         "About 800 ppm",
+         "2,000 ppm or more",
+         "It stays the same as outside"
         ],
-        "a": 1,
-        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
+        "a": 2,
+        "fb": "Outside air is about 420. Crack a window or leave the door open and aim for under 800."
        },
        {
-        "q": "What is the target carbon dioxide level for good thinking and sleep?",
+        "q": "What does a true HEPA filter NOT remove?",
         "o": [
-         "Below 800 ppm",
-         "Around 2,500 ppm",
-         "Over 4,000 ppm",
-         "It doesn't matter"
+         "Fine particles",
+         "Mold spores",
+         "Pollen",
+         "Gases, radon and carbon dioxide"
         ],
-        "a": 0,
-        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
+        "a": 3,
+        "fb": "HEPA catches particles. Gases need activated carbon, and radon and CO2 need venting and fresh air."
        }
       ]
      }
@@ -1321,63 +1577,74 @@ window.MTH_COURSES={
      {
       "id": "music",
       "title": "Music therapy",
-      "mins": 8,
+      "mins": 9,
       "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
       "quiz": [
        {
-        "q": "What happened to cortisol after surgery when patients listened to calming music?",
+        "q": "What did the Lancet review of 73 surgery trials find about music?",
         "o": [
-         "It rose",
-         "It dropped compared with silence",
-         "Nothing changed",
-         "It disappeared completely"
+         "It distracted surgeons",
+         "Less pain, less anxiety and fewer painkillers",
+         "No effect",
+         "It only worked for children"
         ],
         "a": 1,
-        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
+        "fb": "About 7,000 patients, and it worked even under general anesthesia."
        },
        {
-        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
+        "q": "Your favorite song releases dopamine at how many separate moments?",
         "o": [
-         "About 60 beats per minute",
-         "About 140 beats per minute",
-         "About 200 beats per minute",
-         "Tempo doesn't matter"
+         "1",
+         "2",
+         "5",
+         "None"
+        ],
+        "a": 1,
+        "fb": "Once in the build up, when your brain predicts what's coming, and again at the peak."
+       },
+       {
+        "q": "What tempo is most calming music?",
+        "o": [
+         "20 to 40 beats a minute",
+         "60 to 80 beats a minute",
+         "120 to 140 beats a minute",
+         "Over 160 beats a minute"
+        ],
+        "a": 1,
+        "fb": "About the speed of a resting heartbeat. For sleep go under 60, for exercise 120 or more."
+       },
+       {
+        "q": "What is the iso principle?",
+        "o": [
+         "Always play calm music",
+         "Start with music that matches how you feel, then step it down",
+         "Only listen with headphones",
+         "Play the same song on repeat"
+        ],
+        "a": 1,
+        "fb": "Jumping straight from stressed to calm rarely works. You take the stairs."
+       },
+       {
+        "q": "How long was a typical music session in the clinical trials?",
+        "o": [
+         "2 minutes",
+         "20 to 30 minutes",
+         "2 hours",
+         "All day"
+        ],
+        "a": 1,
+        "fb": "Headphones on, eyes closed, really listening, for 20 to 30 minutes."
+       },
+       {
+        "q": "What are the 3 parts of the daily 15 minute practice?",
+        "o": [
+         "Music, stillness and gratitude",
+         "Running, lifting and stretching",
+         "Reading, writing and talking",
+         "Juice, water and rest"
         ],
         "a": 0,
-        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
-       },
-       {
-        "q": "What is \"brainwave entrainment\"?",
-        "o": [
-         "Training your memory with flashcards",
-         "The brain gradually syncing its rhythm to a steady sound",
-         "A type of headphone",
-         "Sleeping with music on"
-        ],
-        "a": 1,
-        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
-       },
-       {
-        "q": "Which nerve does slow, steady music help activate to calm the body?",
-        "o": [
-         "The vagus nerve",
-         "The optic nerve",
-         "The sciatic nerve",
-         "The funny bone"
-        ],
-        "a": 0,
-        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
-       },
-       {
-        "q": "When does the brain release dopamine while listening to music?",
-        "o": [
-         "Only when the music stops",
-         "As it anticipates and reaches the musical \"payoff\" or resolution",
-         "Never",
-         "Only with loud music"
-        ],
-        "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favorite song feels so good."
+        "fb": "Music that matches your mood then slows down, a few minutes of quiet, and 3 things you're grateful for."
        }
       ]
      }
@@ -1397,59 +1664,70 @@ window.MTH_COURSES={
       "text": "Working muscles soak up glucose. Walking after meals, cardio and simple strength work that steady your blood sugar, with how to progress week by week.",
       "quiz": [
        {
-        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
+        "q": "In the Diabetes Prevention Program, how did lifestyle change compare with metformin?",
         "o": [
-         "15 minutes",
+         "The drug won easily",
+         "They were equal",
+         "Lifestyle cut diabetes risk by 58%, the drug by 31%",
+         "Neither worked"
+        ],
+        "a": 2,
+        "fb": "About 150 minutes of walking a week and a little weight loss nearly doubled the drug's result."
+       },
+       {
+        "q": "Why does a walk after a meal lower blood sugar?",
+        "o": [
+         "It makes you sweat sugar out",
+         "Working muscles pull sugar from the blood without needing insulin",
+         "It slows digestion",
+         "It raises insulin"
+        ],
+        "a": 1,
+        "fb": "Working muscle has a second door called GLUT4 that doesn't need the insulin key. A 10 minute walk is enough."
+       },
+       {
+        "q": "What is the weekly cardio target?",
+        "o": [
+         "30 minutes",
          "150 minutes",
-         "1,500 minutes",
-         "Any amount over 10 hours"
+         "500 minutes",
+         "It doesn't matter"
         ],
         "a": 1,
-        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
+        "fb": "150 minutes a week at a pace where you can still talk. If you're starting out, 10 minutes is a win."
        },
        {
-        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
+        "q": "Why does muscle matter for blood sugar?",
         "o": [
-         "Stretching only",
-         "Strength (resistance) training",
-         "Walking slowly",
-         "Sitting upright"
+         "It stores fat",
+         "It is the biggest sugar sponge in your body",
+         "It makes insulin",
+         "It slows digestion"
         ],
         "a": 1,
-        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
+        "fb": "Most of the sugar from a meal is soaked up by muscle, so more muscle means more room to put it away."
        },
        {
-        "q": "What is the \"afterburn\" (EPOC) effect?",
+        "q": "What are the 5 moves in the strength plan?",
         "o": [
-         "Sore muscles the next day",
-         "A raised metabolism for hours after a hard workout",
-         "Sunburn from outdoor exercise",
-         "Heartburn after eating"
-        ],
-        "a": 1,
-        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
-       },
-       {
-        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
-        "o": [
-         "Visceral fat",
-         "Fat under the skin on your arms",
-         "Fat in your feet",
-         "Brown fat"
+         "Squats, lunges, push ups, sit ups and shadow boxing",
+         "Deadlifts, bench press, rows, curls and dips",
+         "Running, cycling, swimming, rowing and hiking",
+         "Yoga, pilates, stretching, tai chi and dance"
         ],
         "a": 0,
-        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
+        "fb": "No gym needed. Two sessions a week, and a little bit more each week."
        },
        {
-        "q": "How does exercise lower blood sugar without needing insulin?",
+        "q": "What should you do for exercise during your cleanse week?",
         "o": [
-         "It makes you sweat out sugar",
-         "Working muscles pull sugar in through GLUT4 transporters",
-         "It stops the liver from working",
-         "It doesn't lower blood sugar"
+         "Train as hard as possible",
+         "Rest for the first 2 days, then only gentle walks",
+         "Lift heavy every day",
+         "Run every morning"
         ],
         "a": 1,
-        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
+        "fb": "Your body is busy repairing. Build back up once you're eating again."
        }
       ]
      },
@@ -1528,71 +1806,169 @@ window.MTH_COURSES={
      {
       "id": "keto",
       "title": "High protein for steady glucose",
-      "mins": 12,
+      "mins": 5,
       "text": "How protein-first meals blunt blood sugar spikes, keep you full for hours and protect muscle, and how to build a high-protein plate that keeps your energy steady all day.",
       "quiz": [
        {
-        "q": "Which nutrient keeps you full the longest per calorie?",
+        "q": "Which hormone, the same one weight loss shots copy, does a high protein meal turn up?",
         "o": [
-         "Protein",
-         "Sugar",
-         "Fat",
-         "Alcohol"
-        ],
-        "a": 0,
-        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
-       },
-       {
-        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
-        "o": [
-         "0.3 g",
-         "About 1.2–1.6 g",
-         "5 g",
-         "No target needed"
+         "Insulin",
+         "GLP-1",
+         "Cortisol",
+         "Melatonin"
         ],
         "a": 1,
-        "fb": "Around 0.55–0.75 g per pound a day protects muscle while you lose fat and gives your body the building blocks to repair."
+        "fb": "Your gut makes its own GLP-1. Protein also turns down ghrelin, the hunger hormone."
        },
        {
-        "q": "About how much protein per meal helps your muscles rebuild best?",
+        "q": "What are protein's 3 jobs?",
         "o": [
-         "5 g",
-         "About 25–40 g",
-         "100 g",
-         "It doesn't matter"
+         "Energy, sweetness and fiber",
+         "Fullness, costing more energy to digest, and protecting muscle",
+         "Hydration, sleep and mood",
+         "Storing fat, raising sugar and building bone"
         ],
         "a": 1,
-        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
+        "fb": "Higher protein diets lost more fat and kept more muscle in the pooled weight loss trials."
        },
        {
-        "q": "Why does protein help when you're losing weight?",
+        "q": "What is the simple protein rule in this course?",
         "o": [
-         "It protects muscle so the weight you lose is fat",
-         "It adds water weight",
-         "It stops digestion",
-         "It replaces sleep"
+         "10 grams a day",
+         "30 grams at every meal",
+         "100 grams at dinner",
+         "Protein only on training days"
         ],
-        "a": 0,
-        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
+        "a": 1,
+        "fb": "30 grams looks like a palm sized piece of meat or fish, or 4 to 5 eggs. Eat it first."
        },
        {
-        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
+        "q": "What should you eat first on your plate?",
         "o": [
-         "About 20–30%",
-         "1%",
-         "Over 80%",
-         "None"
+         "Bread",
+         "Fruit",
+         "The protein",
+         "Dessert"
         ],
-        "a": 0,
-        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
+        "a": 2,
+        "fb": "Protein first fills you up and steadies your blood sugar, then the vegetables."
+       },
+       {
+        "q": "Why does protein matter even more when you lose weight fast or use a GLP-1?",
+        "o": [
+         "It speeds up weight loss",
+         "It protects your muscle so the weight you lose is fat",
+         "It replaces water",
+         "It blocks the medication"
+        ],
+        "a": 1,
+        "fb": "Muscle is the engine that keeps the weight off. Protein plus lifting is how you keep it."
        }
       ]
      },
      {
       "id": "hydration",
       "title": "High hydration",
-      "mins": 6,
-      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days."
+      "mins": 2,
+      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days.",
+      "quiz": [
+       {
+        "q": "Fewer than how many Americans get enough potassium?",
+        "o": [
+         "1 in 2",
+         "1 in 5",
+         "1 in 20",
+         "Nearly everyone gets enough"
+        ],
+        "a": 2,
+        "fb": "Potassium helps steady your heart rhythm, blood pressure and muscles. You get it from vegetables, avocado and fish."
+       },
+       {
+        "q": "What is often mistaken for hunger?",
+        "o": [
+         "Tiredness",
+         "Thirst",
+         "Cold",
+         "Boredom only"
+        ],
+        "a": 1,
+        "fb": "A lot of what we think is hunger is really thirst, so drink first."
+       },
+       {
+        "q": "When does Mark drink a big glass of water?",
+        "o": [
+         "Only at dinner",
+         "As soon as he gets up and before every meal",
+         "Only after exercise",
+         "Just before bed"
+        ],
+        "a": 1,
+        "fb": "Your body needs plenty of water to process protein and keep digestion moving."
+       }
+      ]
+     },
+     {
+      "id": "supplements",
+      "title": "Nature's supplements & the pills worth taking",
+      "mins": 5,
+      "text": "The three foods that work like a multivitamin (oysters, beef liver and canned sardines), then the three pills that have earned a place: creatine, collagen with vitamin C, and lactoferrin. Food first, pills last.",
+      "quiz": [
+       {
+        "q": "Which food has about 3 times your daily zinc in a 3 ounce serving?",
+        "o": [
+         "Chicken breast",
+         "Oysters",
+         "Spinach",
+         "Rice"
+        ],
+        "a": 1,
+        "fb": "Oysters have more zinc than any other food. Canned smoked oysters once or twice a week is plenty."
+       },
+       {
+        "q": "Why is beef liver treated like a supplement and kept to a small serving about once a week?",
+        "o": [
+         "It is expensive",
+         "It is very high in vitamin A, which builds up in your body",
+         "It has no nutrients",
+         "It is hard to digest"
+        ],
+        "a": 1,
+        "fb": "A 3 ounce serving has almost 9 times your daily vitamin A. If you're pregnant, talk to your doctor before eating liver."
+       },
+       {
+        "q": "What do you get from the soft bones in canned sardines?",
+        "o": [
+         "Zinc",
+         "Calcium and vitamin D",
+         "Vitamin C",
+         "Fiber"
+        ],
+        "a": 1,
+        "fb": "Plus protein, omega 3 fats and more than 3 days of B12 in a single can."
+       },
+       {
+        "q": "What is the daily dose of creatine, and what does it need to work?",
+        "o": [
+         "20 grams, and nothing else",
+         "3 to 5 grams, alongside strength training",
+         "1 gram, with coffee",
+         "50 grams, on rest days only"
+        ],
+        "a": 1,
+        "fb": "Creatine without the training did nothing in the studies. Check with your doctor first if you have kidney disease."
+       },
+       {
+        "q": "How does Mark rank the evidence for lactoferrin?",
+        "o": [
+         "Proven beyond doubt",
+         "Promising but not proven",
+         "Useless",
+         "Dangerous"
+        ],
+        "a": 1,
+        "fb": "Much of the research is early and done in the lab. Food comes first, then nature's supplements, then pills."
+       }
+      ]
      }
     ]
    }
@@ -1633,63 +2009,74 @@ window.MTH_COURSES={
      {
       "id": "fasting",
       "title": "Fasting & cleansing on a GLP-1",
-      "mins": 12,
-      "text": "A gentle way to use fasting and cleansing alongside a GLP-1, why protein and electrolytes matter more than ever, and when to keep it light. Check with your prescriber before changing how you eat.",
+      "mins": 10,
+      "text": "Two videos. First the repair switch: autophagy, what a 100-person fasting trial did to blood work, and what fasting does for joints and the brain. Then how to rest your gut with the juice cleanse or the water fast, how to come back to food, and who needs to check with their doctor first.",
       "quiz": [
        {
-        "q": "What is autophagy?",
+        "q": "What does autophagy mean?",
         "o": [
-         "A type of juice cleanse",
-         "The body's built-in cellular recycling and clean-up process",
-         "A hormone that makes you hungry",
-         "A form of exercise"
+         "Fat burning",
+         "Self eating: your cells recycling their own worn out parts",
+         "A kind of juice cleanse",
+         "A hunger hormone"
         ],
         "a": 1,
-        "fb": "Autophagy means \"self-eating\": your cells break down and recycle damaged parts. Fasting is one of its strongest triggers."
+        "fb": "Autophagy is your body's built-in recycling system. The discovery of how it works won the Nobel Prize in 2016."
        },
        {
-        "q": "Roughly when does autophagy start to switch on during a fast?",
+        "q": "Which 2 hormones fall when you fast, flipping your body from growth into repair?",
         "o": [
-         "After 1–2 hours",
-         "After 12–16 hours",
-         "After 5 days",
-         "Only during sleep"
-        ],
-        "a": 1,
-        "fb": "Around 12–16 hours in, stored sugar runs low and insulin drops, so the clean-up process begins. It builds from there."
-       },
-       {
-        "q": "Which fasting style is described as the best entry point for beginners?",
-        "o": [
-         "A 7-day water fast",
-         "Juice fasting",
-         "One meal a day",
-         "A dry fast"
-        ],
-        "a": 1,
-        "fb": "Juice fasting gives your gut a rest while still providing vitamins and plant nutrients, which makes it gentler to start with."
-       },
-       {
-        "q": "The Fasting Mimicking Diet (FMD) was developed by which researcher?",
-        "o": [
-         "Dr. Valter Longo",
-         "Dr. Otto Warburg",
-         "Dr. James Pennebaker",
-         "Dr. Roger Ulrich"
+         "Insulin and IGF-1",
+         "Melatonin and serotonin",
+         "Adrenaline and cortisol",
+         "Estrogen and testosterone"
         ],
         "a": 0,
-        "fb": "Dr. Longo's team at USC designed FMD: five low-calorie, plant-based days that give many of fasting's benefits while still eating a little."
+        "fb": "Insulin and IGF-1 tell your cells to grow and store. When they fall, the cleanup crew finally gets a turn."
        },
        {
-        "q": "In 16:8 intermittent fasting, what do the numbers mean?",
+        "q": "In Valter Longo's trial of 100 people, who improved the most?",
         "o": [
-         "16 meals and 8 snacks a week",
-         "16 hours fasting and an 8-hour eating window",
-         "16 days fasting and 8 days eating",
-         "16 glasses of water and 8 hours of sleep"
+         "The youngest people",
+         "People who were already healthy",
+         "People who started with the worst numbers",
+         "People who exercised the most"
+        ],
+        "a": 2,
+        "fb": "Fasting fixed what was off. People with high blood pressure, cholesterol or inflammation improved most, and healthy numbers barely moved."
+       },
+       {
+        "q": "What happened to gut stem cells after a 24 hour fast in the MIT study (in mice)?",
+        "o": [
+         "They shut down",
+         "Their repair power roughly doubled",
+         "Nothing changed",
+         "They turned into fat cells"
         ],
         "a": 1,
-        "fb": "16:8 is the most studied daily schedule: you eat within an 8-hour window and fast for the other 16 hours."
+        "fb": "The stem cells that rebuild your gut lining switched to burning fat and got better at repair, most of all in older animals."
+       },
+       {
+        "q": "What are the 2 cleanse levels in this course?",
+        "o": [
+         "Keto and carnivore",
+         "Juice cleanse and water fast",
+         "Broth fast and dry fast",
+         "Smoothies and soup"
+        ],
+        "a": 1,
+        "fb": "The juice cleanse is the gentler place to start. The water fast flips the repair switch the hardest."
+       },
+       {
+        "q": "Who should talk to their doctor before any fast?",
+        "o": [
+         "Only people over 70",
+         "Nobody, fasting is safe for everyone",
+         "Anyone on insulin, blood sugar pills or blood pressure medication, or who is pregnant or has had an eating disorder",
+         "Only people who have never fasted"
+        ],
+        "a": 2,
+        "fb": "Your numbers can drop fast when you stop eating, and your doctor may need to adjust your dose to keep you safe."
        }
       ]
      }
@@ -1705,126 +2092,126 @@ window.MTH_COURSES={
      {
       "id": "meditation",
       "title": "Meditation",
-      "mins": 10,
+      "mins": 5,
       "text": "Stress shows up in the gut. Learn what a few minutes of daily practice does to your stress hormones and brain, and a simple routine you can start today.",
       "quiz": [
        {
-        "q": "In the Harvard brain-scan studies, how long did an MBSR meditation course take to show measurable brain changes?",
+        "q": "After an 8 week mindfulness course, what happened to the brain's alarm center (the amygdala)?",
         "o": [
-         "1 day",
-         "8 weeks",
-         "2 years",
-         "10 years"
+         "It grew larger",
+         "It got less dense",
+         "It stopped working",
+         "Nothing changed"
         ],
         "a": 1,
-        "fb": "About 8 weeks of regular practice was enough to see changes on MRI scans, so a steady habit adds up quickly."
+        "fb": "The alarm center got less dense, and the more a person's stress came down, the more it changed. The memory area (hippocampus) grew."
        },
        {
-        "q": "Which part of the brain, the \"alarm system\" for fear and stress, became less dense after the meditation course?",
+        "q": "How much meditation training did the beginners in the Wake Forest pain study get?",
         "o": [
-         "The amygdala",
-         "The spinal cord",
-         "The cerebellum",
-         "The optic nerve"
+         "4 sessions of 20 minutes",
+         "8 weeks of daily practice",
+         "A 3 month retreat",
+         "1 hour a day for a year"
         ],
         "a": 0,
-        "fb": "The amygdala drives stress reactions. As it quietens, people report less stress and anxiety."
+        "fb": "Just 80 minutes in total. Pain felt about 40% less intense and 57% less unpleasant."
        },
        {
-        "q": "Which brainwave state is described as \"relaxed alertness\", common in experienced meditators?",
+        "q": "Why is calming your mind a gut treatment?",
         "o": [
-         "Beta",
-         "Alpha",
-         "Gamma",
-         "Delta"
+         "It burns calories",
+         "Your gut only digests properly in the rest and digest gear",
+         "It kills gut bacteria",
+         "It raises stomach acid"
         ],
         "a": 1,
-        "fb": "Alpha is the calm, focused state. Meditation helps shift a stressed, high-beta brain toward it."
+        "fb": "You can't digest properly in the stress gear. Meditation shifts you into rest and digest, where healing happens."
        },
        {
-        "q": "What does BDNF, which rises with regular meditation, help the brain do?",
+        "q": "In the UCLA sleep trial, what worked better for poor sleepers?",
         "o": [
-         "Store fat",
-         "Grow new neurons and strengthen connections",
-         "Produce stomach acid",
-         "Raise cortisol"
+         "A sleep habits class",
+         "Sleeping pills",
+         "A 6 week mindfulness course",
+         "Afternoon naps"
         ],
-        "a": 1,
-        "fb": "BDNF is like fertiliser for brain cells. It supports learning, memory and mood."
+        "a": 2,
+        "fb": "The mindfulness group slept better and had less fatigue and depression. A busy head is behind most sleep trouble."
        },
        {
-        "q": "What does meditation do to cortisol, the main stress hormone?",
+        "q": "When your mind wanders during meditation, what does that mean?",
         "o": [
-         "Raises it",
-         "Lowers it",
-         "Has no effect",
-         "Turns it into insulin"
+         "You failed and should stop",
+         "You are doing it wrong",
+         "Noticing it and coming back is the exercise",
+         "You need a longer session"
         ],
-        "a": 1,
-        "fb": "Regular practice lowers cortisol, which calms inflammation and helps break the stress and pain cycle."
+        "a": 2,
+        "fb": "That's the rep. Start with 5 minutes a day and build up from there."
        }
       ]
      },
      {
       "id": "journaling",
       "title": "Journaling",
-      "mins": 8,
+      "mins": 5,
       "text": "Writing things down calms the mind and shows you patterns in your symptoms. A short, guided way to journal through your reset.",
       "quiz": [
        {
-        "q": "How long was each writing session in Pennebaker's expressive writing studies?",
+        "q": "In the New Zealand wound study, how many of the expressive writers had healed by day 11?",
         "o": [
-         "2 minutes",
-         "About 15 minutes a day",
-         "2 hours",
-         "All day"
+         "42%",
+         "50%",
+         "76%",
+         "100%"
         ],
-        "a": 1,
-        "fb": "Just 15 minutes a day for 4 days was enough to see real health benefits. It's a small, doable habit."
+        "a": 2,
+        "fb": "76% of the people who wrote about their feelings had healed, compared with 42% of the people who wrote about their daily plans."
        },
        {
-        "q": "In his original study, what happened to students who wrote about difficult experiences?",
+        "q": "In Pennebaker's original study, students who wrote about hard experiences for 4 days did what over the next 6 months?",
         "o": [
-         "They visited the health center about half as often",
-         "They got sick more often",
-         "Nothing changed",
-         "They stopped sleeping"
+         "Got better grades",
+         "Visited the health center about half as often",
+         "Slept 2 hours longer",
+         "Lost weight"
+        ],
+        "a": 1,
+        "fb": "One hour of honest writing in total, and about half as many doctor visits."
+       },
+       {
+        "q": "What did the Baylor study find helps you fall asleep faster?",
+        "o": [
+         "Writing a to do list for the coming days",
+         "Reading the news",
+         "Writing about what you already finished",
+         "Counting backwards"
         ],
         "a": 0,
-        "fb": "Putting hard feelings into words seems to take a load off the body as well as the mind."
+        "fb": "The to do list group fell asleep about 9 minutes faster, and the more detailed the list, the faster they dropped off."
        },
        {
-        "q": "Which stress hormone tends to be lower on days people journal?",
+        "q": "What is the simplest gratitude practice from the lesson?",
         "o": [
-         "Insulin",
-         "Cortisol",
-         "Melatonin",
-         "Oxytocin"
+         "Writing a letter every day",
+         "3 good things at the end of the day",
+         "A 1 hour journaling session",
+         "Meditating on gratitude for 30 minutes"
         ],
         "a": 1,
-        "fb": "Writing helps the brain \"close the loop\" on worries, so the stress system settles and cortisol drops."
+        "fb": "Three things that went well today, even small ones. It trains your brain to look for what's working."
        },
        {
-        "q": "Which type of bedtime writing helped people fall asleep fastest?",
+        "q": "What should you end every journal entry with?",
         "o": [
-         "Writing a to-do list for tomorrow",
-         "Writing about what went wrong today",
-         "Copying out a book",
-         "Writing nothing at all"
-        ],
-        "a": 0,
-        "fb": "Getting tomorrow's tasks onto paper offloads them from your mind, so you fall asleep faster."
-       },
-       {
-        "q": "What does gratitude journaling help with, according to the review of 64 trials?",
-        "o": [
-         "Only handwriting",
-         "Lower anxiety and better mood and sleep",
-         "Weight gain",
-         "Nothing measurable"
+         "A list of your worries",
+         "One next step",
+         "A drawing",
+         "Yesterday's entry"
         ],
         "a": 1,
-        "fb": "Writing down a few things you're grateful for each night is linked to calmer moods and better sleep."
+        "fb": "One next step keeps you moving forward so you're not going around in circles."
        }
       ]
      }
@@ -1840,63 +2227,63 @@ window.MTH_COURSES={
      {
       "id": "sunlight",
       "title": "Sunlight",
-      "mins": 8,
+      "mins": 5,
       "text": "Morning light, vitamin D and your body clock: how to get the right amount of sun safely.",
       "quiz": [
        {
-        "q": "In the hospital studies, what happened to patients in sunnier rooms?",
+        "q": "In the Swedish study of about 30,000 women, how did sun avoiders compare with those who got the most sun?",
         "o": [
-         "They stayed longer",
-         "They recovered faster and used less pain medication",
-         "Nothing changed",
-         "They slept less"
+         "They lived longer",
+         "Roughly twice the death rate",
+         "No difference",
+         "Half the death rate"
         ],
         "a": 1,
-        "fb": "Brighter rooms were linked to quicker recovery, earlier discharge and less need for pain relief."
+        "fb": "Sun avoiders had roughly twice the death rate over 20 years. It's one study and can't prove cause, but it's striking."
        },
        {
-        "q": "Which vitamin does your skin make from sunlight?",
+        "q": "Spine surgery patients in brighter hospital rooms used how much less pain medication?",
         "o": [
-         "Vitamin C",
-         "Vitamin D",
-         "Vitamin B12",
-         "Vitamin K"
+         "2%",
+         "22%",
+         "60%",
+         "None"
         ],
         "a": 1,
-        "fb": "UVB light on your skin starts vitamin D production, which supports immunity, bones and mood."
+        "fb": "About 46% more sunlight, and 22% less pain medication every hour."
        },
        {
-        "q": "Why is morning sunlight especially helpful?",
+        "q": "When is the most important light of the day for your body clock?",
         "o": [
-         "It's warmer",
-         "It resets your body clock, which improves sleep that night",
-         "It has no UV",
-         "It boosts caffeine"
+         "Midday",
+         "Late afternoon",
+         "Morning",
+         "Just before bed"
+        ],
+        "a": 2,
+        "fb": "15 to 30 minutes of morning light sets your clock, lifts your serotonin and lets melatonin rise on time that night."
+       },
+       {
+        "q": "How does sunlight lower blood pressure, apart from vitamin D?",
+        "o": [
+         "It makes you sweat",
+         "It releases nitric oxide from your skin, which relaxes blood vessels",
+         "It slows your heart",
+         "It thins your blood"
         ],
         "a": 1,
-        "fb": "Morning light sets your circadian rhythm, so melatonin is released on time in the evening."
+        "fb": "Edinburgh researchers found blood pressure came down within about 20 minutes."
        },
        {
-        "q": "Which mood chemical does sunlight help your brain make?",
+        "q": "What is rule number 1 with the sun?",
         "o": [
-         "Serotonin",
-         "Adrenaline",
-         "Cortisol",
-         "Histamine"
+         "Get as much as you can",
+         "Only go out at noon",
+         "Never burn",
+         "Always wear a hat"
         ],
-        "a": 0,
-        "fb": "Serotonin lifts mood and dampens pain signals, one reason sunny days feel better."
-       },
-       {
-        "q": "What happens to blood pressure after about 20 minutes of sun, according to the Edinburgh research?",
-        "o": [
-         "It goes up sharply",
-         "It drops slightly as nitric oxide widens blood vessels",
-         "It stays exactly the same",
-         "It becomes irregular"
-        ],
-        "a": 1,
-        "fb": "UVA light releases nitric oxide from the skin, relaxing blood vessels. Enjoy the sun, but never burn."
+        "a": 2,
+        "fb": "A burn is damage. Build up gradually with short, regular exposure."
        }
       ]
      },
@@ -1966,8 +2353,65 @@ window.MTH_COURSES={
      {
       "id": "forest",
       "title": "Forest bathing",
-      "mins": 6,
-      "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week."
+      "mins": 5,
+      "text": "Slow, mindful time among trees. Why it calms the body and how to make it part of your week.",
+      "quiz": [
+       {
+        "q": "After a 2 to 3 day forest trip, what happened to natural killer cell activity?",
+        "o": [
+         "It dropped by half",
+         "It rose by about 50%",
+         "It stayed the same",
+         "It doubled every day"
+        ],
+        "a": 1,
+        "fb": "Natural killer cells hunt virus infected and abnormal cells. Their activity rose by about half, and a matching city trip changed nothing."
+       },
+       {
+        "q": "How long did the immune lift last after a longer forest trip?",
+        "o": [
+         "A few hours",
+         "1 day",
+         "Up to 30 days",
+         "1 year"
+        ],
+        "a": 2,
+        "fb": "Up to 30 days, which is why a forest day once a month keeps it switched on."
+       },
+       {
+        "q": "What are phytoncides?",
+        "o": [
+         "A kind of pollen",
+         "Natural oils trees release to protect themselves",
+         "Forest soil bacteria",
+         "A vitamin in leaves"
+        ],
+        "a": 1,
+        "fb": "They are the scent of a pine or cedar forest. Breathing them in raised killer cells and lowered stress hormones."
+       },
+       {
+        "q": "In the Stanford study, what did a 90 minute nature walk do that a walk beside a busy road did not?",
+        "o": [
+         "Burned more calories",
+         "Reduced brooding and quieted a brain area that is overactive in depression",
+         "Raised blood pressure",
+         "Improved eyesight"
+        ],
+        "a": 1,
+        "fb": "Only the nature walkers came back brooding less."
+       },
+       {
+        "q": "How do you forest bathe?",
+        "o": [
+         "Hike as fast as you can",
+         "Walk slowly, breathe deeply, phone away",
+         "Run with headphones on",
+         "Only in winter"
+        ],
+        "a": 1,
+        "fb": "It isn't a hike. Slow down, breathe through your nose, or simply sit against a tree for 20 minutes."
+       }
+      ]
      }
     ]
    },
@@ -1981,126 +2425,126 @@ window.MTH_COURSES={
      {
       "id": "sleep",
       "title": "Sleep",
-      "mins": 10,
+      "mins": 5,
       "text": "Your body does its deepest repair at night. Set up your room and evening routine for deep, restorative sleep.",
       "quiz": [
        {
-        "q": "What is the ideal bedroom temperature for deep sleep, according to sleep lab studies?",
+        "q": "In the sleep lab study, caffeine taken 6 hours before bed did what?",
         "o": [
-         "55–58°F",
-         "65–68°F",
-         "75–78°F",
-         "Above 80°F"
+         "Nothing",
+         "Cut sleep by more than 1 hour",
+         "Helped people fall asleep",
+         "Only affected dreams"
         ],
         "a": 1,
-        "fb": "Your core temperature needs to drop to fall asleep. A cool room speeds that up and deepens sleep."
+        "fb": "And people didn't notice. Caffeine has a half life of about 5 hours, so the cutoff is noon."
        },
        {
-        "q": "About how long is the half-life of caffeine in most adults?",
+        "q": "What bedroom temperature supports deep sleep?",
+        "o": [
+         "60 to 62°F",
+         "65 to 68°F",
+         "72 to 75°F",
+         "78 to 80°F"
+        ],
+        "a": 1,
+        "fb": "Your core temperature has to drop 1 to 2 degrees to fall asleep, and a cool room lets it."
+       },
+       {
+        "q": "What did ordinary room light in the evening do in the Harvard study?",
+        "o": [
+         "Nothing",
+         "Raised melatonin",
+         "Cut the melatonin window by about 90 minutes",
+         "Improved deep sleep"
+        ],
+        "a": 2,
+        "fb": "Use warm dim lamps for the last hour, blackout curtains, and keep your phone out of the bedroom."
+       },
+       {
+        "q": "How long before bed should you finish eating?",
         "o": [
          "30 minutes",
-         "About 6 hours",
-         "24 hours",
-         "A week"
+         "1 hour",
+         "About 3 hours",
+         "It doesn't matter"
         ],
-        "a": 1,
-        "fb": "Half of a 2 pm coffee is still active at 8 pm, which is why an early caffeine cut-off helps sleep."
+        "a": 2,
+        "fb": "Digestion and body temperature need about 3 hours to wind down."
        },
        {
-        "q": "How long before bed should you avoid screens and bright blue light?",
+        "q": "Which habit anchors your whole body clock?",
         "o": [
-         "5 minutes",
-         "About 1 hour",
-         "It doesn't matter",
-         "12 hours"
+         "Going to bed at 9",
+         "The same wake time every day, weekends too",
+         "A nap after lunch",
+         "Sleeping in on Sundays"
         ],
         "a": 1,
-        "fb": "Blue light tells your brain it's daytime and holds back melatonin. Warm, dim light in the last hour helps."
-       },
-       {
-        "q": "Why are blackout curtains recommended?",
-        "o": [
-         "They keep the room warm",
-         "Even a little light can cut melatonin, and darkness lets it rise fully",
-         "They block noise",
-         "They look better"
-        ],
-        "a": 1,
-        "fb": "Light through closed eyelids can still suppress melatonin, so total darkness protects deep sleep."
-       },
-       {
-        "q": "Why does the ebook suggest keeping your phone out of the bedroom?",
-        "o": [
-         "Its blue light and stimulating content keep your brain alert",
-         "It uses too much electricity",
-         "It makes the room hot",
-         "It has no effect on sleep"
-        ],
-        "a": 0,
-        "fb": "Screens suppress melatonin and scrolling raises stress hormones. A phone-free bedroom helps your brain link bed with sleep."
+        "fb": "Your wake time matters more than your bedtime."
        }
       ]
      },
      {
       "id": "air",
       "title": "Indoor air quality",
-      "mins": 6,
+      "mins": 5,
       "text": "Simple ways to clean up the air you breathe at home: ventilation, plants, filters and what to avoid.",
       "quiz": [
        {
-        "q": "According to the EPA, how does indoor air usually compare with outdoor air?",
+        "q": "About how much of your life do you spend indoors?",
         "o": [
-         "It is cleaner",
-         "It is 2–5 times more polluted",
-         "It is exactly the same",
-         "It has no pollutants"
+         "30%",
+         "50%",
+         "70%",
+         "90%"
         ],
-        "a": 1,
-        "fb": "Indoor air traps pollutants from furniture, cleaning products and cooking, and we spend about 90% of our time inside."
+        "a": 3,
+        "fb": "About 90%, and the EPA says indoor air is often 2 to 5 times more polluted than outdoor air."
        },
        {
-        "q": "Radon is dangerous partly because it is…",
+        "q": "What is the leading cause of lung cancer in people who have never smoked?",
         "o": [
-         "Bright red and smelly",
-         "Colorless and odourless, so you need a monitor to detect it",
-         "Only found in big cities",
-         "Harmless in small amounts"
+         "Mold",
+         "Radon",
+         "Dust",
+         "Pollen"
         ],
         "a": 1,
-        "fb": "Radon seeps up from the ground through foundations. A simple test kit or monitor is the only way to know your level."
+        "fb": "Radon causes about 21,000 US deaths a year. A test kit costs 15 to 30 dollars."
        },
        {
-        "q": "What are VOCs?",
+        "q": "What indoor humidity keeps mold away?",
         "o": [
-         "Vitamins in vegetables",
-         "Chemicals that evaporate from things like paint, new furniture and air fresheners",
-         "A type of mould",
-         "Oxygen molecules"
+         "10 to 20%",
+         "40 to 50%",
+         "65 to 75%",
+         "Above 80%"
         ],
         "a": 1,
-        "fb": "Volatile organic compounds drift into the air from everyday products. Fresh air and fewer scented products help."
+        "fb": "Above 60% the risk of mold climbs fast. A small humidity meter costs about 15 dollars."
        },
        {
-        "q": "What does mould need to grow indoors?",
+        "q": "A closed bedroom can reach what carbon dioxide level by morning?",
         "o": [
-         "Sunlight",
-         "Moisture",
-         "Cold air",
-         "Electricity"
+         "About 420 ppm",
+         "About 800 ppm",
+         "2,000 ppm or more",
+         "It stays the same as outside"
         ],
-        "a": 1,
-        "fb": "Leaks, damp bathrooms and water damage let mould grow. Fixing moisture is the first step."
+        "a": 2,
+        "fb": "Outside air is about 420. Crack a window or leave the door open and aim for under 800."
        },
        {
-        "q": "What is the target carbon dioxide level for good thinking and sleep?",
+        "q": "What does a true HEPA filter NOT remove?",
         "o": [
-         "Below 800 ppm",
-         "Around 2,500 ppm",
-         "Over 4,000 ppm",
-         "It doesn't matter"
+         "Fine particles",
+         "Mold spores",
+         "Pollen",
+         "Gases, radon and carbon dioxide"
         ],
-        "a": 0,
-        "fb": "A closed bedroom can climb past 2,000 ppm overnight. Opening a window or running ventilation keeps CO2 low."
+        "a": 3,
+        "fb": "HEPA catches particles. Gases need activated carbon, and radon and CO2 need venting and fresh air."
        }
       ]
      }
@@ -2116,63 +2560,74 @@ window.MTH_COURSES={
      {
       "id": "music",
       "title": "Music therapy",
-      "mins": 8,
+      "mins": 9,
       "text": "How calming music lowers stress and supports rest-and-digest, and how to use it every day of your reset.",
       "quiz": [
        {
-        "q": "What happened to cortisol after surgery when patients listened to calming music?",
+        "q": "What did the Lancet review of 73 surgery trials find about music?",
         "o": [
-         "It rose",
-         "It dropped compared with silence",
-         "Nothing changed",
-         "It disappeared completely"
+         "It distracted surgeons",
+         "Less pain, less anxiety and fewer painkillers",
+         "No effect",
+         "It only worked for children"
         ],
         "a": 1,
-        "fb": "Calming music lowered post-surgery cortisol and inflammation markers compared with patients in silence."
+        "fb": "About 7,000 patients, and it worked even under general anesthesia."
        },
        {
-        "q": "Which tempo best matches a resting heart and breathing rate, helping the body relax?",
+        "q": "Your favorite song releases dopamine at how many separate moments?",
         "o": [
-         "About 60 beats per minute",
-         "About 140 beats per minute",
-         "About 200 beats per minute",
-         "Tempo doesn't matter"
+         "1",
+         "2",
+         "5",
+         "None"
+        ],
+        "a": 1,
+        "fb": "Once in the build up, when your brain predicts what's coming, and again at the peak."
+       },
+       {
+        "q": "What tempo is most calming music?",
+        "o": [
+         "20 to 40 beats a minute",
+         "60 to 80 beats a minute",
+         "120 to 140 beats a minute",
+         "Over 160 beats a minute"
+        ],
+        "a": 1,
+        "fb": "About the speed of a resting heartbeat. For sleep go under 60, for exercise 120 or more."
+       },
+       {
+        "q": "What is the iso principle?",
+        "o": [
+         "Always play calm music",
+         "Start with music that matches how you feel, then step it down",
+         "Only listen with headphones",
+         "Play the same song on repeat"
+        ],
+        "a": 1,
+        "fb": "Jumping straight from stressed to calm rarely works. You take the stairs."
+       },
+       {
+        "q": "How long was a typical music session in the clinical trials?",
+        "o": [
+         "2 minutes",
+         "20 to 30 minutes",
+         "2 hours",
+         "All day"
+        ],
+        "a": 1,
+        "fb": "Headphones on, eyes closed, really listening, for 20 to 30 minutes."
+       },
+       {
+        "q": "What are the 3 parts of the daily 15 minute practice?",
+        "o": [
+         "Music, stillness and gratitude",
+         "Running, lifting and stretching",
+         "Reading, writing and talking",
+         "Juice, water and rest"
         ],
         "a": 0,
-        "fb": "Slow music near 60 BPM nudges heart rate variability up and switches the nervous system into rest mode."
-       },
-       {
-        "q": "What is \"brainwave entrainment\"?",
-        "o": [
-         "Training your memory with flashcards",
-         "The brain gradually syncing its rhythm to a steady sound",
-         "A type of headphone",
-         "Sleeping with music on"
-        ],
-        "a": 1,
-        "fb": "Steady rhythms invite the brain to match them, which is how certain sounds help you relax or focus."
-       },
-       {
-        "q": "Which nerve does slow, steady music help activate to calm the body?",
-        "o": [
-         "The vagus nerve",
-         "The optic nerve",
-         "The sciatic nerve",
-         "The funny bone"
-        ],
-        "a": 0,
-        "fb": "The vagus nerve runs the rest-and-digest system, which is good for stress and for your gut."
-       },
-       {
-        "q": "When does the brain release dopamine while listening to music?",
-        "o": [
-         "Only when the music stops",
-         "As it anticipates and reaches the musical \"payoff\" or resolution",
-         "Never",
-         "Only with loud music"
-        ],
-        "a": 1,
-        "fb": "The build-up and release in music rewards the brain with dopamine, which is why a favorite song feels so good."
+        "fb": "Music that matches your mood then slows down, a few minutes of quiet, and 3 things you're grateful for."
        }
       ]
      }
@@ -2192,59 +2647,70 @@ window.MTH_COURSES={
       "text": "The single best way to keep muscle while the weight comes off: simple strength sessions, plus walking and cardio, with how to progress week by week.",
       "quiz": [
        {
-        "q": "How many minutes of moderate exercise a week does the big Lancet study link to a longer life?",
+        "q": "In the Diabetes Prevention Program, how did lifestyle change compare with metformin?",
         "o": [
-         "15 minutes",
+         "The drug won easily",
+         "They were equal",
+         "Lifestyle cut diabetes risk by 58%, the drug by 31%",
+         "Neither worked"
+        ],
+        "a": 2,
+        "fb": "About 150 minutes of walking a week and a little weight loss nearly doubled the drug's result."
+       },
+       {
+        "q": "Why does a walk after a meal lower blood sugar?",
+        "o": [
+         "It makes you sweat sugar out",
+         "Working muscles pull sugar from the blood without needing insulin",
+         "It slows digestion",
+         "It raises insulin"
+        ],
+        "a": 1,
+        "fb": "Working muscle has a second door called GLUT4 that doesn't need the insulin key. A 10 minute walk is enough."
+       },
+       {
+        "q": "What is the weekly cardio target?",
+        "o": [
+         "30 minutes",
          "150 minutes",
-         "1,500 minutes",
-         "Any amount over 10 hours"
+         "500 minutes",
+         "It doesn't matter"
         ],
         "a": 1,
-        "fb": "150 minutes is about 30 minutes, 5 days a week, and it's linked to big drops in heart disease and diabetes risk."
+        "fb": "150 minutes a week at a pace where you can still talk. If you're starting out, 10 minutes is a win."
        },
        {
-        "q": "Which type of exercise builds muscle and raises the calories you burn at rest?",
+        "q": "Why does muscle matter for blood sugar?",
         "o": [
-         "Stretching only",
-         "Strength (resistance) training",
-         "Walking slowly",
-         "Sitting upright"
+         "It stores fat",
+         "It is the biggest sugar sponge in your body",
+         "It makes insulin",
+         "It slows digestion"
         ],
         "a": 1,
-        "fb": "Muscle is your metabolic engine. Every pound added burns a few more calories a day, even while resting."
+        "fb": "Most of the sugar from a meal is soaked up by muscle, so more muscle means more room to put it away."
        },
        {
-        "q": "What is the \"afterburn\" (EPOC) effect?",
+        "q": "What are the 5 moves in the strength plan?",
         "o": [
-         "Sore muscles the next day",
-         "A raised metabolism for hours after a hard workout",
-         "Sunburn from outdoor exercise",
-         "Heartburn after eating"
-        ],
-        "a": 1,
-        "fb": "After intense sessions like HIIT, your body keeps burning extra energy for up to about 24 hours while it recovers."
-       },
-       {
-        "q": "Which fat does exercise tend to target first, the most harmful kind around the organs?",
-        "o": [
-         "Visceral fat",
-         "Fat under the skin on your arms",
-         "Fat in your feet",
-         "Brown fat"
+         "Squats, lunges, push ups, sit ups and shadow boxing",
+         "Deadlifts, bench press, rows, curls and dips",
+         "Running, cycling, swimming, rowing and hiking",
+         "Yoga, pilates, stretching, tai chi and dance"
         ],
         "a": 0,
-        "fb": "Visceral fat drives inflammation and insulin resistance, and exercise can shrink it even before the scale moves much."
+        "fb": "No gym needed. Two sessions a week, and a little bit more each week."
        },
        {
-        "q": "How does exercise lower blood sugar without needing insulin?",
+        "q": "What should you do for exercise during your cleanse week?",
         "o": [
-         "It makes you sweat out sugar",
-         "Working muscles pull sugar in through GLUT4 transporters",
-         "It stops the liver from working",
-         "It doesn't lower blood sugar"
+         "Train as hard as possible",
+         "Rest for the first 2 days, then only gentle walks",
+         "Lift heavy every day",
+         "Run every morning"
         ],
         "a": 1,
-        "fb": "During and after exercise, muscles open their own doors (GLUT4) to absorb sugar from the blood."
+        "fb": "Your body is busy repairing. Build back up once you're eating again."
        }
       ]
      },
@@ -2323,71 +2789,169 @@ window.MTH_COURSES={
      {
       "id": "keto",
       "title": "Protein-first eating on a GLP-1",
-      "mins": 12,
+      "mins": 5,
       "text": "Eating less on a GLP-1 makes every meal count. How to hit your protein so you lose fat, not muscle, with high-protein whole foods that are easy on the stomach.",
       "quiz": [
        {
-        "q": "Which nutrient keeps you full the longest per calorie?",
+        "q": "Which hormone, the same one weight loss shots copy, does a high protein meal turn up?",
         "o": [
-         "Protein",
-         "Sugar",
-         "Fat",
-         "Alcohol"
-        ],
-        "a": 0,
-        "fb": "Protein is the most filling nutrient. It calms hunger hormones, so you naturally eat less without fighting cravings."
-       },
-       {
-        "q": "Roughly how much protein per kilogram of body weight is a good daily target when healing and losing weight?",
-        "o": [
-         "0.3 g",
-         "About 1.2–1.6 g",
-         "5 g",
-         "No target needed"
+         "Insulin",
+         "GLP-1",
+         "Cortisol",
+         "Melatonin"
         ],
         "a": 1,
-        "fb": "Around 0.55–0.75 g per pound a day protects muscle while you lose fat and gives your body the building blocks to repair."
+        "fb": "Your gut makes its own GLP-1. Protein also turns down ghrelin, the hunger hormone."
        },
        {
-        "q": "About how much protein per meal helps your muscles rebuild best?",
+        "q": "What are protein's 3 jobs?",
         "o": [
-         "5 g",
-         "About 25–40 g",
-         "100 g",
-         "It doesn't matter"
+         "Energy, sweetness and fiber",
+         "Fullness, costing more energy to digest, and protecting muscle",
+         "Hydration, sleep and mood",
+         "Storing fat, raising sugar and building bone"
         ],
         "a": 1,
-        "fb": "Spreading 25–40 g of protein across each meal switches on muscle repair several times a day."
+        "fb": "Higher protein diets lost more fat and kept more muscle in the pooled weight loss trials."
        },
        {
-        "q": "Why does protein help when you're losing weight?",
+        "q": "What is the simple protein rule in this course?",
         "o": [
-         "It protects muscle so the weight you lose is fat",
-         "It adds water weight",
-         "It stops digestion",
-         "It replaces sleep"
+         "10 grams a day",
+         "30 grams at every meal",
+         "100 grams at dinner",
+         "Protein only on training days"
         ],
-        "a": 0,
-        "fb": "Without enough protein the body breaks down muscle. High protein keeps muscle, so the scale drop is real fat loss."
+        "a": 1,
+        "fb": "30 grams looks like a palm sized piece of meat or fish, or 4 to 5 eggs. Eat it first."
        },
        {
-        "q": "Roughly how much of protein's calories does your body burn just digesting it?",
+        "q": "What should you eat first on your plate?",
         "o": [
-         "About 20–30%",
-         "1%",
-         "Over 80%",
-         "None"
+         "Bread",
+         "Fruit",
+         "The protein",
+         "Dessert"
         ],
-        "a": 0,
-        "fb": "Protein has the highest 'thermic effect': about a quarter of its calories are used just to digest it."
+        "a": 2,
+        "fb": "Protein first fills you up and steadies your blood sugar, then the vegetables."
+       },
+       {
+        "q": "Why does protein matter even more when you lose weight fast or use a GLP-1?",
+        "o": [
+         "It speeds up weight loss",
+         "It protects your muscle so the weight you lose is fat",
+         "It replaces water",
+         "It blocks the medication"
+        ],
+        "a": 1,
+        "fb": "Muscle is the engine that keeps the weight off. Protein plus lifting is how you keep it."
        }
       ]
      },
      {
       "id": "hydration",
       "title": "High hydration",
-      "mins": 6,
-      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days."
+      "mins": 2,
+      "text": "How much water you need each day, when to drink it, and why it matters more as your protein goes up. Simple ways to hit your daily target, including on cleanse days.",
+      "quiz": [
+       {
+        "q": "Fewer than how many Americans get enough potassium?",
+        "o": [
+         "1 in 2",
+         "1 in 5",
+         "1 in 20",
+         "Nearly everyone gets enough"
+        ],
+        "a": 2,
+        "fb": "Potassium helps steady your heart rhythm, blood pressure and muscles. You get it from vegetables, avocado and fish."
+       },
+       {
+        "q": "What is often mistaken for hunger?",
+        "o": [
+         "Tiredness",
+         "Thirst",
+         "Cold",
+         "Boredom only"
+        ],
+        "a": 1,
+        "fb": "A lot of what we think is hunger is really thirst, so drink first."
+       },
+       {
+        "q": "When does Mark drink a big glass of water?",
+        "o": [
+         "Only at dinner",
+         "As soon as he gets up and before every meal",
+         "Only after exercise",
+         "Just before bed"
+        ],
+        "a": 1,
+        "fb": "Your body needs plenty of water to process protein and keep digestion moving."
+       }
+      ]
+     },
+     {
+      "id": "supplements",
+      "title": "Nature's supplements & the pills worth taking",
+      "mins": 5,
+      "text": "The three foods that work like a multivitamin (oysters, beef liver and canned sardines), then the three pills that have earned a place: creatine, collagen with vitamin C, and lactoferrin. Food first, pills last.",
+      "quiz": [
+       {
+        "q": "Which food has about 3 times your daily zinc in a 3 ounce serving?",
+        "o": [
+         "Chicken breast",
+         "Oysters",
+         "Spinach",
+         "Rice"
+        ],
+        "a": 1,
+        "fb": "Oysters have more zinc than any other food. Canned smoked oysters once or twice a week is plenty."
+       },
+       {
+        "q": "Why is beef liver treated like a supplement and kept to a small serving about once a week?",
+        "o": [
+         "It is expensive",
+         "It is very high in vitamin A, which builds up in your body",
+         "It has no nutrients",
+         "It is hard to digest"
+        ],
+        "a": 1,
+        "fb": "A 3 ounce serving has almost 9 times your daily vitamin A. If you're pregnant, talk to your doctor before eating liver."
+       },
+       {
+        "q": "What do you get from the soft bones in canned sardines?",
+        "o": [
+         "Zinc",
+         "Calcium and vitamin D",
+         "Vitamin C",
+         "Fiber"
+        ],
+        "a": 1,
+        "fb": "Plus protein, omega 3 fats and more than 3 days of B12 in a single can."
+       },
+       {
+        "q": "What is the daily dose of creatine, and what does it need to work?",
+        "o": [
+         "20 grams, and nothing else",
+         "3 to 5 grams, alongside strength training",
+         "1 gram, with coffee",
+         "50 grams, on rest days only"
+        ],
+        "a": 1,
+        "fb": "Creatine without the training did nothing in the studies. Check with your doctor first if you have kidney disease."
+       },
+       {
+        "q": "How does Mark rank the evidence for lactoferrin?",
+        "o": [
+         "Proven beyond doubt",
+         "Promising but not proven",
+         "Useless",
+         "Dangerous"
+        ],
+        "a": 1,
+        "fb": "Much of the research is early and done in the lab. Food comes first, then nature's supplements, then pills."
+       }
+      ]
      }
     ]
    }
