@@ -2,7 +2,7 @@
    /blog/         -> list of live articles
    /blog/<slug>/  -> one article
    Articles are written in Admin -> Edit -> Blog; a Save shows here within a minute. */
-import { articlePage, indexPage, notFoundPage, fetchPosts, LIST_COLS } from "../../assets/blog-render.mjs";
+import { articlePage, indexPage, notFoundPage, fetchPosts, withBackup, LIST_COLS } from "../../assets/blog-render.mjs";
 
 const html = (body, status, maxAge) => new Response(body, { status: status || 200, headers: {
   "content-type": "text/html; charset=utf-8",
@@ -17,15 +17,17 @@ export async function onRequestGet({ params, request, next }) {
   if (parts.length > 1) return next();
   if (!url.pathname.endsWith("/")) return Response.redirect(url.origin + url.pathname + "/" + url.search, 301);
   try {
-    if (!parts.length) {
-      const posts = await fetchPosts(fetch, "select=" + LIST_COLS + "&status=eq.published&order=published_at.desc.nullslast");
-      return html(indexPage(posts));
-    }
-    const slug = parts[0].toLowerCase();
-    const one = await fetchPosts(fetch, "select=*&status=eq.published&slug=eq." + encodeURIComponent(slug) + "&limit=1");
-    if (!one.length) return html(notFoundPage(), 404, 30);
-    const more = await fetchPosts(fetch, "select=" + LIST_COLS + "&status=eq.published&slug=neq." + encodeURIComponent(slug) + "&order=published_at.desc.nullslast&limit=3");
-    return html(articlePage(one[0], more));
+    return await withBackup(request, async () => {
+      if (!parts.length) {
+        const posts = await fetchPosts(fetch, "select=" + LIST_COLS + "&status=eq.published&order=published_at.desc.nullslast");
+        return html(indexPage(posts));
+      }
+      const slug = parts[0].toLowerCase();
+      const one = await fetchPosts(fetch, "select=*&status=eq.published&slug=eq." + encodeURIComponent(slug) + "&limit=1");
+      if (!one.length) return html(notFoundPage(), 404, 30);
+      const more = await fetchPosts(fetch, "select=" + LIST_COLS + "&status=eq.published&slug=neq." + encodeURIComponent(slug) + "&order=published_at.desc.nullslast&limit=3");
+      return html(articlePage(one[0], more));
+    });
   } catch (e) {
     return html("<!doctype html><title>Blog</title><p>The blog is taking a breather. Please try again in a minute.</p><!-- " + String(e && e.message || e).replace(/--/g, "") + " -->", 503, 0);
   }

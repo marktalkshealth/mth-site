@@ -191,8 +191,28 @@ export function notFoundPage() {
 
 /* Supabase reads (public: only live articles are visible) */
 export async function fetchPosts(fetchFn, query) {
-  const r = await fetchFn(SUPABASE.url + "/rest/v1/mth_blog_posts?" + query, { headers: { apikey: SUPABASE.key } });
+  // never hang a page (or Google) on a slow database: give up after 6 seconds and let the caller serve its saved copy
+  const r = await fetchFn(SUPABASE.url + "/rest/v1/mth_blog_posts?" + query, { headers: { apikey: SUPABASE.key }, signal: AbortSignal.timeout(6000) });
   if (!r.ok) throw new Error("Supabase " + r.status + " " + (await r.text()).slice(0, 300));
   return r.json();
+}
+/* Keep a "last good copy" of each page at the edge for 30 days. If the database is slow or down,
+   visitors and search engines get the saved copy instead of an error. */
+export async function withBackup(request, build) {
+  const cache = typeof caches !== "undefined" ? caches.default : null;
+  const key = new Request(new URL(request.url).origin + "/__backup" + new URL(request.url).pathname);
+  try {
+    const res = await build();
+    if (cache && res.status === 200) {
+      const copy = new Response(res.clone().body, res);
+      copy.headers.set("cache-control", "public, max-age=2592000");
+      try { await cache.put(key, copy); } catch (_) { /* best effort */ }
+    }
+    return res;
+  } catch (e) {
+    const old = cache ? await cache.match(key) : null;
+    if (old) { const r = new Response(old.body, old); r.headers.set("cache-control", "public, max-age=0, s-maxage=60"); r.headers.set("x-mth-backup", "1"); return r; }
+    throw e;
+  }
 }
 export const LIST_COLS = "slug,title,description,body,cover_img,published_at,updated_at";
