@@ -15,6 +15,45 @@
   var LINKPAGES=[["gut.html","Gut Health sales page"],["diabetes.html","Diabetes sales page"],["glp1.html","GLP-1 sales page"],["protocols.html","All protocols"],["index.html","Homepage (email list)"]];
   function stName(k){ for(var i=0;i<STATUS.length;i++) if(STATUS[i][0]===k) return STATUS[i][1]; return k; }
   function platShort(k){ for(var i=0;i<PLAT.length;i++) if(PLAT[i][0]===k) return PLAT[i][2]; return k; }
+  function platName(k){ for(var i=0;i<PLAT.length;i++) if(PLAT[i][0]===k) return PLAT[i][1]; return k; }
+  /* Which sites the system posts to by itself, and what you do for the rest */
+  var PCOL={ youtube:"#d81f1f", facebook:"#1a64d6", instagram:"#b8327a", tiktok:"#1d1d1d", threads:"#555" };
+  var AUTO={ instagram:true, facebook:true };
+  var HOW={ youtube:"You upload it in YouTube Studio (that’s also where the A/B test is)", facebook:"Posts by itself at the time you set", instagram:"Posts by itself at the time you set", tiktok:"You upload it in the TikTok app", threads:"You post it by hand" };
+  function siteState(p,k){ var s=(p.publish_state||{})[k]; if(s&&s.status==="posted") return ["Posted","own"]; if(s&&(s.status==="failed"||s.status==="check")) return ["Didn’t post","tag"]; if(p.status==="posted") return ["Posted","own"]; if(AUTO[k]&&p.auto_publish&&p.publish_at) return ["Will post by itself","list"]; return [AUTO[k]?"Auto-post is off":"Upload by hand",""]; }
+  function siteTag(k){ return '<span class="pill" style="background:'+(PCOL[k]||"#555")+';color:#fff">'+esc(platName(k))+'</span>'; }
+  function siteTags(p){ return (p.platforms||[]).length?(p.platforms||[]).map(siteTag).join(""):'<span class="pill tag">No site picked</span>'; }
+
+  /* ---------- New post: one clear screen instead of a pop-up question ---------- */
+  function newPostDialog(opts){
+    opts=opts||{};
+    var pick=(opts.platforms||[]).slice();
+    var day=opts.day||"";
+    var m=document.createElement("div"); m.className="mx-modal";
+    m.innerHTML='<div class="box" style="max-width:560px;max-height:92vh;overflow:auto"><h3>New post</h3>'+
+      '<div class="field"><label>Video name</label><input class="inp" id="np-t" maxlength="120" placeholder="e.g. Heart disease: how Dr Brewer reversed it"></div>'+
+      '<div class="field"><label>Where should it go? (tap all that apply)</label><div id="np-p" style="display:grid;gap:8px">'+
+        ["youtube","facebook","instagram","tiktok","threads"].map(function(k){ for(var i=0;i<PLAT.length;i++) if(PLAT[i][0]===k) return PLAT[i]; }).map(function(x){ return '<button type="button" data-p="'+x[0]+'" style="display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 12px;cursor:pointer;font:inherit">'+
+          '<span class="np-box" style="width:22px;height:22px;border-radius:6px;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff"></span>'+
+          '<span style="min-width:0"><b style="display:block;font-size:15.5px;color:'+PCOL[x[0]]+'">'+x[1]+'</b><span class="small">'+HOW[x[0]]+'</span></span></button>'; }).join("")+
+      '</div></div>'+
+      '<div class="field"><label>Date and time (optional, you can set it later)</label><input class="inp" id="np-d" type="datetime-local" style="min-height:42px;font-size:14.5px"'+(day?' value="'+day+'T09:00"':'')+'></div>'+
+      '<div class="acts"><button class="b full" id="np-go">Create post</button><button class="b full ghost" data-x>Cancel</button></div></div>';
+    document.body.appendChild(m);
+    function paint(){ m.querySelectorAll("#np-p [data-p]").forEach(function(b){ var on=pick.indexOf(b.dataset.p)>-1, c=PCOL[b.dataset.p]; b.style.borderColor=on?c:"var(--line)"; var bx=b.querySelector(".np-box"); bx.style.background=on?c:"#fff"; bx.style.borderColor=on?c:"var(--line)"; bx.textContent=on?"✓":""; }); }
+    m.querySelectorAll("#np-p [data-p]").forEach(function(b){ b.onclick=function(){ var k=b.dataset.p, i=pick.indexOf(k); if(i>-1) pick.splice(i,1); else pick.push(k); paint(); }; });
+    m.addEventListener("click",function(e){ if(e.target===m||e.target.hasAttribute("data-x")) m.remove(); });
+    paint(); setTimeout(function(){ var t=m.querySelector("#np-t"); if(t) t.focus(); },50);
+    m.querySelector("#np-go").onclick=async function(){
+      var t=m.querySelector("#np-t").value.trim(); if(!t){ MTH.toast("Give the post a name first"); return; }
+      if(!pick.length){ MTH.toast("Pick at least one site it should go to"); return; }
+      var d=m.querySelector("#np-d").value;
+      var onlyYT=pick.length===1&&pick[0]==="youtube";
+      this.disabled=true;
+      m.remove();
+      newPost({ title:t.slice(0,120), platforms:pick, format:onlyYT?"youtube":"reel", youtube_title:pick.indexOf("youtube")>-1?t.slice(0,100):null, publish_at:d?new Date(d).toISOString():null, status:"idea" });
+    };
+  }
   function slugify(t,id){ return (String(t||"post").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40)||"post")+"-"+id; }
   function siteBase(){ return MTH.base; }
   function trackLink(p,plat){ return siteBase()+"go.html?p="+encodeURIComponent(p.slug||"")+"&s="+plat; }
@@ -68,31 +107,43 @@
   }
 
   /* ================= STUDIO (board / calendar / list) ================= */
-  var view=localStorage.getItem("mth_studio_view")||"board", month=null, fprod="";
-  A.screen("studio",{ nav:"Posts", group:"Growing", help:"Plan your social posts. Each card is one post. Move it along as you go: idea → write → film → edit → ready. Tick Auto-post on a post and it goes to Instagram and Facebook by itself at its publish time (TikTok and YouTube: Export for Metricool).", render: async function(V){
+  var view=localStorage.getItem("mth_studio_view2")||"sites", month=null, fprod="";
+  A.screen("studio",{ nav:"Posts", group:"Growing", help:"Every post shows which sites it goes to (YouTube, Facebook, Instagram, TikTok) and when. Facebook and Instagram post by themselves at the time you set. YouTube and TikTok you upload by hand, because Google keeps videos uploaded by new apps private until they pass an audit. Use “By site” to see what goes where.", render: async function(V){
     var P=await loadPosts();
     if(fprod) P=P.filter(function(p){ return p.product===fprod; });
     var due=P.filter(function(p){ return p.status!=="posted"&&p.publish_at&&new Date(p.publish_at)<Date.now(); }).length;
     var week=P.filter(function(p){ if(!p.publish_at) return false; var d=(new Date(p.publish_at)-Date.now())/864e5; return d>=0&&d<7; }).length;
-    V.innerHTML='<div class="adm-h"><div><div class="kick">Growing</div><h1>Your <em>posts</em></h1></div><div class="acts"><button class="b sm ghost" id="ideas">Get ideas</button><button class="b sm ghost" id="exp">Export for Metricool</button><button class="b sm" id="new">New post</button></div></div>'+
+    V.innerHTML='<div class="adm-h"><div><div class="kick">Growing</div><h1>Your posts</h1></div><div class="acts"><button class="b sm ghost" id="ideas">Get ideas</button><button class="b sm ghost" id="exp">Export for Metricool</button><button class="b sm" id="new">New post</button></div></div>'+
       '<div class="kpis" style="margin-bottom:14px">'+[["idea","Ideas"],["script","Scripted"],["filmed","Filmed"],["edited","Edited"],["ready","Ready"],["scheduled","Scheduled"]].map(function(s){ return '<div class="card kpi"><b>'+P.filter(function(p){ return p.status===s[0]; }).length+'</b><span>'+s[1]+'</span></div>'; }).join("")+'</div>'+
       (due?'<div class="msg err">'+due+' post'+(due>1?'s are':' is')+' past the publish date but not marked posted.</div>':'')+
-      '<div class="bar"><div class="chips" style="margin:0">'+[["board","Board"],["calendar","Calendar"],["list","List"]].map(function(v){ return '<button class="chip'+(view===v[0]?' on':'')+'" data-v="'+v[0]+'">'+v[1]+'</button>'; }).join("")+'</div>'+
+      '<div class="bar"><div class="chips" style="margin:0">'+[["sites","By site"],["board","Board"],["calendar","Calendar"],["list","List"]].map(function(v){ return '<button class="chip'+(view===v[0]?' on':'')+'" data-v="'+v[0]+'">'+v[1]+'</button>'; }).join("")+'</div>'+
       '<select class="sel" id="fp"><option value="">All protocols</option>'+C.order.map(function(k){ return '<option value="'+k+'"'+(fprod===k?' selected':'')+'>'+C.products[k].short+'</option>'; }).join("")+'</select><span class="small">'+week+' going out in the next 7 days</span></div><div id="sv"></div>';
     var $=function(id){ return document.getElementById(id); };
-    $("new").onclick=function(){ var t=prompt("What\u2019s the post about? (working title)"); if(t) newPost({ title:t.trim().slice(0,120) }); };
+    $("new").onclick=function(){ newPostDialog(); };
     $("fp").onchange=function(){ fprod=this.value; A.refresh(); };
     $("exp").onclick=function(){ exportDialog(P); };
     $("ideas").onclick=function(){ ideaDialog(); };
-    document.querySelectorAll("[data-v]").forEach(function(b){ b.onclick=function(){ view=b.dataset.v; localStorage.setItem("mth_studio_view",view); A.refresh(); }; });
+    document.querySelectorAll("[data-v]").forEach(function(b){ b.onclick=function(){ view=b.dataset.v; localStorage.setItem("mth_studio_view2",view); A.refresh(); }; });
     var sv=$("sv");
     function card(p){ return '<div class="card" draggable="true" data-id="'+p.id+'" style="padding:12px 12px 10px;margin-bottom:8px;cursor:pointer"><b style="font-size:14.5px;display:block;line-height:1.3">'+esc(p.title)+'</b>'+
-      '<div style="margin-top:6px">'+(p.platforms||[]).map(function(x){ return '<span class="pill">'+platShort(x)+'</span>'; }).join("")+(p.product?'<span class="pill own">'+esc((C.products[p.product]||{}).short||p.product)+'</span>':'')+'</div>'+
-      '<div class="small" style="margin-top:4px">'+(p.publish_at?A.when(p.publish_at,true):'No date')+(p.pillar?' · '+esc(p.pillar):'')+'</div></div>'; }
-    if(view==="board"){
+      '<div style="margin-top:6px">'+siteTags(p)+'</div>'+
+      '<div class="small" style="margin-top:4px">'+(p.publish_at?A.when(p.publish_at,true):'No date set')+(p.product?' · '+esc((C.products[p.product]||{}).short||p.product):'')+'</div></div>'; }
+    if(view==="sites"){
+      var order=["youtube","facebook","instagram","tiktok","threads"];
+      sv.innerHTML='<div style="display:grid;gap:12px">'+order.map(function(k){
+        var L=P.filter(function(p){ return (p.platforms||[]).indexOf(k)>-1; }).sort(function(a,b){ return (a.publish_at?new Date(a.publish_at):8.64e15)-(b.publish_at?new Date(b.publish_at):8.64e15); });
+        if(k==="threads"&&!L.length) return "";
+        return '<div class="card panel" style="border-left:6px solid '+PCOL[k]+'"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3 style="margin:0;color:'+PCOL[k]+'">'+platName(k)+' · '+L.length+'</h3><span class="small">'+HOW[k]+'</span></div>'+
+          (L.length?'<div style="overflow:auto;margin-top:8px"><table class="ct"><thead><tr><th>When</th><th>Video</th><th>Stage</th><th>On '+platName(k)+'</th></tr></thead><tbody>'+L.map(function(p){ var s=siteState(p,k);
+            return '<tr data-id="'+p.id+'" style="cursor:pointer"><td class="small" style="white-space:nowrap">'+(p.publish_at?A.when(p.publish_at,true):'No date set')+'</td><td><b>'+esc(k==="youtube"&&p.youtube_title?p.youtube_title:p.title)+'</b></td><td><span class="pill">'+stName(p.status)+'</span></td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td></tr>'; }).join("")+'</tbody></table></div>'
+            :'<p class="small" style="margin:8px 0 0">Nothing planned for '+platName(k)+' yet.</p>')+
+          '<button class="b sm ghost" data-newfor="'+k+'" style="margin-top:10px">+ New post for '+platName(k)+'</button></div>'; }).join("")+'</div>';
+      sv.querySelectorAll("tr[data-id]").forEach(function(tr){ tr.onclick=function(){ A.go("post/"+tr.dataset.id); }; });
+      sv.querySelectorAll("[data-newfor]").forEach(function(b){ b.onclick=function(){ newPostDialog({ platforms:[b.dataset.newfor] }); }; });
+    } else if(view==="board"){
       sv.innerHTML='<div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);gap:12px;overflow-x:auto;padding-bottom:10px">'+STATUS.map(function(s){ var L=P.filter(function(p){ return p.status===s[0]; });
         return '<div class="col" data-s="'+s[0]+'" style="background:var(--bg2);border-radius:16px;padding:10px;min-height:200px"><div class="sec-h" style="margin:2px 4px 10px">'+s[1]+' · '+L.length+'</div>'+L.map(card).join("")+(s[0]==="idea"?'<button class="b sm ghost full" data-add>+ Add idea</button>':'')+'</div>'; }).join("")+'</div><p class="small">Tip: drag cards between columns on a computer, or open a post to change its stage.</p>';
-      var add=sv.querySelector("[data-add]"); if(add) add.onclick=function(){ var t=prompt("Post idea"); if(t) newPost({ title:t }); };
+      var add=sv.querySelector("[data-add]"); if(add) add.onclick=function(){ newPostDialog(); };
       sv.querySelectorAll("[data-id]").forEach(function(c){
         c.onclick=function(){ A.go("post/"+c.dataset.id); };
         c.addEventListener("dragstart",function(e){ e.dataTransfer.setData("text/plain",c.dataset.id); });
@@ -108,16 +159,16 @@
       var cells=""; for(var i=0;i<42;i++){ var d=new Date(start); d.setDate(start.getDate()+i); var key=d.toDateString();
         var L=P.filter(function(p){ return p.publish_at&&new Date(p.publish_at).toDateString()===key; });
         cells+='<div data-day="'+d.toISOString().slice(0,10)+'" style="min-height:96px;border:1px solid var(--line);border-radius:10px;padding:6px;background:'+(d.getMonth()===base.getMonth()?'#fff':'var(--bg)')+';cursor:pointer;min-width:0"><div class="small" style="font-weight:700;'+(d.toDateString()===new Date().toDateString()?'color:var(--terra)':'')+'">'+d.getDate()+'</div>'+
-          L.map(function(p){ return '<div data-id="'+p.id+'" style="font-size:11.5px;line-height:1.25;margin-top:4px;padding:3px 5px;border-radius:6px;background:'+({posted:"#e4eadf",scheduled:"#f3ead8",ready:"#f6dccf"}[p.status]||"var(--bg2)")+';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(p.title)+'</div>'; }).join("")+'</div>'; }
+          L.map(function(p){ return '<div data-id="'+p.id+'" style="font-size:11.5px;line-height:1.25;margin-top:4px;padding:3px 5px;border-radius:6px;background:'+({posted:"#e4eadf",scheduled:"#f3ead8",ready:"#f6dccf"}[p.status]||"var(--bg2)")+';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(p.platforms||[]).map(function(k){ return '<span title="'+platName(k)+'" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+PCOL[k]+';margin-right:3px"></span>'; }).join("")+esc(p.title)+'</div>'; }).join("")+'</div>'; }
       sv.innerHTML='<div class="bar"><button class="b sm ghost" id="pm">←</button><b style="font-family:var(--serif);font-size:24px;font-weight:500">'+base.toLocaleDateString(undefined,{month:"long",year:"numeric"})+'</b><button class="b sm ghost" id="nm">→</button></div>'+
-        '<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">'+["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(function(d){ return '<div class="small" style="text-align:center;font-weight:700">'+d+'</div>'; }).join("")+cells+'</div><p class="small">Tap a day to plan a post on it.</p>';
+        '<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">'+["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(function(d){ return '<div class="small" style="text-align:center;font-weight:700">'+d+'</div>'; }).join("")+cells+'</div><p class="small">Tap a day to plan a post on it. Dots: '+["youtube","facebook","instagram","tiktok"].map(function(k){ return '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+PCOL[k]+';margin:0 4px 0 8px"></span>'+platName(k); }).join("")+'</p>';
       $("pm").onclick=function(){ var m=new Date(base); m.setMonth(m.getMonth()-1); month=m.toISOString(); A.refresh(); };
       $("nm").onclick=function(){ var m=new Date(base); m.setMonth(m.getMonth()+1); month=m.toISOString(); A.refresh(); };
       sv.querySelectorAll("[data-id]").forEach(function(c){ c.onclick=function(e){ e.stopPropagation(); A.go("post/"+c.dataset.id); }; });
-      sv.querySelectorAll("[data-day]").forEach(function(c){ c.onclick=function(){ var t=prompt("New post for "+c.dataset.day); if(t) newPost({ title:t, publish_at:new Date(c.dataset.day+"T18:00").toISOString(), status:"idea" }); }; });
+      sv.querySelectorAll("[data-day]").forEach(function(c){ c.onclick=function(){ newPostDialog({ day:c.dataset.day }); }; });
     } else {
-      sv.innerHTML='<div class="card" style="overflow:auto"><table class="ct"><thead><tr><th>Post</th><th>Stage</th><th>Platforms</th><th class="hm">Protocol</th><th>Publish</th></tr></thead><tbody>'+
-        (P.map(function(p){ return '<tr data-id="'+p.id+'"><td><b>'+esc(p.title)+'</b>'+(p.pillar?'<br><span class="small">'+esc(p.pillar)+'</span>':'')+'</td><td><span class="pill">'+stName(p.status)+'</span></td><td>'+(p.platforms||[]).map(function(x){ return '<span class="pill">'+platShort(x)+'</span>'; }).join("")+'</td><td class="hm">'+esc((C.products[p.product]||{}).short||"")+'</td><td class="small">'+(p.publish_at?A.when(p.publish_at,true):"—")+'</td></tr>'; }).join("")||'<tr><td colspan="5" class="muted" style="padding:18px">No posts yet. Tap “Get ideas” to start.</td></tr>')+'</tbody></table></div>';
+      sv.innerHTML='<div class="card" style="overflow:auto"><table class="ct"><thead><tr><th>Post</th><th>Stage</th><th>Goes to</th><th class="hm">Protocol</th><th>Publish</th></tr></thead><tbody>'+
+        (P.map(function(p){ return '<tr data-id="'+p.id+'"><td><b>'+esc(p.title)+'</b>'+(p.pillar?'<br><span class="small">'+esc(p.pillar)+'</span>':'')+'</td><td><span class="pill">'+stName(p.status)+'</span></td><td>'+siteTags(p)+'</td><td class="hm">'+esc((C.products[p.product]||{}).short||"")+'</td><td class="small">'+(p.publish_at?A.when(p.publish_at,true):"—")+'</td></tr>'; }).join("")||'<tr><td colspan="5" class="muted" style="padding:18px">No posts yet. Tap “Get ideas” to start.</td></tr>')+'</tbody></table></div>';
       sv.querySelectorAll("tr[data-id]").forEach(function(tr){ tr.onclick=function(){ A.go("post/"+tr.dataset.id); }; });
     }
   }});
@@ -195,7 +246,7 @@
           '<div class="field"><label>Format</label><select class="sel" id="fm">'+FORMATS.map(function(f){ return '<option value="'+f[0]+'"'+(p.format===f[0]?' selected':'')+'>'+f[1]+'</option>'; }).join("")+'</select></div>'+
           '<div class="field"><label>Pillar</label><select class="sel" id="pl"><option value="">—</option>'+PILLARS.map(function(x){ return '<option'+(p.pillar===x?' selected':'')+'>'+esc(x)+'</option>'; }).join("")+'</select></div>'+
           '<div class="field"><label>Publish</label><input class="inp" id="pa" type="datetime-local" value="'+local+'" style="min-height:42px;font-size:14.5px"></div></div>'+
-        '<div class="field"><label>Platforms</label><div class="chips" id="pf">'+PLAT.map(function(x){ return '<button class="chip'+(p.platforms.indexOf(x[0])>-1?' on':'')+'" data-p="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</div></div></div>'+
+        '<div class="field"><label>Where it goes (tap to add or remove)</label><div class="chips" id="pf">'+PLAT.map(function(x){ return '<button class="chip'+(p.platforms.indexOf(x[0])>-1?' on':'')+'" data-p="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</div><div id="pfhow" style="margin-top:8px"></div></div></div>'+
       '<div class="card panel"><h3>Script</h3><div class="field"><label>Hook (first 2 seconds)</label><input class="inp" id="hk" value="'+esc(p.hook||"")+'" placeholder="Most people get this wrong about fasting…"><span class="small" id="hkc"></span></div>'+
         '<div class="field"><label>Script</label><textarea class="inp" id="sc" style="min-height:180px" placeholder="What you’ll say on camera">'+esc(p.script||"")+'</textarea><span class="small" id="scc"></span></div>'+
         '<button class="b sm ghost" id="tele">Open teleprompter</button></div>'+
@@ -257,6 +308,7 @@
       $("cpy").innerHTML=on.map(function(x){ return '<button class="b sm ghost" data-copy="'+x[0]+'">Copy for '+x[1]+'</button>'; }).join("")||'<span class="small">Choose a platform first.</span>';
       document.querySelectorAll("#ct [data-c]").forEach(function(c){ c.onclick=function(){ p.captions[tab]=$("cpx").value; tab=c.dataset.c; showTab(); }; });
       document.querySelectorAll("[data-copy]").forEach(function(b){ b.onclick=function(){ collect(); A.copy(fullText(p,b.dataset.copy),"Caption copied for "+b.dataset.copy); }; });
+      var ph=$("pfhow"); if(ph) ph.innerHTML=on.length?on.map(function(x){ var s=siteState(p,x[0]); return '<div class="row-i" style="padding:4px 0"><span>'+siteTag(x[0])+' <span class="small">'+HOW[x[0]]+'</span></span><span class="pill '+s[1]+'">'+s[0]+'</span></div>'; }).join(""):'<span class="small" style="color:var(--terra)">Pick at least one site.</span>';
       showTab(); links();
     }
     document.querySelectorAll("#pf [data-p]").forEach(function(c){ c.onclick=function(){ var k=c.dataset.p, i=p.platforms.indexOf(k); if(i>-1) p.platforms.splice(i,1); else p.platforms.push(k); c.classList.toggle("on"); platUI(); }; });
