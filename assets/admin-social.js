@@ -97,7 +97,18 @@
           (st.yt_connected?'<p class="small">Connected to <b>'+esc(S.yt_channel_title||"your channel")+'</b>. Keyword comments get a public reply with your link (YouTube has no private messages).</p><div class="acts"><button class="b sm ghost" id="yoff">Disconnect</button></div>'
             :'<p class="small">YouTube has no private messages, so here a keyword comment gets a <b>public reply</b> with your link.</p>'+ytSteps+
              '<div class="addrow"><input class="inp" id="yid" autocomplete="off" placeholder="Client ID (ends in .apps.googleusercontent.com)"><input class="inp" id="ysec" type="password" autocomplete="off" placeholder="Client secret"><button class="b sm ghost" id="ysave">Save</button><button class="b sm" id="ygo"'+(st.yt_client?'':' disabled')+'>Connect YouTube</button></div>')+
-          '<p class="small" style="margin:10px 0 0"><b>Uploading videos to YouTube isn’t here on purpose.</b> Google locks every video uploaded by a new app to private until the app passes Google’s audit, so for now upload to YouTube by hand (or Metricool).</p></div>'+
+          '</div>'+
+        (st.yt_connected?'<div class="card panel" style="margin-bottom:12px" id="ytup"><h3>'+dot(true)+'Upload a video to YouTube</h3>'+
+          '<p class="small">Sends a finished video straight to <b>'+esc(S.yt_channel_title||"your channel")+'</b> with its title, description, tags and thumbnail. Until Google finishes its audit of this tool, YouTube keeps these uploads <b>private</b>; you can make them public in YouTube Studio.</p>'+
+          '<div class="field"><label>Video file</label><input class="inp" id="yuf" type="file" accept="video/*"></div>'+
+          '<div class="field"><label>Title (up to 100 characters)</label><input class="inp" id="yut" maxlength="100"></div>'+
+          '<div class="field"><label>Description</label><textarea class="inp" id="yud" rows="4" maxlength="5000"></textarea></div>'+
+          '<div class="field"><label>Tags (separate with commas)</label><input class="inp" id="yug" placeholder="gut health, high protein"></div>'+
+          '<div class="field"><label>Thumbnail (optional · JPG or PNG under 2 MB)</label><input class="inp" id="yui" type="file" accept="image/jpeg,image/png"></div>'+
+          '<div class="addrow"><select class="inp" id="yup" style="max-width:200px"><option value="private">Private</option><option value="unlisted">Unlisted</option><option value="public">Public</option></select>'+
+          '<label class="small" style="display:flex;align-items:center;gap:6px">Publish at (optional) <input class="inp" id="yuw" type="datetime-local" style="max-width:240px"></label>'+
+          '<button class="b sm" id="yugo">Upload to YouTube</button></div>'+
+          '<div id="yures" style="margin-top:10px"></div></div>':'')+
         '<div class="card panel" style="margin-bottom:12px"><h3>'+dot(false)+'TikTok</h3><p class="small">TikTok keeps posts from a new app private until TikTok audits it (weeks). Keep sending TikTok through Metricool: Posts → Export for Metricool.</p></div>'+
 
         '<div class="sec-h">2 · Going out next</div>'+table(upcoming,'Nothing is set to auto-post. Open a post, tick <b>Auto-post</b>, give it a publish time and Save.')+
@@ -145,6 +156,37 @@
       if($("ygo")) $("ygo").onclick=async function(){ var r=await act({ action:"yt_auth_url" },this); if(r&&r.url) location.href=r.url; };
       if($("yoff")) $("yoff").onclick=async function(){ if(!confirm("Disconnect YouTube?")) return; if(await act({ action:"yt_disconnect" },this,"Disconnected")) A.refresh(); };
       if($("ru")) $("ru").onclick=function(){ A.copy($("ru").textContent,"Copied"); };
+
+      /* ---- YouTube upload: the server opens the upload, the browser sends the file straight to Google ---- */
+      if($("yugo")) $("yugo").onclick=async function(){
+        var btn=this, out=$("yures"), f=$("yuf").files[0], thumb=$("yui").files[0];
+        if(!f) return MTH.toast("Pick the video file first");
+        if(!$("yut").value.trim()) return MTH.toast("Give it a title");
+        if(thumb&&thumb.size>2*1024*1024) return MTH.toast("The thumbnail has to be under 2 MB");
+        var when=$("yuw").value?new Date($("yuw").value).toISOString():null;
+        btn.disabled=true; out.innerHTML='<div class="msg info">Getting YouTube ready…</div>';
+        var r=await MTH.fn("mth-yt-upload",{ action:"start", title:$("yut").value, description:$("yud").value, tags:$("yug").value, privacy:$("yup").value, publish_at:when, size:f.size, mime:f.type||"video/mp4" });
+        if(!r||r.error){ btn.disabled=false; out.innerHTML='<div class="msg err">'+esc(r&&(r.message||r.error)||"That didn’t work")+'</div>'; return; }
+        var video=await new Promise(function(res){
+          var x=new XMLHttpRequest(); x.open("PUT",r.upload_url); x.setRequestHeader("Content-Type",f.type||"video/mp4");
+          x.upload.onprogress=function(e){ if(e.lengthComputable) out.innerHTML='<div class="msg info">Uploading… '+Math.round(e.loaded/e.total*100)+'%</div><div style="height:8px;background:var(--line);border-radius:6px;overflow:hidden"><div style="height:100%;width:'+(e.loaded/e.total*100)+'%;background:var(--terra)"></div></div>'; };
+          x.onload=function(){ var j=null; try{ j=JSON.parse(x.responseText); }catch(e){} res(x.status<300&&j&&j.id?j:{ error:(j&&j.error&&j.error.message)||("YouTube said "+x.status) }); };
+          x.onerror=function(){ res({ error:"The connection dropped during the upload. Try again." }); };
+          x.send(f);
+        });
+        if(video.error){ btn.disabled=false; out.innerHTML='<div class="msg err">'+esc(video.error)+'</div>'; return; }
+        var note="";
+        if(thumb){ out.innerHTML='<div class="msg info">Video is up. Adding the thumbnail…</div>';
+          var b64=await new Promise(function(res){ var fr=new FileReader(); fr.onload=function(){ res(String(fr.result).split(",")[1]); }; fr.readAsDataURL(thumb); });
+          var t=await MTH.fn("mth-yt-upload",{ action:"thumbnail", video_id:video.id, data:b64, mime:thumb.type });
+          note=t&&t.ok?" Thumbnail added.":" Thumbnail didn’t go up: "+esc(t&&(t.message||t.error)||"unknown")+". Add it in YouTube Studio.";
+        }
+        var st2=await MTH.fn("mth-yt-upload",{ action:"status", video_id:video.id });
+        btn.disabled=false;
+        out.innerHTML='<div class="msg ok">Uploaded to YouTube'+(st2&&st2.privacy?' as <b>'+esc(st2.privacy)+'</b>':'')+'.'+note+' YouTube is still processing it for a few minutes. '+
+          link("https://www.youtube.com/watch?v="+encodeURIComponent(video.id),"Watch it")+' · '+link("https://studio.youtube.com/video/"+encodeURIComponent(video.id)+"/edit","Open in YouTube Studio")+'</div>';
+        MTH.toast("Uploaded to YouTube",5000);
+      };
 
       /* ---- queue ---- */
       V.querySelectorAll("[data-retry]").forEach(function(b){ b.onclick=async function(e){ e.stopPropagation();
