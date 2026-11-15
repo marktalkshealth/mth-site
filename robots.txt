@@ -1,5 +1,7 @@
 # Mark Talks Health
 User-agent: *
+# Content signals (contentsignals.org): yes to search and AI answers that quote and link us, no to model training
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Disallow: /admin
 Disallow: /account
 Disallow: /welcome
