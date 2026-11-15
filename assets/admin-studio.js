@@ -63,8 +63,6 @@
     var cta=(p.cta||"").trim();
     var clickable=plat==="facebook"||plat==="threads"||plat==="youtube";
     var parts=[t];
-    var fv=(p.full_video_url||"").trim(); // Nov 15 2026: every Short/Reel points back to its full YouTube video (same rule as mth-social)
-    if(fv) parts.push(clickable?"▶ Watch the full video: "+fv:"▶ Full video on my YouTube channel (link in bio)");
     if(cta) parts.push(clickable&&link?cta+" "+link:cta);
     else if(clickable&&link) parts.push(link);
     if(p.hashtags&&plat!=="threads") parts.push(p.hashtags.trim());
@@ -257,8 +255,7 @@
         '<div class="field"><textarea class="inp" id="cpx" placeholder="Leave empty to use the main caption"></textarea><span class="small" id="cpc"></span></div>'+
         '<div class="field"><label>Call to action</label><input class="inp" id="cta" value="'+esc(p.cta||"")+'" placeholder="Comment GUT and I’ll send you the link"></div>'+
         '<div class="field"><label>Hashtags</label><input class="inp" id="hs" value="'+esc(p.hashtags||"")+'" placeholder="#guthealth #fasting #naturalhealing"><span class="small" id="hsc"></span></div>'+
-        '<div class="field"><label>Full video on YouTube (paste its link)</label><input class="inp" id="fv" value="'+esc(p.full_video_url||"")+'" placeholder="https://youtu.be/…  (for Shorts, Reels and TikToks cut from a long video)"><div id="fvhow"></div></div>'+
-        '<div class="field"><label>First comment (Instagram, Facebook, YouTube)</label><input class="inp" id="fc" value="'+esc(p.first_comment||"")+'" placeholder="Leave empty and the full-video link goes here by itself"></div>'+
+        '<div class="field"><label>First comment (Instagram, Facebook, YouTube)</label><input class="inp" id="fc" value="'+esc(p.first_comment||"")+'"></div>'+
         '<div class="field"><label>YouTube title</label><input class="inp" id="yt" maxlength="100" value="'+esc(p.youtube_title||"")+'"></div></div>'+
       '</div><div style="display:grid;gap:14px">'+
       '<div class="card panel"><button class="b full" id="save">Save</button><div class="acts"><button class="b sm ghost" id="dup">Duplicate</button><button class="b sm ghost" id="posted">Mark posted</button></div><div id="chk" style="margin-top:12px"></div></div>'+
@@ -275,7 +272,7 @@
       var pa=$("pa").value;
       p.title=$("t").value.trim()||"Untitled post"; p.status=$("st").value; p.format=$("fm").value; p.pillar=$("pl").value||null;
       p.publish_at=pa?new Date(pa).toISOString():null; p.hook=$("hk").value; p.script=$("sc").value; p.caption=$("cp").value;
-      p.captions[tab]=$("cpx").value; p.cta=$("cta").value; p.hashtags=$("hs").value; p.first_comment=$("fc").value; p.youtube_title=$("yt").value; p.full_video_url=$("fv").value.trim()||null;
+      p.captions[tab]=$("cpx").value; p.cta=$("cta").value; p.hashtags=$("hs").value; p.first_comment=$("fc").value; p.youtube_title=$("yt").value;
       p.link_page=$("lp").value; p.product=$("pr").value||null; p.notes=$("nt").value;
       if($("ap")) p.auto_publish=$("ap").checked;
       if($("exg")&&$("exg").dataset.ready){ var xv=$("exg").value.split("|"); p.experiment_id=xv[0]?Number(xv[0]):null; p.variant=xv[0]?xv.slice(1).join("|"):null; }
@@ -286,25 +283,13 @@
       var sw=($("sc").value.trim().match(/\S+/g)||[]).length; $("scc").textContent=sw+" words · about "+Math.round(sw/2.5)+" seconds on camera";
       var t=fullText(collect(),tab).length; $("cpc").textContent=t+" / "+LIMIT[tab]+" characters for "+tab+(t>LIMIT[tab]?" · too long":"");
       var hc=($("hs").value.match(/#\w+/g)||[]).length; $("hsc").textContent=hc+" hashtags"+(hc>5?" · 3–5 tends to work best":"");
-      check(); fvHow();
-    }
-    // Nov 15 2026: what happens on each site when a post points to a full video, plus the steps apps aren't allowed to do
-    function fvHow(){
-      var el=$("fvhow"); if(!el) return; var u=$("fv").value.trim();
-      if(!u){ el.innerHTML=""; return; }
-      if(!/^https?:\/\/(www\.|m\.)?(youtube\.com|youtu\.be)\//i.test(u)){ el.innerHTML='<p class="small" style="color:var(--terra)">That doesn’t look like a YouTube link.</p>'; return; }
-      var on=p.platforms, L=[];
-      if(on.indexOf("facebook")>-1) L.push(["Facebook","Clickable link in the caption, and a first comment with the link. Automatic."]);
-      if(on.indexOf("instagram")>-1) L.push(["Instagram","“Full video on my YouTube (link in bio)” in the caption and first comment. Automatic. Keep your bio link on your newest video."]);
-      if(on.indexOf("youtube")>-1) L.push(["YouTube Short",'Link goes in the description. Then in <a href="https://studio.youtube.com/" target="_blank" rel="noopener">YouTube Studio</a> open this Short → <b>Related video</b> → pick the full video. (YouTube doesn’t let apps set this, so it’s a 10-second click by hand.)']);
-      if(on.indexOf("tiktok")>-1) L.push(["TikTok","Caption says “link in bio”. After it posts, comment “Full video on my YouTube: Mark Talks Health” and pin it."]);
-      el.innerHTML='<div class="card" style="padding:10px 12px;margin-top:8px;background:var(--cream2,rgba(0,0,0,.03))"><div class="sec-h" style="margin-top:0">Points to the full video</div>'+(L.map(function(x){ return '<div class="row-i" style="padding:4px 0;align-items:flex-start;gap:10px"><b style="min-width:110px">'+x[0]+'</b><span class="small">'+x[1]+'</span></div>'; }).join("")||'<span class="small">Pick where it goes first.</span>')+'</div>';
+      check();
     }
     function check(){
       var q=collect(), items=[
         [!!q.hook&&q.hook.trim().length>0,"Hook written"],[!!q.caption||Object.keys(q.captions).some(function(k){ return q.captions[k]; }),"Caption written"],
         [q.platforms.length>0,"Platforms chosen"],[!!q.publish_at,"Publish date set"],[(q.media_urls||[]).length>0,"Media uploaded"],[!!q.cta,"Call to action"],
-        [q.platforms.every(function(pl){ return fullText(q,pl).length<=LIMIT[pl]; }),"Captions within limits"],[q.platforms.indexOf("youtube")<0||!!(q.youtube_title||q.title),"YouTube title"],[q.format!=="reel"&&q.format!=="short"||!!q.full_video_url,"Points to the full video"]];
+        [q.platforms.every(function(pl){ return fullText(q,pl).length<=LIMIT[pl]; }),"Captions within limits"],[q.platforms.indexOf("youtube")<0||!!(q.youtube_title||q.title),"YouTube title"]];
       $("chk").innerHTML='<div class="sec-h" style="margin-top:0">Ready check</div>'+items.map(function(i){ return '<div class="row-i" style="padding:5px 0"><span>'+i[1]+'</span><span style="color:'+(i[0]?'var(--sage)':'var(--terra)')+'">'+(i[0]?'✓':'—')+'</span></div>'; }).join("");
     }
     function links(){
@@ -327,7 +312,7 @@
       showTab(); links();
     }
     document.querySelectorAll("#pf [data-p]").forEach(function(c){ c.onclick=function(){ var k=c.dataset.p, i=p.platforms.indexOf(k); if(i>-1) p.platforms.splice(i,1); else p.platforms.push(k); c.classList.toggle("on"); platUI(); }; });
-    ["t","hk","sc","cp","cpx","cta","hs","fc","fv","yt","pa"].forEach(function(i){ $(i).addEventListener("input",counts); });
+    ["t","hk","sc","cp","cpx","cta","hs","fc","yt","pa"].forEach(function(i){ $(i).addEventListener("input",counts); });
     async function save(){ collect();
       if(p.auto_publish&&!p.publish_at){ MTH.toast("Auto-post needs a publish date and time",5000); return; }
       if(p.auto_publish&&p.status!=="posted"&&p.status!=="scheduled"&&p.status!=="ready"){ p.status="scheduled"; $("st").value="scheduled"; }
