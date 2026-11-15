@@ -47,11 +47,35 @@ export function htmlToMarkdown(html, url) {
   return `${head}\n\n${text}\n`;
 }
 
+/* Pre-render: the home and sales pages keep their content in <template id="design"> and only put it on the page
+   after the site has loaded (MTH.ready, which waits on the database). Search engines, AI bots, and visitors on a slow
+   connection would see an almost empty page. Here we copy the template's content (minus its scripts) straight into
+   <main id="page"> before the page leaves the server, so the full text is there on the first load.
+   The page's own script still runs as before: it clears <main> and mounts the live, interactive version. */
+export function prerender(html) {
+  const open = '<template id="design">';
+  const i = html.indexOf(open);
+  if (i === -1) return html;
+  const j = html.indexOf("</template>", i);
+  const m = html.match(/<main id="page">([\s\S]*?)<\/main>/);
+  if (j === -1 || !m || m[1].length > 400) return html;      // already has real content: leave it alone
+  const design = html.slice(i + open.length, j).replace(/<script\b[\s\S]*?<\/script>/gi, "");
+  return html.replace(m[0], '<main id="page" data-prerendered="1">' + design + "</main>");
+}
+
 export async function onRequest(context) {
   const { request } = context;
   const accept = request.headers.get("accept") || "";
   const url = new URL(request.url);
-  if (request.method !== "GET" || !/text\/markdown/i.test(accept) || PRIVATE.test(url.pathname)) return context.next();
+  if (request.method !== "GET" || PRIVATE.test(url.pathname)) return context.next();
+  if (!/text\/markdown/i.test(accept)) {
+    const res = await context.next();
+    if (res.status !== 200 || !/text\/html/i.test(res.headers.get("content-type") || "")) return res;
+    const html = await res.text();
+    const out = prerender(html);
+    const headers = new Headers(res.headers); headers.delete("content-length");
+    return new Response(out, { status: 200, headers });
+  }
   // ask the rest of the site for the normal HTML page
   const htmlReq = new Request(request.url, { headers: { accept: "text/html" } });
   const res = await context.next(htmlReq);
