@@ -60,7 +60,9 @@ export function prerender(html) {
   const m = html.match(/<main id="page">([\s\S]*?)<\/main>/);
   if (j === -1 || !m || m[1].length > 400) return html;      // already has real content: leave it alone
   const design = html.slice(i + open.length, j).replace(/<script\b[\s\S]*?<\/script>/gi, "");
-  return html.replace(m[0], '<main id="page" data-prerendered="1">' + design + "</main>");
+  // fade-in-on-scroll blocks (.rv) start invisible until the live script runs: show them in the pre-rendered copy
+  const show = "<style>#page[data-prerendered] .rv{opacity:1!important;transform:none!important}</style>";
+  return html.replace(m[0], '<main id="page" data-prerendered="1">' + show + design + "</main>");
 }
 
 export async function onRequest(context) {
