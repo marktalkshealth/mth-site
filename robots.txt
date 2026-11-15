@@ -19,4 +19,36 @@ Disallow: /sugar/
 Disallow: /glp1/
 Allow: /
 
+# AI assistants and AI search: welcome on public pages (same rules as everyone)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: DuckAssistBot
+User-agent: Meta-ExternalAgent
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Disallow: /admin
+Disallow: /account
+Disallow: /welcome
+Disallow: /login
+Disallow: /course
+Disallow: /app
+Disallow: /community
+Disallow: /checkin
+Disallow: /snapshot
+Disallow: /library
+Disallow: /go
+Disallow: /hub/
+Disallow: /gut/
+Disallow: /sugar/
+Disallow: /glp1/
+Allow: /
+
 Sitemap: https://marktalkshealth.com/sitemap.xml
