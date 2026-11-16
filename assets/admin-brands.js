@@ -198,7 +198,7 @@ Number(R.excl_days)>0?"For "+durName(R.excl_days)+" from "+live+", Creator will 
     var first=(b.contact_name||"").split(" ")[0]||"there", me=(rc.legal_name||"Mark").split(" ")[0];
     return [
       ["Cold pitch with a sample ad","A short idea for "+(b.name||"your brand"),
-"Hi "+first+",\n\nI’m "+me+" from "+rc.business+". I make Vox-style health documentaries about fasting, gut health and metabolic repair, and I lost 100 pounds doing what I teach.\n\n"+
+"Hi "+first+",\n\nI’m "+me+" from "+rc.business+". I make research-driven health documentaries about fasting, gut health and metabolic repair.\n\n"+
 "I made a short sample ad for "+(b.name||"your product")+" in my style, to show how it could fit naturally inside a documentary instead of interrupting it:\n[link to your sample ad]\n\n"+
 (b.fit?"Why I think it fits: "+b.fit+"\n\n":"")+
 "If you like it, I can make versions for your own pages and paid ads, licensed for 30, 60 or 90 days, or longer.\n\nWould a 15-minute call next week work?\n\n"+me+"\n"+rc.business+" · "+rc.website],

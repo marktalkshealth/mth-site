@@ -335,7 +335,7 @@
   function videos(root){
     [].forEach.call(root.querySelectorAll(".mthv:not([data-ready])"),function(el){
       el.setAttribute("data-ready","1");
-      var id=(el.getAttribute("data-wistia")||"").trim(), title=el.getAttribute("data-title")||"Watch my story", len=el.getAttribute("data-len")||"";
+      var id=(el.getAttribute("data-wistia")||"").trim(), title=el.getAttribute("data-title")||"Watch the intro", len=el.getAttribute("data-len")||"";
       var poster=el.getAttribute("data-poster")||BASE+"mark-kitchen.jpg";
       var hint=function(t){ return (len?len+" · ":"")+t; };
       el.setAttribute("role","button"); el.setAttribute("tabindex","0"); el.setAttribute("aria-label",title+", video");
