@@ -1,0 +1,12 @@
+# Friendly short links: addresses people (or old posts) might type, sent to the real page instead of "Page not found".
+/courses        /protocols  301
+/courses/       /protocols  301
+/gut-health     /gut        301
+/guthealth      /gut        301
+/glp-1          /glp1       301
+/weight-loss    /glp1       301
+/links          /           301
+/link           /           301
+/bio            /           301
+/free           /assessment 301
+/quiz           /assessment 301
