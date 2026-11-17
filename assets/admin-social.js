@@ -65,6 +65,25 @@
       }
       function table(list,empty){ return '<div class="card" style="overflow:auto"><table class="ct"><thead><tr><th>Post</th><th>Where it’s going</th></tr></thead><tbody>'+(list.map(postRow).join("")||'<tr><td colspan="2" class="muted" style="padding:16px">'+empty+'</td></tr>')+'</tbody></table></div>'; }
 
+      /* the 5 topic brands: each has its own Facebook Page + Instagram (found automatically) and its own YouTube channel */
+      function brandsCard(list, ytClient){
+        var rows=list.map(function(b){
+          var e=(b.poll_state||{}).errors||{}, le=(b.poll_state||{}).lab_errors||{}, errs=Object.keys(e).concat(Object.keys(le).filter(function(k){ return !e[k]; }));
+          return '<tr data-brand="'+esc(b.slug)+'"><td><b>'+esc(b.label)+'</b></td>'+
+            '<td>'+dot(b.meta_connected)+(b.fb_page_id?esc(b.fb_page_name||"Page"):'<span class="small">Page not visible yet</span>')+'</td>'+
+            '<td>'+dot(!!b.ig_id&&b.meta_connected)+(b.ig_username?'@'+esc(b.ig_username):'<span class="small">not linked</span>')+'</td>'+
+            '<td>'+dot(b.yt_connected)+(b.yt_connected?esc(b.yt_channel_title||"Channel"):'<span class="small">not connected</span>')+'</td>'+
+            '<td style="white-space:nowrap">'+(b.yt_connected?'<button class="b sm ghost" data-ytoff style="min-height:28px;padding:2px 10px">Disconnect YouTube</button>':'<button class="b sm" data-ytgo'+(ytClient?'':' disabled')+' style="min-height:28px;padding:2px 10px">Connect YouTube</button>')+
+            ' <button class="b sm ghost" data-btest style="min-height:28px;padding:2px 10px">Test</button></td></tr>'+
+            (errs.length?'<tr><td colspan="5" class="small" style="color:#7e3b25;padding-top:0">'+errs.map(function(k){ return esc(PL[k]||k)+': '+esc(e[k]||le[k]); }).join(" · ")+'</td></tr>':'')+
+            '<tr class="hidden" data-bres="'+esc(b.slug)+'"><td colspan="5"></td></tr>';
+        }).join("");
+        return '<div class="card panel" style="margin-bottom:12px"><h3>Topic brands</h3>'+
+          '<p class="small">Every brand runs on the same switches and comment keywords as Mark Talks Health. Facebook Pages and their Instagram accounts are picked up by themselves (every 30 minutes) once the Page is given to your system user. YouTube: press Connect, then pick that brand’s channel when Google asks.</p>'+
+          '<div style="overflow:auto"><table class="ct"><thead><tr><th>Brand</th><th>Facebook</th><th>Instagram</th><th>YouTube</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+          '<div class="acts"><button class="b sm ghost" id="bsync">Look for new Pages now</button></div></div>';
+      }
+
       var metaSteps='<ol class="step-list">'+
         '<li>Open '+link("https://developers.facebook.com/apps/","your Meta app")+' and switch it from Development to <b>Live</b> (top of the page). Posts from an app that isn’t Live are only visible to you.</li>'+
         '<li>Open '+link("https://business.facebook.com/settings/system-users?business_id=931066053191224","Business settings → System users")+'. Pick your system user (or add one, role Admin).</li>'+
@@ -109,7 +128,7 @@
           '<label class="small" style="display:flex;align-items:center;gap:6px">Publish at (optional) <input class="inp" id="yuw" type="datetime-local" style="max-width:240px"></label>'+
           '<button class="b sm" id="yugo">Upload to YouTube</button></div>'+
           '<div id="yures" style="margin-top:10px"></div></div>':'')+
-        '<div class="card panel" style="margin-bottom:12px"><h3>'+dot(false)+'TikTok</h3><p class="small">TikTok keeps posts from a new app private until TikTok audits it (weeks). Keep sending TikTok through Metricool: Posts → Export for Metricool.</p></div>'+
+        brandsCard(st.brands||[], !!st.yt_client)+
 
         '<div class="sec-h">2 · Going out next</div>'+table(upcoming,'Nothing is set to auto-post. Open a post, tick <b>Auto-post</b>, give it a publish time and Save.')+
         '<div class="sec-h">3 · What happened</div>'+table(past.slice(0,20),'Nothing has gone out yet.')+
@@ -156,6 +175,22 @@
       if($("ygo")) $("ygo").onclick=async function(){ var r=await act({ action:"yt_auth_url" },this); if(r&&r.url) location.href=r.url; };
       if($("yoff")) $("yoff").onclick=async function(){ if(!confirm("Disconnect YouTube?")) return; if(await act({ action:"yt_disconnect" },this,"Disconnected")) A.refresh(); };
       if($("ru")) $("ru").onclick=function(){ A.copy($("ru").textContent,"Copied"); };
+
+      /* ---- Topic brands ---- */
+      if($("bsync")) $("bsync").onclick=async function(){ var r=await act({ action:"sync_brands" },this); if(r){ MTH.toast("Pages found: "+((r.pages||[]).map(function(p){ return p.name; }).join(", ")||"none"),7000); A.refresh(); } };
+      V.querySelectorAll("tr[data-brand]").forEach(function(tr){
+        var slug=tr.dataset.brand, go=tr.querySelector("[data-ytgo]"), off=tr.querySelector("[data-ytoff]"), test=tr.querySelector("[data-btest]");
+        if(go) go.onclick=async function(){ var r=await act({ action:"brand_yt_auth_url", slug:slug },this); if(r&&r.url) location.href=r.url; };
+        if(off) off.onclick=async function(){ if(!confirm("Disconnect this brand’s YouTube channel?")) return; if(await act({ action:"brand_yt_disconnect", slug:slug },this,"Disconnected")) A.refresh(); };
+        if(test) test.onclick=async function(){ var r=await act({ action:"brand_test", slug:slug },this); if(!r) return;
+          var line=function(n,x,ok){ return n+': '+(x&&x.ok?'working · '+esc(ok(x)):'problem · '+esc((x&&x.error)||"not connected")); };
+          var out=V.querySelector('[data-bres="'+slug+'"]'); out.classList.remove("hidden");
+          var all=r.facebook&&r.facebook.ok&&r.instagram&&r.instagram.ok&&r.youtube&&r.youtube.ok;
+          out.firstChild.innerHTML='<div class="msg '+(all?'ok':'err')+'">'+
+            line("Facebook",r.facebook,function(x){ return x.name+' · '+(x.followers||0)+' followers'; })+'<br>'+
+            line("Instagram",r.instagram,function(x){ return '@'+x.username+' · '+(x.followers||0)+' followers'; })+'<br>'+
+            line("YouTube",r.youtube,function(x){ return x.title+' · '+(x.subscribers||0)+' subscribers · '+(x.videos||0)+' videos'; })+'</div>'; };
+      });
 
       /* ---- YouTube upload: the server opens the upload, the browser sends the file straight to Google ---- */
       if($("yugo")) $("yugo").onclick=async function(){
