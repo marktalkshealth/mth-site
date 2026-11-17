@@ -133,7 +133,8 @@
           '<p class="small">Comments that don’t match a keyword (questions, compliments, “send it”, “link?”) are read by Claude Haiku. It sends the right freebie, writes a short reply in your style, and quietly ignores anything negative, serious or spammy (no reply, nothing saved). About $0.0003 a comment, roughly $3 per 10,000. It stops for the day at your limit.</p>'+
           (st.ai_key?'':'<div class="msg err">No Claude key saved yet.</div>')+
           '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">'+sw("swai",!!S.ai_enabled,"Smart replies are","Uses AI on comments the keyword rules can’t place.")+
-          '<label class="card" style="display:flex;gap:10px;align-items:center;padding:12px 14px;flex:1 1 260px"><span><b>Daily limit</b><br><span class="small">'+(st.ai_today||0)+' used today</span></span><input class="inp" id="aicap" type="number" min="0" max="5000" value="'+(S.ai_daily_cap!=null?S.ai_daily_cap:300)+'" style="max-width:110px;margin-left:auto"></label></div>'+
+          '<label class="card" style="display:flex;gap:10px;align-items:center;padding:12px 14px;flex:1 1 260px"><span><b>Daily limit</b><br><span class="small">'+(st.ai_today||0)+' used today</span></span><input class="inp" id="aicap" type="number" min="0" max="5000" value="'+(S.ai_daily_cap!=null?S.ai_daily_cap:300)+'" style="max-width:110px;margin-left:auto"></label>'+
+          '<label class="card" style="display:flex;gap:10px;align-items:center;padding:12px 14px;flex:1 1 260px"><span><b>Thank-you replies</b><br><span class="small">Compliments get a quick thanks or 👍 on 1 in this many. Questions always get answered.</span></span><input class="inp" id="aievery" type="number" min="1" max="100" value="'+(S.reply_every!=null?S.reply_every:15)+'" style="max-width:110px;margin-left:auto"></label></div>'+
           '<div class="field"><label>Your own rules for the replies (one per line · optional)</label><textarea class="inp" id="airules" rows="3" maxlength="2000" placeholder="e.g. never mention keto by name">'+esc(S.ai_rules||"")+'</textarea></div>'+
           '<div class="acts"><button class="b sm ghost" id="aisave">Save</button></div>'+
           '<div class="addrow" style="margin-top:10px"><input class="inp" id="aitxt" placeholder="Try a comment, e.g. “is this free?”"><select class="inp" id="aipl" style="max-width:150px"><option value="instagram">Instagram</option><option value="facebook">Facebook</option><option value="youtube">YouTube</option></select><button class="b sm" id="aitry">Try it</button></div><div id="aires"></div></div>'+
@@ -189,10 +190,10 @@
       if($("swai")) $("swai").onchange=async function(){ var on=this.checked;
         if(on&&!confirm("Turn smart replies ON?\n\nComments that don’t match a keyword get read by the AI helper (about $0.0003 each, up to your daily limit).")){ this.checked=false; return; }
         var r=await act({ action:"set_smart", ai_enabled:on },this,on?"Smart replies are on":"Smart replies are off"); if(!r) this.checked=!on; A.refresh(); };
-      if($("aisave")) $("aisave").onclick=async function(){ if(await act({ action:"set_smart", ai_daily_cap:$("aicap").value, ai_rules:$("airules").value },this,"Saved")) A.refresh(); };
+      if($("aisave")) $("aisave").onclick=async function(){ if(await act({ action:"set_smart", ai_daily_cap:$("aicap").value, reply_every:$("aievery").value, ai_rules:$("airules").value },this,"Saved")) A.refresh(); };
       if($("aitry")) $("aitry").onclick=async function(){ var t=$("aitxt").value.trim(); if(!t) return MTH.toast("Type a comment first");
         var r=await act({ action:"ai_test", text:t, platform:$("aipl").value },this); if(!r) return;
-        var what={ keyword:"Sends the freebie: "+(r.keywords||[]).join(" + "), reply:"Replies", ignore:"Ignores it" }[r.action]||r.action;
+        var what={ keyword:"Sends the freebie: "+(r.keywords||[]).join(" + "), reply:"Answers the question", thanks:"Thank-you (only posts on about 1 in "+(($("aievery")&&$("aievery").value)||15)+" of these)", ignore:"Ignores it" }[r.action]||r.action;
         $("aires").innerHTML='<div class="msg '+'ok'+'" style="margin-top:10px"><b>'+esc(what)+'</b>'+(r.reply?'<br>“'+esc(r.reply)+'”':'')+(r.reason?'<div class="small">'+esc(r.reason)+'</div>':'')+'</div>'; };
 
       /* ---- Topic brands ---- */
