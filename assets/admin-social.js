@@ -118,7 +118,7 @@
              '<div class="addrow"><input class="inp" id="yid" autocomplete="off" placeholder="Client ID (ends in .apps.googleusercontent.com)"><input class="inp" id="ysec" type="password" autocomplete="off" placeholder="Client secret"><button class="b sm ghost" id="ysave">Save</button><button class="b sm" id="ygo"'+(st.yt_client?'':' disabled')+'>Connect YouTube</button></div>')+
           '</div>'+
         (st.yt_connected?'<div class="card panel" style="margin-bottom:12px" id="ytup"><h3>'+dot(true)+'Upload a video to YouTube</h3>'+
-          '<p class="small">Sends a finished video straight to <b>'+esc(S.yt_channel_title||"your channel")+'</b> with its title, description, tags and thumbnail. Until Google finishes its audit of this tool, YouTube keeps these uploads <b>private</b>; you can make them public in YouTube Studio.</p>'+
+          '<p class="small">Sends a finished video straight to <b>'+esc(S.yt_channel_title||"your channel")+'</b> with its title, description, tags and thumbnail. Pick Public, Unlisted or Private below; YouTube keeps the setting you choose (tested Nov 17 2026).</p>'+
           '<div class="field"><label>Video file</label><input class="inp" id="yuf" type="file" accept="video/*"></div>'+
           '<div class="field"><label>Title (up to 100 characters)</label><input class="inp" id="yut" maxlength="100"></div>'+
           '<div class="field"><label>Description</label><textarea class="inp" id="yud" rows="4" maxlength="5000"></textarea></div>'+
