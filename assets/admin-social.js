@@ -129,6 +129,14 @@
           '<button class="b sm" id="yugo">Upload to YouTube</button></div>'+
           '<div id="yures" style="margin-top:10px"></div></div>':'')+
         brandsCard(st.brands||[], !!st.yt_client)+
+        '<div class="card panel" style="margin-bottom:12px"><h3>'+dot(!!S.ai_enabled)+'Smart replies (AI helper)</h3>'+
+          '<p class="small">Comments that don’t match a keyword (questions, compliments, “send it”, “link?”) are read by Claude Haiku. It sends the right freebie, writes a short reply in your style, skips spam and trolls, and flags anything serious for you. About $0.0003 a comment, roughly $3 per 10,000. It stops for the day at your limit.</p>'+
+          (st.ai_key?'':'<div class="msg err">No Claude key saved yet.</div>')+
+          '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">'+sw("swai",!!S.ai_enabled,"Smart replies are","Uses AI on comments the keyword rules can’t place.")+
+          '<label class="card" style="display:flex;gap:10px;align-items:center;padding:12px 14px;flex:1 1 260px"><span><b>Daily limit</b><br><span class="small">'+(st.ai_today||0)+' used today</span></span><input class="inp" id="aicap" type="number" min="0" max="5000" value="'+(S.ai_daily_cap!=null?S.ai_daily_cap:300)+'" style="max-width:110px;margin-left:auto"></label></div>'+
+          '<div class="field"><label>Your own rules for the replies (one per line · optional)</label><textarea class="inp" id="airules" rows="3" maxlength="2000" placeholder="e.g. never mention keto by name">'+esc(S.ai_rules||"")+'</textarea></div>'+
+          '<div class="acts"><button class="b sm ghost" id="aisave">Save</button></div>'+
+          '<div class="addrow" style="margin-top:10px"><input class="inp" id="aitxt" placeholder="Try a comment, e.g. “is this free?”"><select class="inp" id="aipl" style="max-width:150px"><option value="instagram">Instagram</option><option value="facebook">Facebook</option><option value="youtube">YouTube</option></select><button class="b sm" id="aitry">Try it</button></div><div id="aires"></div></div>'+
 
         '<div class="sec-h">2 · Going out next</div>'+table(upcoming,'Nothing is set to auto-post. Open a post, tick <b>Auto-post</b>, give it a publish time and Save.')+
         '<div class="sec-h">3 · What happened</div>'+table(past.slice(0,20),'Nothing has gone out yet.')+
@@ -142,7 +150,8 @@
         '<div class="sec-h">5 · Recent answers</div>'+
         '<div class="card" style="overflow:auto"><table class="ct"><thead><tr><th>When</th><th>Where</th><th>Who</th><th>They wrote</th><th>Result</th></tr></thead><tbody>'+
           (log.map(function(l){ var ok=l.dm_ok===true||(l.dm_ok===null&&l.public_ok===true);
-            return '<tr><td class="small">'+A.when(l.created_at,true)+'</td><td>'+esc(PL[l.platform]||l.platform)+'</td><td>'+esc(l.username||"")+'</td><td class="small">'+esc(l.comment_text||"")+'</td><td>'+(ok?'<span class="pill own">'+(l.platform==="youtube"?'Replied':'DM sent')+'</span>':'<span class="pill tag">Not sent</span>')+(l.public_ok===true&&l.platform!=="youtube"?' <span class="pill">Replied</span>':'')+(!ok&&l.detail?'<div class="small" style="color:#7e3b25">'+esc(l.detail)+'</div>':'')+'</td></tr>'; }).join("")||'<tr><td colspan="5" class="muted" style="padding:16px">No keyword comments answered yet.</td></tr>')+
+            var k=l.kind||"keyword", tag=k==="flag"?'<span class="pill tag">Flagged · check this</span>':k==="ignored"?'<span class="pill">Ignored</span>':k==="repeat"?'<span class="pill">Already sent this week</span>':k==="ai"?(l.public_ok?'<span class="pill own">AI replied</span>':'<span class="pill tag">Not sent</span>'):(ok?'<span class="pill own">'+(l.platform==="youtube"?'Replied':'DM sent')+'</span>':'<span class="pill tag">Not sent</span>')+(l.public_ok===true&&l.platform!=="youtube"?' <span class="pill">Replied</span>':'');
+            return '<tr><td class="small">'+A.when(l.created_at,true)+'</td><td>'+esc(PL[l.platform]||l.platform)+(l.account&&l.account!=="main"?'<div class="small">'+esc(l.account)+'</div>':'')+'</td><td>'+esc(l.username||"")+'</td><td class="small">'+esc(l.comment_text||"")+(l.reply_text?'<div class="small" style="margin-top:4px">↳ '+esc(l.reply_text)+'</div>':'')+'</td><td>'+tag+(k==="ai-keyword"?' <span class="pill">AI matched</span>':'')+((!ok&&k!=="ignored"&&k!=="repeat"&&l.detail)?'<div class="small" style="color:#7e3b25">'+esc(l.detail)+'</div>':'')+'</td></tr>'; }).join("")||'<tr><td colspan="5" class="muted" style="padding:16px">No keyword comments answered yet.</td></tr>')+
         '</tbody></table></div>';
 
       var $=function(id){ return document.getElementById(id); };
@@ -175,6 +184,16 @@
       if($("ygo")) $("ygo").onclick=async function(){ var r=await act({ action:"yt_auth_url" },this); if(r&&r.url) location.href=r.url; };
       if($("yoff")) $("yoff").onclick=async function(){ if(!confirm("Disconnect YouTube?")) return; if(await act({ action:"yt_disconnect" },this,"Disconnected")) A.refresh(); };
       if($("ru")) $("ru").onclick=function(){ A.copy($("ru").textContent,"Copied"); };
+
+      /* ---- Smart replies ---- */
+      if($("swai")) $("swai").onchange=async function(){ var on=this.checked;
+        if(on&&!confirm("Turn smart replies ON?\n\nComments that don’t match a keyword get read by the AI helper (about $0.0003 each, up to your daily limit).")){ this.checked=false; return; }
+        var r=await act({ action:"set_smart", ai_enabled:on },this,on?"Smart replies are on":"Smart replies are off"); if(!r) this.checked=!on; A.refresh(); };
+      if($("aisave")) $("aisave").onclick=async function(){ if(await act({ action:"set_smart", ai_daily_cap:$("aicap").value, ai_rules:$("airules").value },this,"Saved")) A.refresh(); };
+      if($("aitry")) $("aitry").onclick=async function(){ var t=$("aitxt").value.trim(); if(!t) return MTH.toast("Type a comment first");
+        var r=await act({ action:"ai_test", text:t, platform:$("aipl").value },this); if(!r) return;
+        var what={ keyword:"Sends the freebie: "+(r.keywords||[]).join(" + "), reply:"Replies", flag:"Flags it for you and replies", ignore:"Ignores it" }[r.action]||r.action;
+        $("aires").innerHTML='<div class="msg '+(r.action==="flag"?'err':'ok')+'" style="margin-top:10px"><b>'+esc(what)+'</b>'+(r.reply?'<br>“'+esc(r.reply)+'”':'')+(r.reason?'<div class="small">'+esc(r.reason)+'</div>':'')+'</div>'; };
 
       /* ---- Topic brands ---- */
       if($("bsync")) $("bsync").onclick=async function(){ var r=await act({ action:"sync_brands" },this); if(r){ MTH.toast("Pages found: "+((r.pages||[]).map(function(p){ return p.name; }).join(", ")||"none"),7000); A.refresh(); } };
@@ -236,8 +255,9 @@
         m.innerHTML='<div class="box" style="max-width:560px"><h3 style="font-family:var(--sans);font-size:20px;font-weight:700">'+(k.id?'Edit keyword':'New keyword')+'</h3>'+
           '<div class="field"><label>Keyword people comment (one word works best)</label><input class="inp" id="kk" maxlength="40" value="'+esc(k.keyword)+'" placeholder="GUT"></div>'+
           '<div class="field"><label>Private message they get (put your link in it)</label><textarea class="inp" id="kd" maxlength="900" style="min-height:110px" placeholder="Here’s the gut quiz I mentioned: https://marktalkshealth.com/start">'+esc(k.dm_text)+'</textarea></div>'+
-          '<div class="field"><label>Public reply under their comment (optional)</label><input class="inp" id="kp" maxlength="300" value="'+esc(k.public_reply||"")+'"></div>'+
-          '<div class="field"><label>YouTube reply (optional · blank = same as the private message)</label><input class="inp" id="ky" maxlength="900" value="'+esc(k.youtube_reply||"")+'"></div>'+
+          '<div class="field"><label>Also count these words (misspellings, other names · one per line)</label><textarea class="inp" id="kal" rows="3" placeholder="gutt&#10;bloating">'+esc((k.aliases||[]).join("\n"))+'</textarea></div>'+
+          '<div class="field"><label>Public replies under their comment (one per line · one is picked at random)</label><textarea class="inp" id="kpr" rows="4">'+esc((k.public_replies&&k.public_replies.length?k.public_replies:(k.public_reply?[k.public_reply]:[])).join("\n"))+'</textarea></div>'+
+          '<div class="field"><label>YouTube replies with your link (one per line · one is picked at random)</label><textarea class="inp" id="kyr" rows="3">'+esc((k.youtube_replies&&k.youtube_replies.length?k.youtube_replies:(k.youtube_reply?[k.youtube_reply]:[])).join("\n"))+'</textarea></div>'+
           '<div class="field"><label>Where</label><div class="chips" id="kpl">'+["instagram","facebook","youtube"].map(function(x){ return '<button class="chip'+((k.platforms||[]).indexOf(x)>-1?' on':'')+'" data-p="'+x+'">'+PL[x]+'</button>'; }).join("")+'</div></div>'+
           '<label style="display:flex;gap:8px;align-items:center;margin-bottom:14px"><input type="checkbox" id="ka"'+(k.active?' checked':'')+' style="width:18px;height:18px;accent-color:var(--terra)"> Active</label>'+
           '<div class="acts"><button class="b sm" data-save>Save</button>'+(k.id?'<button class="b sm ghost" data-del>Delete</button>':'')+'<button class="b sm ghost" data-x>Cancel</button></div></div>';
@@ -246,7 +266,9 @@
         m.querySelectorAll("#kpl [data-p]").forEach(function(c){ c.onclick=function(){ c.classList.toggle("on"); }; });
         m.addEventListener("click",function(e){ if(e.target===m||e.target.hasAttribute("data-x")) m.remove(); });
         m.querySelector("[data-save]").onclick=async function(){
-          var row={ keyword:g("kk").value.trim(), dm_text:g("kd").value.trim(), public_reply:g("kp").value.trim()||null, youtube_reply:g("ky").value.trim()||null,
+          var lines=function(id){ return g(id).value.split("\n").map(function(x){ return x.trim(); }).filter(Boolean); };
+          var pr=lines("kpr"), yr=lines("kyr");
+          var row={ keyword:g("kk").value.trim(), dm_text:g("kd").value.trim(), aliases:lines("kal"), public_replies:pr, public_reply:pr[0]||null, youtube_replies:yr, youtube_reply:yr[0]||null,
             platforms:[].map.call(m.querySelectorAll("#kpl .on"),function(c){ return c.dataset.p; }), active:g("ka").checked, updated_at:new Date().toISOString() };
           if(!row.keyword||!row.dm_text) return MTH.toast("Add the keyword and the message");
           if(!row.platforms.length) return MTH.toast("Pick at least one place");
