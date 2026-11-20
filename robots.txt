@@ -3,6 +3,7 @@ User-agent: *
 # Content signals (contentsignals.org): yes to search and AI answers that quote and link us, no to model training
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 Disallow: /admin
+Disallow: /live
 Disallow: /account
 Disallow: /welcome
 Disallow: /login
@@ -30,6 +31,7 @@ User-agent: Bingbot
 User-agent: DuckAssistBot
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 Disallow: /admin
+Disallow: /live
 Disallow: /account
 Disallow: /welcome
 Disallow: /login
