@@ -10,3 +10,7 @@
 /assets/*.mjs
   Cache-Control: no-cache
   Content-Type: text/javascript; charset=utf-8
+
+# Free guide PDFs
+/guides/*.pdf
+  Content-Disposition: inline
