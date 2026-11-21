@@ -78,9 +78,26 @@
     M.utm=function(){ var u=null; try{ u=JSON.parse(l.getItem("mth_first")||"null")||JSON.parse(l.getItem("mth_last")||"null"); }catch(e){}
       var f=fbIds(); if(f.fbc||f.fbp){ u=Object.assign({},u||{},f); } return u; };
     M.track=function(ev,product){ try{ sb.rpc("mth_track",{ p_anon:M.anon, p_event:ev, p_page:M.page, p_utm:(ev==="visit"&&has)?Object.assign({},q,fbIds()):M.utm(), p_product:product||null }).then(function(){},function(){}); }catch(e){} };
-    var sk="mth_v_"+M.page; var ses=ss();
+    var ses=ss();
     var framed=false; try{ framed=window.self!==window.top; }catch(e){ framed=true; } /* admin page previews must not count as visits */
-    if(!framed&&M.page!=="admin.html"&&(has||!(ses&&ses.getItem("mth_v")))){ try{ ses&&ses.setItem("mth_v","1"); }catch(e){} M.track("visit"); }
+    /* only real people count as a visit (Nov 21 2026):
+       - not Mark himself (this browser has signed in to Admin), not automated browsers
+       - not link checkers / pre-loaders: Facebook opens every link the moment a post goes out,
+         so a visit is only logged once the page is actually on screen AND the person
+         scrolls / taps / moves the mouse / types (after 2 s), or keeps it open 12 s */
+    var isMark=false; try{ isMark=!!(l&&l.getItem("mth_admin")); }catch(e){}
+    var robot=false; try{ robot=!!navigator.webdriver||/bot|crawl|spider|facebookexternalhit|headless|preview/i.test(navigator.userAgent||""); }catch(e){}
+    if(!framed&&!isMark&&!robot&&M.page!=="admin.html"&&(has||!(ses&&ses.getItem("mth_v")))){
+      var done=false, shownAt=0, timer=null, EV=["scroll","pointerdown","pointermove","touchstart","keydown","wheel"];
+      var fire=function(){ if(done) return; done=true; clearTimeout(timer); EV.forEach(function(e){ window.removeEventListener(e,human,true); }); document.removeEventListener("visibilitychange",vis);
+        try{ if(localStorage.getItem("mth_admin")) return; }catch(e){} try{ ses&&ses.setItem("mth_v","1"); }catch(e){} M.track("visit"); };
+      var human=function(){ if(document.visibilityState==="visible"&&shownAt&&Date.now()-shownAt>=2000) fire(); };
+      var vis=function(){ if(done) return;
+        if(document.visibilityState==="visible"&&!document.prerendering){ if(!shownAt) shownAt=Date.now(); clearTimeout(timer); timer=setTimeout(fire,12000); }
+        else { clearTimeout(timer); } };
+      EV.forEach(function(e){ window.addEventListener(e,human,{ capture:true, passive:true }); });
+      document.addEventListener("visibilitychange",vis); document.addEventListener("prerenderingchange",vis); vis();
+    }
   })();
   M.isPhone=function(){ try{ return matchMedia("(pointer: coarse)").matches&&Math.min(screen.width,screen.height)<=820; }catch(e){ return false; } };
 
