@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" class="mx-bare">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>4 in 10 Cancers Are Linked to Things We Can Change · Free Guide · Mark Talks Health</title>
+<meta name="description" content="What the research shows about food, movement, weight and cancer risk, and the everyday habits that shift the odds.">
+<meta property="og:title" content="4 in 10 Cancers Are Linked to Things We Can Change · Free guide">
+<meta property="og:description" content="What the research shows about food, movement, weight and cancer risk, and the everyday habits that shift the odds.">
+<meta property="og:image" content="https://marktalkshealth.com/media/site/mark-teal-2.jpg">
+<meta property="og:url" content="https://marktalkshealth.com/guide/cancer">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2b2724">
+<link rel="canonical" href="https://marktalkshealth.com/guide/cancer">
+<link rel="icon" href="/assets/app-icon-192.png">
+<link rel="apple-touch-icon" href="/assets/app-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/mth.css?v=202611031900">
+<script src="/assets/vendor/supabase-2.118.0.js"></script>
+<script src="/assets/mth.js?v=202611041900"></script>
+<script src="/assets/quiz-core.js?v=202610301200"></script>
+<script src="/assets/quiz.js?v=202611031900"></script>
+<style>
+:root{--bg:#f7f1e7;--bg2:#efe5d6;--card:#fffcf7;--ink:#2b2724;--muted:#6e6259;--faint:#a8998b;--line:#e7dccb;
+--terra:#c0623f;--terraD:#a8522f;--terraS:#f6dccf;--gold:#b8924a;--sage:#7a8f6e;--sageS:#e4eadf;--dark:#2b2724}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.serif,h1,h2,h3,.lever .n,.day b.d,.stat b,.pull{font-variant-numeric:lining-nums;}
+.serif,h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-style:normal;font-weight:600;letter-spacing:-.01em}
+a{color:var(--terraD)}
+.bar{position:fixed;top:0;left:0;height:3px;background:var(--terra);width:0;z-index:60}
+.top{display:flex;align-items:center;justify-content:space-between;max-width:820px;margin:0 auto;padding:16px 22px}
+.word{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;color:var(--ink);text-decoration:none}
+.word b{color:var(--terra);font-weight:600}
+.save{font-size:13px;font-weight:600;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.cover{max-width:820px;margin:0 auto;padding:10px 22px 0}
+.cover .card{background:var(--dark);color:#f7f1e7;border-radius:22px;padding:44px 32px 36px;position:relative;overflow:hidden}
+.cover .card:after{content:"";position:absolute;inset:12px;border:1px solid rgba(184,146,74,.55);border-radius:14px;pointer-events:none}
+.kick{font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.cover h1{font-size:clamp(38px,8vw,60px);line-height:1.02;margin:14px 0 14px;color:#fff}
+.cover h1 span{color:#e39a7e}
+.cover p.sub{font-size:18px;color:#e9dfd0;margin:0 0 22px;max-width:560px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;color:#cbbfae}
+.meta span:before{content:"\2713";color:var(--gold);margin-right:7px;font-weight:700}
+.by{display:flex;align-items:center;gap:14px;margin-top:26px;position:relative;z-index:1}
+.by img{width:58px;height:58px;border-radius:50%;object-fit:cover;object-position:center 25%;border:2px solid var(--gold)}
+.by b{display:block;font-size:15px;color:#fff}.by small{color:#cbbfae;font-size:13px}
+main{max-width:820px;margin:0 auto;padding:0 22px 40px}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin:26px 0 8px}
+.toc ol{margin:10px 0 0;padding-left:22px;columns:2;column-gap:28px}
+.toc li{font-size:15px;margin:3px 0;break-inside:avoid}
+.toc a{color:var(--ink);text-decoration:none}.toc a:hover{color:var(--terra)}
+section.ch{padding:38px 0 6px;border-bottom:1px solid var(--line)}
+section.ch:last-of-type{border-bottom:0}
+.chn{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terra)}
+h2{font-size:clamp(30px,5.6vw,40px);line-height:1.08;margin:6px 0 16px}
+h3{font-size:25px;line-height:1.15;margin:26px 0 8px}
+p{margin:0 0 16px}
+.big{font-size:19px;color:var(--ink)}
+.pull{font-family:'Cormorant Garamond',Georgia,serif;font-size:27px;line-height:1.25;color:var(--terraD);border-left:3px solid var(--gold);padding:4px 0 4px 18px;margin:24px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.stat b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:38px;line-height:1;color:var(--terra)}
+.stat span{font-size:13.5px;color:var(--muted);line-height:1.45;display:block;margin-top:6px}
+.study{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:14px 0}
+.study .src{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage)}
+.study .src a{color:var(--sage);text-decoration:none}
+.study b.f{display:block;font-size:17.5px;line-height:1.45;margin:6px 0 6px}
+.study p{font-size:15.5px;color:var(--muted);margin:0}
+.lever{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 22px 8px;margin:18px 0}
+.lever .n{font-family:'Cormorant Garamond',Georgia,serif;font-size:44px;line-height:.9;color:var(--gold)}
+.lever h3{margin-top:4px}
+.do{background:var(--sageS);border-radius:12px;padding:12px 16px;margin:4px 0 16px;font-size:15.5px}
+.do b{color:#4f6146}
+.week{display:grid;gap:10px;margin:18px 0}
+.day{display:grid;grid-template-columns:76px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.day b.d{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:var(--terra);line-height:1.1}
+.day strong{display:block;font-size:16px}
+.day span{font-size:15px;color:var(--muted)}
+ul.x{padding-left:0;list-style:none}
+ul.x li{position:relative;padding-left:30px;margin:0 0 12px}
+ul.x li:before{content:"\2715";position:absolute;left:4px;top:0;color:var(--terra);font-weight:700}
+ul.ok{padding-left:0;list-style:none}
+ul.ok li{position:relative;padding-left:30px;margin:0 0 10px}
+ul.ok li:before{content:"\2713";position:absolute;left:4px;top:0;color:var(--sage);font-weight:700}
+.safe{background:var(--terraS);border-radius:16px;padding:18px 20px;margin:18px 0;font-size:15.5px}
+.safe b{color:var(--terraD)}
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 18px;margin:20px 0}
+.quiz .intro{text-align:center;max-width:560px;margin:0 auto 14px}
+.refs{font-size:13.5px;color:var(--muted)}
+.refs li{margin:0 0 6px}
+footer{max-width:820px;margin:0 auto;padding:22px 22px 40px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint);text-align:center;line-height:1.6}
+footer a{color:var(--muted)}
+@media(max-width:640px){.stats{grid-template-columns:1fr}.toc ol{columns:1}.cover .card{padding:36px 22px 30px}.day{grid-template-columns:62px 1fr}}
+@media print{.bar,.top .save,.quiz,.noprint{display:none!important}body{background:#fff;font-size:12pt}
+ .cover .card{background:#2b2724!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ section.ch{break-inside:auto}.lever,.study,.day{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="top"><a class="word" href="/">Mark Talks <b>Health</b></a><button class="save" type="button" onclick="window.print()">Save as PDF</button></div>
+<header class="cover"><div class="card">
+  <div class="kick">Free guide &middot; Mark Talks Cancer</div>
+  <h1>4 in 10 Cancers Are Linked to Things <span>We Can Change</span></h1>
+  <p class="sub">What the research shows about food, movement, weight and cancer risk, and the everyday habits that shift the odds.</p>
+  <div class="meta"><span>12-minute read</span><span>11 published studies</span><span>7-day starter plan</span><span>Free quiz at the end</span></div>
+  <div class="by"><img src="/media/site/mark-teal-2.jpg" alt="Mark in teal scrubs"><div><b>Mark</b><small>Mark Talks Health &middot; natural healing meets modern science</small></div></div>
+</div></header>
+<main>
+  <nav class="toc" aria-label="Contents"><div class="kick" style="color:var(--terra)">Inside this guide</div><ol><li><a href="#note">A note before you start</a></li><li><a href="#why">Not all luck, not all genes</a></li><li><a href="#research">What the research shows</a></li><li><a href="#levers">The 5 levers that matter most</a></li><li><a href="#plan">Your 7-day starter plan</a></li><li><a href="#mistakes">Mistakes that keep people stuck</a></li><li><a href="#safety">Safety first</a></li><li><a href="#quiz">Your free quiz</a></li><li><a href="#refs">References</a></li></ol></nav>
+  <section class="ch" id="note"><div class="chn">Chapter 1</div><h2>A note before you start</h2><p class="big">I spent years going from doctor to doctor and specialist to specialist. Every visit ended the same way. A new prescription, a shrug, and the feeling that nobody was looking at the whole picture.</p>
+<p>It wasn't until I saw a naturopathic doctor that things started to change. For the first time someone asked about everything. What I ate. How I slept. How much I moved. How stressed I was. What was going on at home and at work. That's when I understood that the body heals when you change the things that are making it sick.</p>
+<p>That experience is the reason I do this. I've spent years since then in the published research on natural healing, and I turn it into simple steps real people can actually follow.</p>
+<p>This guide is about cancer risk. Maybe it runs in your family. Maybe someone close to you has been through it. Maybe you're on the other side of treatment and want to do everything you can.</p>
+<p>Cancer can feel like pure bad luck. Some of it is. But a large share of it is linked to things we can change, and the research on everyday habits is stronger than most people realise.</p>
+<div class="pull">Natural healing meets modern science. Every claim in here has a study behind it, and every study is linked at the end.</div>
+<p>Read it once all the way through. Then come back to the 7-day plan and start. At the very end there's a free quiz that turns all of this into a plan built around you.</p></section><section class="ch" id="why"><div class="chn">Chapter 2</div><h2>Not all luck, not all genes</h2>
+<p class="big">In 2022 there were about 18.7 million new cancers worldwide. Researchers estimate about 7.1 million of them were linked to risk factors that can be changed.</p>
+<p>That's roughly 4 in 10. Smoking, alcohol, infections, excess weight, inactivity and diet are a big part of that picture.</p>
+<p>At the same time, cancer is showing up in younger people, especially colorectal cancer in people under 50. Researchers are still working out exactly why, but the modern diet, rising weight and sitting all day are among the leading suspects.</p>
+<p>I want to be very clear about something. No habit guarantees anything. Plenty of people who did everything right still get cancer, and it is never their fault. But risk is a numbers game, and the research shows food, movement and weight shift those numbers in study after study.</p>
+<div class="stats"><div class="stat"><b>7.1M</b><span>Of 18.7 million new cancers worldwide in 2022 were linked to risk factors we can change</span></div><div class="stat"><b>13</b><span>Different cancers with lower risk in more active adults, in a study of 1.44 million people</span></div><div class="stat"><b>28%</b><span>Less cancer coming back or death with an exercise program after colon cancer</span></div></div>
+</section><section class="ch" id="research"><div class="chn">Chapter 3</div><h2>What the research shows</h2>
+<h3>The big picture</h3>
+<div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/41634393/" target="_blank" rel="noopener">Nature Medicine 2026</a></div><b class="f">About 7.1 million of 18.7 million new cancers worldwide in 2022 were linked to risk factors we can change.</b><p>A global analysis of preventable cancer.</p></div><h3>Food and drink</h3><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/29444771/" target="_blank" rel="noopener">BMJ 2018</a></div><b class="f">Every extra 10% of ultra-processed food in the diet was linked to 12% higher cancer risk in 104,980 adults.</b><p>An observational link from the French NutriNet-Santé study.</p></div><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/31292122/" target="_blank" rel="noopener">BMJ 2019</a></div><b class="f">Every extra 100 ml of sugary drinks a day, about a third of a can, was linked to 18% higher cancer risk.</b><p>Even 100% fruit juice was included in this link.</p></div><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/33958435/" target="_blank" rel="noopener">Gut 2021</a></div><b class="f">2 or more sugary drinks a day were linked to about double the risk of colorectal cancer before age 50 in women.</b><p>One of the first studies looking at what might be behind the rise in early colon cancer.</p></div><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/30638909/" target="_blank" rel="noopener">Lancet 2019</a></div><b class="f">High-fibre eaters had 15% to 30% lower risk of colorectal cancer and early death across 185 studies and 58 trials.</b><p>A major review commissioned by the World Health Organization.</p></div><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/26365989/" target="_blank" rel="noopener">JAMA Internal Medicine 2015</a></div><b class="f">Women on a Mediterranean diet with extra virgin olive oil had 68% lower breast cancer risk.</b><p>From the PREDIMED trial. The number of cases was small, so treat this as promising rather than proven.</p></div><h3>Movement</h3><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/27183032/" target="_blank" rel="noopener">JAMA Internal Medicine 2016</a></div><b class="f">In 1.44 million adults, higher activity was linked to lower risk of 13 different cancers.</b><p>Including colon, breast, liver, kidney and several others.</p></div><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/40450658/" target="_blank" rel="noopener">NEJM 2025 · CHALLENGE trial</a></div><b class="f">A 3-year exercise program after colon cancer treatment cut cancer coming back or death by 28%.</b><p>A randomised trial, the strongest kind of evidence. Exercise worked like a treatment.</p></div><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/37498576/" target="_blank" rel="noopener">JAMA Oncology 2023</a></div><b class="f">About 4.5 minutes a day of short huffing-and-puffing bursts was linked to 20% fewer cancers in non-exercisers.</b><p>Think fast stair climbing, carrying heavy shopping or walking hard uphill, in short bursts during daily life.</p></div><h3>Timing and weight</h3><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/27032109/" target="_blank" rel="noopener">JAMA Oncology 2016</a></div><b class="f">Fasting under 13 hours overnight was linked to 36% higher breast cancer recurrence risk.</b><p>Compared with women who went 13 hours or more without food overnight.</p></div><div class="study"><div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/35657620/" target="_blank" rel="noopener">JAMA 2022</a></div><b class="f">Major weight loss after surgery was linked to 32% lower obesity-related cancer risk and 48% lower cancer death.</b><p>This shows that losing excess weight can lower risk, not just that being heavier raises it.</p></div><div class="pull">No single habit guarantees anything. But food, movement and weight shift cancer risk in study after study.</div></section><section class="ch" id="levers"><div class="chn">Chapter 4</div><h2>The 5 levers that matter most</h2>
+<div class="lever"><div class="n">01</div><h3>Move every day, and add short bursts</h3>
+<p>This is the strongest lever in this guide. More activity was linked to lower risk of 13 cancers, and after colon cancer an exercise program cut recurrence or death by 28% in a randomised trial. If you don't exercise, even 4.5 minutes a day of short breathless bursts was linked to fewer cancers.</p><div class="do"><b>This week:</b> Walk every day. Add 3 or 4 one-minute bursts where you're breathing hard, like taking the stairs fast.</div></div><div class="lever"><div class="n">02</div><h3>Cut the sugary drinks</h3>
+<p>Sugary drinks show up in both overall cancer risk and early colon cancer. Even a third of a can a day was linked to higher risk. This one change is easy to measure and easy to stick with.</p><div class="do"><b>This week:</b> Replace every sugary drink and juice with water, sparkling water, tea or coffee.</div></div><div class="lever"><div class="n">03</div><h3>Eat more fibre and less processed food</h3>
+<p>High-fibre eaters had 15% to 30% lower colorectal cancer risk across a huge review. Ultra-processed food went the other way. Beans, lentils, vegetables, fruit, whole grains, nuts and seeds are where the fibre lives.</p><div class="do"><b>This week:</b> Add one serving of beans or lentils a day. Swap one packaged snack for fruit or nuts.</div></div><div class="lever"><div class="n">04</div><h3>Give your body a 13-hour overnight break</h3>
+<p>In women with early breast cancer, fasting less than 13 hours overnight was linked to higher recurrence. A 13-hour break is easy for most people. Finish dinner by 7 and have breakfast at 8.</p><div class="do"><b>This week:</b> Stop eating 13 hours before breakfast. No late-night snacks.</div></div><div class="lever"><div class="n">05</div><h3>Work toward a healthy weight</h3>
+<p>Excess weight is linked to at least 13 cancers. The surgery study is important because it shows losing weight lowers risk too. You don't need surgery to get there. The other 4 levers in this guide all push weight in the right direction.</p><div class="do"><b>This week:</b> Cook with olive oil and fill half your plate with vegetables. Let the weight follow the habits.</div></div></section><section class="ch" id="plan"><div class="chn">Chapter 5</div><h2>Your 7-day starter plan</h2><div class="week"><div class="day"><b class="d">Day 1</b><div><strong>Daily walk</strong><span>20 to 30 minutes. Every day from now on.</span></div></div><div class="day"><b class="d">Day 2</b><div><strong>Swap your drinks</strong><span>No sugary drinks or juice. Water, tea, coffee or sparkling water.</span></div></div><div class="day"><b class="d">Day 3</b><div><strong>Set your 13 hours</strong><span>Pick a dinner cut-off and breakfast time 13 hours apart.</span></div></div><div class="day"><b class="d">Day 4</b><div><strong>Add beans</strong><span>One serving of beans or lentils today. Soup, chili or a salad.</span></div></div><div class="day"><b class="d">Day 5</b><div><strong>Add bursts to your walk</strong><span>3 or 4 one-minute bursts where you're breathing hard.</span></div></div><div class="day"><b class="d">Day 6</b><div><strong>Olive oil and vegetables</strong><span>Cook with extra virgin olive oil. Half your plate vegetables.</span></div></div><div class="day"><b class="d">Day 7</b><div><strong>Book your screenings and review</strong><span>Check which screenings you're due for and book them. Then take the free assessment at the end of this guide.</span></div></div></div>
+<p>These habits lower risk. They do not replace screening. Colonoscopy, mammograms, Pap tests and skin checks catch cancer early, when it's most treatable.</p>
+</section><section class="ch" id="mistakes"><div class="chn">Chapter 6</div><h2>Mistakes that keep people stuck</h2>
+<ul class="x">
+<li><b>Thinking it's all genetics so nothing matters.</b> About 4 in 10 cancers are linked to things we can change.</li>
+<li><b>Thinking healthy habits mean you can skip screenings.</b> They work together. Habits lower risk, screenings catch it early.</li>
+<li><b>Trusting miracle cures online.</b> If someone says a supplement or diet cures cancer, walk away.</li>
+<li><b>Thinking juice is healthy.</b> In the BMJ study, fruit juice counted as a sugary drink.</li>
+<li><b>Waiting for the perfect workout plan.</b> Walking and short bursts count.</li>
+<li><b>Feeling guilty.</b> Cancer is never anyone's fault. This is about adding good things, not blame.</li>
+</ul>
+</section><section class="ch" id="safety"><div class="chn">Chapter 7</div><h2>Safety first</h2>
+<div class="safe"><b>Please read this.</b> If you are in cancer treatment, never stop or delay it. Talk to your oncologist before fasting, starting a new exercise program or making big diet changes, since some treatments change what's safe for you. Keep up with your recommended screenings. See your doctor about any new lump, unexplained weight loss, blood in your stool or urine, a mole that changes, or a cough that won't go away. This guide is education, not medical advice.</div>
+</section>
+  <section class="ch" id="quiz"><div class="chn">Your next step</div><h2>Get your free Healing Assessment</h2>
+    <p class="big">Lowering your risk is about your whole life, so the next step looks at your whole life. My free Healing Assessment takes about 5 minutes. It looks at your food, movement, sleep, stress, relationships and surroundings, then gives you your Healing Score and the 3 changes that matter most for you.</p>
+    <div class="quiz"><div data-mth-quiz="heal" data-source="guide-cancer" data-goal="whole"></div></div>
+  </section>
+  <section class="ch" id="refs"><div class="chn">References</div><h2>The studies in this guide</h2>
+    <p class="refs">Every number in this guide comes from a published study. Tap any link to read it on PubMed.</p>
+    <ol class="refs"><li>Nature Med 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/41634393/" target="_blank" rel="noopener">PubMed 41634393</a></li><li>BMJ 2018 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/29444771/" target="_blank" rel="noopener">PubMed 29444771</a></li><li>BMJ 2019 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/31292122/" target="_blank" rel="noopener">PubMed 31292122</a></li><li>Gut 2021 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/33958435/" target="_blank" rel="noopener">PubMed 33958435</a></li><li>Lancet 2019 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/30638909/" target="_blank" rel="noopener">PubMed 30638909</a></li><li>JAMA Intern Med 2016 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/27183032/" target="_blank" rel="noopener">PubMed 27183032</a></li><li>NEJM 2025 · CHALLENGE &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/40450658/" target="_blank" rel="noopener">PubMed 40450658</a></li><li>JAMA Oncol 2023 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/37498576/" target="_blank" rel="noopener">PubMed 37498576</a></li><li>JAMA Oncol 2016 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/27032109/" target="_blank" rel="noopener">PubMed 27032109</a></li><li>JAMA Intern Med 2015 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/26365989/" target="_blank" rel="noopener">PubMed 26365989</a></li><li>JAMA 2022 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/35657620/" target="_blank" rel="noopener">PubMed 35657620</a></li></ol>
+  </section>
+</main>
+<footer>For education only, not medical advice. I'm a health educator, not a doctor. Talk to your healthcare provider before changing your diet, fasting, exercise or medication, especially if you have a medical condition.<br>
+&copy; <span id="y"></span> Mark Talks Health &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="mailto:marktalkshealth@gmail.com">Contact</a></footer>
+<script>
+(function(){
+  document.getElementById("y").textContent=new Date().getFullYear();
+  var bar=document.getElementById("bar");
+  function p(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;bar.style.width=(m>0?h.scrollTop/m*100:0)+"%";}
+  window.addEventListener("scroll",p,{passive:true});p();
+  if(window.MTHQuiz) MTHQuiz.mountAll();
+})();
+</script>
+</body>
+</html>
