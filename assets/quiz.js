@@ -8,6 +8,27 @@
 (function () {
   var Core = window.MTHQuizCore;
   var SALES = { gut: "gut.html", sugar: "diabetes.html", glp1: "glp1.html" };
+  /* Nov 21 2026: courses are still being filmed, so the quiz offers a waitlist instead of checkout.
+     Flip this to false to bring the $97 buy button back. */
+  var WAITLIST = true;
+  function waitCta(name, product, email) {
+    return '<div class="mq-cta"><div class="mq-k">Coming soon</div><h4>' + esc(name) + '</h4>' +
+      '<p>I\'m filming the full course right now: your personal healing app, the 7-part video course and the Healing Hub, built around the plan above. Join the waitlist and you\'ll be the first to know when it opens.</p>' +
+      '<button type="button" class="mq-buy mq-wait" data-p="' + esc(product) + '" data-e="' + esc(email || "") + '">Join the waitlist</button>' +
+      '<p class="mq-fine">An educational assessment based on your answers, not a medical diagnosis. Talk to your doctor before fasting or changing any medication.</p></div>';
+  }
+  function bindWait(box) {
+    var w = box.querySelector(".mq-wait"); if (!w) return;
+    w.addEventListener("click", async function () {
+      var em = w.getAttribute("data-e");
+      w.disabled = true; w.textContent = "Adding you…";
+      try {
+        if (window.MTH && em) { await MTH.ready; var res = await MTH.sb.rpc("mth_waitlist", { p_email: em, p_product: w.getAttribute("data-p"), p_anon: MTH.anon });
+          if (res && res.error) throw res.error; }
+      } catch (e) { w.disabled = false; w.textContent = "Join the waitlist"; if (window.MTH && MTH.toast) MTH.toast("Couldn\u2019t add you. Please try again."); return; }
+      w.outerHTML = '<p class="mq-inbox">\u2713 You\'re on the list. I\'ll email you the moment it opens.</p>';
+    });
+  }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
   function arcHtml(r) {
@@ -111,13 +132,13 @@
             await MTH.ready;
             var j = await MTH.fn("mth-assess", { product: C.product, email: em, name: nm, answers: A, source: src, anon: MTH.anon, utm: MTH.utm ? MTH.utm() : null });
             if (j && j.error && j.error !== "rate_limited") throw new Error(j.error);
-            full(r, nm, j && j.emailed);
+            full(r, nm, j && j.emailed, em);
           } else full(r, nm, false);
         } catch (err) { b.disabled = false; b.textContent = "Get my full assessment"; if (window.MTH) MTH.toast("Couldn’t send that. Please try again."); }
       });
     }
 
-    function full(r, name, emailed) {
+    function full(r, name, emailed, email) {
       done = true;
       $(".mq-grid").hidden = true;
       var box = $(".mq-full"); box.hidden = false;
@@ -128,11 +149,12 @@
         arcHtml(r) +
         '<p class="mq-inbox">' + "✓ Check your inbox for your full protocol." + "</p>" +
         /* the offer, right where they're most ready: their own plan, done for them */
-        '<div class="mq-cta"><div class="mq-k">Your next step</div><h4>' + esc(C.name) + '</h4>' +
+        (WAITLIST ? waitCta(C.name, C.product, email) : '<div class="mq-cta"><div class="mq-k">Your next step</div><h4>' + esc(C.name) + '</h4>' +
           '<p>The plan above, built and run for you: your personal healing app (your 7-day arc, daily meals and exercise), the 7-part video course and the Healing Hub. One payment, lifetime access.</p>' +
           '<button type="button" class="mq-buy">Start my plan · <s class="mx-was">$147</s> $97</button>' +
           '<p class="mq-guar">30-day money-back guarantee · Secure checkout · <a href="' + esc(SALES[C.product] || "protocols.html") + '">See everything included</a></p>' +
-          '<p class="mq-fine">An educational assessment based on your answers, not a medical diagnosis. Talk to your doctor before fasting or changing any medication.</p></div>';
+          '<p class="mq-fine">An educational assessment based on your answers, not a medical diagnosis. Talk to your doctor before fasting or changing any medication.</p></div>');
+      if (WAITLIST) bindWait(box); else
       box.querySelector(".mq-buy").addEventListener("click", function () { if (window.MTH) MTH.buy(C.product, this); else location.href = (SALES[C.product] || "protocols.html") + "#checkout"; });
       box.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -244,12 +266,12 @@
           /* safety net: never lose the person, even if the results email couldn't go */
           try { if (window.MTH) await MTH.sb.rpc("mth_join", { p_email: em, p_name: nm || null, p_source: "assessment", p_anon: MTH.anon, p_utm: MTH.utm ? MTH.utm() : null }); } catch (e2) {}
         }
-        full(r, nm, emailed);   /* they always see their results, even if the email couldn't go */
+        full(r, nm, emailed, em);   /* they always see their results, even if the email couldn't go */
       });
     }
 
     function bar(label, pct, note) { return '<div class="mq-bar"><span>' + esc(label) + '</span><i><em style="width:' + pct + '%"></em></i><small>' + (note == null ? pct + "%" : note) + "</small></div>"; }
-    function full(r, name, emailed) {
+    function full(r, name, emailed, email) {
       $(".mq-grid").hidden = true;
       var box = $(".mq-full"); box.hidden = false;
       var cta = { now: "Start today", soon: "Here’s the plan when you’re ready", look: "Take a look at the plan" }[r.ready] || "Start your plan";
@@ -266,10 +288,11 @@
             '<p><em>First step:</em> ' + esc(c.first) + "</p></div></div>"; }).join("") + "</div>" +
         (r.clues.length ? '<div class="mq-sec"><h4>Worth checking at home and work</h4><ul class="mq-clues">' + r.clues.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul></div>" : "") +
         '<div class="mq-sec"><h4>Your 7 healing steps, weighted for you</h4>' + r.plan.map(function (b) { return bar(b.step, b.pct); }).join("") + "</div>" +
-        '<div class="mq-cta"><div class="mq-k">The plan that fits you</div><h4>' + esc(r.courseName) + '</h4>' +
+        (WAITLIST ? waitCta(r.courseName, r.course, email) : '<div class="mq-cta"><div class="mq-k">The plan that fits you</div><h4>' + esc(r.courseName) + '</h4>' +
           '<p>A personal app, the 7-part course and weekly support, built around the changes above. ' + esc(cta) + '.</p>' +
           '<button type="button" class="mq-buy">Start ' + esc(r.courseName.replace(/^The /, "")) + ' · $97</button>' +
-          '<p class="mq-fine">An educational assessment based on your answers, not a medical diagnosis. Talk to your doctor before fasting or changing any medication.</p></div>';
+          '<p class="mq-fine">An educational assessment based on your answers, not a medical diagnosis. Talk to your doctor before fasting or changing any medication.</p></div>');
+      if (WAITLIST) bindWait(box); else
       box.querySelector(".mq-buy").addEventListener("click", function () { if (window.MTH) MTH.buy(r.course, this); else location.href = r.sales + "#checkout"; });
       box.scrollIntoView({ behavior: "smooth", block: "start" });
     }
