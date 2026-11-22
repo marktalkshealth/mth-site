@@ -2,7 +2,7 @@
    If the database is slow, the last good sitemap is served (never a hang, never a sitemap with the articles missing). */
 import { SITE, fetchPosts, withBackup } from "../assets/blog-render.mjs";
 
-const PAGES = [["/", "1.0"], ["/blog/", "0.8"], ["/protocols", "0.8"], ["/gut", "0.9"], ["/diabetes", "0.8"], ["/glp1", "0.8"],
+const PAGES = [["/", "1.0"], ["/blog/", "0.8"], ["/protocols", "0.8"], ["/total", "0.9"], ["/gut", "0.9"], ["/diabetes", "0.8"], ["/glp1", "0.8"],
   ["/start", "0.7"], ["/start-diabetes", "0.7"], ["/start-glp1", "0.7"], ["/assessment", "0.7"],
   ["/healing", "0.7"], ["/picks", "0.5"], ["/partners", "0.4"], ["/privacy", "0.2"], ["/terms", "0.2"], ["/refunds", "0.2"]];
 

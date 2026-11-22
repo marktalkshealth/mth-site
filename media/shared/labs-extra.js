@@ -369,7 +369,15 @@
     var pri = [], rest = [];
     LIB.forEach(function (x) {
       if (have[x.k]) return;
-      var m = Object.assign({}, x, (x.w && x.w[app]) || {}); delete m.w;
+      var w = (x.w && x.w[app]) || {};
+      if (app === 'total' && x.w) {   /* Total Body Healing: every app's condition points, keeping the strongest */
+        w = {};
+        ['gut', 'sugar', 'glp1'].forEach(function (a) {
+          var s = x.w[a]; if (!s) return;
+          Object.keys(s).forEach(function (f) { w[f] = w[f] || {}; Object.keys(s[f]).forEach(function (c) { var cc = c === 'gall' ? 'gallbladder' : c; w[f][cc] = Math.max(w[f][cc] || 0, s[f][c]); }); });
+        });
+      }
+      var m = Object.assign({}, x, w); delete m.w;
       if (m.q && !m.pos && !m.neg) m.pos = {};
       if (!m.q && !m.hi && !m.lo) m.hi = {};
       (x.pri ? pri : rest).push(m);

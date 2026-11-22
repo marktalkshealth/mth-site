@@ -125,7 +125,7 @@ html.app-desk #shell .rs .c{width:440px;max-width:calc(100% - 32px);border-radiu
   if(MTH.user&&!MTH.owns(PK)&&MTH.ownsAny()&&!MTH.qs("p")) PK=MTH.owned[0];
   await MTH.require(PK);
   MTH.remember(PK);
-  var PP=MTH.config.products[PK], DIR={gut:"gut",sugar:"sugar",glp1:"glp1"}[PK];
+  var PP=MTH.config.products[PK], DIR={total:"total",gut:"gut",sugar:"sugar",glp1:"glp1"}[PK];
   shell.querySelector(".k").textContent=PP.name;
   document.title="My app · "+PP.name;
   shell.querySelector('.lnk a[href="course.html"]').href=PP.course;

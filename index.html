@@ -401,8 +401,8 @@
 
 <section id="checkout"><div class="w">
   <div><div class="k">Get started</div><h2>Start your protocol <em>today</em></h2><p class="lead">One payment. Lifetime access to the course, your personalized software and the Healing Hub. Pick your protocol and check out right here.</p></div>
-  <div class="mx-pick" data-pick role="group" aria-label="Choose your protocol"><button type="button" data-p="gut">Gut Health</button><button type="button" data-p="sugar">Diabetes</button><button type="button" data-p="glp1">GLP-1 Weight Loss</button></div>
-  <div class="mx-co" data-co="gut"></div>
+  <div class="mx-pick" data-pick role="group" aria-label="Choose your protocol"><button type="button" data-p="total">Total Body Healing</button><button type="button" data-p="gut">Gut Health</button><button type="button" data-p="sugar">Diabetes</button><button type="button" data-p="glp1">GLP-1 Weight Loss</button></div>
+  <div class="mx-co" data-co="total"></div>
   <div class="trust"><span>30-day money-back guarantee</span><span>Secure checkout</span><span>Card, Apple Pay &amp; Google Pay</span></div>
 </div></section>
 
@@ -412,6 +412,7 @@
   var own=function(c){ return !!(window.MTH&&MTH.owns(c.key)); };   /* own site: "Open" once they own that protocol */
   var IMG="/media/site/courses/{id}";
   var COURSES=[
+    {key:"total",t:"Total Body Healing System",tag:"SIGNATURE",img:"total.jpg",d:"My signature 7-step healing system for your whole body, with a personalized app built from every symptom you have.",funnel:"total.html",course:"course.html?p=total",price:"$197",was:"$297"},
     {key:"gut",t:"Gut Health Protocol",tag:"GUT",img:"gut.jpg",d:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse.",funnel:"gut.html",course:"course.html?p=gut",price:"$97",was:"$147"},
     {key:"sugar",t:"Diabetes Protocol",tag:"DIABETES",img:"sugar.jpg",d:"Gain control of your blood sugar once and for all, and enjoy better energy throughout the day with your personalized protocol.",funnel:"diabetes.html",course:"course.html?p=sugar",price:"$97",was:"$147"},
     {key:"glp1",t:"GLP-1 Weight Loss Protocol",tag:"GLP-1",img:"glp1.jpg",d:"Lose fat while protecting muscle. A customized roadmap for using GLP-1s intelligently.",funnel:"glp1.html",course:"course.html?p=glp1",price:"$97",was:"$147"}

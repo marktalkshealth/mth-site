@@ -3,7 +3,7 @@
 ================================================================= */
 (function(){
   var A=window.ADM, esc=A.esc, C=MTH.config;
-  var PCOL={ gut:"#c0623f", sugar:"#b8924a", glp1:"#7a8f6e" };
+  var PCOL={ total:"#5f6f52", gut:"#c0623f", sugar:"#b8924a", glp1:"#7a8f6e" };
   function prodShort(k){ return (C.products[k]||{}).short||k; }
 
   /* ---------- small bar chart: rows [{day, product, cents}] ---------- */

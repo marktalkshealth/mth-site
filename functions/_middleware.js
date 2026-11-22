@@ -3,7 +3,7 @@
    (title, description, headings, text, lists, links) instead of the full HTML with styles and scripts.
    Ordinary visitors and search engines are untouched: anything that does not ask for Markdown passes straight through. */
 
-const PRIVATE = /^\/(admin|live|account|welcome|login|course|app|community|checkin|snapshot|library|go|hub|gut\/|sugar\/|glp1\/|unsubscribe|assets|media|functions)/;
+const PRIVATE = /^\/(admin|live|account|welcome|login|course|app|community|checkin|snapshot|library|go|hub|total\/|gut\/|sugar\/|glp1\/|unsubscribe|assets|media|functions)/;
 
 const ENT = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", rarr: "→", larr: "←", mdash: "—", ndash: "–", middot: "·", hellip: "…", rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“", copy: "©", times: "×", check: "✓" };
 const decode = (s) => s.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (m, e) => {

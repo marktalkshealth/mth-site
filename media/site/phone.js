@@ -73,6 +73,8 @@
       posts:[["💪","Dana","WEEK 3","Strength index held at 100 while the scale dropped. Muscle kept!",38],["🌸","Rachel","DAY 3","The protein yogurt bowl got me through a low-appetite day.",22],["🌊","Mike","DAY 6","Electrolytes fixed my afternoon slump completely.",27]]
     }
   };
+  /* Total Body Healing: the gut demo, labelled for the whole-body system */
+  PROTOS.total=Object.assign({},PROTOS.gut,{ name:"Total Body Healing System", short:"Total Body Healing", chart:{title:"Symptom score", sub:"All your symptoms, 0–10", v:[78,70,58,47,39,31,25]} });
   var LIVE=["🧔","Mark","LIVE","Live Q&A this Thursday at 7pm. Bring your questions!",56];
   var WEEKDAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
   /* ============================================================ */

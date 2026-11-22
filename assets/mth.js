@@ -18,11 +18,12 @@
     googleClientId:"654337134467-gsf1egjr086tn5k520ekm07imcritk60.apps.googleusercontent.com",
     /* the three protocols: sales page, course and app for each */
     products:{
+      total:{ name:"Total Body Healing System", short:"Total Body Healing", price:"$197", was:"$297", sales:"total.html", course:"course.html?p=total", app:"app.html?p=total", img:"0-intro", thumb:"/media/site/courses/total.jpg", line:"Mark's signature 7-step healing system for the whole body, with a personalized app built from every symptom you have." },
       gut:  { name:"Gut Health Protocol", short:"Gut Health", price:"$97", was:"$147", sales:"gut.html",      course:"course.html?p=gut",   app:"app.html?p=gut",   img:"1-fasting", thumb:"/media/site/courses/gut.jpg", line:"Calm the gut lining and rebuild your microbiome with a guided juice cleanse." },
       sugar:{ name:"Diabetes Protocol",   short:"Diabetes",   price:"$97", was:"$147", sales:"diabetes.html", course:"course.html?p=sugar", app:"app.html?p=sugar", img:"3-high-protein",    thumb:"/media/site/courses/sugar.jpg", line:"Gain control of your blood sugar and enjoy steadier energy with your personalized protocol." },
       glp1: { name:"GLP-1 Weight Loss Protocol", short:"GLP-1", price:"$97", was:"$147", sales:"glp1.html",   course:"course.html?p=glp1",  app:"app.html?p=glp1",  img:"4-cardio",  thumb:"/media/site/courses/glp1.jpg", line:"Lose fat while protecting muscle. A customized roadmap for using GLP-1s intelligently." }
     },
-    order:["gut","sugar","glp1"],
+    order:["total","gut","sugar","glp1"],
     stripeKey:"",                        /* Stripe publishable key (pk_live_…): turns on the pop-up checkout. Empty = full-page Stripe checkout */
     testMode:false,                      /* shows the "test checkout" ribbon; set false when Stripe is live */
     assets:"/media/site/"   /* photos already hosted with the old site */
