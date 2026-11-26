@@ -345,7 +345,8 @@
       '<div class="fine">Educational, not medical advice. Results vary; talk to your healthcare provider before fasting or cleansing. &copy; '+new Date().getFullYear()+' Mark Talks Health</div></div>';
     document.body.appendChild(f);
   }
-  M.chrome=function(){ header(); footer(); };
+  /* .mx-crawl: plain links the server adds for search engines and AI bots (functions/_middleware.js); the real header and footer replace them */
+  M.chrome=function(){ header(); footer(); var cr=document.querySelector(".mx-crawl"); if(cr&&(document.querySelector(".mx-h")||document.querySelector(".mx-f"))) cr.remove(); };
 
   /* ---------- shared site pieces ---------- */
   var BASE=CONFIG.assets;

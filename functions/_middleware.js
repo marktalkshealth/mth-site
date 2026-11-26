@@ -65,6 +65,22 @@ export function prerender(html) {
   return html.replace(m[0], '<main id="page" data-prerendered="1">' + show + design + "</main>");
 }
 
+/* Plain site links for search engines and AI bots. The real header and footer are drawn by the site's script,
+   which most AI bots never run, so without this a bot landing on a page finds almost no links to follow.
+   The site's script removes this block the moment it draws the real header and footer (M.chrome in mth.js).
+   Sign-up-flow pages (mx-bare: quizzes, guides) are left alone so nothing distracts from the form. */
+const CRAWL_LINKS = [["/", "Home"], ["/protocols", "Courses"], ["/total", "Total Body Healing System"], ["/gut", "Gut Health Protocol"],
+  ["/diabetes", "Diabetes Protocol"], ["/glp1", "GLP-1 Weight Loss Protocol"], ["/assessment", "Free Healing Assessment"],
+  ["/healing", "How Healing Works"], ["/blog/", "Blog"], ["/picks", "My Picks"], ["/partners", "Work with me"],
+  ["/privacy", "Privacy"], ["/terms", "Terms"], ["/refunds", "Refunds"]];
+export function crawlNav(html) {
+  if (!/assets\/mth\.js/.test(html) || /mx-bare/.test(html.slice(0, 600)) || html.includes('class="mx-crawl"')) return html;
+  const k = html.lastIndexOf("</body>");
+  if (k === -1) return html;
+  const nav = '<nav class="mx-crawl" aria-label="Site">' + CRAWL_LINKS.map((l) => `<a href="${l[0]}">${l[1]}</a>`).join("") + "</nav>\n";
+  return html.slice(0, k) + nav + html.slice(k);
+}
+
 export async function onRequest(context) {
   const { request } = context;
   const accept = request.headers.get("accept") || "";
@@ -74,7 +90,7 @@ export async function onRequest(context) {
     const res = await context.next();
     if (res.status !== 200 || !/text\/html/i.test(res.headers.get("content-type") || "")) return res;
     const html = await res.text();
-    const out = prerender(html);
+    const out = crawlNav(prerender(html));
     const headers = new Headers(res.headers); headers.delete("content-length");
     return new Response(out, { status: 200, headers });
   }

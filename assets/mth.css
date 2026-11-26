@@ -447,3 +447,6 @@ s.mx-was,.mx-was{text-decoration:line-through!important;text-decoration-thicknes
 :is(#mqx,html) .mq-guar{font-size:13px;color:var(--muted,#6e6259);margin:12px 0 0}
 :is(#mqx,html) .mq-guar a{color:var(--terra,#c0623f)}
 :is(#mqx,html) .mq-buy .mx-was{opacity:.75;font-weight:500;margin:0 2px}
+/* plain links the server adds for search engines and AI bots; removed once the real header and footer are drawn */
+.mx-crawl{display:flex;flex-wrap:wrap;gap:2px 12px;justify-content:center;padding:8px 16px;border-top:1px solid var(--line)}
+.mx-crawl a{color:var(--muted);text-decoration:none;font-size:12px;font-weight:500}
